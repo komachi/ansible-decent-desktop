@@ -1,0 +1,19 @@
+[General]
+Version=2
+StartWithLastProfile=1
+
+{% for item in thunderbird_profiles %}
+
+[Profile{{ loop.index0 }}]
+Name={{ item.name }}
+Path={{ item.name }}
+IsRelative=1
+{% if item.name == 'default' %}
+Default=1
+{% endif %}
+
+{% endfor %}
+
+[InstallFDC34C9F024745EB]
+Default=default
+Locked=1

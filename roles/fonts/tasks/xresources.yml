@@ -1,0 +1,9 @@
+- name: Configure ~/.Xresources
+  blockinfile:
+    path: /home/{{ username }}/.Xresources
+    create: true
+    marker: "! {mark} FONT SETTINGS ANSIBLE MANAGED BLOCK"
+    block: "{{ lookup('file', 'Xresources') }}"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: 0640

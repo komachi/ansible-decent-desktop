@@ -1,0 +1,16 @@
+{
+    "editor.tabSize": 2,
+    "window.titleBarStyle": "native",
+    "telemetry.enableTelemetry": false,
+    "telemetry.enableCrashReporter": false,
+    "update.showReleaseNotes": false,
+    "update.mode": "none",
+    "editor.fontFamily": "Hack",
+    "workbench.colorTheme": "One Dark Pro",
+    "[markdown]": {
+      "editor.formatOnSave": true,
+      "editor.wordWrap": "on",
+      "editor.renderWhitespace": "all",
+      "editor.acceptSuggestionOnEnter": "off"
+    }   
+}

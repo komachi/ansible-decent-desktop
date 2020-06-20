@@ -1,0 +1,9 @@
+- name: Install cups, gutenprint driver and foomatic db
+  apt:
+    name:
+      - cups
+      - printer-driver-gutenprint
+      - foomatic-db-compressed-ppds
+    state: present
+  tags:
+    - dependencies

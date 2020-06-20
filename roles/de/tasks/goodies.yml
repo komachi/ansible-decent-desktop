@@ -1,0 +1,95 @@
+- name: Install other gooodies
+  apt:
+    name:
+      - brightnessctl
+      - brightness-udev
+      - xbindkeys
+      - network-manager-gnome
+      - xdg-user-dirs
+      - dex
+      - autorandr
+      - hsetroot
+      - xcompmgr
+      - unclutter-xfixes
+      - unclutter-startup
+    state: present
+
+- name: Copy .xinitrc
+  template:
+    src: 'xinitrc.j2'
+    dest: "/home/{{ username }}/.xinitrc"
+    mode: 0760
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Copy .xbindkeysrc
+  copy:
+    src: 'xbindkeysrc'
+    dest: "/home/{{ username }}/.xbindkeysrc"
+    mode: 0660
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Copy .Xmodmap
+  copy:
+    src: 'Xmodmap'
+    dest: "/home/{{ username }}/.Xmodmap"
+    mode: 0660
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Ensures ~/.config/gtk-3.0 exists
+  file:
+    path: "/home/{{ username }}/.config/gtk-3.0"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Configure bookmarks
+  template:
+    src: 'bookmarks.j2'
+    dest: "/home/{{ username }}/.config/gtk-3.0/bookmarks"
+    mode: 0660
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Install dconfs module deps
+  apt:
+    name:
+      - python-psutil
+      - dconf-cli
+    state: present
+
+- name: Configure file-chooser
+  become: yes
+  become_user: "{{ username }}"
+  dconf:
+    key: "/org/gtk/settings/file-chooser/{{ item.name }}"
+    value: "{{ item.value }}"
+    state: present
+  loop:
+    - name: "location-mode"
+      value: "'filename-entry'"
+    - name: "sort-directories-first"
+      value: "true"
+    - name: "startup-mode"
+      value: "'cwd'"
+
+- name: Configure other dconf settings
+  become: yes
+  become_user: "{{ username }}"
+  dconf:
+    key: "/org/gnome/desktop/{{ item.name }}"
+    value: "{{ item.value }}"
+    state: present
+  loop:
+    - name: "privacy/hide-identity"
+      value: "true"
+    - name: "privacy/show-full-name-in-top-bar"
+      value: "false"
+    - name: "privacy/remember-recent-files"
+      value: "false"
+    - name: "privacy/remember-app-usage"
+      value: "false"
+
+      

@@ -1,0 +1,17 @@
+- name: Disable remount
+  file:
+    path: /etc/remount-disable
+    state: touch
+
+- name: Install some hardering packages from whonix
+  apt:
+    name:
+      - jitterentropy-rngd
+      - security-misc
+      - apparmor-profile-torbrowser
+      - apparmor-profile-icedove
+      - apparmor-profile-virtualbox
+      - apparmor-profile-anondist
+      - tirdad
+      - kloak
+#      - lkrg

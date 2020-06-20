@@ -1,0 +1,19 @@
+- name: Install xorg packages
+  apt:
+    name:
+      - xserver-xorg-core
+      - xkb-data
+      - x11-xkb-utils
+      - x11-xserver-utils
+      - xserver-xorg-input-libinput
+      - xauth
+      - xinit
+    state: present
+
+- name: Copy .xserverrc
+  copy:
+    src: xserverrc
+    dest: "/home/{{ username }}/.xserverrc"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: 0755

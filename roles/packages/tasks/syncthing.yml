@@ -1,0 +1,87 @@
+- name: Install Syncthing
+  apt:
+    name:
+      - syncthing
+      - python-lxml
+    state: present
+
+- name: Ensures ~/.config/systemd/user exists
+  file:
+    path: "/home/{{ username }}/.config/systemd/user"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Add systemd service
+  template:
+    src: 'systemd/syncthing.service.j2'
+    dest: "/home/{{username}}/.config/systemd/user/syncthing.service"
+    mode: '0640'
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Check if config exists
+  stat: 
+    path: "/home/{{username}}/.config/syncthing/config.xml"
+  register: config_stat
+
+- name: Restart Syncthing
+  when: config_stat.stat.exists == False
+  become: yes
+  become_user: "{{ username }}"
+  systemd:
+    scope: user
+    name: syncthing
+    state: restarted
+    daemon_reload: yes
+
+- name: Waiting for config
+  when: config_stat.stat.exists == False
+  wait_for:
+    path: "/home/{{username}}/.config/syncthing/config.xml"
+
+- name: Disable global announce
+  xml:
+    path: "/home/{{username}}/.config/syncthing/config.xml"
+    xpath: '/configuration/options/globalAnnounceEnabled'
+    value: 'false'
+  register: globalannounce
+
+- name: Disable relays
+  xml:
+    path: "/home/{{username}}/.config/syncthing/config.xml"
+    xpath: '/configuration/options/relaysEnabled'
+    value: 'false'
+  register: relays
+
+- name: Disable nat traversal
+  xml:
+    path: "/home/{{username}}/.config/syncthing/config.xml"
+    xpath: '/configuration/options/natEnabled'
+    value: 'false'
+  register: nat
+
+- name: Enable black gui
+  xml:
+    path: "/home/{{username}}/.config/syncthing/config.xml"
+    xpath: '/configuration/gui/theme'
+    value: 'black'
+  register: black
+
+- name: Restart Syncthing
+  when: globalannounce.changed or relays.changed or nat.changed or black.changed
+  become: yes
+  become_user: "{{ username }}"
+  systemd:
+    scope: user
+    name: syncthing
+    state: restarted
+    daemon_reload: yes
+
+- name: Enable Syncthing service
+  become: yes
+  become_user: "{{ username }}"
+  systemd:
+    scope: user
+    name: syncthing
+    enabled: yes

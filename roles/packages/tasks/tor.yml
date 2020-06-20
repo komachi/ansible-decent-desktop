@@ -1,0 +1,40 @@
+- name: Install Tor
+  apt:
+    name:
+      - tor
+      - deb.torproject.org-keyring
+      - torsocks
+    state: present
+
+- name: Configure Tor
+  template:
+    src: 'tor/torrc.j2'
+    dest: '/etc/tor/torrc'
+    owner: 'debian-tor'
+    group: 'debian-tor'
+    mode: 0640
+  register: torconfigure
+
+- name: Enable Tor service
+  systemd:
+    name: tor@default
+    enabled: yes
+
+- name: Restart Tor
+  when: torconfigure.changed
+  systemd:
+    name: tor@default
+    state: restarted
+    daemon_reload: yes
+    enabled: yes
+
+- name: Check if tbb is already downloaded
+  stat: 
+    path: "/home/{{ username }}/.tb/tor-browser"
+  register: tbb_exists
+
+- name: Download tbb
+  become: yes
+  become_user: "{{ username }}"
+  shell: "torsocks update-torbrowser --onion --noask"
+  when: not tbb_exists.stat.exists

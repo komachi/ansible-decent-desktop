@@ -1,0 +1,4 @@
+[Service]
+Type=simple
+ExecStart=
+ExecStart=-/sbin/agetty --skip-login --nonewline --noissue --autologin {{ username }} --noclear %I $TERM

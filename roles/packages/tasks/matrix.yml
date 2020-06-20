@@ -1,0 +1,4 @@
+- name: Install Quaternion from flatpak
+  flatpak:
+    name: com.github.quaternion
+    state: present

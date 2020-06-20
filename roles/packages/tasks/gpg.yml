@@ -1,0 +1,12 @@
+- name: Install gpg
+  apt:
+    name: gpg
+    state: present
+
+- name: Copy gpg config
+  copy:
+    src: 'gnupg/gpg.conf'
+    dest: "/home/{{username}}/.gnupg/gpg.conf"
+    mode: '0640'
+    owner: "{{ username }}"
+    group: "{{ username }}"

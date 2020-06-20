@@ -1,0 +1,12 @@
+[submodule "debops"]
+	path = debops
+	url = https://github.com/debops/debops.git
+[submodule "dev-sec.os-hardening"]
+	path = roles/dev-sec.os-hardening
+	url = https://github.com/dev-sec/ansible-os-hardening.git
+[submodule "roles/gantsign.keyboard"]
+	path = roles/gantsign.keyboard
+	url = https://github.com/gantsign/ansible-role-keyboard.git
+[submodule "roles/dev-sec.ssh-hardening"]
+	path = roles/dev-sec.ssh-hardening
+	url = https://github.com/dev-sec/ansible-ssh-hardening.git

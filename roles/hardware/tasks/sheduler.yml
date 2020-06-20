@@ -1,0 +1,8 @@
+# https://wiki.archlinux.org/index.php/Improving_performance#Changing_I/O_scheduler
+- name: Set best io sheduler for every device type
+  copy:
+    src: udev/ioschedulers.rules
+    dest: /etc/udev/rules.d/60-ioschedulers.rules
+    mode: 0640
+  notify:
+    - reload udev

@@ -1,0 +1,57 @@
+- name: Download xd
+  get_url:
+    url: "https://github.com/majestrate/XD/releases/download/v{{ XD_version }}/XD-{{ XD_version }}-linux-amd64"
+    dest: "/usr/local/bin/XD"
+    checksum: "{{ XD_checksum }}"
+
+- name: Add executable permission
+  file:
+    dest: /usr/local/bin/XD
+    mode: 'a+x'
+
+- name: Symlink for XD-cli
+  file:
+    src: /usr/local/bin/XD
+    dest: /usr/local/bin/XD-cli
+    state: link
+
+- name: Ensures XD dirs exists
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+  loop:
+    - '/home/{{ username }}/.config/XD'
+    - '/home/{{ username }}/.cache/XD'
+
+- name: Copy XD config
+  template:
+    src: XD/torrents.ini.j2
+    dest: "/home/{{ username }}/.config/XD/torrents.ini"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Copy XD trackers list
+  copy:
+    src: XD/trackers.ini
+    dest: "/home/{{ username }}/.config/XD/trackers.ini"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Add systemd service
+  template:
+    src: 'systemd/XD.service.j2'
+    dest: "/home/{{ username }}/.config/systemd/user/XD.service"
+    mode: '0640'
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Enable XD service
+  become: yes
+  become_user: "{{ username }}"
+  systemd:
+    scope: user
+    name: XD
+    enabled: yes
+    state: started

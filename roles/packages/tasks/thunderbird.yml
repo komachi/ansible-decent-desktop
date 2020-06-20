@@ -1,0 +1,47 @@
+- name: Install Thunderbird
+  apt:
+    name: thunderbird
+    state: present
+  tags:
+    - dependencies
+
+- name: Ensures every profile dir exists
+  file:
+    path: "/home/{{ username }}/.thunderbird/{{ item.name }}"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+  loop: "{{ thunderbird_profiles }}"
+
+- name: Configure profiles.ini
+  template:
+    src: 'thunderbird/profiles.ini.j2'
+    dest: "/home/{{ username }}/.thunderbird/profiles.ini"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Install TBCK for every profile
+  get_url:
+    url: "{{ tbck_url }}"
+    checksum: "{{ tbck_checksum }}"
+    dest: "/home/{{ username }}/.thunderbird/{{ item.name }}/user.js"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+  loop: "{{ thunderbird_profiles }}"
+
+- name: Configure thunderbird
+  lineinfile:
+    dest: "/home/{{ username }}/.thunderbird/{{ item.0.name }}/user.js"
+    regexp: '^user_pref\("{{ item.1.pref | regex_escape() }}",.*\)\;.*$'
+    line: 'user_pref("{{ item.1.pref }}", {{ item.1.value }});'
+  loop: "{{ thunderbird_profiles | subelements('prefs') }}"
+
+- name: Ensures distribution dir exists
+  file:
+    path: "/usr/lib/thunderbird/distribution"
+    state: directory
+
+- name: Copy policies.json
+  copy:
+    src: "thunderbird/policies.json"
+    dest: "/usr/lib/thunderbird/distribution/policies.json"

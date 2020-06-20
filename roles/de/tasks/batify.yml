@@ -1,0 +1,27 @@
+- name: Check if we need to download xpub
+  stat:
+    path: "/usr/local/bin"
+  register: xpub_exists
+
+- name: Download xpub
+  get_url:
+    url: "{{ xpub_url }}"
+    dest: /usr/local/bin/xpub
+    checksum: "{{ xpub_checksum }}"
+    mode: 0750
+  when: not xpub_exists.stat.exists
+
+- name: Check if we need to download batify udev rules
+  stat:
+    path: /etc/udev/rules.d/99-batify.rules
+  register: batify_udev_exists
+
+- name: Download batify udev rules
+  get_url:
+    url: "{{ batify_udev_url }}"
+    dest: /etc/udev/rules.d/99-batify.rules
+    checksum: "{{ batify_udev_checksum }}"
+    mode: 0640
+  when: not batify_udev_exists.stat.exists
+  notify:
+    - reload udev

@@ -1,0 +1,6 @@
+- name: Install iwlwifi firmware
+  package:
+    name: firmware-iwlwifi
+    state: present
+  tags:
+    - dependencies

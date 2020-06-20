@@ -1,0 +1,24 @@
+- name: Install guile
+  apt:
+    name: guile-2.2
+    state: present
+
+- name: Download jaro
+  get_url:
+    url: "{{ jaro_url }}"
+    dest: "/usr/local/bin/jaro"
+    checksum: "{{ jaro_checksum }}"
+    mode: 0755
+
+- name: Configure jaro associations
+  copy:
+    src: jaro/associations
+    dest: "/home/{{ username }}/.config/associations"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Use jaro as xdg-open
+  file:
+    src: "/usr/local/bin/jaro"
+    dest: "/usr/local/bin/xdg-open"
+    state: link

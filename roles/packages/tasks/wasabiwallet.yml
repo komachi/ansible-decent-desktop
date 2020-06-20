@@ -1,0 +1,28 @@
+- name: Gather package facts
+  package_facts:
+    manager: auto
+
+- name: Create temp dir for wasabiwallet
+  tempfile:
+    state: directory
+  register: wasabiwallet_download_tempdir
+  when: "('wassabee' not in ansible_facts.packages) or ('wassabee' in ansible_facts.packages and ansible_facts.packages.wassabee[0].version != wasabiwallet_version)"
+
+- name: Download wasabi wallet
+  get_url:
+    url: "https://github.com/zkSNACKs/WalletWasabi/releases/download/v{{ wasabiwallet_version }}/Wasabi-{{ wasabiwallet_version }}.deb"
+    dest: "{{ wasabiwallet_download_tempdir.path }}/wasabi.deb"
+    checksum: "{{ wasabiwallet_checksum }}"
+  when: "('wassabee' not in ansible_facts.packages) or ('wassabee' in ansible_facts.packages and ansible_facts.packages.wassabee[0].version != wasabiwallet_version)"
+
+- name: Install wasabi wallet
+  apt:
+    deb: "{{ wasabiwallet_download_tempdir.path }}/wasabi.deb"
+  when: "('wassabee' not in ansible_facts.packages) or ('wassabee' in ansible_facts.packages and ansible_facts.packages.wassabee[0].version != wasabiwallet_version)"
+
+- name: Configure wasabi wallet ui
+  copy:
+    src: 'walletwasabi/UiConfig.json'
+    dest: "/home/{{ username }}/.walletwasabi/client/UiConfig.json"
+    owner: "{{ username }}"
+    group: "{{ username }}"

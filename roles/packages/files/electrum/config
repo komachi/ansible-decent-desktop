@@ -1,0 +1,21 @@
+{
+    "alias": "",
+    "auto_connect": true,
+    "batch_rbf": true,
+    "block_explorer": "system default",
+    "check_updates": false,
+    "coin_chooser_output_rounding": true,
+    "config_version": 3,
+    "currency": "RUB",
+    "dark_icon": true,
+    "decimal_point": 8,
+    "dynamic_fees": true,
+    "mempool_fees": true,
+    "fee_level": 2,
+    "is_maximized": false,
+    "proxy": "socks5:127.0.0.1:9050:electrum:electrum",
+    "qt_gui_color_theme": "dark",
+    "show_crash_reporter": false,
+    "use_exchange": "CoinDesk",
+    "use_exchange_rate": true
+}

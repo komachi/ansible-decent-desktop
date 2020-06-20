@@ -1,0 +1,266 @@
+{
+  "policies": {
+    "AppUpdateURL": "",
+    "Bookmarks": [
+      {
+        "Title": "Syncthing",
+        "URL": "http://127.0.0.1:8384",
+        "Placement": "menu",
+        "Folder": "Local"
+      },
+      {
+        "Title": "CUPS",
+        "URL": "http://127.0.0.1:631",
+        "Placement": "menu",
+        "Folder": "Local"
+      },
+      {
+        "Title": "XD",
+        "URL": "http://127.0.0.1:1488",
+        "Placement": "menu",
+        "Folder": "Local"
+      },
+      {
+        "Title": "i2pd",
+        "URL": "http://127.0.0.1:7070",
+        "Placement": "menu",
+        "Folder": "Local"
+      },
+      {
+        "Title": "Jackett",
+        "URL": "http://127.0.0.1:9117",
+        "Placement": "menu",
+        "Folder": "Local"
+      },
+      {
+        "Title": "IPFS",
+        "URL": "http://127.0.0.1:5001/webui/",
+        "Placement": "menu",
+        "Folder": "Local"
+      }
+    ],
+    "CaptivePortal": false,
+    "Cookies": {
+      "Default": true,
+      "AcceptThirdParty": "never",
+      "ExpireAtSessionEnd": true,
+      "RejectTracker": true
+    },
+    "DisableSetDesktopBackground": true,
+    "DisableSystemAddonUpdate": true,
+    "DisableMasterPasswordCreation": true,
+    "DisableAppUpdate": true,
+    "DisableFeedbackCommands": true,
+    "DisableFirefoxAccounts": true,
+    "DisableFirefoxStudies": true,
+    "DisableFormHistory": true,
+    "DisablePocket": true,
+    "DisableProfileImport": true,
+    "DisableProfileRefresh": true,
+    "DisableTelemetry": true,
+    "DNSOverHTTPS": {
+      "Enabled": false
+    },
+    "DontCheckDefaultBrowser": true,
+    "EnableTrackingProtection": {
+      "Value": true,
+      "Cryptomining": true,
+      "Fingerprinting": true
+    },
+    "Extensions": {
+      "Uninstall": [
+        "amazondotcom@search.mozilla.org",
+        "bing@search.mozilla.org",
+        "ddg@search.mozilla.org",
+        "ebay@search.mozilla.org",
+        "google@search.mozilla.org",
+        "twitter@search.mozilla.org",
+        "wikipedia@search.mozilla.org"
+      ]
+    },
+    "ExtensionSettings": {
+      "uBlock0@raymondhill.net": {
+        "installation_mode": "normal_installed",
+        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi"
+      },
+      "{74145f27-f039-47ce-a470-a662b129930a}": {
+        "installation_mode": "normal_installed",
+        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/clearurls/latest.xpi"
+      },
+      "jid1-BoFifL9Vbdl2zQ@jetpack": {
+        "installation_mode": "normal_installed",
+        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/decentraleyes/latest.xpi"
+      },
+      "https-everywhere@eff.org": {
+        "installation_mode": "normal_installed",
+        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/https-everywhere/latest.xpi"
+      },
+      "jid1-MnnxcxisBPnSXQ@jetpack": {
+        "installation_mode": "normal_installed",
+        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/privacy-badger17/latest.xpi"
+      },
+      "{48748554-4c01-49e8-94af-79662bf34d50}": {
+        "installation_mode": "normal_installed",
+        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/privacy-pass/latest.xpi"
+      },
+      "uget-integration@slgobinath": {
+        "installation_mode": "normal_installed",
+        "install_url": "https://addons.mozilla.org/firefox/downloads/file/911315/uget_integration-2.1.3.1-an+fx-linux.xpi"
+      },
+      "ipfs-firefox-addon@lidel.org": {
+        "installation_mode": "normal_installed",
+        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/ipfs-companion/latest.xpi"
+      },
+      "@testpilot-containers": {
+        "installation_mode": "normal_installed",
+        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/multi-account-containers/latest.xpi"
+      }
+    },
+    "ExtensionUpdate": true,
+    "FlashPlugin": {
+      "Default": false,
+      "Locked": true
+    },
+    "HardwareAcceleration": true,
+    "Homepage": {
+      "URL": "about:blank",
+      "StartPage": "none"
+    },
+    "NoDefaultBookmarks": true,
+    "NewTabPage": false,
+    "OfferToSaveLogins": false,
+    "OverrideFirstRunPage": "about:blank",
+    "OverridePostUpdatePage": "about:blank",
+    "PasswordManagerEnabled": false,
+    "Permissions": {
+      "Camera": {
+        "BlockNewRequests": true
+      },
+      "Location": {
+        "BlockNewRequests": true
+      },
+      "Notifications": {
+        "BlockNewRequests": true
+      }
+    },
+    "Preferences": {
+      "app.update.auto": false,
+      "browser.cache.disk.enable": false,
+      "browser.safebrowsing.phishing.enabled": false,
+      "browser.safebrowsing.malware.enabled": false,
+      "browser.slowStartup.notificationDisabled": true,
+      "browser.tabs.warnOnClose": true,
+      "extensions.getAddons.showPane": false,
+      "extensions.htmlaboutaddons.recommendations.enabled": false,
+      "geo.enabled": false,
+      "media.eme.enabled": false,
+      "media.gmp-gmpopenh264.enabled": false,
+      "media.gmp-widevinecdm.enabled": false,
+      "places.history.enabled": false,
+      "print.save_print_settings": false,
+      "media.peerconnection.enabled": false,
+      "widget.content.gtk-theme-override": "Adwaita:light"
+    },
+    "SanitizeOnShutdown": true,
+    "SearchBar": "unified",
+    "SearchSuggestEnabled": false,
+    "SearchEngines": {
+      "Remove": [
+        "amazondotcom@search.mozilla.org",
+        "bing@search.mozilla.org",
+        "ddg@search.mozilla.org",
+        "ebay@search.mozilla.org",
+        "google@search.mozilla.org",
+        "twitter@search.mozilla.org",
+        "wikipedia@search.mozilla.org"
+      ],
+      "Add": [
+        {
+          "Name": "DDG",
+          "URLTemplate": "https://duckduckgo.com/?kp=-2&kd=-1&kae=d&ko=-1&k1=-1&kaj=m&kam=osm&q={searchTerms}",
+          "Method": "GET",
+          "IconURL": "https://duckduckgo.com/favicon.ico",
+          "Alias": "d"
+        },
+        {
+          "Name": "StartPage",
+          "URLTemplate": "https://www.startpage.com/do/dsearch?prfh=enable_stay_controlEEE0N1NsuggestionsEEE0N1Ngeo_mapEEE0N1Nwikipedia_iaEEE1N1Nother_iaEEE1N1Ndisable_open_in_new_windowEEE0N1Ndisable_video_family_filterEEE1N1Nenable_post_methodEEE0N1Nenable_proxy_safety_suggestEEE0N1Ndisable_family_filterEEE1N1NsslEEE1N1Nlanguage_uiEEEenglishN1NlanguageEEEenglishN1Nwt_unitEEEcelsiusN1Nnum_of_resultsEEE10N1Nlang_homepageEEEs/blak/en/&query={searchTerms}",
+          "Method": "GET",
+          "IconURL": "https://startpage.com/favicon.ico",
+          "Alias": "s"
+        },
+        {
+          "Name": "Wikipedia",
+          "URLTemplate": "https://en.wikipedia.org/wiki/Special:Search?search={searchTerms}",
+          "Method": "GET",
+          "IconURL": "https://en.wikipedia.org/favicon.ico",
+          "Alias": "ew"
+        },
+        {
+          "Name": "Википедия",
+          "URLTemplate": "https://ru.wikipedia.org/wiki/%D0%A1%D0%BB%D1%83%D0%B6%D0%B5%D0%B1%D0%BD%D0%B0%D1%8F:%D0%9F%D0%BE%D0%B8%D1%81%D0%BA?search={searchTerms}",
+          "Method": "GET",
+          "IconURL": "https://ru.wikipedia.org/favicon.ico",
+          "Alias": "rw"
+        },
+        {
+          "Name": "Яндекс.Маркет",
+          "URLTemplate": "https://market.yandex.ru/search?text={searchTerms}",
+          "Method": "GET",
+          "IconURL": "https://market.yandex.ru/favicon.ico",
+          "Alias": "ym"
+        },
+        {
+          "Name": "ArchWiki",
+          "URLTemplate": "https://wiki.archlinux.org/index.php?search={searchTerms}",
+          "Method": "GET",
+          "IconURL": "https://wiki.archlinux.org/favicon.ico",
+          "Alias": "aw"
+        },
+        {
+          "Name": "GitHub",
+          "URLTemplate": "https://github.com/search?q={searchTerms}",
+          "Method": "GET",
+          "IconURL": "https://github.com/favicon.ico",
+          "Alias": "gh"
+        },
+        {
+          "Name": "Ggl",
+          "URLTemplate": "https://www.google.com/search?pws=0&gl=us&q={searchTerms}",
+          "Method": "GET",
+          "IconURL": "https://wwww.google.com/favicon.ico",
+          "Alias": "g"
+        },
+        {
+          "Name": "Яндекс",
+          "URLTemplate": "https://yandex.ru/search/?text={searchTerms}",
+          "Method": "GET",
+          "IconURL": "https://yandex.ru/favicon.ico",
+          "Alias": "ya"
+        },
+        {
+          "Name": "Youtube",
+          "URLTemplate": "https://www.youtube.com/results?search_query={searchTerms}",
+          "Method": "GET",
+          "IconURL": "https://wwww.youtube.com/favicon.ico",
+          "Alias": "y"
+        },
+        {
+          "Name": "Avito",
+          "URLTemplate": "https://www.avito.ru/rossiya?q={searchTerms}",
+          "Method": "GET",
+          "IconURL": "https://www.avito.ru/favicon.ico",
+          "Alias": "av"
+        },
+        {
+          "Name": "Wikimedia Commons",
+          "URLTemplate": "https://commons.wikimedia.org/w/index.php?search={searchTerms}",
+          "Method": "GET",
+          "IconURL": "https://commons.wikimedia.org/favicon.ico",
+          "Alias": "wc"
+        }
+      ]
+    },
+    "Default": "DDG"
+  }
+}

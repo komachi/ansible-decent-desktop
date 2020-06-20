@@ -1,0 +1,10 @@
+- name: Ensures /etc/X11/xorg.conf.d/ exists
+  file:
+    path: "/etc/X11/xorg.conf.d/"
+    state: directory
+
+- name: Setup logitech marble trackball
+  copy:
+    src: xorg/logitech-trackman-marble.conf
+    dest: /etc/X11/xorg.conf.d/40-logitech-trackman-marble.conf
+    mode: 0644

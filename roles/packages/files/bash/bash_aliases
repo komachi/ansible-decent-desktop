@@ -1,0 +1,4 @@
+alias bc='bc -lq'
+alias diff='colordiff'
+alias wget='wget -c'
+alias cpv='rsync -ah --info=progress2'

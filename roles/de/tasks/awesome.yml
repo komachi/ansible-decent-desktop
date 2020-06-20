@@ -1,0 +1,42 @@
+- name: Install awesome wm
+  apt:
+    name:
+      - awesome
+      - awesome-extra
+    state: present
+
+- name: Ensures ~/.config/awesome exists
+  file:
+    path: "/home/{{ username }}/.config/awesome"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Check if we need to download calendar
+  stat:
+    path: "/home/{{ username }}/.config/awesome/calendar.lua"
+  register: calendar_exists
+
+- name: Download calendar
+  get_url:
+    url: "{{ calendar_url }}"
+    dest: "/home/{{ username }}/.config/awesome/calendar.lua"
+    checksum: "{{ calendar_checksum }}"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+  when: not calendar_exists.stat.exists
+
+- name: Copy theme.lua
+  copy:
+    src: awesome/theme.lua
+    dest: "/home/{{ username }}/.config/awesome/theme.lua"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Copy rc.lua
+  copy:
+    src: awesome/rc.lua
+    dest: "/home/{{ username }}/.config/awesome/rc.lua"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+

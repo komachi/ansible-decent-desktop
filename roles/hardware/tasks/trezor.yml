@@ -1,0 +1,7 @@
+- name: Copy udev rules required by trezor
+  copy:
+    src: udev/trezor.rules
+    dest: /etc/udev/rules.d/60-trezor.rules
+    mode: 0640
+  notify:
+    - reload udev

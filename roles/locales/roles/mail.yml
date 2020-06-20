@@ -1,0 +1,4 @@
+---
+
+- name: Set additional locale preferences
+  command: 'update-locale LANGUAGE="en" LC_TIME="en_DK.UTF-8" LC_NUMERIC="en_DK.UTF-8" LC_MEASUREMENT="en_DK.UTF-8" LC_MONETARY="ru_RU.UTF-8" LC_PAPER="en_DK.UTF-8"'

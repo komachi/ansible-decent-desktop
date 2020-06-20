@@ -1,0 +1,22 @@
+- name: Install fonts packages
+  apt:
+    name:
+      - fonts-hack
+      - fonts-liberation2
+      - fonts-noto-core
+      - fonts-noto-cjk
+      - fonts-noto-color-emoji
+      - fonts-noto-ui-core
+      - fonts-noto-mono
+      - fonts-roboto
+      - fonts-dejavu
+      - fonts-linuxlibertine
+      - fonts-open-sans
+      - fonts-stix
+      - fonts-crosextra-caladea
+      - fonts-crosextra-carlito
+      - fonts-umeplus
+      - fonts-croscore
+    state: present
+  tags:
+    - dependencies

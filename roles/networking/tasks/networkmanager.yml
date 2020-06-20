@@ -1,0 +1,30 @@
+- name: Install network-manager package
+  apt:
+    name: network-manager
+    state: present
+  tags:
+    - dependencies
+
+- name: Enable mac randomization
+  copy:
+    src: 'networkmanager/macrandomize.conf'
+    dest: '/etc/NetworkManager/conf.d/00-macrandomize.conf'
+    mode: 0640
+
+- name: Enable ipv6 privacy extensions
+  copy:
+    src: 'networkmanager/ipv6.conf'
+    dest: '/etc/NetworkManager/conf.d/20-ipv6.conf'
+    mode: 0640
+
+- name: Disable LLMNR
+  copy:
+    src: 'networkmanager/llmnr.conf'
+    dest: '/etc/NetworkManager/conf.d/30-llmnr.conf'
+    mode: 0640
+
+- name: Use resolvconf
+  copy:
+    src: 'networkmanager/rc-manager.conf'
+    dest: '/etc/NetworkManager/conf.d/40-rc-manager.conf'
+    mode: 0640

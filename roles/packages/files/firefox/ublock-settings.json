@@ -1,0 +1,37 @@
+{
+  "userSettings": {
+    "advancedUserEnabled": true,
+    "webrtcIPAddressHidden": true,
+    "hyperlinkAuditingDisabled": true,
+    "externalLists": "https://easylist-downloads.adblockplus.org/abp-filters-anti-cv.txt\nhttps://easylist-downloads.adblockplus.org/antiadblockfilters.txt\nhttps://easylist-downloads.adblockplus.org/cntblock.txt\nhttps://filters.adtidy.org/extension/ublock/filters/1.txt\nhttps://raw.githubusercontent.com/hoshsadiq/adblock-nocoin-list/master/nocoin.txt\nhttps://www.i-dont-care-about-cookies.eu/abp/\nhttps://raw.githubusercontent.com/yourduskquibbles/webannoyances/master/ultralist.txt"
+  },
+  "selectedFilterLists": [
+    "user-filters",
+    "ublock-filters",
+    "ublock-badware",
+    "ublock-privacy",
+    "ublock-abuse",
+    "ublock-unbreak",
+    "adguard-generic",
+    "easylist",
+    "adguard-spyware",
+    "easyprivacy",
+    "fanboy-enhanced",
+    "adguard-annoyance",
+    "adguard-social",
+    "fanboy-thirdparty_social",
+    "fanboy-cookiemonster",
+    "fanboy-annoyance",
+    "fanboy-social",
+    "ublock-annoyances",
+    "plowe-0",
+    "RUS-0",
+    "https://easylist-downloads.adblockplus.org/antiadblockfilters.txt",
+    "https://filters.adtidy.org/extension/ublock/filters/1.txt",
+    "https://easylist-downloads.adblockplus.org/abp-filters-anti-cv.txt",
+    "https://easylist-downloads.adblockplus.org/cntblock.txt",
+    "https://www.i-dont-care-about-cookies.eu/abp/",
+    "https://raw.githubusercontent.com/hoshsadiq/adblock-nocoin-list/master/nocoin.txt",
+    "https://raw.githubusercontent.com/yourduskquibbles/webannoyances/master/ultralist.txt"
+  ]
+}

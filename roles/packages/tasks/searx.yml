@@ -1,0 +1,35 @@
+- name: Install searx
+  become: yes
+  become_user: "{{ username }}"
+  shell: "pipx install git+https://github.com/asciimoo/searx.git#{{ searx_commit }}"
+
+- name: Ensures ~/.config/searx exists
+  file:
+    path: "/home/{{ username }}/.config/searx"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Copy searx config
+  copy:
+    src: searx/settings.yml
+    dest: "/home/{{ username }}/.config/searx/settings.yml"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Add systemd service
+  template:
+    src: 'systemd/searx.service.j2'
+    dest: "/home/{{ username }}/.config/systemd/user/searx.service"
+    mode: '0640'
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Enable searx service
+  become: yes
+  become_user: "{{ username }}"
+  systemd:
+    scope: user
+    name: searx
+    enabled: yes
+    state: started

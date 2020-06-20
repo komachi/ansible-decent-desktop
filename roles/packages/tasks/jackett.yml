@@ -1,0 +1,57 @@
+- name: Create jackett user
+  user:
+    name: jackett
+    shell: /bin/false
+    create_home: yes
+    home: /var/lib/jackett
+    system: yes
+
+- name: Check is jackett is installed
+  stat: 
+    path: "/opt/jackett/jackett"
+  register: jackett_exists
+
+- name: Get installed jackett version
+  shell: "/opt/jackett/jackett --version | cut -d'' -f2 | xargs"
+  register: "installed_jackett_version"
+  when: jackett_exists.stat.exists
+
+- name: Create temp dir for jackett
+  tempfile:
+    state: directory
+  register: jackett_download_tempdir
+  when: not jackett_exists.stat.exists or ((installed_jackett_version is defined) and installed_jackett_version.stdout != jackett_version)
+
+- name: Get jackett
+  get_url:
+    url: "https://github.com/Jackett/Jackett/releases/download/{{ jackett_version }}/Jackett.Binaries.LinuxAMDx64.tar.gz"
+    dest: "{{ jackett_download_tempdir.path }}/jackett.tar.gz"
+    checksum: "{{ jackett_checksum }}"
+  when: not jackett_exists.stat.exists or ((installed_jackett_version is defined) and installed_jackett_version.stdout != jackett_version)
+
+- name: Ensures /opt/jackett exists
+  file:
+    path: "/opt/jackett"
+    state: directory
+
+- name: Unpack jackett
+  unarchive:
+    src: "{{ jackett_download_tempdir.path }}/jackett.tar.gz"
+    dest: "/opt/jackett"
+    remote_src: True
+    extra_opts:
+      - --transform
+      - s/.*\///g
+  when: not jackett_exists.stat.exists or ((installed_jackett_version is defined) and installed_jackett_version.stdout != jackett_version)
+
+- name: Add systemd service
+  copy:
+    src: 'systemd/jackett.service'
+    dest: "/etc/systemd/system/jackett.service"
+    mode: '0640'
+
+- name: Enable jackett service
+  systemd:
+    name: jackett
+    enabled: yes
+    state: started

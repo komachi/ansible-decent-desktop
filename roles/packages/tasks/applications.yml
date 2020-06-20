@@ -1,0 +1,18 @@
+- name: Ensures ~/.local/share/applications exists
+  file:
+    path: "/home/{{ username }}/.local/share/applications"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Copy additional desktop files
+  copy:
+    src: "applications/{{ item }}.desktop"
+    dest: "/home/{{ username }}/.local/share/applications/{{ item }}.desktop"
+    mode: 0640
+    owner: "{{ username }}"
+    group: "{{ username }}"
+  loop:
+    - 'nnn'
+    - 'pms'
+    - 'telegramwork'

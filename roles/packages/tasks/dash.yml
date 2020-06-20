@@ -1,0 +1,19 @@
+- name: Install dash electrum from flatpak
+  flatpak:
+    name: org.dash.electrum.electrum_dash
+    state: present
+
+- name: Ensures ~/.var/app/org.dash.electrum.electrum_dash/.electrum-dash exists
+  file:
+    path: "/home/{{ username }}/.var/app/org.dash.electrum.electrum_dash/.electrum-dash"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Configure electrum-dash
+  copy:
+    src: 'electrum-dash/config'
+    dest: "/home/{{ username }}/.var/app/org.dash.electrum.electrum_dash/.electrum-dash/config"
+    mode: 0640
+    owner: "{{ username }}"
+    group: "{{ username }}"

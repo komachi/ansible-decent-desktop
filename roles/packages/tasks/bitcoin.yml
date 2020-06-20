@@ -1,0 +1,35 @@
+- name: Install bitcoin from flatpak
+  flatpak:
+    name: org.bitcoincore.bitcoin-qt
+    state: present
+
+- name: Ensures ~/.var/app/org.bitcoincore.bitcoin-qt/config/Bitcoin exists
+  file:
+    path: "/home/{{ username }}/.var/app/org.bitcoincore.bitcoin-qt/config/Bitcoin"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Configure bitcoind
+  copy:
+    src: 'bitcoin/bitcoin.conf'
+    dest: "/home/{{ username }}/.var/app/org.bitcoincore.bitcoin-qt/config/Bitcoin/bitcoin.conf"
+    mode: 0640
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Add systemd service
+  copy:
+    src: 'systemd/bitcoind.service'
+    dest: "/home/{{ username }}/.config/systemd/user/bitcoind.service"
+    mode: '0640'
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Enable bitcoind service
+  become: yes
+  become_user: "{{ username }}"
+  systemd:
+    scope: user
+    name: bitcoind
+    enabled: yes

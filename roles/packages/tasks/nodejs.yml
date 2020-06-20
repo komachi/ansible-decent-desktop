@@ -1,0 +1,14 @@
+- name: Install nodejs and yarn
+  apt:
+    name:
+      - nodejs
+      - yarn
+    state: present
+
+- name: Configure npm
+  copy:
+    src: npmrc
+    dest: "/home/{{ username }}/.npmrc"
+    mode: 0640
+    owner: "{{ username }}"
+    group: "{{ username }}"

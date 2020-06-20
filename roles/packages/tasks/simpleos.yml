@@ -1,0 +1,21 @@
+- name: Collect package facts
+  package_facts:
+    manager: auto
+
+- name: Create temp dir for simpleos
+  tempfile:
+    state: directory
+  register: simpleos_download_tempdir
+  when: "('simpleos' not in ansible_facts.packages) or ('simpleos' in ansible_facts.packages and ansible_facts.packages.simpleos[0].version != simpleos_version)"
+
+- name: Get simpleos
+  get_url:
+    url: "https://github.com/eosrio/simpleos/releases/download/v{{ simpleos_version }}/simpleos_{{ simpleos_version }}_amd64.deb"
+    dest: "{{ simpleos_download_tempdir.path }}/simpleos.deb"
+    checksum: "{{ simpleos_checksum }}"
+  when: "('simpleos' not in ansible_facts.packages) or ('simpleos' in ansible_facts.packages and ansible_facts.packages.simpleos[0].version != simpleos_version)"
+
+- name: Install simpleos
+  apt:
+    deb: "{{ simpleos_download_tempdir.path }}/simpleos.deb"
+  when: "('simpleos' not in ansible_facts.packages) or ('simpleos' in ansible_facts.packages and ansible_facts.packages.simpleos[0].version != simpleos_version)"

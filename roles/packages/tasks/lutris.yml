@@ -1,0 +1,4 @@
+- name: Install lutris
+  apt:
+    name: lutris
+    state: present

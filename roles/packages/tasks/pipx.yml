@@ -1,0 +1,31 @@
+- name: Install python3-venv and pipx
+  apt:
+    name:
+      - python3-venv
+      - pipx
+    state: present
+
+- name: Add systemd timer for auto updates
+  copy:
+    src: 'systemd/pipx-upgrade.timer'
+    dest: "/home/{{username}}/.config/systemd/user/pipx-upgrade.timer"
+    mode: '0640'
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Add systemd service for auto updates
+  copy:
+    src: 'systemd/pipx-upgrade.service'
+    dest: "/home/{{username}}/.config/systemd/user/pipx-upgrade.service"
+    mode: '0640'
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Enable pipx-upgrade timer
+  become: yes
+  become_user: "{{ username }}"
+  systemd:
+    scope: user
+    name: pipx-upgrade.timer
+    enabled: yes
+    state: started

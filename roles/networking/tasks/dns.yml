@@ -1,0 +1,68 @@
+- name: Make sure systemd-resolved is disabled
+  systemd:
+    name: systemd-resolved
+    state: stopped
+    enabled: no
+
+- name: Install required packages
+  apt:
+    name:
+      - openresolv
+      - stubby
+      - unbound
+    state: present
+  tags:
+    - dependencies
+
+- name: Configure stubby
+  copy:
+    src: stubby.yml
+    dest: /etc/stubby/stubby.yml
+    mode: 0640
+    owner: stubby
+    group: stubby
+  register: stubbyconfigure
+
+- name: Restart stubby
+  when: stubbyconfigure.changed
+  systemd:
+    name: stubby
+    state: restarted
+    enabled: yes
+
+- name: Ensure stubby is enabled
+  systemd:
+    name: stubby
+    enabled: yes
+
+- name: Configure unbound
+  copy:
+    src: unbound.conf
+    dest: /etc/unbound/unbound.conf
+    mode: 0644
+    owner: unbound
+  register: unboundconfigure
+
+- name: Restart unbound
+  when: unboundconfigure.changed
+  systemd:
+    name: unbound
+    state: restarted
+    enabled: yes
+
+- name: Ensure unbound is enabled
+  systemd:
+    name: unbound
+    enabled: yes
+
+- name: Set our local dns resolver
+  lineinfile:
+    path: '/etc/resolvconf.conf'
+    regexp: '^name_servers='
+    line: 'name_servers="::1 127.0.0.1"'
+    mode: 0640
+  register: resolvconfconfigure
+
+- name: Regenerate resolv.conf
+  shell: 'resolvconf -u'
+  when: resolvconfconfigure.changed

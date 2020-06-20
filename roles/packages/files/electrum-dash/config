@@ -1,0 +1,11 @@
+{
+    "alias": "",
+    "auto_connect": true,
+    "check_updates": false,
+    "config_version": 3,
+    "dark_icon": true,
+    "is_maximized": false,
+    "proxy": "socks5:127.0.0.1:9050:electrumdash:electrumdash",
+    "qt_gui_color_theme": "dark",
+    "show_crash_reporter": false
+}

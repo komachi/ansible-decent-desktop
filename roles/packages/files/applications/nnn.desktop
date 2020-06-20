@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=nnn
+Exec=urxvt -name nnn -e nnn
+Terminal=false
+StartupWMClass=nnn
+Type=Application
+Categories=System;FileManager;
+Keywords=nnn;

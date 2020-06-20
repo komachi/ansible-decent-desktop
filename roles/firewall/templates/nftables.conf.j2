@@ -1,0 +1,85 @@
+#!/usr/sbin/nft -f
+
+flush ruleset
+
+table inet filter {
+  chain input {
+    type filter hook input priority 0; policy drop;
+    iif lo accept comment "Accept any localhost traffic"
+    ct state invalid drop comment "Drop invalid connections"
+    ct state established,related accept comment "Accept traffic originated from us"
+
+    iif != lo ip daddr 127.0.0.1/8 drop comment "drop connections to loopback not coming from loopback"
+    iif != lo ip6 daddr ::1/128 drop comment "drop connections to loopback not coming from loopback"
+
+    ip6 nexthdr icmpv6 icmpv6 type { nd-neighbor-solicit, echo-request, nd-router-advert, nd-neighbor-advert } limit rate 10/second accept
+    ip protocol icmp icmp type { destination-unreachable, router-solicitation, router-advertisement, time-exceeded, parameter-problem } limit rate 10/second accept
+
+{% if username == 'vagrant' %}
+    tcp dport ssh ip saddr { 10.0.2.2 } accept comment "Accept SSH from vagrant"
+{% endif %}
+
+    tcp dport 22000 ip saddr { {{ local_ip }} } accept comment "Syncthing"
+    tcp dport 6600 ip saddr { {{ local_ip }} } accept comment "MPD"
+    udp dport 1714 ip saddr { {{ local_ip }} } accept comment "mconnect/kdeconnect"
+
+{% if mullvad_account is defined %}
+    tcp dport {{ mullvad_ports[0] }} ct state new accept comment "BitTorrent"
+    udp dport {{ mullvad_ports[0] }} ct state new accept comment "BitTorrent DHT"
+    udp dport {{ mullvad_ports[1] }} accept comment "I2P"
+    tcp dport {{ mullvad_ports[1] }} accept comment "I2P"
+{% endif %}
+  }
+
+  chain forward {
+    type filter hook forward priority 0; policy drop;
+    mark 1 accept
+  }
+
+  chain output {
+    type filter hook output priority 0; policy accept;
+
+    skuid messagebus drop comment "don't allow internet for dbus"
+    skuid pulse drop comment "we don't use pulseaudio networking caps"
+    skuid lp drop comment "we don't user network printers"
+    skuid { mpd, systemd-coredump } drop
+
+    #ip protocol icmp icmp type echo-request limit rate 10/second log accept
+    #ip6 nexthdr icmpv6 icmpv6 type { nd-neighbor-solicit, echo-request, nd-router-advert, nd-neighbor-advert } limit rate 10/second accept
+  }
+}
+
+table ip filter {
+  chain DOCKER-USER {
+    mark set 1
+  }
+}
+
+# since kernel 5.2 we should use inet instead of ip/ip6
+table ip nat {
+  chain prerouting {
+    type nat hook prerouting priority -100;
+
+    # CT INVALID
+    ct state invalid drop
+
+    # TCP SYN (CT NEW)
+    tcp flags & (fin|syn|rst|ack) != syn \
+      ct state new \
+      drop
+  }
+}
+
+table ip6 nat {
+  chain prerouting {
+    type nat hook prerouting priority -100;
+
+    # CT INVALID
+    ct state invalid counter drop
+
+    # TCP SYN (CT NEW)
+    tcp flags & (fin|syn|rst|ack) != syn \
+      ct state new \
+      drop
+  }
+}

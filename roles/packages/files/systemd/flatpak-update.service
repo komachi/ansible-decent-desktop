@@ -1,0 +1,7 @@
+# https://github.com/flatpak/flatpak/issues/1399#issuecomment-403065567
+[Unit]
+Description=Flatpak update
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/flatpak update -y

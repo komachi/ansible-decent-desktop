@@ -1,0 +1,15 @@
+{
+  "policies": {
+    "AppUpdateURL": "",
+    "DisableMasterPasswordCreation": true,
+    "DisableAppUpdate": true,
+    "Extensions": {
+      "Install": [
+        "https://addons.thunderbird.net/thunderbird/downloads/latest/enigmail/latest.xpi",
+        "https://addons.thunderbird.net/thunderbird/downloads/latest/dkim-verifier/latest.xpi",
+        "https://addons.thunderbird.net/thunderbird/downloads/latest/paranoia/latest.xpi"
+      ]
+    },
+    "ExtensionUpdate": true
+  }
+}

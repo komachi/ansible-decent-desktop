@@ -1,0 +1,7 @@
+- name: Install nonfree firmware
+  apt:
+    name:
+      - firmware-misc-nonfree
+      - intel-microcode
+      - firmware-realtek
+    state: present

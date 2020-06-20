@@ -1,0 +1,16 @@
+- name: Install nftables
+  apt:
+    name: nftables
+    state: present
+
+- name: Configure nftables
+  template:
+    src: "nftables.conf.j2"
+    dest: '/etc/nftables.conf'
+    mode: 0640
+
+- name: Enable nftables service
+  systemd:
+    name: nftables
+    enabled: yes
+    state: started

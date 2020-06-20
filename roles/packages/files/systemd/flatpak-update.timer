@@ -1,0 +1,10 @@
+# https://github.com/flatpak/flatpak/issues/1399#issuecomment-403065567
+[Unit]
+Description=Flatpak update
+
+[Timer]
+OnCalendar=4:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,6 @@
+[Unit]
+Description=Pipx upgrade
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/pipx upgrade-all

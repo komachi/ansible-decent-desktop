@@ -1,0 +1,4 @@
+- name: Install deltachat from flatpak
+  flatpak:
+    name: chat.delta.desktop
+    state: present

@@ -1,0 +1,6 @@
+- name: Install ledger-wallets-udev
+  package:
+    name: ledger-wallets-udev
+    state: present
+  tags:
+    - dependencies

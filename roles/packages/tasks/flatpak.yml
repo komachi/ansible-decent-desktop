@@ -1,0 +1,52 @@
+- name: Install flatpak
+  apt:
+    name:
+      - flatpak
+      - xdg-desktop-portal
+      - xdg-desktop-portal-gtk
+    state: present
+
+- name: Ensures /etc/flatpak/remotes.d exists
+  file:
+    path: "/etc/flatpak/remotes.d"
+    state: directory
+
+- name: Copy flatpak remotes
+  copy:
+    src: 'flatpak/flathub.flatpakrepo'
+    dest: "/etc/flatpak/remotes.d/flathub.flatpakrepo"
+
+- name: Add systemd timer for auto updates
+  copy:
+    src: 'systemd/flatpak-update.timer'
+    dest: "/home/{{username}}/.config/systemd/user/flatpak-update.timer"
+    mode: '0640'
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Add systemd service for auto updates
+  copy:
+    src: 'systemd/flatpak-update.service'
+    dest: "/home/{{username}}/.config/systemd/user/flatpak-update.service"
+    mode: '0640'
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Enable flatpak timer
+  become: yes
+  become_user: "{{ username }}"
+  systemd:
+    scope: user
+    name: flatpak-update.timer
+    enabled: yes
+    state: started
+  
+- name: Install themes for flatpak
+  flatpak:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - "org.gtk.Gtk3theme.Adwaita-dark"
+    - "org.kde.KStyle.Adwaita/x86_64/5.14"
+    - "org.kde.PlatformTheme.QGnomePlatform/x86_64/5.14"
+    - "org.freedesktop.Platform.Icontheme.Paper"

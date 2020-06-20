@@ -1,0 +1,103 @@
+(assoc
+  #:pattern "^inode/directory$"
+  #:program "nnn '%f'"
+  #:term "spacefm '%f'"
+  #:standalone #t)
+
+(assoc
+  #:pattern '("^application/(x-audacity-project|ogg)$"
+    "^audio/(aac|ac3|mp4|x-ms-wma|flac|x-flac|mpeg|basic|x-aiff|x-wav|x-vorbis\\+ogg)$"
+    "^video/mpeg$")
+  #:edit "audacity '%f'")
+
+(assoc
+  #:pattern '("^application/(mxf|ogg|sdp|smil|streamingmedia|vnd\\.apple\\.mpegurl|vnd\\.ms-asf|vnd\\.rn-realmedia-vbr|vnd\\.rn-realmedia|x-cue|x-extension-m4a|x-extension-mp4|x-matroska|x-mpegurl|x-ogg|x-ogm-audio|x-ogm-video|x-ogm|x-shorten|x-smil|x-streamingmedia)$"
+    "^audio/(3gpp2|3gpp|AMR|aac|ac3|aiff|amr-wb|dv|eac3|flac|m3u|m4a|mp1|mp2|mp3|mp4|mpeg2|mpeg3|mpeg|mpegurl|mpg|musepack|ogg|opus|rn-mpeg|scpls|vnd\\.dolby\\.heaac\\.1|vnd\\.dolby\\.heaac\\.2|vnd\\.dts\\.hd|vnd\\.dts|vnd\\.rn-realaudio|vorbis|wav|webm|x-aac|x-adpcm|x-aiff|x-ape|x-m4a|x-matroska|x-mp1|x-mp2|x-mp3|x-mpegurl|x-mpg|x-ms-asf|x-ms-wma|x-musepack|x-pls|x-pn-au|x-pn-realaudio|x-pn-wav|x-pn-windows-pcm|x-realaudio|x-scpls|x-shorten|x-tta|x-vorbis\\+ogg|x-vorbis|x-wav|x-wavpack)$"
+    "^video/(3gp|3gpp2|3gpp|avi|divx|dv|fli|flv|mkv|mp2t|mp4|mp4v-es|mpeg|msvideo|ogg|quicktime|vnd\\.divx|vnd.mpegurl|vnd\\.rn-realvideo|webm|x-avi|x-flc|x-flic|x-flv|x-m4v|x-matroska|x-mpeg2|x-mpeg3|x-ms-afs|x-ms-asf|x-ms-wmv|x-ms-wmx|x-ms-wvxvideo|x-msvideo|x-ogm\\+ogg|x-ogm|x-theora+ogg|x-theora)$")
+  #:program "mpv '%f'")
+
+(assoc
+  #:pattern "^image/(bmp|gif|jpeg|jpg|png|tiff|x-bmp|x-portable-anymap|x-portable-bitmap|x-portable-graymap|x-tga|x-xpixmap)$"
+  #:program "sxiv -p -a '%f'"
+  #:edit "gimp '%f'")
+
+(assoc
+  #:pattern "^image/(g3fax|x-fits|x-pcx|x-portable-pixmap|x-psd|x-sgi|x-tga|x-xbitmap|x-xwindowdump|x-xcf|x-compressed-xcf|x-gimp-gbr|x-gimp-pat|x-gimp-gih|x-psp|x-icon|x-exr|x-webp|heif|heic|x-wmf|jp2|x-xcursor)$"
+  #:edit "gimp '%f'")
+
+(assoc
+  #:pattern '("^application/(pdf|x-pdf)$"
+    "^image/(vnd\\.djvu|vnd\\.djvu\\+multipage|x-djvu)$")
+  #:program "zathura '%f'")
+
+(assoc
+    #:pattern '("^application/(clarisworks|csv|excel|macwriteii|mathml\\+xml|msexcel|mspowerpoint|msword|prs\\.plucker|rtf|tab-separated-values|vnd\\.corel-draw|vnd\\.lotus-1-2-3|vnd\\.lotus-wordpro|vnd\\.ms-excel|vnd\\.ms-excel\\.sheet\\.binary\\.macroEnabled\\.12|vnd\\.ms-excel\\.sheet\\.macroEnabled\\.12|vnd\\.ms-excel\\.template\\.macroEnabled\\.12|vnd\\.ms-powerpoint|vnd\\.ms-powerpoint\\.presentation\\.macroEnabled\\.12|vnd\\.ms-powerpoint\\.slideshow\\.macroEnabled\\.12|vnd\\.ms-powerpoint\\.template\\.macroEnabled\\.12|vnd\\.ms-publisher|vnd\\.ms-word|vnd\\.ms-word\\.document\\.macroEnabled\\.12|vnd\\.ms-word\\.template\\.macroEnabled\\.12|vnd\\.ms-works|vnd\\.oasis\\.opendocument\\.chart|vnd\\.oasis\\.opendocument\\.chart-template|vnd\\.oasis\\.opendocument\\.formula|vnd\\.oasis\\.opendocument\\.formula-template|vnd\\.oasis\\.opendocument\\.graphics|vnd\\.oasis\\.opendocument\\.graphics-flat-xml|vnd\\.oasis\\.opendocument\\.graphics-flat-xml|vnd\\.oasis\\.opendocument\\.graphics-template|vnd\\.oasis\\.opendocument\\.presentation|vnd\\.oasis\\.opendocument\\.presentation-flat-xml|vnd\\.oasis\\.opendocument\\.presentation-flat-xml|vnd\\.oasis\\.opendocument\\.presentation-template|vnd\\.oasis\\.opendocument\\.spreadsheet|vnd\\.oasis\\.opendocument\\.spreadsheet-flat-xml|vnd\\.oasis\\.opendocument\\.spreadsheet-flat-xml|vnd\\.oasis\\.opendocument\\.spreadsheet-template|vnd\\.oasis\\.opendocument\\.text|vnd\\.oasis\\.opendocument\\.text-flat-xml|vnd\\.oasis\\.opendocument\\.text-master|vnd\\.oasis\\.opendocument\\.text-master-template|vnd\\.oasis\\.opendocument\\.text-template|vnd\\.oasis\\.opendocument\\.text-web|vnd\\.openxmlformats-officedocument\\.presentationml\\.presentation|vnd\\.openxmlformats-officedocument\\.presentationml\\.slide|vnd\\.openxmlformats-officedocument\\.presentationml\\.slideshow|vnd\\.openxmlformats-officedocument\\.presentationml\\.template|vnd\\.openxmlformats-officedocument\\.spreadsheetml\\.sheet|vnd\\.openxmlformats-officedocument\\.spreadsheetml\\.template|vnd\\.openxmlformats-officedocument\\.wordprocessingml\\.document|vnd\\.openxmlformats-officedocument\\.wordprocessingml\\.template|vnd\\.palm|vnd\\.stardivision\\.writer-global|vnd\\.sun\\.xml\\.calc|vnd\\.sun\\.xml\\.calc\\.template|vnd\\.sun\\.xml\\.draw|vnd\\.sun\\.xml\\.draw\\.template|vnd\\.sun\\.xml\\.impress|vnd\\.sun\\.xml\\.impress\\.template|vnd\\.sun\\.xml\\.math|vnd\\.sun\\.xml\\.writer|vnd\\.sun\\.xml\\.writer\\.global|vnd\\.sun\\.xml\\.writer\\.template|vnd\\.visio|vnd\\.wordperfect|wordperfect|x-123|x-abiword|x-aportisdoc|x-dbase|x-dbf|x-doc|x-dos_ms_excel|x-excel|x-extension-txt|x-hwp|x-iwork-keynote-sffkey|x-iwork-numbers-sffnumbers|x-iwork-pages-sffpages|x-ms-excel|x-msexcel|x-mswrite|x-pagemaker|x-quattropro|x-sony-bbeb|x-starcalc|x-stardraw|x-starwriter|x-t602|x-wpg)"
+    "^text/(comma-separated-values|csv|mathml|rtf|spreadsheet|tab-separated-values|x-comma-separated-values|x-csv)$"
+    "^image/x-freehand$")
+  #:edit "libreoffice '%f'"
+  #:program "zaread '%f'"
+)
+
+(assoc
+  #:pattern '("^x-keepass2$"
+  "\\.(kdb|kdbx)$")
+  #:program "keepassxc '%f'")
+
+(assoc
+  #:pattern "^https?://\\w+\\.onion"
+  #:program "notify-send 'Opening onion resource %f blocked, link copied'; echo '%f' | xclip -selection clipboard")
+
+(assoc
+  #:pattern "^https?://\\w+\\.i2p"
+  #:program "notify-send 'Opening i2p resource %f blocked, link copied'; echo '%f' | xclip -selection clipboard")
+
+(assoc
+  #:pattern '("^message/rfc822$"
+    "^text/x-vcard$"
+    "^mailto:")
+  #:program "thunderbird '%f'")
+
+(assoc
+  #:pattern '("^tg://"
+    "^https?://t.me/"
+  )
+  #:program "telegram-desktop -- '%f'")
+
+(assoc
+  #:pattern "^https?://"
+  #:test "youtube-dl-supports.py '%f'"
+  #:on-fail (open-with 'browser')
+  #:program "mpv '%f'")
+
+(assoc
+  #:pattern "^https?://*\\.(iso|rar|zip|djvu|fb2|torrent|metalink)"
+  #:on-error (open-with 'browser')
+  #:program "uget-gtk '%f'")
+
+(assoc
+  #:pattern "^(magnet:\\?|ftp://)"
+  #:program "uget-gtk '%f'")
+
+(assoc
+  #:pattern "^bitcoin:"
+  #:program "wassabee '%f'")
+
+(assoc
+  #:pattern "^text/"
+  #:program "nano '%f'"
+  #:term "tau '%f'"
+  #:edit "codium '%f'"
+  #:standalone #t)
+
+(assoc
+  #:pattern "^application/json$"
+  #:program "cat '%f' | jq"
+  #:term "tau '%f'"
+  #:edit "codium '%f'"
+  #:standalone #t)
+
+(assoc
+  #:name 'browser'
+  #:pattern "^https?://"
+  #:program "x-www-browser '%f'")
+  

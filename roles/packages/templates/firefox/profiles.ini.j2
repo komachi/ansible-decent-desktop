@@ -1,0 +1,18 @@
+[General]
+Version=2
+
+{% for item in firefox_profiles %}
+
+[Profile{{ loop.index0 }}]
+Name={{ item.name }}
+Path={{ item.name }}
+IsRelative=1
+{% if item.name == 'default' %}
+Default=1
+{% endif %}
+
+{% endfor %}
+
+[Install3B6073811A6ABF12]
+Default=default
+Locked=1

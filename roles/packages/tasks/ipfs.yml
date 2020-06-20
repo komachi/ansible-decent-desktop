@@ -1,0 +1,19 @@
+- name: Install ipfs
+  apt:
+    name: ipfs
+
+- name: Add systemd service
+  copy:
+    src: 'systemd/ipfs.service'
+    dest: "/home/{{username}}/.config/systemd/user/ipfs.service"
+    mode: '0640'
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Enable ipfs service
+  become: yes
+  become_user: "{{ username }}"
+  systemd:
+    scope: user
+    name: ipfs
+    enabled: yes

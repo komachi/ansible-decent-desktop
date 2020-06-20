@@ -1,0 +1,4 @@
+- name: Install pcsxr
+  apt:
+    name: pcsxr
+    state: present

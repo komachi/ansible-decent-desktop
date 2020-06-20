@@ -1,0 +1,14 @@
+- name: Ensures ~/.config/fontconfig exists
+  file:
+    path: "/home/{{ username }}/.config/fontconfig"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Copy fonts.conf
+  copy:
+    src: 'fonts.conf'
+    dest: "/home/{{ username }}/.config/fontconfig/fonts.conf"
+    mode: 0660
+    owner: "{{ username }}"
+    group: "{{ username }}"

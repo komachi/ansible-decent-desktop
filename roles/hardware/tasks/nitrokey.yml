@@ -1,0 +1,8 @@
+- name: Install nitrokey-app
+  apt:
+    name:
+      - libccid
+      - nitrokey-app
+    state: present
+  tags:
+    - dependencies

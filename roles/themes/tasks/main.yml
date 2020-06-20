@@ -1,0 +1,58 @@
+- name: Install themes
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - qt5ct
+    - gnome-themes-extra
+    - adwaita-icon-theme
+    - adwaita-qt
+    - papirus-icon-theme
+    - gtk3-nocsd
+  tags:
+    - dependencies
+
+- name: Use GTK+ style for Qt4 apps
+  lineinfile:
+    path: "/home/{{ username }}/.config/Trolltech.conf"
+    regexp: '^style='
+    line: style=adwaita
+    insertafter: '[Qt]'
+    create: yes
+    
+- name: Copy gtk2 settings
+  copy:
+    src: 'gtkrc-2.0'
+    dest: "/home/{{username}}/.gtkrc-2.0"
+    mode: '0640'
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Ensures ~/.config/gtk-3.0 exists
+  file:
+    path: "/home/{{username}}/.config/gtk-3.0/"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Copy gtk3 settings
+  copy:
+    src: 'settings.ini'
+    dest: "/home/{{username}}/.config/gtk-3.0/settings.ini"
+    mode: '0640'
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Ensures ~/.config/qt5ct exists
+  file:
+    path: "/home/{{ username }}/.config/qt5ct"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Configure qt5ct
+  template:
+    src: qt5ct/qt5ct.conf.j2
+    dest: "/home/{{ username }}/.config/qt5ct/qt5ct.conf"
+    owner: "{{ username }}"
+    group: "{{ username }}"

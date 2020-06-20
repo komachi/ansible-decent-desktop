@@ -1,0 +1,40 @@
+- name: Install i2pd
+  apt:
+    name:
+      - i2pd
+      - i2p-keyring
+      - torsocks
+    state: present
+
+- name: Configure i2pd
+  template:
+    src: 'i2pd/i2pd.conf.j2'
+    dest: '/etc/i2pd/i2pd.conf'
+    owner: 'i2pd'
+    group: 'i2pd'
+    mode: '0640'
+  register: i2pdconfigure
+
+- name: Enable i2pd service
+  systemd:
+    name: i2pd
+    enabled: yes
+
+- name: Check if i2p browser is already downloaded
+  stat: 
+    path: "/home/{{ username }}/.i2pb/i2p-browser"
+  register: i2pbb_exists
+
+- name: Download i2p browser
+  become: yes
+  become_user: "{{ username }}"
+  shell: "torsocks update-i2pbrowser --onion --noask"
+  when: not i2pbb_exists.stat.exists
+
+- name: Create dummy file to fix i2pbrowser
+  copy:
+    content: ""
+    dest: /usr/share/tb-profile-i2p/check-i2p
+    force: yes
+    mode: 0555
+  

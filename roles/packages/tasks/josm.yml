@@ -1,0 +1,20 @@
+- name: Install JOSM
+  apt:
+    name: josm
+    state: present
+
+- name: Ensures ~/.config/JOSM exists
+  file:
+    path: "/home/{{ username }}/.config/JOSM"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Configure JOSM (works only first time)
+  copy:
+    src: 'JOSM/preferences.xml'
+    dest: "/home/{{ username }}/.config/JOSM/preferences.xml"
+    mode: 0640
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    force: no 

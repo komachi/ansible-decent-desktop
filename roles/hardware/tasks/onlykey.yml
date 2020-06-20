@@ -1,0 +1,22 @@
+- name: Install onlykey deps
+  apt:
+    name:
+      - libusb-1.0-0-dev
+      - libudev-dev
+    state: present
+
+- name: Install onlykey 
+  become: yes
+  become_user: "{{ username }}"
+  pip:
+    name: onlykey
+    executable: pip2
+    extra_args: --user
+
+- name: Copy udev rules required by onlykey
+  template:
+    src: udev/onlykey.rules.j2
+    dest: /etc/udev/rules.d/49-onlykey.rules
+    mode: 0640
+  notify:
+    - reload udev

@@ -1,0 +1,7 @@
+- name: Install OSM Scout Server and Pure Maps from flatpak
+  flatpak:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - "io.github.rinigus.OSMScoutServer"
+    - "io.github.rinigus.PureMaps"

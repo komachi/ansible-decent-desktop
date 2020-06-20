@@ -1,0 +1,20 @@
+- name: Install linux headers
+  apt:
+    name: "linux-headers-{{ ansible_kernel }}"
+    state: present
+
+- name: Install wireguard
+  apt:
+    name:
+      - wireguard
+      - wireguard-dkms
+      - wireguard-tools
+    state: present
+  tags:
+    - dependencies
+
+- name: Disable managing wireguard interfaces by nm
+  copy:
+    src: 'networkmanager/unmanaged.conf'
+    dest: '/etc/NetworkManager/conf.d/10-unmanaged.conf'
+    mode: 0640

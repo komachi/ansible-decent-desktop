@@ -1,0 +1,7 @@
+- name: Install zim
+  apt:
+    name:
+      - zim
+      - libgtksourceview2.0-0
+      - python-gtkspellcheck
+    state: present

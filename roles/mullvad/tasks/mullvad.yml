@@ -1,0 +1,112 @@
+
+- name: Get Mullvad servers list
+  uri:
+    url: https://api.mullvad.net/public/relays/wireguard/v1/
+    return_content: yes
+  register: mullvad_servers_orig
+  failed_when: "'countries' not in mullvad_servers_orig.content"
+
+- name: Flatten servers list
+  set_fact:
+    mullvad_servers: "{{ mullvad_servers_orig.json | json_query('countries[].cities[].relays[]') }}"
+    cacheable: yes
+
+- name: Trying to find already registred private key
+  shell: "grep -hEr -m1 '^PrivateKey[ ]*=[ ]*(.*)([a-zA-Z0-9+/]{43}=)$' --include=\"mullvad-*\" \"/etc/wireguard\" | head -1 | cut -d'=' -f1 --complement | xargs"
+  changed_when: False
+  register: mullvad_wireguard_find_private_key
+
+- set_fact:
+    mullvad_wireguard_private_key: "{{ mullvad_wireguard_find_private_key.stdout }}"
+  when: mullvad_wireguard_find_private_key.stdout != ''
+
+- name: Generate wireguard private key
+  shell: wg genkey
+  register: mullvad_wireguard_generate_private_key
+  when: mullvad_wireguard_find_private_key.stdout == ''
+
+- set_fact:
+    mullvad_wireguard_private_key: "{{ mullvad_wireguard_generate_private_key.stdout }}"
+  when: mullvad_wireguard_find_private_key.stdout == ''
+
+- name: Get public key from our private key
+  shell: "echo \"{{ mullvad_wireguard_private_key }}\" | wg pubkey"
+  changed_when: False
+  register: mullvad_wireguard_public_key
+
+- name: Register our public key on mullvad
+  uri:
+    url: "https://api.mullvad.net/wg/"
+    method: POST
+    body_format: form-urlencoded
+    body:
+      account: "{{ mullvad_account }}"
+      pubkey: "{{ mullvad_wireguard_public_key.stdout }}"
+    return_content: yes
+  register: mullvad_wireguard_address
+  failed_when: mullvad_wireguard_address.content is not match('^[0-9a-f:/.,]+$')
+
+- name: Login to mullvad
+  uri:
+    url: "https://api.mullvad.net/www/accounts/{{ mullvad_account }}"
+    method: GET
+    return_content: yes
+  register: mullvad_account_login
+
+- set_fact:
+    mullvad_auth_token: "{{ mullvad_account_login.json.auth_token }}"
+
+- name: Get mullvad config
+  uri:
+    url: "https://api.mullvad.net/www/me/"
+    method: GET
+    headers:
+      Authorization: "Token {{ mullvad_auth_token }}"
+    return_content: yes
+  register: mullvad_wireguard_me
+
+- set_fact:
+    mullvad_ports: "{{ mullvad_wireguard_me.json | json_query(mullvad_ports_expression) }}"
+  vars:
+    mullvad_ports_expression: "account.wg_peers[?key.public=='{{ mullvad_wireguard_public_key.stdout }}'].ports[]"
+
+- name: Create 2 port forwarding rules
+  uri:
+    url: "https://api.mullvad.net/www/ports/add/"
+    method: POST
+    body_format: json
+    body:
+      pubkey: "{{ mullvad_wireguard_public_key.stdout }}"
+    headers:
+      Authorization: "Token {{ mullvad_auth_token }}"
+    status_code: [201]
+  register: mullvad_create_port_forwarding
+  with_sequence: start="{{ mullvad_ports | length }}" count=2
+  when: item | int < 2
+
+- name: Get mullvad config again
+  uri:
+    url: "https://api.mullvad.net/www/me/"
+    method: GET
+    headers:
+      Authorization: "Token {{ mullvad_auth_token }}"
+    return_content: yes
+  register: mullvad_wireguard_me
+
+- set_fact:
+    mullvad_ports: "{{ mullvad_wireguard_me.json | json_query(mullvad_ports_expression) }}"
+  vars:
+    mullvad_ports_expression: "account.wg_peers[?key.public=='{{ mullvad_wireguard_public_key.stdout }}'].ports[]"
+
+# TODO shadowsocks bridge
+- name: Write wireguard conf files
+  template:
+    src: wireguard/mullvad.conf.j2
+    dest: "/etc/wireguard/mullvad-{{ item.hostname | regex_replace('-wireguard') }}.conf"
+    mode: 0640
+  loop: "{{ mullvad_servers }}"
+
+- name: Connect to wireguard on boot
+  systemd: 
+    name: "wg-quick@{{ wireguard_server }}"
+    enabled: yes

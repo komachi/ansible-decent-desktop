@@ -1,0 +1,9 @@
+[Unit]
+Description=Pipx update
+
+[Timer]
+OnCalendar=4:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target

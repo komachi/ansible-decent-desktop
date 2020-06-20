@@ -1,0 +1,13 @@
+{
+    "auto_connect": true,
+    "auto_update_check": false,
+    "check_updates": false,
+    "currency": "USD",
+    "tor_use": true,
+    "tor_socks_port": 9050,
+    "config_version": 2,
+    "dark_icon": true,
+    "proxy": "socks5:127.0.0.1:9050:electroncash:electroncash",
+    "qt_gui_color_theme": "dark",
+    "show_crash_reporter": false
+}

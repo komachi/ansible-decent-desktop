@@ -1,0 +1,64 @@
+- name: Install mpv
+  apt:
+    name: mpv
+    state: present
+
+- name: Ensure we don't have globally installed youtube-dl or streamlink
+  apt:
+    name:
+      - youtube-dl
+      - streamlink
+    state: absent
+
+- name: Install youtube-dl and streamlink
+  become: yes
+  become_user: "{{ username }}"
+  shell: "pipx install {{ item }}"
+  loop:
+    - youtube-dl
+    - streamlink
+
+- name: Ensures ~/.config/streamlink exists
+  file:
+    path: "/home/{{ username }}/.config/streamlink"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Configure streamlink
+  copy:
+    src: 'streamlink/config'
+    dest: "/home/{{ username }}/.config/streamlink/config"
+    mode: 0640
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Ensures ~/.config/youtube-dl exists
+  file:
+    path: "/home/{{ username }}/.config/youtube-dl"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Configure youtube-dl
+  copy:
+    src: 'youtube-dl/config'
+    dest: "/home/{{ username }}/.config/youtube-dl/config"
+    mode: 0640
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Ensures ~/.config/mpv exists
+  file:
+    path: "/home/{{ username }}/.config/mpv"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Configure mpv
+  copy:
+    src: 'mpv/mpv.conf'
+    dest: "/home/{{ username }}/.config/mpv/mpv.conf"
+    mode: 0640
+    owner: "{{ username }}"
+    group: "{{ username }}"

@@ -1,0 +1,4 @@
+player=mpv --cache 2048
+player-no-close
+default-stream=1080p,720p,480p,best
+hls-audio-select=*
