@@ -1,0 +1,4 @@
+- name: Install lokinet
+  apt:
+    name: lokinet
+    state: present

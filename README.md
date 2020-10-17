@@ -83,6 +83,10 @@ Configure window manager (awesome) and other goodies usually provided by desktop
 
 Configure specific packages
 
+### games
+
+Install and configure some games
+
 ### themes
 
 Configure themes

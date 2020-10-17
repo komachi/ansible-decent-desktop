@@ -6,7 +6,7 @@
     "check_updates": false,
     "coin_chooser_output_rounding": true,
     "config_version": 3,
-    "currency": "RUB",
+    "currency": "USD",
     "dark_icon": true,
     "decimal_point": 8,
     "dynamic_fees": true,

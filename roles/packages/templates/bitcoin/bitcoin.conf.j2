@@ -11,4 +11,7 @@ rpcbind=127.0.0.1
 rpcport=8333
 rpcallowip=127.0.0.1
 peerbloomfilters=1
+rpcuser={{ bitcoinrpc_user }}
+rpcpass={{ lookup('password', 'credentials/bitcoind/rpcpass length=20') }}
+blocknotify=sh ~/.var/app/org.bitcoincore.bitcoin-qt/blocknotify.sh %s
 #blockfilterindex=1

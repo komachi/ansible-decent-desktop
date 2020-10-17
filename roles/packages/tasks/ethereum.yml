@@ -57,11 +57,11 @@
     dest: "/etc/systemd/system/openethereum.service"
     mode: '0640'
 
-- name: Enable openethereum service
+- name: Disable openethereum service
   systemd:
     name: openethereum
-    enabled: yes
-    state: started
+    enabled: no
+    state: stopped
 
 - name: Download MyCrypto
   get_url:

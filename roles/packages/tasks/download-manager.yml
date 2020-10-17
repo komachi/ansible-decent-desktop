@@ -16,6 +16,8 @@
   template:
     src: "uGet/category/{{ item }}.json.j2"
     dest: "/home/{{ username }}/.config/uGet/category/000{{ uget_category_index }}.json"
+    owner: "{{ username }}"
+    group: "{{ username }}"
   loop:
     - 'Downloads'
     - 'Videos'

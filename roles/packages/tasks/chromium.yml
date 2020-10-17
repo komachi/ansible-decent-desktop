@@ -1,0 +1,14 @@
+
+- name: Make sure chromium is not installed
+  apt:
+    name:
+      - chromium
+      - chromium-sandbox
+    state: absent
+
+- name: Install ungoogled-chromium
+  apt:
+    name:
+      - ungoogled-chromium
+      - ungoogled-chromium-sandbox
+    state: present

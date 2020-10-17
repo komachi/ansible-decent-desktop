@@ -10,8 +10,7 @@
       - security-misc
       - apparmor-profile-torbrowser
       - apparmor-profile-icedove
-      - apparmor-profile-virtualbox
-      - apparmor-profile-anondist
+      - apparmor-profile-dist
       - tirdad
       - kloak
 #      - lkrg

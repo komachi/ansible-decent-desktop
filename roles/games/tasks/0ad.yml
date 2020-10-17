@@ -1,0 +1,6 @@
+- name: Install 0 A.D from flatpak
+  become: yes
+  become_user: "{{ username }}"
+  flatpak:
+    name: com.play0ad.zeroad
+    state: present

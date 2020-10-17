@@ -11,10 +11,18 @@
     group: "{{ username }}"
 
 - name: Configure bitcoind
-  copy:
-    src: 'bitcoin/bitcoin.conf'
+  template:
+    src: 'bitcoin/bitcoin.conf.j2'
     dest: "/home/{{ username }}/.var/app/org.bitcoincore.bitcoin-qt/config/Bitcoin/bitcoin.conf"
     mode: 0640
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Copy blocknotify script
+  copy:
+    src: 'bitcoin/blocknotify.sh'
+    dest: "/home/{{ username }}/.var/app/org.bitcoincore.bitcoin-qt/blocknotify.sh"
+    mode: '0740'
     owner: "{{ username }}"
     group: "{{ username }}"
 
@@ -26,10 +34,11 @@
     owner: "{{ username }}"
     group: "{{ username }}"
 
-- name: Enable bitcoind service
+- name: Disable bitcoind service
   become: yes
   become_user: "{{ username }}"
   systemd:
     scope: user
     name: bitcoind
-    enabled: yes
+    enabled: no
+    state: stopped

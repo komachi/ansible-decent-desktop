@@ -1,0 +1,10 @@
+- name: Install sia
+  apt:
+    name: sia
+    state: present
+
+- name: Add systemd service
+  copy:
+    src: 'systemd/sia.service'
+    dest: "/etc/systemd/system/sia.service"
+    mode: '0640'

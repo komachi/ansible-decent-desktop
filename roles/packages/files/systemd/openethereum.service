@@ -22,9 +22,11 @@ ProtectKernelTunables=yes
 RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 AF_NETLINK
 RestrictNamespaces=yes
 RestrictRealtime=yes
-RestrictSUIDSGID=yes
+#RestrictSUIDSGID=yes
 MemoryDenyWriteExecute=yes
 LockPersonality=yes
+CapabilityBoundingSet=CAP_NET_BIND_SERVICE
+Nice=15
 
 [Install]
 WantedBy=default.target

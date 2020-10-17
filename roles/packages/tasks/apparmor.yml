@@ -2,9 +2,3 @@
   lineinfile:
     path: /etc/apparmor/parser.conf
     line: 'write-cache'
-
-
-- name: Get some profiles from ubuntu
-  loop:
-    - url: 'https://git.launchpad.net/apparmor-profiles/plain/ubuntu/20.04/usr.bin.chromium-browser'
-    - checksum: 'sha256:'

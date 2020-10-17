@@ -6,11 +6,11 @@
     "update.showReleaseNotes": false,
     "update.mode": "none",
     "editor.fontFamily": "Hack",
-    "workbench.colorTheme": "One Dark Pro",
+    "workbench.colorTheme": "Community Material Theme Darker",
     "[markdown]": {
       "editor.formatOnSave": true,
       "editor.wordWrap": "on",
       "editor.renderWhitespace": "all",
       "editor.acceptSuggestionOnEnter": "off"
-    }   
+    }
 }

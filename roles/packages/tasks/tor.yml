@@ -6,6 +6,12 @@
       - torsocks
     state: present
 
+- name: Generate tor hashed password
+  become: yes
+  become_user: "{{ username }}"
+  shell: "tor --hash-password \"{{ lookup('password', 'credentials/tor_hashed length=15') }}\""
+  register: tor_hashed_password
+
 - name: Configure Tor
   template:
     src: 'tor/torrc.j2'

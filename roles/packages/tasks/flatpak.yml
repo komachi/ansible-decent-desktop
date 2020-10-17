@@ -13,8 +13,11 @@
 
 - name: Copy flatpak remotes
   copy:
-    src: 'flatpak/flathub.flatpakrepo'
-    dest: "/etc/flatpak/remotes.d/flathub.flatpakrepo"
+    src: 'flatpak/{{ item }}'
+    dest: "/etc/flatpak/remotes.d/{{ item }}"
+  loop:
+    - 'flathub.flatpakrepo'
+    - 'flathub-beta.flatpakrepo'
 
 - name: Add systemd timer for auto updates
   copy:
@@ -49,4 +52,3 @@
     - "org.gtk.Gtk3theme.Adwaita-dark"
     - "org.kde.KStyle.Adwaita/x86_64/5.14"
     - "org.kde.PlatformTheme.QGnomePlatform/x86_64/5.14"
-    - "org.freedesktop.Platform.Icontheme.Paper"

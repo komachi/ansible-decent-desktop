@@ -4,9 +4,19 @@
       - libreoffice-writer
       - libreoffice-calc
       - libreoffice-impress
+      - libreoffice-gtk3
+      - libreoffice-lightproof-en
+      - libreoffice-lightproof-ru-ru
       - zathura
       - zathura-djvu
     state: present
+
+- name: Configure libreoffice
+  copy:
+    src: libreoffice/registrymodifications.xcu
+    dest: "/home/{{ username }}/.config/libreoffice/4/user/registrymodifications.xcu"
+    owner: "{{ username }}"
+    group: "{{ username }}"
 
 - name: Download zaread
   get_url:

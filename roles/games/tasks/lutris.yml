@@ -1,0 +1,17 @@
+- name: Ensure we don't have globally installed lutris
+  package:
+    name: lutris
+    state: absent
+
+- name: Install lutris from flatpak
+  become: yes
+  become_user: "{{ username }}"
+  flatpak:
+    name: net.lutris.Lutris//beta
+    remote: flathub-beta
+    state: present
+
+- name: Install gnome compat from flatpak
+  flatpak:
+    name: runtime/org.gnome.Platform.Compat.i386/x86_64/3.38
+    state: present

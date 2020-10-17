@@ -1,0 +1,6 @@
+- name: Install OpenRA from flatpak
+  become: yes
+  become_user: "{{ username }}"
+  flatpak:
+    name: net.openra.OpenRA
+    state: present

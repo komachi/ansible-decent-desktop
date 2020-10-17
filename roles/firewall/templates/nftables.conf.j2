@@ -21,7 +21,8 @@ table inet filter {
 
     tcp dport 22000 ip saddr { {{ local_ip }} } accept comment "Syncthing"
     tcp dport 6600 ip saddr { {{ local_ip }} } accept comment "MPD"
-    udp dport 1714 ip saddr { {{ local_ip }} } accept comment "mconnect/kdeconnect"
+    udp dport 5040 ip saddr { {{ local_ip }} } accept comment "dcnnt"
+    tcp dport 5040 ip saddr { {{ local_ip }} } accept comment "dcnnt"
 
 {% if mullvad_account is defined %}
     tcp dport {{ mullvad_ports[0] }} ct state new accept comment "BitTorrent"
@@ -33,6 +34,7 @@ table inet filter {
 
   chain forward {
     type filter hook forward priority 0; policy drop;
+    ct state established, related accept;
     mark 1 accept
   }
 

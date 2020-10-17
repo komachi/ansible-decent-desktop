@@ -1,78 +1,66 @@
-searx_commit: "0dc5bdb6ef602d00456eb1db96d45e2f42b2b7a4"
+searx_commit: "8199ab50f9eda3781ba3227a002f08fae0399cc5"
 simpleos_version: '1.0.5'
 simpleos_checksum: 'sha256:4ac8fbaa7ecf8635c4f62dcc0d65b820dd6b2f05a88eed255f9c7dab123cafa6'
-electroncash_version: "4.0.14"
-electroncash_checksum: "sha256:11ec7219b9d3d6e7e4d1688cf60714c67e41a8ecfa4dcde06aa5150a22e96a4a"
-zecwallet_lite_version: "1.1.13"
-zecwallet_lite_checksum: "sha256:09fd037d452dbc98e4958baea818392d9432f1ff1629160eafdc239fc4a88ccc"
-mycrypto_version: "1.7.11"
-mycrypto_checksum: "sha256:c0634467f425027b3b5caaed5f5fd1b9138d1e3e886bc7e2f573176c7cbd3b4d"
-bisq_version: "1.3.5"
-bisq_checksum: "sha256:85813eee81ada45ec2a28b34e6adc9d5ae80f9f84ce8246637d13df0ba41a7b0"
-openbazaar_version: "2.4.3"
-openbazaar_checksum: "sha256:075be0fa1f24b53c6e56b5dda82eb17a3fa16edc2de870b2c39a83c71d0e9cb5"
+electroncash_version: "4.1.0"
+electroncash_checksum: "sha256:2826fdee06f396071950b884e2388c189823a49441ee47a5bb73c1d4d36ec03c"
+zecwallet_lite_version: "1.2.1"
+zecwallet_lite_checksum: "sha256:5743c39849a50def978f0df585d2ae99ff79c88feee81691d9906833830024cb"
+mycrypto_version: "1.7.12"
+mycrypto_checksum: "sha256:c31a414db341da2935457ef5497113037bdc415c94b4bc597ebeff14e9acad7e"
+bisq_version: "1.3.9"
+bisq_checksum: "sha256:b8cc5565243336c0da902adea22aae37b7e6f5fc7239a81535ed9481cf4b8002"
+openbazaar_version: "2.4.8"
+openbazaar_checksum: "sha256:cc1d0d22a8d53003d4bcf122bf2a26d603e9e43ee16cd615252bd8f8466a664c"
 XD_version: "0.3.4"
 XD_checksum: "sha256:22db29825418f0337b8fddd9236317ae388e31c96b0d1a9a1e24efb30af9ab73"
 ghacks_url: "https://raw.githubusercontent.com/ghacksuserjs/ghacks-user.js/d26ea4f39e3aacdc2a7a7bb0e92e3acc33962c9a/user.js"
 ghacks_checksum: "sha256:2cce87f1effd9fbfe8f8a2b6018c4f843c6d632cfe9f16e6b8ffaca55a04f40c"
-tbck_url: "https://raw.githubusercontent.com/CHEF-KOCH/TBCK/000b2fcdcf5ec62a3c4850e6ffcfe5ec8b5d597a/user.js"
-tbck_checksum: "sha256:502ceb76a55131ff8c7976220ed916c27207609c3f48c39f47717022edbe227f"
+tbck_url: "https://raw.githubusercontent.com/komachi/TBCK/fecac020632acb9b28a56a4fcd9115667b318d82/user.js"
+tbck_checksum: "sha256:387ee05fb6415ef80b9369f6974fa5adb9a118086a4942524b0700f4795abdb8"
 zaread_url: "https://raw.githubusercontent.com/paoloap/zaread/3efb9f514428572076a20b9a067ed435fd916d92/zaread"
 zaread_checksum: "sha256:e91f8e912666c3719e8f068725771573f1c879c8900293e59f6715c6ecfa6662"
 wasabiwallet_version: "1.1.11.1"
 wasabiwallet_checksum: "sha256:6ca1f54a6f9a990a0c2fc0934c827ce59ab68113ec48c6ee83174ff3f0400e0d"
-jackett_version: "v0.16.734"
-jackett_checksum: "sha256:5014d785d2ef6ce916a7f0b041f4ebad029189ce66aec40858016dfc4fb3a995"
+jackett_version: "v0.16.1072"
+jackett_checksum: "sha256:37429843b64019061a2bb459089695af5f71e154d84d15891da960a61ff7862d"
 openethereum_version: "3.0.1"
 openethereum_checksum: "sha256:8dd753058e5db77ffaede5a53418005f9c8133212448e11df9169a651cdac997"
 coyim_version: "0.3.11"
 coyim_checksum: "sha256:75b54dcdb96d10c52932b7cfb39a25936621dac2533519b37008d4c4679c067c"
+slackterm_version: "0.5.0"
+slackterm_checksum: "sha256:33bdebda9746732624a9b2e1d4156117501bbb5bc6c5c53353eaf6bea9309415"
+ff2mpv_url: "https://raw.githubusercontent.com/woodruffw/ff2mpv/35388974231626d9e5977c706bb384ca9afda456/ff2mpv.py"
+ff2mpv_checksum: "sha256:c63a762d4ddce972177f505c2503b8505a92930e977c3642cfebcaf2fb154909"
 
 vscodium_extensions:
-  - Angular.ng-template
-  - coolbear.systemd-unit-file
   - EditorConfig.EditorConfig
-  - johnpapa.Angular2
   - JuanBlanco.solidity
   - mikestead.dotenv
   - redhat.vscode-yaml
-  - vscoss.vscode-ansible
   - eamodio.gitlens
-  - wholroyd.jinja
-  - zhuangtongfa.material-theme
-  - quicktype.quicktype
+  - samuelcolvin.jinjahtml
   - bungcip.better-toml
   - dbaeumer.vscode-eslint
-  - ms-vscode.vscode-typescript-tslint-plugin
-  - eg2.vscode-npm-script
   - streetsidesoftware.code-spell-checker
   - streetsidesoftware.code-spell-checker-russian
-  - PKief.material-icon-theme
-  - esbenp.prettier-vscode
+  - Equinusocio.vsc-community-material-theme
   - ms-azuretools.vscode-docker
-  - VisualStudioExptTeam.vscodeintellicode
   - xabikos.JavaScriptSnippets
   - Zignd.html-css-class-completion
   - DavidAnson.vscode-markdownlint
   - naumovs.color-highlight
   - thekalinga.bootstrap4-vscode
   - pranaygp.vscode-css-peek
-  - wix.vscode-import-cost
-  - sidthesloth.html5-boilerplate
-  - rbbit.typescript-hero
-  - xabikos.ReactSnippets
-  - codezombiech.gitignore
   - christian-kohler.path-intellisense
   - ms-python.python
   - golang.Go
-  - octref.vetur
-  - JamesBirtles.svelte-vscode
-  - adamvoss.vscode-languagetool
-  - adamvoss.vscode-languagetool-en
-  - adamvoss.vscode-languagetool-ru
-  - sjhuangx.vscode-scheme
   - Tyriar.sort-lines
-  - pjbgf.apparmor
+  - ms-azuretools.vscode-docker
+  - christian-kohler.npm-intellisense
+  - timonwong.shellcheck
+  - mrmlnc.vscode-scss
+  - stylelint.vscode-stylelint
+  - ms-azuretools.vscode-docker
 thunderbird_profiles:
   - name: default
     prefs:
@@ -109,6 +97,10 @@ firefox_profiles:
         value: "false"
       - pref: "webgl.enable-webgl2"
         value: "true"
+      - pref: "webgl.force-enabled"
+        value: "true"
+      - pref: "webgl.msaa-force"
+        value: true"
       - pref: "dom.serviceWorkers.enabled"
         value: "true"
       - pref: "javascript.options.wasm"
@@ -143,3 +135,100 @@ firefox_profiles:
         value: "true"
       - pref: "browser.display.use_document_fonts"
         value: "1"
+      - pref: "gfx.webrender.all"
+        value: "true"
+      - pref: "media.ffmpeg.vaapi.enabled"
+        value: "true"
+      - pref: "media.ffmpeg.vaapi.enabled"
+        value: "true"
+      - pref: "media.ffvpx.enabled"
+        value: "false"
+      - pref: "browser.cache.disk.enable"
+        value: "false"
+      - pref: "browser.cache.memory.enable"
+        value: "true"
+      - pref: "browser.cache.memory.capacity"
+        value: "-1"
+      - pref: "browser.sessionstore.resume_from_crash"
+        value: "false"
+      - pref: "extensions.pocket.enabled"
+        value: "false"
+      - pref: "media.hardware-video-decoding.force-enabled"
+        value: "true"
+      - pref: "network.proxy.type"
+        value: "1"
+      - pref: "network.proxy.socks"
+        value: "\"10.64.0.1\""
+      - pref: "network.proxy.socks_port"
+        value: "1080"
+  - name: dev
+    prefs:
+      - pref: "privacy.resistFingerprinting.letterboxing"
+        value: "false"
+      - pref: "network.dns.disableIPv6"
+        value: "false"
+      - pref: "network.http.altsvc.enabled"
+        value: "true"
+      - pref: "network.http.altsvc.oe"
+        value: "true"
+      - pref: "webgl.disabled"
+        value: "false"
+      - pref: "webgl.enable-webgl2"
+        value: "true"
+      - pref: "webgl.force-enabled"
+        value: "true"
+      - pref: "webgl.msaa-force"
+        value: true"
+      - pref: "dom.serviceWorkers.enabled"
+        value: "true"
+      - pref: "javascript.options.wasm"
+        value: "true"
+      - pref: "keyword.enabled"
+        value: "true"
+      - pref: "identity.fxaccounts.enabled"
+        value: "false"
+      - pref: "browser.newtabpage.activity-stream.asrouter.userprefs.cfr"
+        value: "false"
+      - pref: "general.warnOnAboutConfig"
+        value: "false"
+      - pref: "browser.backspace_action"
+        value: "2"
+      - pref: "layout.spellcheckDefault"
+        value: "2"
+      - pref: "browser.urlbar.decodeURLsOnCop"
+        value: "true"
+      - pref: "mousewheel.horizscroll.withnokey.action"
+        value: "0"
+      - pref: "dom.event.clipboardevents.enabled"
+        value: "true"
+      - pref: "middlemouse.paste"
+        value: "true"
+      - pref: "dom.allow_cut_copy"
+        value: "true"
+      - pref: "gfx.font_rendering.opentype_svg.enabled"
+        value: "true"
+      - pref: "gfx.downloadable_fonts.woff2.enabled"
+        value: "true"
+      - pref: "gfx.font_rendering.graphite.enabled"
+        value: "true"
+      - pref: "browser.display.use_document_fonts"
+        value: "1"
+      - pref: "gfx.webrender.all"
+        value: "true"
+      - pref: "media.ffmpeg.vaapi.enabled"
+        value: "true"
+      - pref: "media.ffmpeg.vaapi.enabled"
+        value: "true"
+      - pref: "media.ffvpx.enabled"
+        value: "false"
+      - pref: "browser.cache.disk.enable"
+        value: "false"
+      - pref: "browser.cache.memory.enable"
+        value: "true"
+      - pref: "browser.cache.memory.capacity"
+        value: "-1"
+      - pref: "browser.sessionstore.resume_from_crash"
+        value: "false"
+      - pref: "media.hardware-video-decoding.force-enabled"
+        value: "true"
+bitcoinrpc_user: "bitcoinrpcuser"

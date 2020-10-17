@@ -39,9 +39,6 @@
     src: "{{ jackett_download_tempdir.path }}/jackett.tar.gz"
     dest: "/opt/jackett"
     remote_src: True
-    extra_opts:
-      - --transform
-      - s/.*\///g
   when: not jackett_exists.stat.exists or ((installed_jackett_version is defined) and installed_jackett_version.stdout != jackett_version)
 
 - name: Add systemd service

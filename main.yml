@@ -2,6 +2,7 @@
   become: True
   gather_facts: True
   roles:
+    - keyring
     - apt_transport_tor
     - debops.core
     - debops.apt_preferences
@@ -13,6 +14,8 @@
     - debops.sysctl
     - dev-sec.ssh-hardening
     - logind
+    - debops.journald
+    - debops.logrotate
     - networking
     - role: mullvad
       when: mullvad_account is defined
@@ -24,7 +27,8 @@
     - debops.apt_install
     - debops.python
     - packages
-    - debops.docker_server   
+    - games
+    - debops.docker_server
     - themes
     - fonts
     - hardware
@@ -63,11 +67,36 @@
     ssh_use_dns: True
     ssh_client_hardening: True
     ssh_client_password_login: True
+    os_auditd_enabled: false
     # debops vars
     ntp__daemon_enabled: True
     ntp__daemon: 'chrony'
     ntp__timezone: 'Etc/UTC'
     docker_server__upstream: True
+    journald__configuration:
+        - name: 'SystemMaxUse'
+          value: '500M'
+          state: 'present'
+        - name: 'SystemKeepFree'
+          value: '3G'
+          state: 'present'
+        - name: 'SystemMaxFiles'
+          value: 10
+          state: 'present'
+        - name: 'MaxFileSec'
+          value: '5day'
+          state: 'present'
+    logrotate__config:
+      - state: 'present'
+        options: |
+          daily
+          rotate 5
+          create
+          compress
+          maxage 5
+          shred
+          tabooext + .dpkg-divert
+          include /etc/logrotate.d
     users__accounts:
       - name: "{{ username }}"
         group: "{{ username }}"
@@ -84,6 +113,9 @@
           - docker
           - wireshark
           - debian-tor
+          - libvirt
+          - libvirt-qemu
+          - kvm
         shell: '/bin/bash'
         resources:
           - 'src'
@@ -118,9 +150,7 @@
       - dnsutils
       - keepassxc
       - gimp
-      - inkscape      
-      - chromium
-      - chromium-sandbox
+      - inkscape
       - audacity
       - spacefm
       - udevil
@@ -138,8 +168,6 @@
       - goldendict
       - mueller7-dict
       - dict-freedict-eng-rus
-      - vagrant
-      - vagrant-cachier
       - g++
       - gcc
       - make
@@ -165,6 +193,9 @@
       - libvips-tools
       - tb-starter
       - tb-updater
+      - p7zip-full
+      - openclipart-svg
+      - beignet-opencl-icd
     apt_install__all_packages:
       - "{{ packages }}"
     apt_preferences__list:
@@ -188,6 +219,41 @@
           - bubblewrap
           - xdg-desktop-portal
           - xdg-desktop-portal-gtk
+          - virt-manager
+          - virtinst
+          - libreoffice-writer
+          - libreoffice-calc
+          - libreoffice-impress
+          - libreoffice-draw
+          - libreoffice-base-core
+          - libreoffice-core
+          - libreoffice-common
+          - libuno-cppu3
+          - libuno-cppuhelpergcc3-3
+          - libuno-sal3
+          - libuno-salhelpergcc3-3
+          - uno-libs-private
+          - ure
+          - libreoffice-gtk3
+          - keepassxc
+          - git
+          - git-man
+          - git-cvs
+          - git-daemon-sysvinit
+          - git-daemon-run
+          - git-doc
+          - git-el
+          - git-email
+          - git-gui
+          - git-mediawiki
+          - git-svn
+          - gitk
+          - gitweb
+          - golang
+          - golang-doc
+          - golang-go
+          - golang-src
+          - 'golang-1.*'
         suffix: '_backports'
         backports: [ 'buster' ]
       - '{{ apt_preferences__preset_list | list }}'
@@ -206,17 +272,19 @@
     apt__repositories:
       - repo: 'deb [arch=amd64] tor+http://vwakviie2ienjx6t.onion/debian testing main'
       - repo: 'deb [arch=amd64] tor+http://vwakviie2ienjx6t.onion/debian unstable main'
-      - repo: 'deb [arch=amd64 signed-by=951928BB317024EFD053D73C66F6C87B98EBCFE2] tor+https://repo.i2pd.xyz/debian {{ ansible_distribution_release }} main'
-      - repo: 'deb [arch=amd64 signed-by=9FD3B784BC1C6FC31A8A0A1C1655A0AB68576280] tor+https://deb.nodesource.com/node_12.x {{ ansible_distribution_release }} main'
-      - repo: 'deb [arch=amd64 signed-by=1302DE60231889FE1EBACADC54678CF75A278D9C] https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/repos/debs/ vscodium main'
-      - repo: 'deb [arch=amd64 signed-by=A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89] tor+http://sdscoq7snqtznauu.onion//torproject.org {{ ansible_distribution_release }} main'
-      - repo: 'deb [arch=amd64 signed-by=9DC858229FC7DD38854AE2D88D81803C0EBFCD88] tor+https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable'
-      - repo: 'deb [arch=amd64 signed-by=916B8D99C38EAF5E8ADC7A2A8D66066A2EEACCDA] tor+http://deb.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion {{ ansible_distribution_release }} main'
-      - repo: 'deb-src [signed-by=0EA6702BA573945278AD7EF0658BF4D7EE19FA85] tor+http://ppa.launchpad.net/uget-team/ppa/ubuntu bionic main'
-      - repo: 'deb [arch=amd64 signed-by=72ECF46A56B4AD39C907BBB71646B01B86E50310] tor+https://dl.yarnpkg.com/debian/ stable main'
-      - repo: 'deb [arch=amd64 signed-by=7BD7D7DD3E220E0EB7389AF39731AA2171096268] https://apt.qm64.tech/ apt/'
-      - repo: 'deb [arch=amd64 signed-by=37C84554E7E0A261E4F76E1ED26E6ED000654A3E] tor+https://apt.syncthing.net/ syncthing stable'
-      - repo: 'deb [arch=amd64 signed-by=A338F71A89CD06FD5F9718582F7F0DA5FD5B64B9] tor+http://download.opensuse.org/repositories/home:/strycore/Debian_10/ ./'
+      - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/repo.i2pd.xyz-keyring.gpg] tor+https://repo.i2pd.xyz/debian {{ ansible_distribution_release }} main'
+      - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/deb.nodesource.com-keyring.gpg] tor+https://deb.nodesource.com/node_12.x {{ ansible_distribution_release }} main'
+      - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/vscodium-keyring.gpg] tor+https://paulcarroty.gitlab.io/vscodium-deb-rpm-repo/debs vscodium main'
+      - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg] tor+http://sdscoq7snqtznauu.onion//torproject.org {{ ansible_distribution_release }} main'
+      - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/download.docker.com-keyring.gpg] tor+https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable'
+      - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/whonix.org-keyring.gpg] tor+http://deb.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion {{ ansible_distribution_release }} main'
+      - repo: 'deb-src [signed-by=/usr/share/keyrings/uget-keyring.gpg] tor+http://ppa.launchpad.net/uget-team/ppa/ubuntu bionic main'
+      - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/dl.yarnpkg.com-keyring.gpg] tor+https://dl.yarnpkg.com/debian/ stable main'
+      - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/apt.qm64.tech-keyring.gpg] https://apt.qm64.tech/ apt/'
+      - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/apt.syncthing.net-keyring.gpg] tor+https://apt.syncthing.net/ syncthing stable'
+      - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/brave-keyring.gpg] tor+https://brave-browser-apt-release.s3.brave.com/ stable main'
+      - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/deb.imaginary.stream-keyring.gpg] tor+https://deb.imaginary.stream {{ ansible_distribution_release }} main'
+      - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/ungoogled-chromium-keyring.gpg] tor+http://download.opensuse.org/repositories/home:/ungoogled_chromium/Debian_Buster/ / '
     apt__default_sources:
       - uri: 'tor+http://vwakviie2ienjx6t.onion/debian'
         comment: 'Official Debian repositories'
@@ -230,31 +298,6 @@
         components: ['main', 'contrib', 'non-free']
         distribution: 'Debian'
         state: 'present'
-    apt__keys:
-      - id: '9DC858229FC7DD38854AE2D88D81803C0EBFCD88'
-        url: 'https://download.docker.com/linux/debian/gpg'
-      - id: '951928BB317024EFD053D73C66F6C87B98EBCFE2'
-        url: 'https://repo.i2pd.xyz/r4sas.gpg'
-      - id: '9FD3B784BC1C6FC31A8A0A1C1655A0AB68576280'
-        url: 'https://deb.nodesource.com/gpgkey/nodesource.gpg.key'
-      #- id: 'D43F640145369C51D786DDEA76F1A20FF987672F'
-      #  url: 'https://dl.winehq.org/wine-builds/winehq.key'
-      - id: '37C84554E7E0A261E4F76E1ED26E6ED000654A3E'
-        url: 'https://syncthing.net/release-key.txt'
-      - id: '1302DE60231889FE1EBACADC54678CF75A278D9C'
-        url: 'https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg'
-      - id: 'A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89'
-        url: 'https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc'
-      - id: '0EA6702BA573945278AD7EF0658BF4D7EE19FA85'
-        keyserver: 'keyserver.ubuntu.com'
-      - id: 'E4BD026BDFED8174F99510D94805D371C605B120'
-        url: 'https://www.whonix.org/patrick.asc'
-      - id: '72ECF46A56B4AD39C907BBB71646B01B86E50310'
-        url: https://dl.yarnpkg.com/debian/pubkey.gpg
-      - id: '7BD7D7DD3E220E0EB7389AF39731AA2171096268'
-        url: https://apt.qm64.tech/key.public.asc
-      - id: 'A338F71A89CD06FD5F9718582F7F0DA5FD5B64B9'
-        url: https://download.opensuse.org/repositories/home:/strycore/Debian_10/Release.key
     apt__nonfree: True
     apparmor__mail_to: False
     sysctl__parameters:
@@ -278,6 +321,7 @@
       - 'ru_RU.UTF-8'
       - 'en_DK.UTF-8'
     locales__packages:
+      - localepurge
       - mythes-en-us
       - mythes-ru
       - hunspell-en-us

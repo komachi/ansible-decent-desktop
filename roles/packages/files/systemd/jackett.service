@@ -11,7 +11,7 @@ User=jackett
 Group=jackett
 Environment=XDG_CONFIG_HOME=/var/lib/jackett
 WorkingDirectory=/opt/jackett
-ExecStart=/opt/jackett/jackett
+ExecStart=/opt/jackett/Jackett/jackett
 TimeoutStopSec=30
 # https://gist.github.com/ageis/f5595e59b1cddb1513d1b425a323db04
 NoNewPrivileges=yes
@@ -27,8 +27,10 @@ RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 AF_NETLINK
 RestrictNamespaces=yes
 RestrictRealtime=yes
 RestrictSUIDSGID=yes
-MemoryDenyWriteExecute=yes
+#MemoryDenyWriteExecute=yes
 LockPersonality=yes
+CapabilityBoundingSet=CAP_NET_BIND_SERVICE CAP_SYS_NICE
+Nice=10
 
 [Install]
 WantedBy=multi-user.target

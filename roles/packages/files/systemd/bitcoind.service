@@ -5,6 +5,7 @@ After=network.target
 [Service]
 ExecStart=/usr/bin/flatpak run --filesystem="/run/tor/control.authcookie:ro" --command=bitcoind org.bitcoincore.bitcoin-qt
 Restart=on-failure
+Nice=15
 
 [Install]
 WantedBy=default.target

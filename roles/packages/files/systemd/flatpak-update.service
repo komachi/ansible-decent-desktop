@@ -5,3 +5,4 @@ Description=Flatpak update
 [Service]
 Type=oneshot
 ExecStart=/usr/bin/flatpak update -y
+Nice=19

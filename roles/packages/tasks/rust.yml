@@ -1,0 +1,5 @@
+- name: Install cargo
+  apt:
+    name: 
+      - cargo
+    state: present

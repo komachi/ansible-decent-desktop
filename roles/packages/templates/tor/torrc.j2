@@ -1,5 +1,6 @@
-SocksPort 9050  IPv6Traffic PreferIPv6 KeepAliveIsolateSOCKSAuth
+SocksPort 9050 IPv6Traffic PreferIPv6 KeepAliveIsolateSOCKSAuth
 ControlPort 9051
 CookieAuthentication 1
 CookieAuthFileGroupReadable 1
+HashedControlPassword {{ tor_hashed_password.stdout }}
 ExcludeExitNodes {ru}

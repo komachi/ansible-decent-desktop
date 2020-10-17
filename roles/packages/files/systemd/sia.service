@@ -1,0 +1,31 @@
+[Unit]
+Description=Sia daemon
+After=network.target
+
+[Service]
+Type=simple
+User=sia
+Nice=15
+WorkingDirectory=/var/lib/sia/
+ExecStart=/usr/bin/siad -M gctwr
+Restart=on-failure
+RestartSec=30
+# https://gist.github.com/ageis/f5595e59b1cddb1513d1b425a323db04
+NoNewPrivileges=yes
+PrivateTmp=yes
+#PrivateDevices=yes
+DevicePolicy=closed
+ProtectSystem=strict
+ProtectControlGroups=yes
+#ProtectKernelModules=yes
+ProtectKernelTunables=yes
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 AF_NETLINK
+RestrictNamespaces=yes
+RestrictRealtime=yes
+RestrictSUIDSGID=yes
+MemoryDenyWriteExecute=yes
+LockPersonality=yes
+#CapabilityBoundingSet=CAP_NET_BIND_SERVICE
+
+[Install]
+WantedBy=multi-user.target

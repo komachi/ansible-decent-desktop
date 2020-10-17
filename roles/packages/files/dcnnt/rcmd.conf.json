@@ -1,0 +1,46 @@
+{
+  "device": null,
+  "menu": [
+    {
+      "name": "Lock",
+      "method": "shell",
+      "cmd": "xset s activate"
+    },
+    {
+      "name": "Player"
+    },
+    {
+      "name": "Play/pause",
+      "method": "shell",
+      "cmd": "playerctl play-pause"
+    },
+    {
+      "name": "Prev",
+      "method": "shell",
+      "cmd": "playerctl previous"
+    },
+    {
+      "name": "Next",
+      "method": "shell",
+      "cmd": "playerctl next"
+    },
+    {
+      "name": "Volume"
+    },
+    {
+      "name": "Mute",
+      "method": "shell",
+      "cmd": "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+    },
+    {
+      "name": "Up",
+      "method": "shell",
+      "cmd": "pactl set-sink-volume @DEFAULT_SINK@ +1000"
+    },
+    {
+      "name": "Down",
+      "method": "shell",
+      "cmd": "pactl set-sink-volume @DEFAULT_SINK@ -1000"
+    }
+  ]
+}

@@ -1,4 +1,5 @@
 - include_tasks: gpg.yml
+- include_tasks: apparmor.yml
 - include_tasks: pipx.yml
 - include_tasks: flatpak.yml
 - include_tasks: shell.yml
@@ -6,6 +7,7 @@
 - include_tasks: tor.yml
 - include_tasks: vscodium.yml
 - include_tasks: firefox.yml
+- include_tasks: chromium.yml
 - include_tasks: thunderbird.yml
 - include_tasks: syncthing.yml
 - include_tasks: mpv.yml
@@ -37,8 +39,14 @@
 - include_tasks: ipfs.yml
 - include_tasks: xmpp-client.yml
 - include_tasks: maps.yml
-- include_tasks: lutris.yml
 - include_tasks: matrix.yml
-- include_tasks: pcsxr.yml
 - include_tasks: restscope.yml
 - include_tasks: jackett.yml
+- include_tasks: slack.yml
+- include_tasks: brave.yml
+- include_tasks: dcnnt.yml
+- include_tasks: lokinet.yml
+- include_tasks: rss.yml
+- include_tasks: virtual-machines.yml
+- include_tasks: sia.yml
+- include_tasks: golang.yml

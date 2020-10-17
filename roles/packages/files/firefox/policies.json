@@ -1,6 +1,6 @@
 {
   "policies": {
-    "AppUpdateURL": "",
+    "AppUpdateURL": "http://localhost",
     "Bookmarks": [
       {
         "Title": "Syncthing",
@@ -35,6 +35,12 @@
       {
         "Title": "IPFS",
         "URL": "http://127.0.0.1:5001/webui/",
+        "Placement": "menu",
+        "Folder": "Local"
+      },
+      {
+        "Title": "Searx",
+        "URL": "http://127.0.0.1:8888",
         "Placement": "menu",
         "Folder": "Local"
       }
@@ -114,6 +120,26 @@
       "@testpilot-containers": {
         "installation_mode": "normal_installed",
         "install_url": "https://addons.mozilla.org/firefox/downloads/latest/multi-account-containers/latest.xpi"
+      },
+      "ff2mpv@yossarian.net": {
+        "installation_mode": "normal_installed",
+        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/ff2mpv/latest.xpi"
+      },
+      "{569456be-2850-4f7e-b669-71e55140ee0a}": {
+        "installation_mode": "normal_installed",
+        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/amp2html/latest.xpi"
+      },
+      "{6b938c0c-fc53-4f27-805f-619778631082}": {
+        "installation_mode": "normal_installed",
+        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/dont-touch-my-tabs/latest.xpi"
+      },
+      "sponsorBlocker@ajay.app": {
+        "installation_mode": "normal_installed",
+        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/sponsorblock/latest.xpi"
+      },
+      "bypasspaywalls@bypasspaywalls.weebly.com": {
+        "installation_mode": "normal_installed",
+        "install_url": "https://github.com/iamadamdev/bypass-paywalls-chrome/releases/latest/download/bypass-paywalls-firefox.xpi"
       }
     },
     "ExtensionUpdate": true,
@@ -133,18 +159,18 @@
     "OverridePostUpdatePage": "about:blank",
     "PasswordManagerEnabled": false,
     "Permissions": {
-      "Camera": {
-        "BlockNewRequests": true
+      "Autoplay": {
+        "Allow": ["https://youtube.com"],
+        "Default": "block-audio"
       },
       "Location": {
         "BlockNewRequests": true
-      },
-      "Notifications": {
-        "BlockNewRequests": true
       }
     },
+    "EncryptedMediaExtensions": {
+      "Enabled": false
+    },
     "Preferences": {
-      "app.update.auto": false,
       "browser.cache.disk.enable": false,
       "browser.safebrowsing.phishing.enabled": false,
       "browser.safebrowsing.malware.enabled": false,
@@ -157,13 +183,19 @@
       "media.gmp-gmpopenh264.enabled": false,
       "media.gmp-widevinecdm.enabled": false,
       "places.history.enabled": false,
-      "print.save_print_settings": false,
+      "print.save_print_settings": true,
       "media.peerconnection.enabled": false,
       "widget.content.gtk-theme-override": "Adwaita:light"
     },
+    "NetworkPrediction": true,
     "SanitizeOnShutdown": true,
     "SearchBar": "unified",
     "SearchSuggestEnabled": false,
+    "UserMessaging": {
+      "ExtensionRecommendations": false,
+      "FeatureRecommendations": false,
+      "UrlbarInterventions": false
+    },
     "SearchEngines": {
       "Remove": [
         "amazondotcom@search.mozilla.org",
@@ -172,12 +204,19 @@
         "ebay@search.mozilla.org",
         "google@search.mozilla.org",
         "twitter@search.mozilla.org",
-        "wikipedia@search.mozilla.org"
+        "wikipedia@search.mozilla.org",
+        "f87116d4-7972-434f-b04a-d2cc71cdc467",
+        "391532f9-0c4e-4836-bba6-ec61515119d0",
+        "2c6d8eab-3738-4de1-8ca2-c88fce1db0ef",
+        "3ba9b745-f78d-4eea-81d9-ffd5fd74df3c",
+        "6ae3ee6a-bda8-4ca1-9e01-31e19f0d65d7",
+        "cf531818-6421-4883-a252-074ca35bd03f",
+        "7f86d0fc-28a2-43db-89e3-42905d1534c7"
       ],
       "Add": [
         {
           "Name": "DDG",
-          "URLTemplate": "https://duckduckgo.com/?kp=-2&kd=-1&kae=d&ko=-1&k1=-1&kaj=m&kam=osm&q={searchTerms}",
+          "URLTemplate": "https://duckduckgo.com/?kp=-2&kd=-1&kae=d&k1=-1&kaj=m&kam=osm&q={searchTerms}",
           "Method": "GET",
           "IconURL": "https://duckduckgo.com/favicon.ico",
           "Alias": "d"
@@ -258,9 +297,16 @@
           "Method": "GET",
           "IconURL": "https://commons.wikimedia.org/favicon.ico",
           "Alias": "wc"
+        },
+        {
+          "Name": "Searx",
+          "URLTemplate": "http://127.0.0.1:8888/?q={searchTerms}",
+          "Method": "GET",
+          "IconURL": "http://127.0.0.1:8888/static/themes/oscar/img/favicon.png",
+          "Alias": "x"
         }
-      ]
-    },
-    "Default": "DDG"
+      ],
+      "Default": "Searx"
+    }
   }
 }

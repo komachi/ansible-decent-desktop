@@ -1,0 +1,71 @@
+- name: Install tools to run vm
+  apt:
+    name: 
+      - vagrant
+      - vagrant-cachier
+      - vagrant-libvirt
+      - virtinst
+      - libvirt-clients
+      - libvirt-daemon-system
+      - qemu-kvm
+      - qemu-utils
+      - virt-manager
+      - libguestfs-tools
+    state: present
+
+- name: Ensures ~/.local/share/libvirt/images exists
+  file:
+    path: "/home/{{ username }}/.local/share/libvirt/images"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Remove default libvirt storage pool
+  virt_pool:
+    name: default
+    state: absent
+
+- name: Define storage libvirt pool for user
+  become: yes
+  become_user: "{{ username }}"
+  virt_pool:
+    name: default
+    command: define
+    xml: '{{ lookup("template", "libvirt/storage/default.xml.j2") }}'
+
+- name: Build store libvirt user pool
+  become: yes
+  become_user: "{{ username }}"
+  virt_pool:
+    command: build
+    name: default
+
+- name: Start default storage libvirt pool
+  become: yes
+  become_user: "{{ username }}"
+  virt_pool:
+    state: active
+    autostart: yes
+    name: default
+
+- name: Define libvirt networks
+  become: yes
+  become_user: "{{ username }}"
+  virt_net:
+    command: define
+    name: default
+    xml: '{{ lookup("template", "libvirt/network/{{ item }}.xml.j2") }}'
+  loop:
+    - default
+    - vagrant-libvirt
+
+- name: Start libvirt networks
+  become: yes
+  become_user: "{{ username }}"
+  virt_net:
+    state: active
+    autostart: yes
+    name: "{{ item }}"
+  loop:
+    - default
+    - vagrant-libvirt
