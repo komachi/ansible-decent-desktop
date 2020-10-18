@@ -1,0 +1,4 @@
+- name: Install gamemode
+  package:
+    name: gamemode
+    state: present

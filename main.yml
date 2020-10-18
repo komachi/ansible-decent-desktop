@@ -8,7 +8,7 @@
     - debops.apt_preferences
     - debops.apt
     - debops.unattanded_upgrades
-    - debops-contrib.apparmor
+    - debops.apparmor
     - debops.kmod
     - debops.grub
     - debops.sysctl
@@ -20,7 +20,10 @@
     - role: mullvad
       when: mullvad_account is defined
     - firewall
-    - debops.ntp
+    # Broken until new ansible gets to backports https://github.com/ansible/ansible/pull/68211
+    # SAD.
+    # - debops.ntp
+    - audio
     - display-server
     - dm
     - de
@@ -125,8 +128,6 @@
       - haveged
       - whois
       - mlocate
-      - pulseaudio
-      - pulseaudio-utils
       - jq
       - pavucontrol
       - ffmpeg
@@ -221,20 +222,14 @@
           - xdg-desktop-portal-gtk
           - virt-manager
           - virtinst
-          - libreoffice-writer
-          - libreoffice-calc
-          - libreoffice-impress
-          - libreoffice-draw
-          - libreoffice-base-core
-          - libreoffice-core
-          - libreoffice-common
+          - 'libreoffice-*'
           - libuno-cppu3
           - libuno-cppuhelpergcc3-3
           - libuno-sal3
           - libuno-salhelpergcc3-3
           - uno-libs-private
+          - python3-uno
           - ure
-          - libreoffice-gtk3
           - keepassxc
           - git
           - git-man
@@ -254,6 +249,34 @@
           - golang-go
           - golang-src
           - 'golang-1.*'
+          - systemd
+          - systemd-container
+          - systemd-coredump
+          - systemd-journal-remote
+          - systemd-sysv
+          - systemd-tests
+          - systemd-timesyncd
+          - udev
+          - udev-udeb
+          - libsystemd0
+          - libnss-myhostname
+          - libnss-mymachines
+          - libnss-resolve
+          - libnss-systemd
+          - libpam-systemd
+          - libsystemd-dev
+          - libudev-dev
+          - libudev1
+          - libudev1-udeb
+          - libzstd1
+          - libcryptsetup12
+          - libinih1
+          - gamemode
+          - gamemode-daemon
+          - libgamemode0
+          - libgamemodeauto0
+          - ansible
+          - python-cryptography
         suffix: '_backports'
         backports: [ 'buster' ]
       - '{{ apt_preferences__preset_list | list }}'
@@ -284,7 +307,8 @@
       - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/apt.syncthing.net-keyring.gpg] tor+https://apt.syncthing.net/ syncthing stable'
       - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/brave-keyring.gpg] tor+https://brave-browser-apt-release.s3.brave.com/ stable main'
       - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/deb.imaginary.stream-keyring.gpg] tor+https://deb.imaginary.stream {{ ansible_distribution_release }} main'
-      - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/ungoogled-chromium-keyring.gpg] tor+http://download.opensuse.org/repositories/home:/ungoogled_chromium/Debian_Buster/ / '
+      - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/ungoogled-chromium-keyring.gpg] tor+https://download.opensuse.org/repositories/home:/ungoogled_chromium/Debian_Buster/ /'
+      - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/lutris-keyring.gpg] tor+https://download.opensuse.org/repositories/home:/strycore/Debian_10/ ./'
     apt__default_sources:
       - uri: 'tor+http://vwakviie2ienjx6t.onion/debian'
         comment: 'Official Debian repositories'

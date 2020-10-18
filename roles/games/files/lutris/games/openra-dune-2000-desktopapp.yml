@@ -1,0 +1,8 @@
+game:
+  appid: net.openra.OpenRA-d2k
+  args: run --branch=stable --arch=x86_64 --command=openra-d2k --file-forwarding net.openra.OpenRA
+    @@u "" @@
+  exe: /usr/bin/flatpak
+linux: {}
+system:
+  disable_runtime: true

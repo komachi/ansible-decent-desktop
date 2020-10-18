@@ -1,0 +1,12 @@
+- name: Install pulseaudio and openal packages
+  apt:
+    name:
+      - pulseaudio
+      - pulseaudio-utils
+      - libopenal1
+    state: present
+
+- name: Configure pulseaudio
+  copy:
+    src: daemon.conf
+    dest: "/etc/pulse/daemon.conf"

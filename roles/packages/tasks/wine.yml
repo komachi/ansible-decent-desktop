@@ -16,9 +16,6 @@
     name: 
       - wine
       - wine64
-      - wine32
-      - libwine
-      - libwine:i386
       - fonts-wine
     update_cache: "{{ i386_enabler.changed }}"
     state: present

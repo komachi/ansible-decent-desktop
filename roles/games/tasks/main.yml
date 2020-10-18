@@ -1,5 +1,6 @@
-- include_tasks: lutris.yml
+- include_tasks: gamemode.yml
 - include_tasks: pcsxr.yml
 - include_tasks: 0ad.yml
 - include_tasks: openra.yml
 - include_tasks: xonotic.yml
+- include_tasks: lutris.yml

@@ -1,0 +1,7 @@
+game:
+  appid: org.xonotic.Xonotic
+  args: run --branch=stable --arch=x86_64 --command=xonotic-sdl org.xonotic.Xonotic
+  exe: /usr/bin/flatpak
+linux: {}
+system:
+  disable_runtime: true

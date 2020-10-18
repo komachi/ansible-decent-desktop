@@ -1,0 +1,6 @@
+system:
+  disable_compositor: true
+  disable_runtime: true
+  gamemode: true
+  reset_desktop: true
+  use_us_layout: true
