@@ -5,6 +5,13 @@
       - pipx
     state: present
 
+- name: Ensures ~/.config/systemd/user exists
+  file:
+    path: "/home/{{ username }}/.config/systemd/user"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
 - name: Add systemd timer for auto updates
   copy:
     src: 'systemd/pipx-upgrade.timer'

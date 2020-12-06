@@ -21,7 +21,7 @@ RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 AF_NETLINK
 RestrictNamespaces=yes
 RestrictRealtime=yes
 ProtectClock=yes
-ProtectHostname=yes
+#ProtectHostname=yes
 ProtectKernelLogs=yes
 RestrictSUIDSGID=yes
 MemoryDenyWriteExecute=yes
@@ -30,7 +30,7 @@ RemoveIPC=yes
 SystemCallArchitectures=native
 SystemCallFilter=@system-service
 SystemCallFilter=~@privileged
-#CapabilityBoundingSet=CAP_NET_BIND_SERVICE
+CapabilityBoundingSet=CAP_NET_BIND_SERVICE CAP_SYS_NICE
 Nice=5
 
 [Install]

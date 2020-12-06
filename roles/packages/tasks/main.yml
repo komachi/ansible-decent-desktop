@@ -3,8 +3,9 @@
 - include_tasks: pipx.yml
 - include_tasks: flatpak.yml
 - include_tasks: shell.yml
-- include_tasks: gnome-keyring.yml
+- include_tasks: password-manager.yml
 - include_tasks: tor.yml
+- include_tasks: privoxy.yml
 - include_tasks: vscodium.yml
 - include_tasks: firefox.yml
 - include_tasks: chromium.yml
@@ -32,7 +33,6 @@
 - include_tasks: zim.yml
 - include_tasks: applications.yml
 - include_tasks: dash.yml
-- include_tasks: bitcoin.yml
 - include_tasks: simpleos.yml
 - include_tasks: xd.yml
 - include_tasks: deltachat.yml
@@ -44,9 +44,14 @@
 - include_tasks: jackett.yml
 - include_tasks: slack.yml
 - include_tasks: brave.yml
-- include_tasks: dcnnt.yml
 - include_tasks: lokinet.yml
 - include_tasks: rss.yml
 - include_tasks: virtual-machines.yml
 - include_tasks: sia.yml
 - include_tasks: golang.yml
+- include_tasks: tube.yml
+- include_tasks: shiori.yml
+- include_tasks: jami.yml
+- include_tasks: accounting.yml
+- include_tasks: dictionaries.yml
+- include_tasks: psd.yml

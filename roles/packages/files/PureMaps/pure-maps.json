@@ -1,0 +1,102 @@
+{
+    "auto_center": true,
+    "auto_complete_geo": true,
+    "auto_rotate": false,
+    "auto_rotate_when_navigating": true,
+    "basemap_auto_light": "none",
+    "basemap_auto_mode": true,
+    "basemap_lang": "local",
+    "basemap_light": "night",
+    "basemap_type": "",
+    "basemap_vehicle": "",
+    "center": [
+        37.5,
+        55.5
+    ],
+    "compass_use": false,
+    "devel_coordinate_center": false,
+    "devel_show_z": false,
+    "follow_me_transport_mode": "foot",
+    "guides": {
+        "foursquare": {
+            "sort_by_distance": false
+        }
+    },
+    "keep_alive": "navigating",
+    "keep_alive_background": "never",
+    "keys": {
+        "FOURSQUARE_CLIENT": "",
+        "FOURSQUARE_SECRET": "",
+        "HERE_APP_CODE": "",
+        "HERE_APP_ID": "",
+        "MAPBOX_KEY": "",
+        "MAPQUEST_KEY": "",
+        "OPENCAGE_KEY": "",
+        "STADIAMAPS_KEY": ""
+    },
+    "map_matching_when_idle": "none",
+    "map_matching_when_navigating": false,
+    "map_mode_auto_switch_time": -1,
+    "map_mode_clean_on_start": false,
+    "map_mode_clean_show_basemap": false,
+    "map_mode_clean_show_center": false,
+    "map_mode_clean_show_compass": false,
+    "map_mode_clean_show_geocode": false,
+    "map_mode_clean_show_menu_button": true,
+    "map_mode_clean_show_meters": false,
+    "map_mode_clean_show_navigate": false,
+    "map_mode_clean_show_navigation_clear": false,
+    "map_mode_clean_show_navigation_start_pause": false,
+    "map_mode_clean_show_scale": false,
+    "map_scale": 1.0,
+    "map_scale_navigation_bicycle": 2.0,
+    "map_scale_navigation_car": 2.0,
+    "map_scale_navigation_foot": 1.0,
+    "map_scale_navigation_transit": 1.0,
+    "map_zoom_auto_time": 60.0,
+    "map_zoom_auto_when_navigating": false,
+    "map_zoom_auto_zero_speed_z": 16.0,
+    "poi_list_show_bookmarked": false,
+    "profile": "offline",
+    "profiles": {
+        "offline": {
+            "basemap": "OSM Scout",
+            "geocoder": "osmscout",
+            "guide": "osmscout",
+            "router": "osmscout"
+        }
+    },
+    "reroute": true,
+    "routers": {
+        "osmscout": {
+            "bicycle_type": "Hybrid",
+            "language": "en",
+            "max_hiking_difficulty": 1,
+            "shorter": 0,
+            "type": "auto",
+            "use_bus": 0.5,
+            "use_ferry": 0.5,
+            "use_highways": 1,
+            "use_hills": 0.5,
+            "use_primary": 0.5,
+            "use_rail": 0.5,
+            "use_roads": 0.5,
+            "use_tolls": 0.5,
+            "use_trails": 0.0,
+            "use_transfers": 0.5
+        }
+    },
+    "share_address": true,
+    "share_googlemaps": false,
+    "share_osm": true,
+    "show_narrative": true,
+    "show_navigation_sign": true,
+    "show_speed_limit": "always",
+    "smooth_position_animation_when_navigating": false,
+    "tilt_when_navigating": true,
+    "units": "metric",
+    "version": "2.0",
+    "voice_gender": "male",
+    "voice_navigation": false,
+    "zoom": 12
+}

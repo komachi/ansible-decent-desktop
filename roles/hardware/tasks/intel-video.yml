@@ -2,9 +2,3 @@
   apt:
     name: mesa-vulkan-drivers
     state: present
-
-- name: Set up xorg
-  copy:
-    src: xorg/intel-modesetting.conf
-    dest: /etc/X11/xorg.conf.d/20-intel-modesetting.conf
-    mode: 0644

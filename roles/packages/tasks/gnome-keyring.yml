@@ -1,4 +1,0 @@
-- name: Install gnome-keyring
-  apt:
-    name: gnome-keyring
-    state: present

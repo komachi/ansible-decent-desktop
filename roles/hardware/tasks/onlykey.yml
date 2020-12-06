@@ -1,6 +1,7 @@
 - name: Install onlykey deps
   apt:
     name:
+      - python3-tk
       - libusb-1.0-0-dev
       - libudev-dev
     state: present
@@ -8,10 +9,7 @@
 - name: Install onlykey 
   become: yes
   become_user: "{{ username }}"
-  pip:
-    name: onlykey
-    executable: pip2
-    extra_args: --user
+  shell: "pipx install --force onlykey"
 
 - name: Copy udev rules required by onlykey
   template:

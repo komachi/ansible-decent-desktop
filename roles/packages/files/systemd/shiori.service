@@ -1,32 +1,30 @@
 [Unit]
-Description=OpenEthereum
+Description=Simple bookmark manager built with Go
+Documentation=https://github.com/go-shiori/shiori
 After=network.target
 
 [Service]
-ExecStart=/usr/local/bin/openethereum --config /etc/openethereum/config.toml
-User=openethereum
-Group=openethereum
+ExecStart=/usr/local/bin/shiori serve -p 9000
 Restart=on-failure
-KillSignal=SIGHUP
-Nice=-5
 
 # https://gist.github.com/ageis/f5595e59b1cddb1513d1b425a323db04
 NoNewPrivileges=yes
 PrivateTmp=yes
-PrivateDevices=yes
+#PrivateDevices=yes
 DevicePolicy=closed
 ProtectSystem=strict
 ProtectControlGroups=yes
-ProtectKernelModules=yes
+#ProtectKernelModules=yes
 ProtectKernelTunables=yes
 RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 AF_NETLINK
 RestrictNamespaces=yes
 RestrictRealtime=yes
-#RestrictSUIDSGID=yes
+RestrictSUIDSGID=yes
 MemoryDenyWriteExecute=yes
 LockPersonality=yes
-CapabilityBoundingSet=CAP_NET_BIND_SERVICE
-Nice=15
+IPAddressDeny=any
+IPAddressAllow=localhost
+Nice=10
 
 [Install]
 WantedBy=default.target

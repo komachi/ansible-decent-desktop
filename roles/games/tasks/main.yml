@@ -3,4 +3,3 @@
 - include_tasks: 0ad.yml
 - include_tasks: openra.yml
 - include_tasks: xonotic.yml
-- include_tasks: lutris.yml

@@ -60,6 +60,14 @@
     owner: "{{ username }}"
     group: "{{ username }}"
 
+- name: Ensures ~/.local/bin exists
+  file:
+    path: "/home/{{ username }}/.local/bin"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+
 - name: Download ff2mpv
   get_url:
     url: "{{ ff2mpv_url }}"

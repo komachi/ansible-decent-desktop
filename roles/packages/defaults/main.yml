@@ -1,4 +1,3 @@
-searx_commit: "8199ab50f9eda3781ba3227a002f08fae0399cc5"
 simpleos_version: '1.0.5'
 simpleos_checksum: 'sha256:4ac8fbaa7ecf8635c4f62dcc0d65b820dd6b2f05a88eed255f9c7dab123cafa6'
 electroncash_version: "4.1.0"
@@ -13,16 +12,16 @@ openbazaar_version: "2.4.8"
 openbazaar_checksum: "sha256:cc1d0d22a8d53003d4bcf122bf2a26d603e9e43ee16cd615252bd8f8466a664c"
 XD_version: "0.3.4"
 XD_checksum: "sha256:22db29825418f0337b8fddd9236317ae388e31c96b0d1a9a1e24efb30af9ab73"
-ghacks_url: "https://raw.githubusercontent.com/ghacksuserjs/ghacks-user.js/d26ea4f39e3aacdc2a7a7bb0e92e3acc33962c9a/user.js"
-ghacks_checksum: "sha256:2cce87f1effd9fbfe8f8a2b6018c4f843c6d632cfe9f16e6b8ffaca55a04f40c"
-tbck_url: "https://raw.githubusercontent.com/komachi/TBCK/fecac020632acb9b28a56a4fcd9115667b318d82/user.js"
-tbck_checksum: "sha256:387ee05fb6415ef80b9369f6974fa5adb9a118086a4942524b0700f4795abdb8"
+ghacks_url: "https://raw.githubusercontent.com/arkenfox/user.js/fe0af3bb348fb996d4635ad87d1c4f22b2a3b557/user.js"
+ghacks_checksum: "sha256:d3c054227134e9716d09a9b809ca32f4cde1c49e256d5f543a54f39a05cf62af"
+thunderbird_userjs_url: "https://raw.githubusercontent.com/HorlogeSkynet/thunderbird-user.js/b36710a76e9a378ca7d54a4d68c2e0a4024dad36/user.js"
+thunderbird_userjs_checksum: "sha256:f46d955f5490a28f0b9b02f52c087bf028b1368dcd35d5d82f3f76a4583ae5dc"
 zaread_url: "https://raw.githubusercontent.com/paoloap/zaread/3efb9f514428572076a20b9a067ed435fd916d92/zaread"
 zaread_checksum: "sha256:e91f8e912666c3719e8f068725771573f1c879c8900293e59f6715c6ecfa6662"
 wasabiwallet_version: "1.1.11.1"
 wasabiwallet_checksum: "sha256:6ca1f54a6f9a990a0c2fc0934c827ce59ab68113ec48c6ee83174ff3f0400e0d"
-jackett_version: "v0.16.1072"
-jackett_checksum: "sha256:37429843b64019061a2bb459089695af5f71e154d84d15891da960a61ff7862d"
+jackett_version: "v0.16.2157"
+jackett_checksum: "sha512:b1cdde73cd931817687e5d6c2bea5972ab7278f5fec5df3a34553eee3d4900a10a9e8ca0b5775d9c966cfa559fefc1ddf4a71041be89eb0601bc7041714c10b1"
 openethereum_version: "3.0.1"
 openethereum_checksum: "sha256:8dd753058e5db77ffaede5a53418005f9c8133212448e11df9169a651cdac997"
 coyim_version: "0.3.11"
@@ -31,6 +30,8 @@ slackterm_version: "0.5.0"
 slackterm_checksum: "sha256:33bdebda9746732624a9b2e1d4156117501bbb5bc6c5c53353eaf6bea9309415"
 ff2mpv_url: "https://raw.githubusercontent.com/woodruffw/ff2mpv/35388974231626d9e5977c706bb384ca9afda456/ff2mpv.py"
 ff2mpv_checksum: "sha256:c63a762d4ddce972177f505c2503b8505a92930e977c3642cfebcaf2fb154909"
+shiori_version: "v1.5.0"
+shiori_checksum: "sha512:480dfbf0bd8260a1777b6a51d881d1f876a70c549eca8c89938cca5c0dc73dbd678522bfb55530f4195a323edc703b3b8e2478207c9a7aa2168c266f61621ec7"
 
 vscodium_extensions:
   - EditorConfig.EditorConfig
@@ -66,10 +67,6 @@ thunderbird_profiles:
     prefs:
       - pref: "network.trr.mode"
         value: "0"
-      - pref: "privacy.trackingprotection.cryptomining.enabled"
-        value: "true"
-      - pref: "privacy.resistFingerprinting"
-        value: "true"
       - pref: "network.proxy.type"
         value: "1"
       - pref: "network.proxy.socks"
@@ -80,8 +77,6 @@ thunderbird_profiles:
         value: "5"
       - pref: "network.proxy.no_proxies_on"
         value: "\"\""
-      - pref: "extensions.enigmail.agentAdditionalParam"
-        value: "\"--no-emit-version --no-comments --display-charset utf-8\""
 firefox_profiles:
   - name: default
     prefs:
@@ -100,7 +95,7 @@ firefox_profiles:
       - pref: "webgl.force-enabled"
         value: "true"
       - pref: "webgl.msaa-force"
-        value: true"
+        value: "true"
       - pref: "dom.serviceWorkers.enabled"
         value: "true"
       - pref: "javascript.options.wasm"
@@ -161,6 +156,92 @@ firefox_profiles:
         value: "\"10.64.0.1\""
       - pref: "network.proxy.socks_port"
         value: "1080"
+      - pref: "network.proxy.socks_remote_dns"
+        value: "false"
+      - pref: network.http.http3.enabled
+        value: "true"
+  - name: deanon
+    prefs:
+      - pref: "privacy.resistFingerprinting.letterboxing"
+        value: "false"
+      - pref: "network.dns.disableIPv6"
+        value: "false"
+      - pref: "network.http.altsvc.enabled"
+        value: "true"
+      - pref: "network.http.altsvc.oe"
+        value: "true"
+      - pref: "webgl.disabled"
+        value: "false"
+      - pref: "webgl.enable-webgl2"
+        value: "true"
+      - pref: "webgl.force-enabled"
+        value: "true"
+      - pref: "webgl.msaa-force"
+        value: "true"
+      - pref: "dom.serviceWorkers.enabled"
+        value: "true"
+      - pref: "javascript.options.wasm"
+        value: "true"
+      - pref: "keyword.enabled"
+        value: "true"
+      - pref: "identity.fxaccounts.enabled"
+        value: "false"
+      - pref: "browser.newtabpage.activity-stream.asrouter.userprefs.cfr"
+        value: "false"
+      - pref: "general.warnOnAboutConfig"
+        value: "false"
+      - pref: "browser.backspace_action"
+        value: "2"
+      - pref: "layout.spellcheckDefault"
+        value: "2"
+      - pref: "browser.urlbar.decodeURLsOnCop"
+        value: "true"
+      - pref: "mousewheel.horizscroll.withnokey.action"
+        value: "0"
+      - pref: "dom.event.clipboardevents.enabled"
+        value: "true"
+      - pref: "middlemouse.paste"
+        value: "true"
+      - pref: "dom.allow_cut_copy"
+        value: "true"
+      - pref: "gfx.font_rendering.opentype_svg.enabled"
+        value: "true"
+      - pref: "gfx.downloadable_fonts.woff2.enabled"
+        value: "true"
+      - pref: "gfx.font_rendering.graphite.enabled"
+        value: "true"
+      - pref: "browser.display.use_document_fonts"
+        value: "1"
+      - pref: "gfx.webrender.all"
+        value: "true"
+      - pref: "media.ffmpeg.vaapi.enabled"
+        value: "true"
+      - pref: "media.ffmpeg.vaapi.enabled"
+        value: "true"
+      - pref: "media.ffvpx.enabled"
+        value: "false"
+      - pref: "browser.sessionstore.resume_from_crash"
+        value: "false"
+      - pref: "media.hardware-video-decoding.force-enabled"
+        value: "true"
+      - pref: network.http.http3.enabled
+        value: "true"
+      - pref: "network.proxy.type"
+        value: "1"
+      - pref: "network.proxy.socks"
+        value: "\"10.64.0.1\""
+      - pref: "network.proxy.socks_port"
+        value: "1080"
+      - pref: "network.proxy.socks_remote_dns"
+        value: "false"
+      - pref: "privacy.cpd.cache"
+        value: "false"
+      - pref: "privacy.cpd.cookies"
+        value: "false"
+      - pref: "privacy.cpd.offlineApps"
+        value: "false"
+      - pref: "privacy.cpd.sessions"
+        value: "false"
   - name: dev
     prefs:
       - pref: "privacy.resistFingerprinting.letterboxing"
@@ -178,7 +259,7 @@ firefox_profiles:
       - pref: "webgl.force-enabled"
         value: "true"
       - pref: "webgl.msaa-force"
-        value: true"
+        value: "true"
       - pref: "dom.serviceWorkers.enabled"
         value: "true"
       - pref: "javascript.options.wasm"
@@ -231,4 +312,61 @@ firefox_profiles:
         value: "false"
       - pref: "media.hardware-video-decoding.force-enabled"
         value: "true"
+      - pref: network.http.http3.enabled
+        value: "true"
 bitcoinrpc_user: "bitcoinrpcuser"
+keepassxc_options:
+  - ["General", "AutoReloadOnChange", "true"]
+  - ["General", "AutoSaveAfterEveryChange", "true"]
+  - ["General", "AutoSaveOnExit", "true"]
+  - ["General", "AutoTypeDelay", "true"]
+  - ["General", "LastDir", "/home/{{ username }}/Sync/.keys"]
+  - ["General", "MinimizeOnCopy", "false"]
+  - ["General", "OpenPreviousDatabasesOnStartup", "true"]
+  - ["General", "RememberLastDatabases", "true"]
+  - ["General", "RememberLastKeyFiles", "false"]
+  - ["General", "SSHAgent", "true"]
+  - ["General", "SingleInstance", "true"]
+  - ["FdoSecrets", "Enabled", "true"]
+  - ["FdoSecrets", "NoConfirmDeleteItem", "false"]
+  - ["FdoSecrets", "ShowNotification", "true"]
+  - ["GUI", "CheckForUpdates", "false"]
+  - ["GUI", "DarkTrayIcon", "true"]
+  - ["GUI", "HidePasswords", "true"]
+  - ["GUI", "HideUsernames", "true"]
+  - ["GUI", "MinimizeToTray", "false"]
+  - ["GUI", "ShowTrayIcon", "false"]
+  - ["Http", "Enabled", "false"]
+  - ["generator", "AdvancedMode", "true"]
+  - ["generator", "LowerCase", "true"]
+  - ["generator", "UpperCase", "true"]
+  - ["generator", "SpecialChars", "true"]
+  - ["generator", "Numbers", "true"]
+  - ["security", "HidePasswordPreviewPanel", "true"]
+  - ["security", "clearclipboard", "true"]
+  - ["security", "clearclipboardtimeout", "10"]
+  - ["security", "clearsearch", "true"]
+  - ["security", "hidenotes", "true"]
+  - ["security", "lockdatabaseidle", "false"]
+  - ["security", "lockdatabasescreenlock", "true"]
+  - ["security", "passwordemptynodots", "true"]
+  - ["security", "passwordscleartext", "false"]
+
+osmscout_options:
+ - ["geocoder-nlp", "continue_search_if_hit_found", "1"]
+ - ["geocoder-nlp", "initialize_every_call", "0"]
+ - ["geocoder-nlp", "languages", "en, ru"]
+ - ["geocoder-nlp", "search_all_maps", "1"]
+ - ["geocoder-nlp", "use_geocoder_nlp", "1"]
+ - ["geocoder-nlp", "use_postal", "1"]
+ - ["geocoder-nlp", "use_primitive", "1"]
+ - ["http-listener", "127.0.0.1", "8553"]
+ - ["maps", "postal_country", "1"]
+ - ["maps", "geocoder_nlp", "1"]
+ - ["maps", "mapboxgl", "1"]
+ - ["maps", "mapnik", "0"]
+ - ["maps", "valhalla", "1"]
+ - ["maps", "root", "/home/{{ username }}/Maps.OSM"]
+ - ["server-general", "firstTime", "0"]
+ - ["valhalla", "route_port", "8554"]
+ - ["valhalla", "use_valhalla", "1"]

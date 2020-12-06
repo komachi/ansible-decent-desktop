@@ -6,6 +6,20 @@
     home: /var/lib/jackett
     system: yes
 
+- name: Ensures /var/lib/jackett/Jackett/Indexers exists
+  file:
+    path: "/var/lib/jackett/Jackett/Indexers"
+    state: directory
+    owner: jackett
+    group: jackett
+
+- name: Copy jackett server config
+  template:
+    src: 'jackett/ServerConfig.json.j2'
+    dest: "/var/lib/jackett/Jackett/ServerConfig.json"
+    owner: jackett
+    group: jackett
+
 - name: Check is jackett is installed
   stat: 
     path: "/opt/jackett/jackett"

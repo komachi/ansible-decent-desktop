@@ -19,6 +19,21 @@
       - tracker-extract
     state: present
 
+- name: Ensures ~/.config exists
+  file:
+    path: "/home/{{ username }}/.config"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Configure user dirs
+  template:
+    src: 'user-dirs.dirs.j2'
+    dest: "/home/{{ username }}/.config/user-dirs.dirs"
+    mode: 0760
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
 - name: Copy .xinitrc
   template:
     src: 'xinitrc.j2'

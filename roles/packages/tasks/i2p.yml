@@ -28,7 +28,7 @@
 - name: Download i2p browser
   become: yes
   become_user: "{{ username }}"
-  shell: "torsocks update-i2pbrowser --onion --noask"
+  shell: "update-i2pbrowser --noask --ordinary"
   when: not i2pbb_exists.stat.exists
 
 - name: Create dummy file to fix i2pbrowser

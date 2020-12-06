@@ -5,6 +5,8 @@
     line: "{{ item }}"
   loop:
     - 'HandlePowerKey=ignore'
-    - 'HandleLidSwitch=lock'
+    - 'HandleLidSwitch=suspend'
     - 'HandleLidSwitchExternalPower=lock'
     - 'HandleLidSwitchDocked=lock'
+    - 'IdleAction=lock'
+    - 'IdleActionSec=300'

@@ -19,11 +19,11 @@
     - networking
     - role: mullvad
       when: mullvad_account is defined
+    - audio
     - firewall
     # Broken until new ansible gets to backports https://github.com/ansible/ansible/pull/68211
     # SAD.
     # - debops.ntp
-    - audio
     - display-server
     - dm
     - de
@@ -48,12 +48,20 @@
       prompt: "IP range of your home local network"
       private: no
       default: "192.168.0.0/16"
+    - name: print_server_ip
+      prompt: "IP address of your print server"
+      private: no
+      default: "192.168.1.1"
     - name: mullvad_account
       prompt: "Mullvad account number"
     - name: wireguard_server
       prompt: "Default WireGuard server"
       private: no
       default: mullvad-no1
+    - name: large_dirs
+      prompt: "Large dirs storage prefix (e.g XDG user dirs)"
+      private: no
+      default: "/mnt/hdd"
   vars:
     # gantsign.keyboard vars
     keyboard_model: pc105
@@ -120,10 +128,6 @@
           - libvirt-qemu
           - kvm
         shell: '/bin/bash'
-        resources:
-          - 'src'
-          - 'Books'
-          - 'Games'
     packages:
       - haveged
       - whois
@@ -149,7 +153,6 @@
       - maim
       - xclip
       - dnsutils
-      - keepassxc
       - gimp
       - inkscape
       - audacity
@@ -166,9 +169,6 @@
       - mat2
       - nnn
       - nano
-      - goldendict
-      - mueller7-dict
-      - dict-freedict-eng-rus
       - g++
       - gcc
       - make
@@ -177,9 +177,6 @@
       - lm-sensors
       - playerctl
       - shellcheck
-      - calcurse
-      - nodejs
-      - simple-scan
       - xinput
       - fuse
       - wireshark
@@ -296,7 +293,7 @@
       - repo: 'deb [arch=amd64] tor+http://vwakviie2ienjx6t.onion/debian testing main'
       - repo: 'deb [arch=amd64] tor+http://vwakviie2ienjx6t.onion/debian unstable main'
       - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/repo.i2pd.xyz-keyring.gpg] tor+https://repo.i2pd.xyz/debian {{ ansible_distribution_release }} main'
-      - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/deb.nodesource.com-keyring.gpg] tor+https://deb.nodesource.com/node_12.x {{ ansible_distribution_release }} main'
+      - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/deb.nodesource.com-keyring.gpg] tor+https://deb.nodesource.com/node_14.x {{ ansible_distribution_release }} main'
       - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/vscodium-keyring.gpg] tor+https://paulcarroty.gitlab.io/vscodium-deb-rpm-repo/debs vscodium main'
       - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg] tor+http://sdscoq7snqtznauu.onion//torproject.org {{ ansible_distribution_release }} main'
       - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/download.docker.com-keyring.gpg] tor+https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable'
@@ -308,7 +305,7 @@
       - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/brave-keyring.gpg] tor+https://brave-browser-apt-release.s3.brave.com/ stable main'
       - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/deb.imaginary.stream-keyring.gpg] tor+https://deb.imaginary.stream {{ ansible_distribution_release }} main'
       - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/ungoogled-chromium-keyring.gpg] tor+https://download.opensuse.org/repositories/home:/ungoogled_chromium/Debian_Buster/ /'
-      - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/lutris-keyring.gpg] tor+https://download.opensuse.org/repositories/home:/strycore/Debian_10/ ./'
+      - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/jami-archive-keyring.gpg] tor+https://dl.jami.net/nightly/debian_10/ ring main'
     apt__default_sources:
       - uri: 'tor+http://vwakviie2ienjx6t.onion/debian'
         comment: 'Official Debian repositories'
@@ -334,7 +331,7 @@
           - 'vm.vfs_cache_pressure': 50
       - name: inotify
         options:
-          - 'fs.inotify.max_user_watches': 204800
+          - 'fs.inotify.max_user_watches': 1048576
     python__v3: True
     python__v2: True
     python__packages2:
@@ -350,6 +347,7 @@
       - mythes-ru
       - hunspell-en-us
       - hunspell-ru
+      - myspell-ru
       - hyphen-en-us
       - hyphen-ru
       - irussian

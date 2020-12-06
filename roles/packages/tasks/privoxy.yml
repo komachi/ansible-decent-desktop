@@ -1,0 +1,16 @@
+- name: Install privoxy
+  apt:
+    name: privoxy
+    state: present
+
+- name: Configure privoxy
+  copy:
+    src: 'privoxy/config'
+    dest: '/etc/privoxy/config'
+    mode: 0644
+
+- name: Enable privoxy service
+  systemd:
+    name: privoxy
+    state: started
+    enabled: yes

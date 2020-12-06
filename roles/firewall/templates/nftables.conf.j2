@@ -8,6 +8,12 @@ table inet filter {
     iif lo accept comment "Accept any localhost traffic"
     ct state invalid drop comment "Drop invalid connections"
     ct state established,related accept comment "Accept traffic originated from us"
+    meta l4proto ipv6-icmp icmpv6 type { destination-unreachable, packet-too-big, time-exceeded, parameter-problem, mld-listener-query, mld-listener-report, mld-listener-reduction, nd-router-solicit, nd-router-advert, nd-neighbor-solicit, nd-neighbor-advert, ind-neighbor-solicit, ind-neighbor-advert, mld2-listener-report } accept comment "Accept ICMPv6"
+		meta l4proto icmp icmp type { destination-unreachable, router-solicitation, router-advertisement, time-exceeded, parameter-problem } accept comment "Accept ICMP"
+		ip protocol igmp accept comment "Accept IGMP"
+
+    udp sport 1900 udp dport >= 1024 ip6 saddr { fd00::/8, fe80::/10 } meta pkttype unicast limit rate 4/second burst 20 packets accept comment "Accept UPnP IGD port mapping reply"
+		udp sport 1900 udp dport >= 1024 ip saddr { 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, 169.254.0.0/16 } meta pkttype unicast limit rate 4/second burst 20 packets accept comment "Accept UPnP IGD port mapping reply"
 
     iif != lo ip daddr 127.0.0.1/8 drop comment "drop connections to loopback not coming from loopback"
     iif != lo ip6 daddr ::1/128 drop comment "drop connections to loopback not coming from loopback"
@@ -43,8 +49,7 @@ table inet filter {
 
     skuid messagebus drop comment "don't allow internet for dbus"
     skuid pulse drop comment "we don't use pulseaudio networking caps"
-    skuid lp drop comment "we don't user network printers"
-    skuid { mpd, systemd-coredump } drop
+    skuid systemd-coredump drop comment "systemd-coredump doesn't use internet"
 
     #ip protocol icmp icmp type echo-request limit rate 10/second log accept
     #ip6 nexthdr icmpv6 icmpv6 type { nd-neighbor-solicit, echo-request, nd-router-advert, nd-neighbor-advert } limit rate 10/second accept

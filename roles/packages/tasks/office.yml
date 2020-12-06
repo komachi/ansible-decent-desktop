@@ -11,6 +11,13 @@
       - zathura-djvu
     state: present
 
+- name: Ensures ~/.config/libreoffice/4/user exists
+  file:
+    path: "/home/{{ username }}/.config/libreoffice/4/user"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
 - name: Configure libreoffice
   copy:
     src: libreoffice/registrymodifications.xcu

@@ -20,10 +20,10 @@
     owner: "{{ username }}"
     group: "{{ username }}"
 
-- name: Install TBCK for every profile
+- name: Install thunderbird-user.js for every profile
   get_url:
-    url: "{{ tbck_url }}"
-    checksum: "{{ tbck_checksum }}"
+    url: "{{ thunderbird_userjs_url }}"
+    checksum: "{{ thunderbird_userjs_checksum }}"
     dest: "/home/{{ username }}/.thunderbird/{{ item.name }}/user.js"
     owner: "{{ username }}"
     group: "{{ username }}"

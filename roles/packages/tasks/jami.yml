@@ -1,0 +1,32 @@
+- name: Install jami
+  apt:
+    name: jami
+    state: present
+
+- name: Install dconfs module deps
+  apt:
+    name:
+      - python-psutil
+      - dconf-cli
+    state: present
+
+- name: Configure Jami
+  become: yes
+  become_user: "{{ username }}"
+  dconf:
+    key: "/net/jami/JamiGnome/{{ item.name }}"
+    value: "{{ item.value }}"
+    state: present
+  loop:
+    - name: "enable-typing-indication"
+      value: "false"
+    - name: "start-on-login"
+      value: "false"
+    - name: "show-status-icon"
+      value: "false"
+    - name: "migrated-from-homedir"
+      value: "true"
+    - name: "history-limit"
+      value: "5"
+    - name: "download-folder"
+      value: "'{{ large_dirs }}/Downloads/'"

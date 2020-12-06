@@ -15,3 +15,5 @@
   loop:
     - 'nnn'
     - 'pms'
+    - 'slack-term'
+    - 'deanon'

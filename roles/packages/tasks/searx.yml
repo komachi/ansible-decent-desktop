@@ -1,7 +1,7 @@
 - name: Install searx
   become: yes
   become_user: "{{ username }}"
-  shell: "pipx install git+https://github.com/asciimoo/searx.git#{{ searx_commit }}"
+  shell: "pipx install --force searx"
 
 - name: Ensures ~/.config/searx exists
   file:
@@ -11,8 +11,8 @@
     group: "{{ username }}"
 
 - name: Copy searx config
-  copy:
-    src: searx/settings.yml
+  template:
+    src: searx/settings.yml.j2
     dest: "/home/{{ username }}/.config/searx/settings.yml"
     owner: "{{ username }}"
     group: "{{ username }}"

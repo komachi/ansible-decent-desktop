@@ -8,5 +8,8 @@
 
 - name: Configure pulseaudio
   copy:
-    src: daemon.conf
-    dest: "/etc/pulse/daemon.conf"
+    src: "{{ item }}"
+    dest: "/etc/pulse/{{ item }}"
+  loop:
+   - daemon.conf
+   - default.pa

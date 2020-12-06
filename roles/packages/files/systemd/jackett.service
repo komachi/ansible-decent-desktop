@@ -11,7 +11,8 @@ User=jackett
 Group=jackett
 Environment=XDG_CONFIG_HOME=/var/lib/jackett
 WorkingDirectory=/opt/jackett
-ExecStart=/opt/jackett/Jackett/jackett
+ExecStart=/opt/jackett/Jackett/jackett --NoUpdates
+ReadWritePaths=/var/lib/jackett
 TimeoutStopSec=30
 # https://gist.github.com/ageis/f5595e59b1cddb1513d1b425a323db04
 NoNewPrivileges=yes

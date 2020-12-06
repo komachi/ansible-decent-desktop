@@ -10,6 +10,14 @@
   tags:
     - dependencies
 
+- name: Ensures ~/.local/bin exists
+  file:
+    path: "~/.local/bin"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+
 - name: Ensures ~/.config/xsecurelock exists
   file:
     path: "~/.config/xsecurelock"

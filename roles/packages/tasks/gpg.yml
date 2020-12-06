@@ -3,6 +3,13 @@
     name: gpg
     state: present
 
+- name: Ensures ~/.gnupg exists
+  file:
+    path: "/home/{{ username }}/.gnupg"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
 - name: Copy gpg config
   copy:
     src: 'gnupg/gpg.conf'

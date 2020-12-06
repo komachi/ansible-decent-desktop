@@ -4,6 +4,33 @@
       - cups
       - printer-driver-gutenprint
       - foomatic-db-compressed-ppds
+      - system-config-printer
     state: present
   tags:
     - dependencies
+
+- name: Stop cups
+  service:
+    name: cups
+    state: stopped
+
+- name: Configure printers.conf
+  template:
+    src: cups/printers.conf.j2
+    dest: /etc/cups/printers.conf
+    mode: 600
+    owner: root
+    group: lp
+
+- name: Configure cupsd.conf
+  copy:
+    src: cups/cupsd.conf
+    dest: /etc/cups/cupsd.conf
+    mode: 600
+    owner: root
+    group: lp
+
+- name: Start cups
+  service:
+    name: cups
+    state: started

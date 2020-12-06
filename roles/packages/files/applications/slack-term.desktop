@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=slack-term
+Exec=urxvt -name slack-term -e slack-term
+Terminal=false
+StartupWMClass=slack-term
+Type=Application
+Categories=Network;InstantMessaging;
+Keywords=chat;im;messaging;messenger;slack;slack-term;slackterm

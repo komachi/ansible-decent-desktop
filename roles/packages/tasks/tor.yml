@@ -42,5 +42,5 @@
 - name: Download tbb
   become: yes
   become_user: "{{ username }}"
-  shell: "torsocks update-torbrowser --onion --noask"
+  shell: "update-torbrowser --noask --ordinary"
   when: not tbb_exists.stat.exists

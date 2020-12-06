@@ -4,6 +4,8 @@
       - vagrant
       - vagrant-cachier
       - vagrant-libvirt
+      - dnsmasq-base
+      - gir1.2-spiceclientgtk-3.0
       - virtinst
       - libvirt-clients
       - libvirt-daemon-system
@@ -13,59 +15,20 @@
       - libguestfs-tools
     state: present
 
-- name: Ensures ~/.local/share/libvirt/images exists
-  file:
-    path: "/home/{{ username }}/.local/share/libvirt/images"
-    state: directory
-    owner: "{{ username }}"
-    group: "{{ username }}"
+- name: Install dconfs module deps
+  apt:
+    name:
+      - python-psutil
+      - dconf-cli
+    state: present
 
-- name: Remove default libvirt storage pool
-  virt_pool:
-    name: default
-    state: absent
-
-- name: Define storage libvirt pool for user
+- name: Configure virt-manager
   become: yes
   become_user: "{{ username }}"
-  virt_pool:
-    name: default
-    command: define
-    xml: '{{ lookup("template", "libvirt/storage/default.xml.j2") }}'
-
-- name: Build store libvirt user pool
-  become: yes
-  become_user: "{{ username }}"
-  virt_pool:
-    command: build
-    name: default
-
-- name: Start default storage libvirt pool
-  become: yes
-  become_user: "{{ username }}"
-  virt_pool:
-    state: active
-    autostart: yes
-    name: default
-
-- name: Define libvirt networks
-  become: yes
-  become_user: "{{ username }}"
-  virt_net:
-    command: define
-    name: default
-    xml: '{{ lookup("template", "libvirt/network/{{ item }}.xml.j2") }}'
+  dconf:
+    key: "/org/virt-manager/virt-manager/{{ item.name }}"
+    value: "{{ item.value }}"
+    state: present
   loop:
-    - default
-    - vagrant-libvirt
-
-- name: Start libvirt networks
-  become: yes
-  become_user: "{{ username }}"
-  virt_net:
-    state: active
-    autostart: yes
-    name: "{{ item }}"
-  loop:
-    - default
-    - vagrant-libvirt
+    - name: "urls/urls"
+      value: "['https://deb.debian.org/debian/dists/buster/main/installer-amd64/']"

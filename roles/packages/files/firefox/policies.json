@@ -43,6 +43,12 @@
         "URL": "http://127.0.0.1:8888",
         "Placement": "menu",
         "Folder": "Local"
+      },
+      {
+        "Title": "Shiori",
+        "URL": "http://127.0.0.1:9000",
+        "Placement": "menu",
+        "Folder": "Local"
       }
     ],
     "CaptivePortal": false,
@@ -133,13 +139,21 @@
         "installation_mode": "normal_installed",
         "install_url": "https://addons.mozilla.org/firefox/downloads/latest/dont-touch-my-tabs/latest.xpi"
       },
-      "sponsorBlocker@ajay.app": {
+      "{dc501fe1-520b-41f2-9421-ecbb2e7f0255}": {
         "installation_mode": "normal_installed",
-        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/sponsorblock/latest.xpi"
+        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/protect-my-choices/latest.xpi"
+      },
+      "{c607c8df-14a7-4f28-894f-29e8722976af}": {
+        "installation_mode": "normal_installed",
+        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/temporary-containers/latest.xpi"
       },
       "bypasspaywalls@bypasspaywalls.weebly.com": {
         "installation_mode": "normal_installed",
         "install_url": "https://github.com/iamadamdev/bypass-paywalls-chrome/releases/latest/download/bypass-paywalls-firefox.xpi"
+      },
+      "{c6e8bd66-ebb4-4b63-bd29-5ef59c795901}": {
+        "installation_mode": "normal_installed",
+        "install_url": "https://github.com/go-shiori/shiori-web-ext/releases/download/0.8.4/shiori-0.8.4-fx.xpi"
       }
     },
     "ExtensionUpdate": true,

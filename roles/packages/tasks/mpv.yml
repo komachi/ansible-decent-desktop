@@ -13,7 +13,7 @@
 - name: Install youtube-dl and streamlink
   become: yes
   become_user: "{{ username }}"
-  shell: "pipx install {{ item }}"
+  shell: "pipx install --force {{ item }}"
   loop:
     - youtube-dl
     - streamlink

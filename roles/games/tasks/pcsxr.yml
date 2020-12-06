@@ -1,6 +1,4 @@
 - name: Install pcsxr
-  become: yes
-  become_user: "{{ username }}"
   apt:
     name: pcsxr
     state: present

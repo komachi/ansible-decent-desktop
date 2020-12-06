@@ -1,0 +1,27 @@
+- name: Download shiori
+  get_url:
+    url: "https://github.com/go-shiori/shiori/releases/download/{{ shiori_version }}/shiori-linux-amd64"
+    dest: "/usr/local/bin/shiori"
+    checksum: "{{ shiori_checksum }}"
+
+- name: Add executable permission
+  file:
+    dest: /usr/local/bin/shiori
+    mode: 'a+x'
+
+- name: Add systemd service
+  copy:
+    src: 'systemd/shiori.service'
+    dest: "/home/{{ username }}/.config/systemd/user/shiori.service"
+    mode: '0640'
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Enable shiori service
+  become: yes
+  become_user: "{{ username }}"
+  systemd:
+    scope: user
+    name: shiori
+    enabled: yes
+    state: started

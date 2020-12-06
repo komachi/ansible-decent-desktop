@@ -227,44 +227,14 @@ tyrannical.tags = {
         init        = true,
         exclusive   = true,
         screen      = 1,
-        layout      = awful.layout.suit.max,
+        layout      = awful.layout.suit.tile,
         exec_once   = {"firefox"},
         class       = {
             "Firefox",
             "Firefox-esr",
             "Chromium",
-        }
-    },
-    {
-        name        = "www",
-        exclusive   = true,
-        screen      = 2,
-        layout      = awful.layout.suit.max,
-        class       = {
-            "Firefox",
-            "Firefox-esr",
-            "Chromium",
-        }
-    },
-    {
-        name        = "fm",
-        init        = true,
-        exclusive   = true,
-        volatile    = true,
-        screen      = screen.count()>1 and 2 or 1,
-        layout      = awful.layout.suit.tile,
-        class  = {
-            "spacefm", "pcmanfm", "nnn"
-        }
-    },
-    {
-        name        = "music",
-        init        = true,
-        exclusive   = true,
-        screen      = screen.count()>1 and 2 or 1,
-        layout      = awful.layout.suit.tile,
-        class  = {
-            "pms"
+            "brave-browser",
+            "Brave-browser"
         }
     },
     {
@@ -274,18 +244,30 @@ tyrannical.tags = {
         volatile    = true,
         screen      = 1,
         layout      = awful.layout.suit.max,
+        exec_once   = {"codium"},
         class = {
             "VSCodium", "codium", "Tau"
         }
     },
     {
-        name        = "code",
+        name        = "fm",
+        init        = true,
         exclusive   = true,
         volatile    = true,
-        screen      = 2,
+        screen      = screen.count()>1 and 2 or 1,
         layout      = awful.layout.suit.max,
-        class = {
-            "VSCodium", "codium", "Tau"
+        class  = {
+            "spacefm", "pcmanfm", "nnn"
+        }
+    },
+    {
+        name        = "music",
+        init        = true,
+        exclusive   = true,
+        screen      = screen.count()>1 and 2 or 1,
+        layout      = awful.layout.suit.max,
+        class  = {
+            "pms"
         }
     },
     {
@@ -296,7 +278,8 @@ tyrannical.tags = {
         layout      = awful.layout.suit.tile,
         exec_once   = {"telegram-desktop"},
         class       = {
-            "TelegramDesktop"
+            "TelegramDesktop", "slack-term",
+            "jami-gnome", "Jami-gnome"
         }
     },
     {
@@ -305,6 +288,7 @@ tyrannical.tags = {
         volatile    = true,
         screen      = screen.count()>1 and 2 or 1,
         layout      = awful.layout.suit.max,
+        exec_once   = {"thunderbird"},
         class       = {
             "Thunderbird"
         }
@@ -314,7 +298,7 @@ tyrannical.tags = {
         exclusive   = true,
         volatile    = true,
         screen      = screen.count()>1 and 2 or 1,
-        layout      = awful.layout.suit.tile,
+        layout      = awful.layout.suit.max,
         class       = {
             "uget-gtk", "Uget-gtk"
         }
@@ -333,6 +317,7 @@ tyrannical.tags = {
         name        = "mpv",
         exclusive   = true,
         volatile    = true,
+        init        = false,
         screen      = 1,
         layout      = awful.layout.suit.fullscreen,
         class       = {
@@ -355,7 +340,18 @@ tyrannical.tags = {
         max_clients = 3,
         layout      = awful.layout.suit.tile,
         class       = {
-            "keepassxc", "Wasabi Wallet", "electrum"
+            "Wasabi Wallet", "electrum"
+        }
+    },
+    {
+        name        = "pass",
+        init        = true,
+        exclusive   = true,
+        screen      = screen.count()>1 and 2 or 1,
+        layout      = awful.layout.suit.tile,
+        exec_once   = {"keepassxc"},
+        class = {
+            "keepassxc"
         }
     },
 }
@@ -636,6 +632,7 @@ awful.rules.rules = {
           "MessageWin",  -- kalarm.
           "Sxiv",
           "Tor Browser", -- Needs a fixed window size to avoid fingerprinting by screen size.
+          "i2p Browser",
           "Wpa_gui",
           "veromix",
           "xtightvncviewer"},

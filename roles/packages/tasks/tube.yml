@@ -1,0 +1,4 @@
+- name: Install FreeTube from flatpak
+  flatpak:
+    name: "io.freetubeapp.FreeTube"
+    state: present

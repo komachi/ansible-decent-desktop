@@ -2,8 +2,19 @@ xmodmap ~/.Xmodmap &
 xsettingsd &
 xrdb -merge ~/.Xresources && /usr/bin/urxvtd -q -f -o &
 dex -a &
-eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
-export SSH_AUTH_SOCK
+if ! pgrep -x ssh-agent -u $(id -u) >/dev/null; then
+	# This sets SSH_AUTH_SOCK and SSH_AGENT_PID variables
+	eval "$(ssh-agent -s)"
+	export SSH_AUTH_SOCK SSH_AGENT_PID
+	cat > "$XDG_RUNTIME_DIR/ssh-agent-env" <<- __EOF__
+	export SSH_AUTH_SOCK=$SSH_AUTH_SOCK
+	export SSH_AGENT_PID=$SSH_AGENT_PID
+	__EOF__
+else
+	if [ -s "$XDG_RUNTIME_DIR/ssh-agent-env" ]; then
+		. $XDG_RUNTIME_DIR/ssh-agent-env
+	fi
+fi
 export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
 export QT_STYLE_OVERRIDE="Adwaita-Dark"
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=gasp -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dswing.crossplatformlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Djdk.gtk.version=3'
@@ -12,6 +23,7 @@ export TOR_CONTROL_COOKIE_AUTH_FILE=/run/tor/control.authcookie
 export TOR_CONTROL_PORT=9051
 export TOR_SOCKS_PORT=9050
 export TOR_SKIP_LAUNCH=1
+export TERM=xterm
 wmname LG3D &
 
 xset s 300 5 &

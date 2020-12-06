@@ -9,5 +9,5 @@ if [ $(lsb_release -sc) != "buster" ]; then
 fi
 
 sudo apt install -t buster-backports ansible
-sudo apt install python3-jmespath python3-passlib python3-lxml python-libvirt
-ansible-playbook --extra-vars username="$USER" --connection=local --inventory 127.0.0.1, --limit 127.0.0.1 main.yml
+sudo apt install python3-jmespath python3-passlib python-lxml python-libvirt
+ansible-playbook --extra-vars username="$USER" --connection=local --ask-become-pass --inventory 127.0.0.1, --limit 127.0.0.1 main.yml

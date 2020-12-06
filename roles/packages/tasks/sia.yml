@@ -3,6 +3,12 @@
     name: sia
     state: present
 
+- name: Ensures /var/lib/sia exists
+  file:
+    path: "/var/lib/sia"
+    state: directory
+    owner: sia
+
 - name: Add systemd service
   copy:
     src: 'systemd/sia.service'

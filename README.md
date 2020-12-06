@@ -2,7 +2,7 @@
 
 This is an experiment to make desktop/laptop configuration fully controllable by Ansible. Also to experiment with GNU/Linux-based web-3/dapp/defi/security-first/insert-your-buzzword-here setup. Also because it's a lot of work to configure everything each time. Also because I can.
 
-This project is not intended to fulfil desires of every user. I use it to provision my own personal PC. You probably find some defaults incompatible with your view on desktop OS configuration, but you can fork and tune it for yourself. PRs with improvements welcomed btw.
+This project is not intended to fulfil desires of every user. I use it to provision my own personal PC. You probably find some defaults incompatible with your view on desktop OS configuration, but you can fork and tune it for yourself, or just look at playbooks for inspirations. PRs with improvements welcomed btw.
 
 This playbook meant to be run against Debian buster. It probably won't work for other distros/versions, but you can try.
 
@@ -15,26 +15,36 @@ It enables autologin and intended to use only on single-user desktop machines. U
 You should look for sources for full list, but here are some choices I made:
 
 - OS: [Debian GNU/Linux](https://debian.org), stable (currently buster)
-- Shell: bash
-- Init: systemd (sorry, all of them sucks)
-- Display server: X.Org Server
-- Sound server: PulseAudio
+- Shell: [bash](https://www.gnu.org/software/bash/)
+- Init: [systemd](https://systemd.io) (sorry, all of them sucks)
+- MAC: [AppArmor](https://apparmor.net/), [bubblewrap](https://github.com/containers/bubblewrap) used for [Flatpak](https://flatpak.org/)-packed apps
+- VPN client: [Wireguard](https://wireguard.com)
+- Firewall: [nftables](https://netfilter.org/projects/nftables/)
+- Display server: [X.Org Server](https://www.x.org)
+- Sound server: [PulseAudio](https://www.freedesktop.org/wiki/Software/PulseAudio/)
 - Display manager: we don't need one, it can be replaced with single systemd unit
 - Window manager: [awesome](https://awesomewm.org)
 - Terminal emulator: [rxvt-unicode](http://software.schmorp.de/pkg/rxvt-unicode.html)
-- Network configuration: NetworkManager
-- DNS server: [stubby](https://github.com/getdnsapi/stubby) + unbound
+- Network configuration: [NetworkManager](https://wiki.gnome.org/Projects/NetworkManager)
+- DNS server: [stubby](https://github.com/getdnsapi/stubby) + [unbound](https://github.com/NLnetLabs/unbound)
 - Media player: [mpv](https://mpv.io)
-- Music player: mpd + pms
-- Browser: Firefox
+- Music player: [mpd](https://musicpd.org/) + [pms](https://ambientsound.github.io/pms/)
+- Browser: [Firefox](https://mozilla.org/firefox), but [Ungoogled Chromium](https://github.com/Eloston/ungoogled-chromium) and [Brave](https://brave.com/) also available
+- Email client: [Thunderbird](https://www.thunderbird.net)
 - Source code editor: [VSCodium](https://github.com/VSCodium/vscodium)
-- VPN client: [Wireguard](https://wireguard.com)
-- Firewall: nftables
-- File sync: Syncthing
-- Download manager: aria2c + uGet
-- Bitcoin, Ethereum and Monero fullnodes
-- I2P, Tor, IPFS, Bisq, etc.
-- Searx, Jackett
+- File sync: [Syncthing](https://syncthing.net/)
+- Download manager: [aria2](https://github.com/aria2/aria2) + [uGet](https://ugetdm.com/), [XD](https://xd-torrent.github.io) for I2P torrents
+- Some cryptocurrency wallets
+- [I2P](https://geti2p.net/), [Tor](https://torproject.org), [IPFS](https://ipfs.io/), [Lokinet](https://loki.network), [Gnunet](https://gnunet.org), [Bisq](https://bisq.network/), etc.
+- [Searx](https://searx.github.io/searx/), [Jackett](https://github.com/Jackett/Jackett)
+- Office package: [zathura](https://pwmt.org/projects/zathura/) + [LibreOffice](https://www.libreoffice.org/) + [zaread](https://github.com/paoloap/zaread)
+- Image viewer: [sxiv](https://github.com/muennich/sxiv)
+- Password manager: [KeePassXC](https://keepassxc.org/)
+- Local bookmarks with [shiori](https://github.com/go-shiori/shiori)
+- [DeltaChat](https://delta.chat), XMPP ([coyim](https://coy.im/)), [Telegram](https://telegram.org), Slack ([slack-term](https://github.com/erroneousboat/slack-term)), [Jami](https://jami.net), Matrix ([Quaternion](https://github.com/quotient-im/Quaternion)) messengers
+- Local maps with [Pure Maps](https://github.com/rinigus/pure-maps) and [OSM Scout Server](https://github.com/rinigus/osmscout-server)
+- Local dicts with [dictd](https://sourceforge.net/projects/dict/) and [GoldenDict](http://goldendict.org/)
+- Virtual machines: [libvirt](https://libvirt.org/) + [QEMU](https://www.qemu.org/) + [virt-manager](https://virt-manager.org/)
 - et cetera, et cetera
 
 ## Roles

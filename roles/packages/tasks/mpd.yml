@@ -15,8 +15,8 @@
     group: "{{ username }}"
 
 - name: Configure mpd
-  copy:
-    src: mpd/mpd.conf
+  template:
+    src: mpd/mpd.conf.j2
     dest: "/home/{{ username }}/.config/mpd/mpd.conf"
     mode: 0640
     owner: "{{ username }}"
