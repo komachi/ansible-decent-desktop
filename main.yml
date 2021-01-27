@@ -1,55 +1,59 @@
 - hosts: all
   become: True
   gather_facts: True
+  collections:
+    - devsec.hardening
+    - debops.debops
+    - community.general
+    - ansible.posix
   roles:
-    - keyring
+    - decent_keyring
     - apt_transport_tor
-    - debops.core
-    - debops.apt_preferences
-    - debops.apt
-    - debops.unattanded_upgrades
-    - debops.apparmor
-    - debops.kmod
-    - debops.grub
-    - debops.sysctl
-    - dev-sec.ssh-hardening
+    - core
+    - apt_preferences
+    - apt
+    - unattended_upgrades
+    #- apparmor
+    #- kmod
+    #- grub
+    - sysctl
+    - ssh_hardening
     - logind
-    - debops.journald
-    - debops.logrotate
+    - journald
+    - logrotate
     - networking
     - role: mullvad
       when: mullvad_account is defined
     - audio
     - firewall
     # Broken until new ansible gets to backports https://github.com/ansible/ansible/pull/68211
-    # SAD.
-    # - debops.ntp
+    #- ntp
     - display-server
     - dm
     - de
-    - debops.apt_install
-    - debops.python
+    - apt_install
+    - python
     - packages
     - games
-    - debops.docker_server
+    #- docker_server
     - themes
     - fonts
     - hardware
     - bin
-    - debops.locales
     - locales
-    - debops.libuser
-    - debops.users
+    - additional_locales
+    - libuser
+    - users
     - gantsign.keyboard
     - additional_hardering
-    - dev-sec.os-hardening
+    - os_hardening
   vars_prompt:
     - name: local_ip
       prompt: "IP range of your home local network"
       private: no
       default: "192.168.0.0/16"
-    - name: print_server_ip
-      prompt: "IP address of your print server"
+    - name: homeserver_ip
+      prompt: "IP address of your home server"
       private: no
       default: "192.168.1.1"
     - name: mullvad_account
@@ -63,6 +67,7 @@
       private: no
       default: "/mnt/hdd"
   vars:
+    tor_browser_user_agent: "Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101 Firefox/78.0"
     # gantsign.keyboard vars
     keyboard_model: pc105
     keyboard_layout: "us,ru"
@@ -194,6 +199,7 @@
       - p7zip-full
       - openclipart-svg
       - beignet-opencl-icd
+      - v4l2loopback-dkms
     apt_install__all_packages:
       - "{{ packages }}"
     apt_preferences__list:
@@ -274,6 +280,7 @@
           - libgamemodeauto0
           - ansible
           - python-cryptography
+          - firmware-amd-graphics
         suffix: '_backports'
         backports: [ 'buster' ]
       - '{{ apt_preferences__preset_list | list }}'

@@ -1,0 +1,20 @@
+- name: Install i3-wm and some deps
+  apt:
+    name:
+      - i3-wm
+      - hsetroot
+    state: present
+
+- name: Ensures ~/.config/i3 exists
+  file:
+    path: "/home/{{ username }}/.config/i3"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Copy i3 config
+  copy:
+    src: i3/config
+    dest: "/home/{{ username }}/.config/i3/config"
+    owner: "{{ username }}"
+    group: "{{ username }}"

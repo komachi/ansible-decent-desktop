@@ -1,11 +1,11 @@
 [Desktop Entry]
 Version=1.0
 Name=deanon
-Exec=/usr/lib/firefox-esr/firefox-esr -P deanon -no-remote
+Exec=/usr/lib/firefox-esr/firefox-esr --class="firefox-deanon" -P deanon -no-remote
 Terminal=false
 Type=Application
 Categories=Network;WebBrowser;
 Keywords=deanon;
 Icon=firefox-esr
-StartupWMClass=Firefox-esr
+StartupWMClass=firefox-deanon
 StartupNotify=true

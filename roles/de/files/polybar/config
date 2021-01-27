@@ -1,0 +1,178 @@
+[colors]
+background = #000000
+background-alt = #070707
+foreground = #ffffff
+foreground-alt = #2f2f2f
+primary = #ffffff
+secondary = #5f676a
+alert = #bf616a
+active = #20D896
+
+[bar/partial]
+top = true
+monitor = ${env:MONITOR}
+width = 100%
+height = 24
+fixed-center = true
+background = ${colors.background}
+foreground = ${colors.foreground}
+line-size = 1
+line-color = #2f2f2f
+border-size = 0
+border-color = #00000000
+padding-left = 0
+padding-right = 0
+module-margin = 1
+font-0 = FontAwesome:style=Regular,size=11
+font-1 = hack:size=11
+modules-left = i3
+modules-center = title
+tray-position = right
+tray-padding = 2
+wm-restack = i3
+scroll-up = i3wm-wsnext
+scroll-down = i3wm-wsprev
+cursor-click = pointer
+
+[bar/full]
+top = true
+monitor = ${env:MONITOR}
+width = 100%
+height = 24
+fixed-center = true
+background = ${colors.background}
+foreground = ${colors.foreground}
+line-size = 1
+line-color = #2f2f2f
+border-size = 0
+border-color = #00000000
+padding-left = 0
+padding-right = 0
+module-margin = 1
+font-0 = FontAwesome:style=Regular,size=11
+font-1 = hack:size=11
+modules-left = i3
+modules-center = title
+modules-right = isrunning-syncthing isrunning-aria2c wired-network wg-status mpd pulseaudio-microphone pulseaudio date
+wm-restack = i3
+scroll-up = i3wm-wsnext
+scroll-down = i3wm-wsprev
+cursor-click = pointer
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+wrapping-scroll = false
+pin-workspaces = true
+strip-wsnumbers = true
+index-sort = true
+label-mode-padding = 1
+label-mode-foreground = ${colors.foreground}
+label-mode-background = ${colors.primary}
+
+label-focused = %icon%
+label-focused-background = ${colors.background-alt}
+label-focused-underline= ${colors.primary}
+label-focused-padding = 1
+
+label-unfocused = %icon%
+label-unfocused-padding = 1
+
+label-visible = %icon%
+label-visible-background = ${self.label-focused-background}
+label-visible-underline = ${self.label-focused-underline}
+label-visible-padding = ${self.label-focused-padding}
+
+label-urgent = %icon%
+label-urgent-background = ${colors.alert}
+label-urgent-padding = 1
+
+ws-icon-0 = www;
+ws-icon-1 = pass;
+ws-icon-2 = music;
+ws-icon-3 = term;
+ws-icon-4 = fm;
+ws-icon-5 = mail;
+ws-icon-6 = im;
+ws-icon-7 = money;
+ws-icon-8 = game;
+ws-icon-9 = dl;
+ws-icon-10 = deanon;
+ws-icon-11 = map;
+ws-icon-12 = subs;
+ws-icon-13 = code;
+ws-icon-14 = config;
+ws-icon-15 = edit;
+ws-icon-16 = debug;
+ws-icon-17 = view;
+ws-icon-default = 
+
+[module/date]
+type = custom/script
+exec = date +"%Y-%m-%d %H:%M:%S"
+format-padding = 1
+interval = 1
+click-left = gsimplecal
+
+[module/title]
+type = internal/xwindow
+
+[module/pulseaudio]
+type = internal/pulseaudio
+format-volume = 
+format-muted = <label-muted>
+label-muted = 
+label-muted-foreground = ${colors.alert}
+click-left = pavucontrol
+
+[module/pulseaudio-microphone]
+type = custom/script
+exec = ~/.config/polybar/scripts/pulseaudio-microphone.sh
+tail = true
+click-left = ~/.config/polybar/scripts/pulseaudio-microphone.sh --toggle &
+label-foreground = ${colors.active}
+
+[module/mpd]
+type = internal/mpd
+host = 127.0.0.1
+port = 6600
+format-online = <toggle>
+icon-play = 
+icon-pause = 
+icon-stop = 
+label-offline = 
+
+[module/wired-network]
+type = internal/network
+interface = enp6s0
+interval = 3.0
+format-connected = 
+label-disconnected =  enp6s0
+label-disconnected-foreground = ${colors.alert}
+
+[module/wg-status]
+type = custom/script
+exec = [ `wg show interfaces | wc -l` = "0" ] && echo ""
+interval = 3.0
+label-foreground = ${colors.alert}
+
+[module/isrunning-syncthing]
+type = custom/script
+exec = journalctl --user --follow -o cat --unit syncthing.service | while read -r line; do [ `systemctl --user is-active syncthing.service` = "active" ] && echo ""; done
+tail = true
+click-left = systemctl --user stop syncthing.service
+label-foreground = ${colors.foreground-alt}
+
+[module/isrunning-aria2c]
+type = custom/script
+exec = journalctl --user --follow -o cat --unit aria2c.service | while read -r line; do [ `systemctl --user is-active aria2c.service` = "active" ] && echo ""; done
+tail = true
+click-left = systemctl --user stop aria2c.service
+label-foreground = ${colors.foreground-alt}
+
+[settings]
+screenchange-reload = true
+
+[global/wm]
+margin-top = 1
+margin-bottom = 1

@@ -1,39 +1,7 @@
-- name: Install uGet and aria2
+- name: Install aria2
   apt:
-    name:
-      - uget
-      - aria2
+    name: aria2
     state: present
-
-- name: Ensures ~/.config/uGet/category exists
-  file:
-    path: "/home/{{ username }}/.config/uGet/category"
-    state: directory
-    owner: "{{ username }}"
-    group: "{{ username }}"
-
-- name: Create uGet categories
-  template:
-    src: "uGet/category/{{ item }}.json.j2"
-    dest: "/home/{{ username }}/.config/uGet/category/000{{ uget_category_index }}.json"
-    owner: "{{ username }}"
-    group: "{{ username }}"
-  loop:
-    - 'Downloads'
-    - 'Videos'
-    - 'Music'
-    - 'Books'
-    - 'Games'
-    - 'Pictures'
-  loop_control:
-    index_var: uget_category_index
-
-- name: Copy uGet config
-  template:
-    src: uGet/Setting.json.j2
-    dest: "/home/{{ username }}/.config/uGet/Setting.json"
-    owner: "{{ username }}"
-    group: "{{ username }}"
 
 - name: Ensures ~/.config/aria2 exists
   file:
@@ -65,23 +33,7 @@
     name: aria2cd
     enabled: yes
 
-- name: Collect package facts
-  package_facts:
-    manager: auto
-
-- name: Install uget-integrator build deps
-  apt:
-    name: 'uget-integrator=1.0.0-1'
-    state: build-dep
-  when: "'uget-integrator' not in ansible_facts.packages"
-
-- name: Build uget-integrator
-  shell:
-    chdir: /tmp
-    cmd: 'apt source --build uget-integrator=1.0.0-1'
-  when: "'uget-integrator' not in ansible_facts.packages"
-
-- name: Install uget-integrator
-  apt:
-    deb: '/tmp/uget-integrator_1.0.0-1_amd64.deb'
-  when: "'uget-integrator' not in ansible_facts.packages"
+- name: Install aria2p
+  become: yes
+  become_user: "{{ username }}"
+  shell: "pipx install --force aria2p[tui]"

@@ -1,9 +1,9 @@
 [Desktop Entry]
 Version=1.0
 Name=pms
-Exec=urxvt -name pms -e pms
+Exec=urxvtc -name pms -e pms
 Terminal=false
 StartupWMClass=pms
 Type=Application
 Categories=AudioVideo;Audio;
-Keywords=pms;mpd;
+Keywords=pms;mpd;music;player;music player;

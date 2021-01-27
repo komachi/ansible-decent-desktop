@@ -3,21 +3,30 @@
     name:
       - brightnessctl
       - brightness-udev
-      - xbindkeys
       - network-manager-gnome
       - xdg-user-dirs
       - dex
       - autorandr
-      - hsetroot
-      - xcompmgr
       - unclutter-xfixes
       - unclutter-startup
       - ffmpegthumbnailer
       - tumbler
-      - tracker
-      - tracker-miner-fs
-      - tracker-extract
     state: present
+
+- name: Configure env
+  blockinfile:
+    path: /home/{{ username }}/.profile
+    mode: 0755
+    create: true
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    marker: "# {mark} ANSIBLE MANAGED ENV BLOCK"
+    block: |
+      export TERM=xterm
+      export NODE_OPTIONS=--max_old_space_size=8192
+      export DISABLE_OPENCOLLECTIVE=1
+      export OPEN_SOURCE_CONTRIBUTOR=1
+      export ADBLOCK=1
 
 - name: Ensures ~/.config exists
   file:
@@ -39,14 +48,6 @@
     src: 'xinitrc.j2'
     dest: "/home/{{ username }}/.xinitrc"
     mode: 0760
-    owner: "{{ username }}"
-    group: "{{ username }}"
-
-- name: Copy .xbindkeysrc
-  copy:
-    src: 'xbindkeysrc'
-    dest: "/home/{{ username }}/.xbindkeysrc"
-    mode: 0660
     owner: "{{ username }}"
     group: "{{ username }}"
 
@@ -94,29 +95,6 @@
       value: "true"
     - name: "startup-mode"
       value: "'cwd'"
-
-- name: Configure tracker
-  become: yes
-  become_user: "{{ username }}"
-  dconf:
-    key: "/org/freedesktop/tracker/{{ item.name }}"
-    value: "{{ item.value }}"
-    state: present
-  loop:
-    - name: "files/low-disk-space-limit"
-      value: "3"
-    - name: "files/index-removable-devices"
-      value: "false"
-    - name: "files/removable-days-threshold"
-      value: "0"
-    - name: "files/index-on-battery"
-      value: "false"
-    - name: "files/index-optical-discs"
-      value: "false"
-    - name: "files/index-recursive-directories"
-      value: "['&MUSIC', '&VIDEOS']"
-    - name: "fts/enable-stemmer"
-      value: "true"
 
 - name: Configure nm-applet
   become: yes

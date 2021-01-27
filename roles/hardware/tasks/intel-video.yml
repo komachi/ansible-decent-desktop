@@ -1,4 +1,4 @@
 - name: Install intel video driver
   apt:
-    name: mesa-vulkan-drivers
+    name: xserver-xorg-video-intel
     state: present

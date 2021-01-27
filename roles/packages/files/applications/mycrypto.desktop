@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=MyCrypto
+GenericName=Ethereum Wallet
+Exec=mycrypto
+Terminal=false
+StartupWMClass=mycrypto
+Type=Application
+Categories=Office;Finance;
+Keywords=mycrypto;ethereum;eth;wallet;crypto;blockchain;

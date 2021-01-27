@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Electron Cash
+GenericName=Bitcoin Cash Wallet
+Exec=electroncash
+Terminal=false
+StartupWMClass=electron-cash
+Type=Application
+Categories=Office;Finance;
+Keywords=electron cash;bitcoin cash;bth;wallet;crypto;blockchain;[]

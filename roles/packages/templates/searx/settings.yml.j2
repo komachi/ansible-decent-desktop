@@ -1,148 +1,164 @@
 general:
-    debug: False # Debug mode, only for development
-    instance_name: "searx" # displayed name
+    debug: False
+    instance_name: "searx"
 
 search:
-    safe_search: 0 # Filter results. 0: None, 1: Moderate, 2: Strict
-    autocomplete: "" # Existing autocomplete backends: "dbpedia", "duckduckgo", "google", "startpage", "swisscows", "qwant", "wikipedia" - leave blank to turn it off by default
-    default_lang: "" # Default search language - leave blank to detect from browser information or use codes from 'languages.py'
-    ban_time_on_fail: 5 # ban time in seconds after engine errors
-    max_ban_time_on_fail: 120 # max ban time in seconds after engine errors
+    safe_search: 0
+    autocomplete: ""
+    default_lang: ""
+    ban_time_on_fail: 5
+    max_ban_time_on_fail: 120
 
 server:
     port: 8888
-    bind_address: "127.0.0.1" # address to listen on
-    secret_key: "ultrasecretkey" # change this!
-    base_url: False # Set custom base_url. Possible values: False or "https://your.custom.host/location/"
-    image_proxy: False # Proxying image results through searx
-    http_protocol_version: "1.1"  # 1.0 and 1.1 are supported
+    bind_address: "127.0.0.1"
+    secret_key: "{{ lookup('password', 'credentials/searx_secret_key length=25') }}"
+    base_url: False
+    image_proxy: False
+    http_protocol_version: "1.1"
 
 ui:
-    static_path: "" # Custom static path - leave it blank if you didn't change
-    templates_path: "" # Custom templates path - leave it blank if you didn't change
-    default_theme: oscar # ui theme
-    default_locale: "" # Default interface locale - leave blank to detect from browser information or use codes from the 'locales' config section
+    static_path: ""
+    templates_path: ""
+    default_theme: oscar
+    default_locale: ""
     theme_args:
-        oscar_style: logicodev-dark # default style of oscar
-#   categories_order:
-#     - general
-#     - files
-#     - map
-#     - it
-#     - science
+        oscar_style: logicodev-dark
+    categories_order:
+      - general
+      - images
+      - videos
+      - science
+      - news
+      - files
+      - it
+      - onions
+preferences:
+    lock:
+      - image_proxy
 
+enabled_plugins:
+   - "HTTPS rewrite"
+   - "Hash plugin"
+   - "Open Access DOI rewrite"
+   - "Self Informations"
+   - "Search on category select"
+   - "Tracker URL remover"
 
-outgoing: # communication with search engines
-    request_timeout: 2.0 # default timeout in seconds, can be override by engine
-    # max_request_timeout: 10.0 # the maximum timeout in seconds
-    useragent_suffix: "" # suffix of searx_useragent, could contain informations like an email address to the administrator
-    pool_connections: 100 # Number of different hosts
-    pool_maxsize: 15 # Number of simultaneous requests by host
-    # proxies:
-    #   http: socks5h://searx:searx@127.0.0.1:9050
-    #   https: socks5h://searx:searx@127.0.0.1:9050
-    # using_tor_proxy: True
+outgoing:
+    request_timeout: 2.0
+    max_request_timeout: 15.0
+    useragent_suffix: ""
+    pool_connections: 100
+    pool_maxsize: 50
     extra_proxy_timeout: 10.0
 
 engines:
-  - name: arxiv
-    engine: arxiv
-    shortcut: arx
-    categories: science
-    timeout: 4.0
-
-  - name: wikipedia
-    engine: wikipedia
-    shortcut: wp
-    base_url: 'https://{language}.wikipedia.org/'
-
-  - name: bing images
-    engine: bing_images
-    shortcut: bii
-
-  - name: bitbucket
-    engine: xpath
-    paging: True
-    search_url: https://bitbucket.org/repo/all/{pageno}?name={query}
-    url_xpath: //article[@class="repo-summary"]//a[@class="repo-link"]/@href
-    title_xpath: //article[@class="repo-summary"]//a[@class="repo-link"]
-    content_xpath: //article[@class="repo-summary"]/p
-    categories: it
-    timeout: 4.0
-    disabled: True
-    shortcut: bb
-
-  - name: currency
-    engine: currency_convert
-    categories: general
-    shortcut: cc
-
   - name: ddg definitions
     engine: duckduckgo_definitions
     shortcut: ddd
     weight: 2
     disabled: False
-    # url: http://api.3g2upl4pq6kufc4m.onion/?{query}&format=json&pretty=0&no_redirect=1&d=1
+    url: http://api.3g2upl4pq6kufc4m.onion/?{query}&format=json&pretty=0&no_redirect=1&d=1
+    using_tor_proxy: True
+    timeout: 5.0
+    categories: general
+    proxies:
+       http: socks5h://searx:searx@127.0.0.1:9050
+       https: socks5h://searx:searx@127.0.0.1:9050
+
+  - name: wikipedia
+    engine: wikipedia
+    shortcut: wp
+    categories: general
+    base_url: 'https://{language}.wikipedia.org/'
 
   - name: wikidata
     engine: wikidata
     shortcut: wd
     timeout: 3.0
     weight: 2
+    categories: general
 
   - name: duckduckgo
     engine: duckduckgo
     shortcut: ddg
     disabled: False
-    # url: https://3g2upl4pq6kufc4m.onion/html
+    url: https://3g2upl4pq6kufc4m.onion/html
+    timeout: 5.0
+    using_tor_proxy: True
+    proxies:
+       http: socks5h://searx:searx@127.0.0.1:9050
+       https: socks5h://searx:searx@127.0.0.1:9050
+
+  - name: startpage
+    engine: startpage
+    shortcut: sp
+    timeout: 6.0
+    disabled: False
+    categories: general
+
+  - name: qwant
+    engine: qwant
+    shortcut: qw
+    categories: general
+    disabled: False
+
+  - name: currency
+    engine: currency_convert
+    categories: general
+    shortcut: cc
+
+  - name: bing images
+    engine: bing_images
+    shortcut: bii
 
   - name: duckduckgo images
     engine: duckduckgo_images
     shortcut: ddi
-    timeout: 3.0
+    timeout: 5.0
     disabled: False
-    # images_url: https://3g2upl4pq6kufc4m.onion/i.js?{query}&s={offset}&p={safesearch}&o=json&vqd={vqd}
-    # site_url: https://3g2upl4pq6kufc4m.onion/?{query}&iar=images&iax=1&ia=images
+    images_url: https://3g2upl4pq6kufc4m.onion/i.js?{query}&s={offset}&p={safesearch}&o=json&vqd={vqd}
+    site_url: https://3g2upl4pq6kufc4m.onion/?{query}&iar=images&iax=1&ia=images
+    using_tor_proxy: True
+    proxies:
+       http: socks5h://searx:searx@127.0.0.1:9050
+       https: socks5h://searx:searx@127.0.0.1:9050
+
+  - name: qwant images
+    engine: qwant
+    shortcut: qwi
+    categories: images
 
   - name: flickr
     categories: images
     shortcut: fl
     engine: flickr_noapi
 
-  - name: genius
-    engine: genius
-    shortcut: gen
-
-  - name: gitlab
-    engine: json_engine
-    paging: True
-    search_url: https://gitlab.com/api/v4/projects?search={query}&page={pageno}
-    url_query: web_url
-    title_query: name_with_namespace
-    content_query: description
-    page_size: 20
-    categories: it
-    shortcut: gl
-    timeout: 10.0
-    disabled: True
-
-  - name: github
-    engine: github
-    shortcut: gh
-
   - name: google news
     engine: google_news
     shortcut: gon
+    categories: news
 
-  - name: library genesis
-    engine: xpath
-    url_xpath: //a[contains(@href,"bookfi.net")]/@href
-    title_xpath: //a[contains(@href,"book/")]/text()[1]
-    content_xpath: //td/a[1][contains(@href,"=author")]/text()
-    timeout: 7.0
-    disabled: True
-    shortcut: lg
-    search_url: http://genotypeinczgrxr.onion/search.php?req={query}
+  - name: yahoo news
+    engine: yahoo_news
+    shortcut: yhn
+    categories: news
+
+  - name: bing news
+    engine: bing_news
+    shortcut: bin
+    categories: news
+
+  - name: qwant news
+    engine: qwant
+    shortcut: qwn
+    categories: news
+
+  - name: arch linux wiki
+    engine: archlinux
+    shortcut: al
+    categories: it
 
   - name: npm
     engine: json_engine
@@ -157,10 +173,17 @@ engines:
     disabled: False
     timeout: 5.0
     shortcut: npm
+    categories: it
 
-  - name: openstreetmap
-    engine: openstreetmap
-    shortcut: osm
+  - name: github
+    engine: github
+    shortcut: gh
+    categories: it
+
+  - name: stackoverflow
+    engine: stackoverflow
+    shortcut: st
+    categories: it
 
   - name: pubmed
     engine: pubmed
@@ -168,81 +191,89 @@ engines:
     categories: science
     timeout: 3.0
 
-  - name: reddit
-    engine: reddit
-    shortcut: re
-    page_size: 25
-    timeout: 10.0
-    disabled: True
+  - name: arxiv
+    engine: arxiv
+    shortcut: arx
+    categories: science
+    timeout: 4.0
+
+  - name: library genesis
+    engine: xpath
+    url_xpath: //a[contains(@href,"bookfi.net")]/@href
+    title_xpath: //a[contains(@href,"book/")]/text()[1]
+    content_xpath: //td/a[1][contains(@href,"=author")]/text()
+    timeout: 7.0
+    disabled: False
+    shortcut: lg
+    search_url: http://genotypeinczgrxr.onion/search.php?req={query}
+    using_tor_proxy: True
+    categories: science
+    proxies:
+       http: socks5h://searx:searx@127.0.0.1:9050
+       https: socks5h://searx:searx@127.0.0.1:9050
 
   - name: soundcloud
     engine: soundcloud
     shortcut: sc
-
-  - name: stackoverflow
-    engine: stackoverflow
-    shortcut: st
-    categories: it
-
-  - name: startpage
-    engine: startpage
-    shortcut: sp
-    timeout: 6.0
-    disabled: False
-
-  - name: twitter
-    engine: twitter
-    shortcut: tw
-    categories: social
-
-  - name: yandex
-    engine: yandex
-    shortcut: yn
-    disabled: False
+    categories: music
 
   - name: vimeo
     engine: vimeo
     shortcut: vm
     categories: videos
 
-  - name : invidious
-    engine : invidious
-    base_url : 'https://invidio.us/'
-    shortcut: iv
-    timeout : 5.0
+  - name: dailymotion
+    engine: dailymotion
+    shortcut: dm
     categories: videos
 
-  - name: jackett
-    engine: json_engine
+  - name: invidious
+    engine: invidious
+    base_url: 'http://w6ijuptxiku4xpnnaetxvnkc5vqcdu7mgns2u77qefoixi63vbvnpnqd.onion/'
+    shortcut: iv
+    timeout: 5.0
+    categories: videos
+    using_tor_proxy: True
+    proxies:
+      http: socks5h://searx:searx@127.0.0.1:9050
+      https: socks5h://searx:searx@127.0.0.1:9050
+
+  - name: sepiasearch
+    engine: sepiasearch
+    shortcut: sep
+    categories: videos
+
+  - name: torch
+    engine: xpath
     paging: True
-    search_url: http://127.0.0.1:9117/api/v2.0/indexers/all/results?apikey={{ lookup('password', 'credentials/jackett/apikey length=20') }}&Query={query}
-    results_query: Results
-    url_query: Link
-    title_query: Title
-    content_query: CategoryDesc
-    page_size: 60
-    categories: files
-    shortcut: j
+    search_url: http://xmh57jrknzkhv6y3ls3ubitzfqnkrwxhopf5aygthi7d6rplyvk3noyd.onion/cgi-bin/omega/omega?P={query}&DEFAULTOP=and
+    results_xpath: //table//tr
+    url_xpath: ./td[2]/a
+    title_xpath: ./td[2]/b
+    content_xpath: ./td[2]/small
+    categories: onions
+    shortcut: tch
+    using_tor_proxy: True
+    proxies:
+      http: socks5h://searx:searx@127.0.0.1:9050
+      https: socks5h://searx:searx@127.0.0.1:9050
 
-  # - name: torch
-  #   engine: xpath
-  #   paging: True
-  #   search_url: http://xmh57jrknzkhv6y3ls3ubitzfqnkrwxhopf5aygthi7d6rplyvk3noyd.onion/cgi-bin/omega/omega?P={query}&DEFAULTOP=and
-  #   results_xpath: //table//tr
-  #   url_xpath: ./td[2]/a
-  #   title_xpath: ./td[2]/b
-  #   content_xpath: ./td[2]/small
-  #   categories: onions
-  #   shortcut: tch
+  - name: ahmia
+    engine: ahmia
+    categories: onions
+    shortcut: ah
+    using_tor_proxy: True
+    proxies:
+      http: socks5h://searx:searx@127.0.0.1:9050
+      https: socks5h://searx:searx@127.0.0.1:9050
 
-  # - name: ahmia
-  #   engine: ahmia
-  #   categories: onions
-  #   shortcut: ah
-
-  # - name: not evil
-  #   engine: not_evil
-  #   shortcut: ne
+  - name: not evil
+    engine: not_evil
+    shortcut: ne
+    using_tor_proxy: True
+    proxies:
+      http: socks5h://searx:searx@127.0.0.1:9050
+      https: socks5h://searx:searx@127.0.0.1:9050
 
 #  - name: yacy
 #    engine: yacy
@@ -298,10 +329,10 @@ locales:
     zh: 中文 (Chinese)
     zh_TW: 國語 (Taiwanese Mandarin)
 
-doi_resolvers:
-  oadoi.org: 'https://oadoi.org/'
-  doi.org: 'https://doi.org/'
-  doai.io : 'https://doai.io/'
-  sci-hub.tw: 'https://sci-hub.tw/'
+doi_resolvers :
+  oadoi.org : 'https://oadoi.org/'
+  doi.org : 'https://doi.org/'
+  doai.io  : 'https://dissem.in/'
+  sci-hub.tw : 'https://sci-hub.se/'
 
 default_doi_resolver: 'sci-hub.tw'

@@ -2,3 +2,28 @@
   flatpak:
     name: "io.freetubeapp.FreeTube"
     state: present
+
+- name: Ensures ~/.var/app/io.freetubeapp.FreeTube/config/FreeTube exists
+  file:
+    path: "/home/{{ username }}/.var/app/io.freetubeapp.FreeTube/config/FreeTube"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Configure FreeTube
+  copy:
+    src: "FreeTube/settings.db"
+    dest: "/home/{{ username }}/.var/app/io.freetubeapp.FreeTube/config/FreeTube/settings.db"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Add .stignore to FreeTube dir, sync only important files
+  become: yes
+  become_user: "{{ username }}"
+  copy:
+    content: |
+      !subscriptions.db
+      !history.db
+      !profiles.db
+      *
+    dest: "~/.var/app/io.freetubeapp.FreeTube/config/FreeTube/.stignore"

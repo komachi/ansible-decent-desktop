@@ -1,0 +1,19 @@
+- name: Install compton
+  apt:
+    name: compton
+    state: present
+
+- name: Ensures ~/.config exists
+  file:
+    path: "/home/{{ username }}/.config"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Configure compton
+  copy:
+    src: 'compton/compton.conf'
+    dest: "/home/{{ username }}/.config/compton.conf"
+    mode: 0760
+    owner: "{{ username }}"
+    group: "{{ username }}"

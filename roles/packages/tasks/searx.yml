@@ -1,6 +1,7 @@
 - name: Install searx
   become: yes
   become_user: "{{ username }}"
+  #shell: "pipx install --force git+https://github.com/searx/searx.git#{{ searx_commit }}"
   shell: "pipx install --force searx"
 
 - name: Ensures ~/.config/searx exists

@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=urxvtd
+Exec=urxvtd -q -f -o
+StartupNotify=false
+Terminal=false

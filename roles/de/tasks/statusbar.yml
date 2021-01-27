@@ -1,0 +1,52 @@
+- name: Install polybar and deps
+  apt:
+    name:
+      - polybar
+      - gsimplecal
+    state: present
+
+- name: Ensures ~/.config/gsimplecal exists
+  file:
+    path: "/home/{{ username }}/.config/gsimplecal"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Copy gsimplecal config
+  copy:
+    src: gsimplecal/config
+    dest: "/home/{{ username }}/.config/gsimplecal/config"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Ensures ~/.config/polybar/scripts exists
+  file:
+    path: "/home/{{ username }}/.config/polybar/scripts"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Copy polybar scripts
+  copy:
+    src: 'polybar/{{ item }}'
+    dest: "/home/{{ username }}/.config/polybar/scripts/{{ item }}"
+    mode: +x
+    owner: "{{ username }}"
+    group: "{{ username }}"
+  loop:
+    - pulseaudio-microphone.sh
+
+- name: Copy polybar launch script
+  copy:
+    src: 'polybar/launch.sh'
+    dest: "/home/{{ username }}/.config/polybar/launch.sh"
+    mode: +x
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Configure polybar
+  copy:
+    src: 'polybar/config'
+    dest: "/home/{{ username }}/.config/polybar/config"
+    owner: "{{ username }}"
+    group: "{{ username }}"

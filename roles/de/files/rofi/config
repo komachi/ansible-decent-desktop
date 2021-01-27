@@ -1,0 +1,10 @@
+rofi.modi:                           drun
+rofi.width:                          60
+rofi.lines:                          10
+rofi.columns:                        1
+rofi.font:                           hack 12
+rofi.show-icons:                     true
+rofi.terminal:                       x-terminal-emulator
+rofi.drun-icon-theme:                Papirus-Dark
+rofi.disable-history:                true
+rofi.theme:                          /usr/share/rofi/themes/Arc-Dark.rasi

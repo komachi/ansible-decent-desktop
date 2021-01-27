@@ -23,7 +23,7 @@ You should look for sources for full list, but here are some choices I made:
 - Display server: [X.Org Server](https://www.x.org)
 - Sound server: [PulseAudio](https://www.freedesktop.org/wiki/Software/PulseAudio/)
 - Display manager: we don't need one, it can be replaced with single systemd unit
-- Window manager: [awesome](https://awesomewm.org)
+- Window manager: [i3wm](https://i3wm.org/)
 - Terminal emulator: [rxvt-unicode](http://software.schmorp.de/pkg/rxvt-unicode.html)
 - Network configuration: [NetworkManager](https://wiki.gnome.org/Projects/NetworkManager)
 - DNS server: [stubby](https://github.com/getdnsapi/stubby) + [unbound](https://github.com/NLnetLabs/unbound)

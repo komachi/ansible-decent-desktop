@@ -1,4 +1,5 @@
 - include_tasks: intel-video.yml
+  when: thinkpad_x230|d(False) == True
 - include_tasks: iwlwifi.yml
   when: thinkpad_x230|d(False) == True
 - include_tasks: logitech-marble.yml
@@ -14,3 +15,6 @@
 - include_tasks: scanner.yml
 - include_tasks: nonfree_firmware.yml
   when: nonfree_firmware|d(False) == True
+- include_tasks: amdgpu.yml
+  when: thinkpad_x230|d(False) == False
+- include_tasks: vulkan.yml

@@ -5,6 +5,11 @@
       - pipx
     state: present
 
+- name: Install pipx from pipx
+  become: yes
+  become_user: "{{ username }}"
+  shell: "pipx install --force pipx"
+
 - name: Ensures ~/.config/systemd/user exists
   file:
     path: "/home/{{ username }}/.config/systemd/user"

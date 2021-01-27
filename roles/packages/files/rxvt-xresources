@@ -54,5 +54,6 @@ URxvt.scrollWithBuffer: true
 URxvt.scrollTtyKeypress: true
 URxvt.secondaryScreen: 1
 URxvt.secondaryScroll: 0
-URxvt.perl-ext:
-URxvt.perl-ext-common:
+URxvt.saveLines: 20000
+URxvt.perl-ext-common: clipboard-osc,confirm-paste,selection,selection-autotransform,selection-to-clipboard
+URxvt.clipboard.autocopy: true

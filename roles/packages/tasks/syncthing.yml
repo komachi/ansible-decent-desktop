@@ -52,6 +52,8 @@
       value: 'false'
     - xpath: '/configuration/options/natEnabled'
       value: 'false'
+    - xpath: '/configuration/options/startBrowser'
+      value: 'false'
     - xpath: '/configuration/gui/theme'
       value: 'black'
   register: syncthing_configure
@@ -66,10 +68,10 @@
     state: restarted
     daemon_reload: yes
 
-- name: Disable Syncthing service
+- name: Enable Syncthing service
   become: yes
   become_user: "{{ username }}"
   systemd:
     scope: user
     name: syncthing
-    enabled: no
+    enabled: yes

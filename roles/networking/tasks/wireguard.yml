@@ -18,3 +18,33 @@
     src: 'networkmanager/unmanaged.conf'
     dest: '/etc/NetworkManager/conf.d/10-unmanaged.conf'
     mode: 0640
+
+- name: Trying to find already generated private key
+  shell: "grep -hE -m1 '^PrivateKey[ ]*=[ ]*(.*)([a-zA-Z0-9+/]{43}=)$' \"/etc/wireguard/homeserver.conf\" | head -1 | cut -d'=' -f1 --complement | xargs"
+  changed_when: False
+  register: homeserver_wireguard_find_private_key
+
+- set_fact:
+    homeserver_wireguard_private_key: "{{ homeserver_wireguard_find_private_key.stdout }}"
+  when: homeserver_wireguard_find_private_key.stdout != ''
+
+- name: Generate wireguard private key
+  shell: wg genkey
+  register: homeserver_wireguard_generate_private_key
+  when: homeserver_wireguard_find_private_key.stdout == ''
+
+- set_fact:
+    homeserver_wireguard_private_key: "{{ homeserver_wireguard_generate_private_key.stdout }}"
+  when: homeserver_wireguard_find_private_key.stdout == ''
+
+- name: Write wireguard homeserver conf
+  template:
+    src: wireguard/homeserver.conf.j2
+    dest: "/etc/wireguard/homeserver.conf"
+    mode: 0640
+
+- name: Connect to homeserver on boot
+  systemd: 
+    name: "wg-quick@homeserver"
+    enabled: yes
+    state: started

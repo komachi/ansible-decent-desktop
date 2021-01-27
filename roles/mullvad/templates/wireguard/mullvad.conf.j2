@@ -1,9 +1,7 @@
 [Interface]
 PrivateKey = {{ mullvad_wireguard_private_key }}
 Address = {{ mullvad_wireguard_address.content }}
-DNS = 127.0.0.1
-PostUp = iptables -I OUTPUT ! -o %i -m mark ! --mark $(wg show %i fwmark) -m addrtype ! --dst-type LOCAL -j REJECT && iptables -I OUTPUT -s {{ local_ip }} -j ACCEPT && iptables -I OUTPUT -d {{ local_ip }} -j ACCEPT && ip6tables -I OUTPUT ! -o %i -m mark ! --mark $(wg show %i fwmark) -m addrtype ! --dst-type LOCAL -j REJECT{{ ' && iptables -I OUTPUT -s 10.0.2.2 -j ACCEPT && iptables -I OUTPUT -d 10.0.2.2 -j ACCEPT' if username == 'vagrant' else ''}}
-PreDown = iptables -D OUTPUT ! -o %i -m mark ! --mark $(wg show  %i fwmark) -m addrtype ! --dst-type LOCAL -j REJECT && iptables -D OUTPUT -s {{ local_ip }} -j ACCEPT && iptables -D OUTPUT -d {{ local_ip }} -j ACCEPT && ip6tables -D OUTPUT ! -o %i -m mark ! --mark $(wg show  %i fwmark) -m addrtype ! --dst-type LOCAL -j REJECT{{ ' && iptables -D OUTPUT -s 10.0.2.2 -j ACCEPT && iptables -D OUTPUT -d 10.0.2.2 -j ACCEPT' if username == 'vagrant' else ''}}
+PostUp = nft insert rule inet filter output oifname != "%i" mark != $(wg show %i fwmark) fib daddr type != local reject && nft insert rule ip filter output ip daddr {{ local_ip }} accept && nft insert rule ip filter output ip saddr {{ local_ip }} accept && nft insert rule ip filter output ip daddr 10.200.0.0/24 accept && nft insert rule ip filter output ip saddr 10.200.0.0/24 accept && nft insert rule ip filter output ip daddr 10.100.0.0/24 accept && nft insert rule ip filter output ip saddr 10.100.0.0/24 accept{{ ' && nft insert rule ip filter output ip daddr 10.0.2.2 accept && nft insert rule ip filter output ip saddr 10.0.2.2 accept' if username == 'vagrant' else ''}}
 
 [Peer]
 PublicKey = {{ item.public_key }}

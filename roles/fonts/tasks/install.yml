@@ -17,6 +17,7 @@
       - fonts-crosextra-carlito
       - fonts-umeplus
       - fonts-croscore
+      - fonts-font-awesome
     state: present
   tags:
     - dependencies

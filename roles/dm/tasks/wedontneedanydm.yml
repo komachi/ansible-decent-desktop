@@ -9,10 +9,6 @@
       if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
         exec startx
       fi
-      export TERM=xterm-256color
-      export DISABLE_OPENCOLLECTIVE=1
-      export OPEN_SOURCE_CONTRIBUTOR=1
-      export ADBLOCK=1
 
 - name: Ensures /etc/systemd/system/getty@tty1.service.d exists
   file:

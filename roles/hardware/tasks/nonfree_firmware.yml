@@ -2,6 +2,19 @@
   apt:
     name:
       - firmware-misc-nonfree
-      - intel-microcode
       - firmware-realtek
     state: present
+
+- name: Install intel microcode package
+  apt:
+    name: intel-microcode
+    state: present
+  when: thinkpad_x230|d(False) == True
+
+- name: Install amd microcode package and amd gpu packages
+  apt:
+    name:
+      - amd64-microcode
+      - firmware-amd-graphics
+    state: present
+  when: thinkpad_x230|d(False) == False

@@ -1,6 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=conky
-Exec=conky --daemonize
-StartupNotify=false
-Terminal=false

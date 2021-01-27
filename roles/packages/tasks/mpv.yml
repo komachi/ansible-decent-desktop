@@ -41,8 +41,8 @@
     group: "{{ username }}"
 
 - name: Configure youtube-dl
-  copy:
-    src: 'youtube-dl/config'
+  template:
+    src: 'youtube-dl/config.j2'
     dest: "/home/{{ username }}/.config/youtube-dl/config"
     mode: 0640
     owner: "{{ username }}"
@@ -56,8 +56,8 @@
     group: "{{ username }}"
 
 - name: Configure mpv
-  copy:
-    src: 'mpv/mpv.conf'
+  template:
+    src: 'mpv/mpv.conf.j2'
     dest: "/home/{{ username }}/.config/mpv/mpv.conf"
     mode: 0640
     owner: "{{ username }}"

@@ -13,7 +13,11 @@
     owner: "{{ username }}"
     group: "{{ username }}"
   loop:
+    - 'aria2p'
     - 'nnn'
     - 'pms'
     - 'slack-term'
     - 'deanon'
+    - 'dev'
+    - 'electroncash'
+    - 'mycrypto'

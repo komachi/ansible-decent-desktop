@@ -1,0 +1,7 @@
+- name: Install amd gpu drivers
+  apt:
+    name:
+      - libdrm-amdgpu1
+      - xserver-xorg-video-amdgpu
+      - mesa-opencl-icd
+    state: present

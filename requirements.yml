@@ -1,0 +1,9 @@
+collections:
+  - name: debops.debops
+    source: https://galaxy.ansible.com
+  - name: devsec.hardening
+    source: https://galaxy.ansible.com
+  - name: community.general
+    source: https://galaxy.ansible.com
+  - name: ansible.posix
+    source: https://galaxy.ansible.com

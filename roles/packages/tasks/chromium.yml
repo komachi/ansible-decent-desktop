@@ -12,3 +12,11 @@
       - ungoogled-chromium
       - ungoogled-chromium-sandbox
     state: present
+
+- name: Configure chromium
+  template:
+    src: 'chromium/chromium-flags.conf.j2'
+    dest: "/home/{{ username }}/.config/chromium-flags.conf"
+    mode: 0640
+    owner: "{{ username }}"
+    group: "{{ username }}"

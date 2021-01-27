@@ -1,0 +1,7 @@
+- name: Install vulkan deps
+  apt:
+    name:
+      - mesa-vulkan-drivers
+      - libvulkan1
+      - vulkan-validationlayers
+    state: present

@@ -12,11 +12,11 @@
   tags:
     - dependencies
 
-- name: Use GTK+ style for Qt4 apps
+- name: Set style for Qt4 apps
   lineinfile:
     path: "/home/{{ username }}/.config/Trolltech.conf"
     regexp: '^style='
-    line: style=adwaita
+    line: style=Adwaita-Dark
     insertafter: '[Qt]'
     create: yes
     

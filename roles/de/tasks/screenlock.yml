@@ -17,7 +17,6 @@
     owner: "{{ username }}"
     group: "{{ username }}"
 
-
 - name: Ensures ~/.config/xsecurelock exists
   file:
     path: "~/.config/xsecurelock"

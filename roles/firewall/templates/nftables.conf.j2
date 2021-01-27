@@ -26,13 +26,13 @@ table inet filter {
 {% endif %}
 
     tcp dport 22000 ip saddr { {{ local_ip }} } accept comment "Syncthing"
+    udp dport 22000 ip saddr { {{ local_ip }} } accept comment "Syncthing"
+    udp dport 21027 ip saddr { {{ local_ip }} } accept comment "Syncthing discovery broadcast"
     tcp dport 6600 ip saddr { {{ local_ip }} } accept comment "MPD"
-    udp dport 5040 ip saddr { {{ local_ip }} } accept comment "dcnnt"
-    tcp dport 5040 ip saddr { {{ local_ip }} } accept comment "dcnnt"
 
 {% if mullvad_account is defined %}
-    tcp dport {{ mullvad_ports[0] }} ct state new accept comment "BitTorrent"
-    udp dport {{ mullvad_ports[0] }} ct state new accept comment "BitTorrent DHT"
+    tcp dport {{ mullvad_ports[0] }} accept comment "BitTorrent"
+    udp dport {{ mullvad_ports[0] }} accept comment "BitTorrent DHT"
     udp dport {{ mullvad_ports[1] }} accept comment "I2P"
     tcp dport {{ mullvad_ports[1] }} accept comment "I2P"
 {% endif %}

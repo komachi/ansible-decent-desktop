@@ -1,0 +1,10 @@
+[Interface]
+PrivateKey = {{ homeserver_wireguard_private_key }}
+Address = 10.100.0.2/32
+DNS = 10.100.0.1
+
+[Peer]
+PublicKey = {{ lookup('password', 'credentials/homeserver_wireguard_public_key') }}
+AllowedIPs = 10.100.0.0/24, 10.200.0.0/24
+Endpoint = {{ homeserver_ip }}:51820
+PersistentKeepalive = 30
