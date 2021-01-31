@@ -1,0 +1,58 @@
+- name: Create apparmor-even-more-profiles tempdir
+  tempfile:
+    state: directory
+  register: apparmor_profiles_tempdir
+
+- name: Clone apparmor-even-more-profiles repo
+  git:
+    repo: 'https://github.com/komachi/apparmor-even-more-profiles.git'
+    dest: "{{ apparmor_profiles_tempdir.path }}"
+    recursive: yes
+    depth: "1"
+    version: "{{ apparmor_even_more_profiles_commit }}"
+    refspec: '+refs/heads/*:refs/remotes/origin/*'
+
+- name: Copy profiles
+  copy:
+    src: "{{ apparmor_profiles_tempdir.path }}/profiles/"
+    dest: "/etc/apparmor.d/"
+    remote_src: yes
+    follow: yes
+    force: yes
+  register: apparmorprofilescopy
+
+- name: Read extra profiles file
+  slurp:
+    src: "{{ apparmor_profiles_tempdir.path }}/extra_profiles.list"
+  register: extra_apparmor_profiles
+
+- name: Ensure additional apparmor profiles packages is present
+  apt:
+    name:
+      - apparmor-profiles
+      - apparmor-profile-torbrowser
+      - apparmor-profile-icedove
+      - apparmor-profile-dist
+    state: present
+
+- name: Symlink extra profiles
+  file:
+    src: "/usr/share/apparmor/extra-profiles/{{ item }}"
+    dest: "/etc/apparmor.d/{{ item }}"
+    state: link
+  when: item != ""
+  loop: "{{ (extra_apparmor_profiles.content | b64decode).split('\n') }}"
+  register: apparmorextraprofiles
+
+- name: Restart AppArmor
+  when: apparmorprofilescopy.changed or apparmorextraprofiles.changed
+  systemd:
+    name: apparmor
+    state: restarted
+    daemon_reload: yes
+    enabled: yes
+
+- name: Remove tempdir
+  file:
+    path: "{{ apparmor_profiles_tempdir.path }}"
+    state: absent

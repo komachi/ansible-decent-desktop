@@ -53,65 +53,81 @@ You should look for sources for full list, but here are some choices I made:
 
 Playbook also depends on some roles defined in submodules, so you should also consult related upstream docs.
 
+### remote_keyring
+
+Install some additional keyrings.
+
 ### apt_transport_tor
 
 Enable and enforce apt-transport-tor.
 
+### audio
+
+Configure audio settings.
+
 ### logind
 
-Configure logind
+Configure logind.
 
-### locales
+### additional_locales
 
 Sets some additional locale settings not supported by debops.
 
 ### networking
 
-Configure networking
+Configure networking.
 
 ### mullvad
 
-Configure mullvad VPN
+Configure mullvad VPN.
 
 ### firewall
 
-Configure nftables
+Configure nftables.
 
 ### display-server
 
-Configure display server (Xorg)
+Configure display server (Xorg).
 
 ### dm
 
-Configure our dm replacement
+Configure our dm replacement.
 
 ### de
 
-Configure window manager (awesome) and other goodies usually provided by desktop environment
+Configure window manager and other goodies usually provided by desktop environment.
 
 ### packages
 
-Configure specific packages
+Configure specific packages. Most of packages configured here.
 
 ### games
 
-Install and configure some games
+Install and configure some games.
 
 ### themes
 
-Configure themes
+Configure themes.
 
 ### fonts
 
-Configure fonts
+Configure fonts.
 
 ### hardware
 
-Configure hardware
+Configure hardware.
 
 ### bin
 
 Just checkouts https://github.com/komachi/bin to ~/bin
+
+### timezone
+
+Set timezone.
+
+### apparmor_profiles
+
+Install additional apparmor profiles from [apparmor-even-more-profiles](https://github.com/komachi/apparmor-even-more-profiles)
 
 ### additional_hardering
 

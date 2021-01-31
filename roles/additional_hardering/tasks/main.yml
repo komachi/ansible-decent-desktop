@@ -8,9 +8,12 @@
     name:
       - jitterentropy-rngd
       - security-misc
-      - apparmor-profile-torbrowser
-      - apparmor-profile-icedove
-      - apparmor-profile-dist
       - tirdad
       - kloak
 #      - lkrg
+
+- name: Disable hidepid service
+  systemd:
+    name: proc-hidepid.service
+    enabled: no
+    state: stopped

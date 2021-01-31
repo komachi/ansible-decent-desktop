@@ -26,6 +26,12 @@
     deb: "{{ bisq_download_tempdir.path }}/bisq.deb"
   when: "('bisq' not in ansible_facts.packages) or ('bisq' in ansible_facts.packages and ansible_facts.packages.bisq[0].version != bisq_version)"
 
+- name: Remove tempdir
+  file:
+    path: "{{ bisq_download_tempdir.path }}"
+    state: absent
+  when: "('bisq' not in ansible_facts.packages) or ('bisq' in ansible_facts.packages and ansible_facts.packages.bisq[0].version != bisq_version)"
+
 - name: Ensures ~/.local/share/Bisq exists
   file:
     path: "/home/{{ username }}/.local/share/Bisq"

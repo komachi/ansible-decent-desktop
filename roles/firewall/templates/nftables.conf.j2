@@ -62,7 +62,6 @@ table ip filter {
   }
 }
 
-# since kernel 5.2 we should use inet instead of ip/ip6
 table ip nat {
   chain prerouting {
     type nat hook prerouting priority -100;

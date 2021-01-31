@@ -27,8 +27,6 @@ export TOR_CONTROL_PORT=9051
 export TOR_SOCKS_PORT=9050
 export TOR_SKIP_LAUNCH=1
 
-xrandr --setprovideroutputsource 1 0
-
 dex -a &
 
 {% if ansible_distribution_release == 'buster' %}

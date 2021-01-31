@@ -7,15 +7,15 @@
     - community.general
     - ansible.posix
   roles:
-    - decent_keyring
+    - remote_keyring
     - apt_transport_tor
     - core
     - apt_preferences
     - apt
     - unattended_upgrades
-    #- apparmor
-    #- kmod
-    #- grub
+    # #- apparmor
+    # #- kmod
+    # #- grub
     - sysctl
     - ssh_hardening
     - logind
@@ -26,6 +26,7 @@
       when: mullvad_account is defined
     - audio
     - firewall
+    - timezone
     # Broken until new ansible gets to backports https://github.com/ansible/ansible/pull/68211
     #- ntp
     - display-server
@@ -46,6 +47,7 @@
     - users
     - gantsign.keyboard
     - additional_hardering
+    - apparmor_profiles
     - os_hardening
   vars_prompt:
     - name: local_ip
@@ -68,6 +70,7 @@
       default: "/mnt/hdd"
   vars:
     tor_browser_user_agent: "Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101 Firefox/78.0"
+    timezone: 'Etc/UTC'
     # gantsign.keyboard vars
     keyboard_model: pc105
     keyboard_layout: "us,ru"
@@ -84,10 +87,11 @@
     ssh_client_hardening: True
     ssh_client_password_login: True
     os_auditd_enabled: false
+    hidepid_option: 0
     # debops vars
     ntp__daemon_enabled: True
     ntp__daemon: 'chrony'
-    ntp__timezone: 'Etc/UTC'
+    ntp__timezone: "{{ timezone }}"
     docker_server__upstream: True
     journald__configuration:
         - name: 'SystemMaxUse'

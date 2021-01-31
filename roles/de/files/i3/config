@@ -181,7 +181,7 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-bindsym $mod+F1 exec --no-startup-id xset s activate
+bindsym $mod+F1 exec --no-startup-id loginctl lock-session
 bindsym $mod+F2 exec --no-startup-id systemctl suspend
 bindsym $mod+F4 exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +1000
@@ -196,13 +196,13 @@ bindsym XF86AudioPause exec --no-startup-id playerctl play-pause
 bindsym XF86AudioStop exec --no-startup-id playerctl stop
 bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl s 10%+
 bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl s 10%-
-bindsym XF86ScreenSaver exec --no-startup-id xset s activate
+bindsym XF86ScreenSaver exec --no-startup-id loginctl lock-session
 bindsym XF86Explorer exec sensible-browser
 
 bindsym --release Print exec --no-startup-id maim -s | xclip -selection clipboard -t image/png
 
 mode "$mode_system" {
-    bindsym l exec --no-startup-id xset s activate, mode "default"
+    bindsym l exec --no-startup-id loginctl lock-session, mode "default"
     bindsym e exec --no-startup-id i3-msg exit, mode "default"
     bindsym s exec --no-startup-id systemctl suspend, mode "default"
     bindsym r exec --no-startup-id systemctl reboot, mode "default"

@@ -1,3 +1,0 @@
-[submodule "roles/gantsign.keyboard"]
-	path = roles/gantsign.keyboard
-	url = https://github.com/gantsign/ansible-role-keyboard.git

@@ -7,3 +7,6 @@ collections:
     source: https://galaxy.ansible.com
   - name: ansible.posix
     source: https://galaxy.ansible.com
+roles:
+  - name: gantsign.keyboard
+    source: https://galaxy.ansible.com

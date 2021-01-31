@@ -1,2 +1,5 @@
+show_calendar = 1
+mark_today = 1
 close_on_unfocus = 1
+force_lang = en_DK.utf8
 mainwindow_position = center

@@ -19,3 +19,9 @@
   apt:
     deb: "{{ zecwallet_download_tempdir.path }}/zecwallet-lite.deb"
   when: "'zecwallet-lite' not in ansible_facts.packages or ('zecwallet-lite' in ansible_facts.packages and ansible_facts.packages['zecwallet-lite'][0].version != zecwallet_lite_version)"
+
+- name: Remove tempdir
+  file:
+    path: "{{ zecwallet_download_tempdir.path }}"
+    state: absent
+  when: "'zecwallet-lite' not in ansible_facts.packages or ('zecwallet-lite' in ansible_facts.packages and ansible_facts.packages['zecwallet-lite'][0].version != zecwallet_lite_version)"

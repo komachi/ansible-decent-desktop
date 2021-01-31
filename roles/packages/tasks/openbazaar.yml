@@ -19,3 +19,9 @@
   apt:
     deb: "{{ openbazaar_download_tempdir.path }}/openbazaar.deb"
   when: "('openbazaar2' not in ansible_facts.packages) or ('openbazaar2' in ansible_facts.packages and ansible_facts.packages.openbazaar2[0].version != openbazaar_version)"
+
+- name: Remove tempdir
+  file:
+    path: "{{ openbazaar_download_tempdir.path }}"
+    state: absent
+  when: "('openbazaar2' not in ansible_facts.packages) or ('openbazaar2' in ansible_facts.packages and ansible_facts.packages.openbazaar2[0].version != openbazaar_version)"

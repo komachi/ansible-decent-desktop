@@ -19,3 +19,9 @@
   apt:
     deb: "{{ simpleos_download_tempdir.path }}/simpleos.deb"
   when: "('simpleos' not in ansible_facts.packages) or ('simpleos' in ansible_facts.packages and ansible_facts.packages.simpleos[0].version != simpleos_version)"
+
+- name: Remove tempdir
+  file:
+    path: "{{ simpleos_download_tempdir.path }}"
+    state: absent
+  when: "('simpleos' not in ansible_facts.packages) or ('simpleos' in ansible_facts.packages and ansible_facts.packages.simpleos[0].version != simpleos_version)"

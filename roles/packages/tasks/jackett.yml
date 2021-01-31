@@ -20,13 +20,13 @@
     owner: jackett
     group: jackett
 
-- name: Check is jackett is installed
+- name: Check if jackett is installed
   stat: 
-    path: "/opt/jackett/jackett"
+    path: "/opt/jackett/Jackett"
   register: jackett_exists
 
 - name: Get installed jackett version
-  shell: "/opt/jackett/jackett --version | cut -d'' -f2 | xargs"
+  shell: "/opt/jackett/Jackett/jackett --version | cut -d'' -f2 | xargs"
   register: "installed_jackett_version"
   when: jackett_exists.stat.exists
 
@@ -53,6 +53,12 @@
     src: "{{ jackett_download_tempdir.path }}/jackett.tar.gz"
     dest: "/opt/jackett"
     remote_src: True
+  when: not jackett_exists.stat.exists or ((installed_jackett_version is defined) and installed_jackett_version.stdout != jackett_version)
+
+- name: Remove tempdir
+  file:
+    path: "{{ jackett_download_tempdir.path }}"
+    state: absent
   when: not jackett_exists.stat.exists or ((installed_jackett_version is defined) and installed_jackett_version.stdout != jackett_version)
 
 - name: Add systemd service
