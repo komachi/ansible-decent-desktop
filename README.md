@@ -132,12 +132,3 @@ Install additional apparmor profiles from [apparmor-even-more-profiles](https://
 ### additional_hardering
 
 Some additional hardering settings placed here, for now it's just installs some packages from whonix repo
-
-## Running in VM
-
-Thanks to Vagrant, we can easily run this playbook in VM. This requires vagrant and virtualbox.
-
-```sh
-# Up vm and then provision
-vagrant up --provision
-```
