@@ -1,13 +1,7 @@
-- name: Install linux headers
-  apt:
-    name: "linux-headers-{{ ansible_kernel }}"
-    state: present
-
 - name: Install wireguard
   apt:
     name:
       - wireguard
-      - wireguard-dkms
       - wireguard-tools
     state: present
   tags:

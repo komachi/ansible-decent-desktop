@@ -285,6 +285,18 @@
           - ansible
           - python-cryptography
           - firmware-amd-graphics
+          - v4l2loopback-dkms
+          - v4l2loopback-utils
+          # backported kernel
+          - 'linux-compiler-gcc-*'
+          - 'linux-headers-*'
+          - 'linux-image-*'
+          - 'linux-kbuild-*'
+          - 'linux-config-*'
+          - 'linux-doc-*'
+          - 'kernel-image-*'
+          - linux-doc
+          - linux-libc-dev
         suffix: '_backports'
         backports: [ 'buster' ]
       - '{{ apt_preferences__preset_list | list }}'
