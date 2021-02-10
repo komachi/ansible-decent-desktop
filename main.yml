@@ -4,6 +4,9 @@
   collections:
     - devsec.hardening
     - debops.debops
+    - debops.roles01
+    - debops.roles02
+    - debops.roles03
     - community.general
     - ansible.posix
   roles:
@@ -13,11 +16,11 @@
     - apt_preferences
     - apt
     - unattended_upgrades
-    # #- apparmor
-    # #- kmod
-    # #- grub
+    - kmod
+    - grub
     - sysctl
-    - ssh_hardening
+    # broken https://github.com/dev-sec/ansible-collection-hardening/issues/387
+    #- ssh_hardening
     - logind
     - journald
     - logrotate
@@ -27,7 +30,6 @@
     - audio
     - firewall
     - timezone
-    # Broken until new ansible gets to backports https://github.com/ansible/ansible/pull/68211
     #- ntp
     - display-server
     - dm
@@ -48,7 +50,7 @@
     - gantsign.keyboard
     - additional_hardering
     - apparmor_profiles
-    - os_hardening
+    #- os_hardening
   vars_prompt:
     - name: local_ip
       prompt: "IP range of your home local network"
@@ -285,6 +287,7 @@
           - ansible
           - python-cryptography
           - firmware-amd-graphics
+          - zstd
           - v4l2loopback-dkms
           - v4l2loopback-utils
           # backported kernel
@@ -383,6 +386,15 @@
       - name: 'pcspkr'
         state: 'blacklist'
         comment: 'Disable PC Speaker support'
+      - name: 'v4l2loopback'
+        state: 'present'
+        options:
+          - name: devices
+            value: "1"
+          - name: card_label
+            value: "Webcam"
+          - name: exclusive_caps
+            value: "1"
       - name: 'tcp_lp'
         state: 'present'
       - name: 'thinkpad_acpi'
@@ -402,7 +414,7 @@
           - nowatchdog
           - modprobe.blacklist=iTCO_wdt
           - modprobe.blacklist=iTCO_vendor_support
-          - kernel.nmi_watchdog=0
+          - nmi_watchdog=0
           # disable sss
           - libahci.ignore_sss=1
           # silent boot
@@ -410,6 +422,5 @@
           - quiet
           - 'loglevel=3'
           - 'rd.systemd.show_status=auto'
-          - 'rd.udev.log_priority=3'
+          - 'rd.udev.log_level=3'
           - 'vt.global_cursor_default=0'
-          - 'i915.fastboot=1'

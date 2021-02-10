@@ -3,7 +3,7 @@
 - name: Install vscodium
   apt:
     name: codium
-    state: latest
+    state: present
 
 - name: Ensures ~/.config/VSCodium/User exists
   file:

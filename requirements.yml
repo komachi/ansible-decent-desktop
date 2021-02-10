@@ -1,12 +1,15 @@
 collections:
   - name: debops.debops
     source: https://galaxy.ansible.com
+    version: "2.2.0"
   - name: devsec.hardening
     source: https://galaxy.ansible.com
+    version: "7.2.0"
   - name: community.general
     source: https://galaxy.ansible.com
   - name: ansible.posix
     source: https://galaxy.ansible.com
 roles:
   - name: gantsign.keyboard
-    source: https://galaxy.ansible.com
+    src: git+https://github.com/gantsign/ansible-role-keyboard.git
+    version: 2dce9bc1389d066d9557e66c21bd478eb8be152d
