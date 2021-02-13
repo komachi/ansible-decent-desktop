@@ -1,4 +1,7 @@
-- name: Enable apparmor cache
+- name: Configure apparmor
   lineinfile:
     path: /etc/apparmor/parser.conf
-    line: 'write-cache'
+    line: "{{ item }}"
+  loop:
+    - 'quiet'
+    - 'write-cache'

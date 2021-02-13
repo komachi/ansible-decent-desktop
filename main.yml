@@ -206,6 +206,10 @@
       - openclipart-svg
       - beignet-opencl-icd
       - v4l2loopback-dkms
+      - appstream
+      - packagekit
+      - packagekit-tools
+      - apt-config-icons
     apt_install__all_packages:
       - "{{ packages }}"
     apt_preferences__list:
@@ -321,7 +325,7 @@
       - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/repo.i2pd.xyz-keyring.gpg] tor+https://repo.i2pd.xyz/debian {{ ansible_distribution_release }} main'
       - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/deb.nodesource.com-keyring.gpg] tor+https://deb.nodesource.com/node_14.x {{ ansible_distribution_release }} main'
       - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/vscodium-keyring.gpg] tor+https://paulcarroty.gitlab.io/vscodium-deb-rpm-repo/debs vscodium main'
-      - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg] tor+http://sdscoq7snqtznauu.onion//torproject.org {{ ansible_distribution_release }} main'
+      - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg] tor+http://sdscoq7snqtznauu.onion/torproject.org {{ ansible_distribution_release }} main'
       - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/download.docker.com-keyring.gpg] tor+https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable'
       - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/whonix.org-keyring.gpg] tor+http://deb.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion {{ ansible_distribution_release }} main'
       - repo: 'deb-src [signed-by=/usr/share/keyrings/uget-keyring.gpg] tor+http://ppa.launchpad.net/uget-team/ppa/ubuntu bionic main'
