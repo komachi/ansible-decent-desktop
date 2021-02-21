@@ -138,6 +138,7 @@
           - libvirt
           - libvirt-qemu
           - kvm
+          - boinc
         shell: '/bin/bash'
     packages:
       - haveged
@@ -292,6 +293,17 @@
           - python-cryptography
           - firmware-amd-graphics
           - zstd
+          - boinc
+          - boinc-dev
+          - boinc-client
+          - boinc-client-opencl
+          - boinc-client-nvidia-cuda
+          - boinc-screensaver
+          - boinc-virtualbox
+          - libboinc-app-dev
+          - libboinc-app7
+          - libboinc7
+          - boinc-manager
           - v4l2loopback-dkms
           - v4l2loopback-utils
           # backported kernel

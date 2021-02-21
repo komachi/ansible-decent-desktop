@@ -1,0 +1,6 @@
+- name: Install boinc packages
+  apt:
+    name:
+      - boinc-client
+      - boinc-client-opencl
+    state: present

@@ -56,32 +56,18 @@ table inet filter {
   }
 }
 
-table ip filter {
+table inet filter {
   chain DOCKER-USER {
     mark set 1
   }
 }
 
-table ip nat {
+table inet nat {
   chain prerouting {
     type nat hook prerouting priority -100;
 
     # CT INVALID
     ct state invalid drop
-
-    # TCP SYN (CT NEW)
-    tcp flags & (fin|syn|rst|ack) != syn \
-      ct state new \
-      drop
-  }
-}
-
-table ip6 nat {
-  chain prerouting {
-    type nat hook prerouting priority -100;
-
-    # CT INVALID
-    ct state invalid counter drop
 
     # TCP SYN (CT NEW)
     tcp flags & (fin|syn|rst|ack) != syn \

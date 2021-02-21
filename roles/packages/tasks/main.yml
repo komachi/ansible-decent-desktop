@@ -55,3 +55,4 @@
 - include_tasks: accounting.yml
 - include_tasks: dictionaries.yml
 - include_tasks: psd.yml
+- include_tasks: boinc.yml

@@ -84,7 +84,7 @@ set $ws17 "deanon"
 set $ws18 "map"
 set $ws19 "config"
 
-set $nonprimary DP-1 DP-1-1 DP-1-2
+set $nonprimary DVI-D-1 DP-1-2
 
 workspace www output primary
 workspace code output primary
@@ -100,7 +100,7 @@ workspace money output $nonprimary primary
 workspace config output $nonprimary primary
 workspace etc output $nonprimary primary
 workspace debug output $nonprimary primary
-workspace subs output primary
+workspace subs output $nonprimary primary
 workspace dl output $nonprimary primary
 workspace deanon output primary
 workspace map output primary
@@ -216,7 +216,7 @@ mode "$mode_system" {
 bindsym $mod+Pause mode "$mode_system"
 
 for_window [class="^.*"] border pixel 1
-for_window [class="^((F|f)irefox(-esr|)|(C|c)hromium|(B|b)rave-browser)$"] move container to workspace www
+assign [class="^((F|f)irefox(-esr|)|(C|c)hromium|(B|b)rave-browser)$"] www
 for_window [class="^(VSCodium|codium|mousepad)$"] move container to workspace code
 for_window [class="^(xterm|x-terminal-emulator|XTerm|URxvt)$"] move container to workspace term
 for_window [class="^URxvt$" instance="^pms$"] move container to workspace music
