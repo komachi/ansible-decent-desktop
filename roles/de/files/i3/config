@@ -227,7 +227,7 @@ for_window [class="^URxvt$" instance="^slack-term$"] move container to workspace
 for_window [class="^(thunderbird|Mail)$"] move container to workspace mail
 for_window [class="^(gimp|inkscape|libreoffice|simple-scan|audacity|org-openstreetmap-josm-.*|zim)$"] move container to workspace edit, focus
 for_window [class="^(keepassxc|KeePassXC)$"] move container to workspace pass
-for_window [class="^(mpv|sxiv|zathura)$"] move container to workspace view, focus
+for_window [class="^(mpv|sxiv|imvr|zathura)$"] move container to workspace view, focus
 for_window [class="^(uget-gtk|Uget-gtk|ariang-native$"] move container to workspace dl
 for_window [class="^URxvt$" instance="^aria2p$"] move container to workspace dl
 for_window [class="^(Wireshark|Devtools|restscope|firefox-dev|gucharmap)$"] move container to workspace debug

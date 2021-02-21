@@ -18,7 +18,7 @@
 
 (assoc
   #:pattern "^image/(bmp|gif|jpeg|jpg|png|tiff|x-bmp|x-portable-anymap|x-portable-bitmap|x-portable-graymap|x-tga|x-xpixmap)$"
-  #:program "sxiv -p -a '%f'"
+  #:program "imvr '%f'"
   #:edit "gimp '%f'")
 
 (assoc
@@ -85,14 +85,14 @@
 (assoc
   #:pattern "^text/"
   #:program "nano '%f'"
-  #:term "tau '%f'"
+  #:term "mousepad '%f'"
   #:edit "codium '%f'"
   #:standalone #t)
 
 (assoc
   #:pattern "^application/json$"
   #:program "cat '%f' | jq"
-  #:term "tau '%f'"
+  #:term "mousepad '%f'"
   #:edit "codium '%f'"
   #:standalone #t)
 

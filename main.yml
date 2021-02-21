@@ -172,7 +172,7 @@
       - udevil
       - gvfs
       - gvfs-backends
-      - sxiv
+      - imv
       - graphicsmagick
       - graphicsmagick-imagemagick-compat
       - pngquant

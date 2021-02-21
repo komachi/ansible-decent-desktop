@@ -38,7 +38,7 @@ You should look for sources for full list, but here are some choices I made:
 - [I2P](https://geti2p.net/), [Tor](https://torproject.org), [IPFS](https://ipfs.io/), [Lokinet](https://loki.network), [Gnunet](https://gnunet.org), [Bisq](https://bisq.network/), etc.
 - [Searx](https://searx.github.io/searx/), [Jackett](https://github.com/Jackett/Jackett)
 - Office package: [zathura](https://pwmt.org/projects/zathura/) + [LibreOffice](https://www.libreoffice.org/) + [zaread](https://github.com/paoloap/zaread)
-- Image viewer: [sxiv](https://github.com/muennich/sxiv)
+- Image viewer: [imv](https://github.com/eXeC64/imv)
 - Password manager: [KeePassXC](https://keepassxc.org/)
 - Local bookmarks with [shiori](https://github.com/go-shiori/shiori)
 - [DeltaChat](https://delta.chat), XMPP ([coyim](https://coy.im/)), [Telegram](https://telegram.org), Slack ([slack-term](https://github.com/erroneousboat/slack-term)), [Jami](https://jami.net), Matrix ([Quaternion](https://github.com/quotient-im/Quaternion)) messengers
