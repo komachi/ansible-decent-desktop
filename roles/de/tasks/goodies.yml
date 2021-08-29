@@ -6,27 +6,18 @@
       - network-manager-gnome
       - xdg-user-dirs
       - dex
-      - autorandr
-      - unclutter-xfixes
-      - unclutter-startup
+      - kanshi
       - ffmpegthumbnailer
       - tumbler
+      - playerctl
+      - tb-starter
+      - tb-updater
+      - grim
+      - slurp
+      - wl-clipboard
+      - swaybg
+      - qtwayland5
     state: present
-
-- name: Configure env
-  blockinfile:
-    path: /home/{{ username }}/.profile
-    mode: 0755
-    create: true
-    owner: "{{ username }}"
-    group: "{{ username }}"
-    marker: "# {mark} ANSIBLE MANAGED ENV BLOCK"
-    block: |
-      export TERM=xterm
-      export NODE_OPTIONS=--max_old_space_size=8192
-      export DISABLE_OPENCOLLECTIVE=1
-      export OPEN_SOURCE_CONTRIBUTOR=1
-      export ADBLOCK=1
 
 - name: Ensures ~/.config exists
   file:
@@ -40,22 +31,6 @@
     src: 'user-dirs.dirs.j2'
     dest: "/home/{{ username }}/.config/user-dirs.dirs"
     mode: 0760
-    owner: "{{ username }}"
-    group: "{{ username }}"
-
-- name: Copy .xinitrc
-  template:
-    src: 'xinitrc.j2'
-    dest: "/home/{{ username }}/.xinitrc"
-    mode: 0760
-    owner: "{{ username }}"
-    group: "{{ username }}"
-
-- name: Copy .Xmodmap
-  copy:
-    src: 'Xmodmap'
-    dest: "/home/{{ username }}/.Xmodmap"
-    mode: 0660
     owner: "{{ username }}"
     group: "{{ username }}"
 
@@ -77,7 +52,7 @@
 - name: Install dconfs module deps
   apt:
     name:
-      - python-psutil
+      - python3-psutil
       - dconf-cli
     state: present
 
@@ -133,3 +108,18 @@
       value: "false"
     - name: "media-handling/autorun-never"
       value: "true"
+
+- name: Ensures /usr/lib/environment.d exists
+  file:
+    path: "/usr/lib/environment.d"
+    state: directory
+
+- name: Configure env
+  copy:
+    src: "environment.d/{{ item }}.conf"
+    dest: "/usr/lib/environment.d/{{ item }}.conf"
+    mode: 0666
+  loop:
+    - basic
+    - adblock
+    - optout

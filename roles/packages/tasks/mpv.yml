@@ -7,15 +7,16 @@
   apt:
     name:
       - youtube-dl
+      - yt-dlp
       - streamlink
     state: absent
 
-- name: Install youtube-dl and streamlink
+- name: Install yt-dlp and streamlink
   become: yes
   become_user: "{{ username }}"
   shell: "pipx install --force {{ item }}"
   loop:
-    - youtube-dl
+    - yt-dlp
     - streamlink
 
 - name: Ensures ~/.config/streamlink exists
@@ -33,17 +34,17 @@
     owner: "{{ username }}"
     group: "{{ username }}"
 
-- name: Ensures ~/.config/youtube-dl exists
+- name: Ensures ~/.config/yt-dlp exists
   file:
-    path: "/home/{{ username }}/.config/youtube-dl"
+    path: "/home/{{ username }}/.config/yt-dlp"
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
 
-- name: Configure youtube-dl
+- name: Configure yt-dlp
   template:
-    src: 'youtube-dl/config.j2'
-    dest: "/home/{{ username }}/.config/youtube-dl/config"
+    src: 'yt-dlp/config.j2'
+    dest: "/home/{{ username }}/.config/yt-dlp/config"
     mode: 0640
     owner: "{{ username }}"
     group: "{{ username }}"

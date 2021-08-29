@@ -3,8 +3,9 @@ Description=Searx
 After=network.target
 
 [Service]
-Environment=SEARX_SETTINGS_PATH=/home/{{ username }}/.config/searx/settings.yml
-ExecStart=/home/{{ username }}/.local/bin/searx-run
+Restart=always
+ExecStart=/usr/bin/podman start -a searx
+ExecStop=/usr/bin/podman stop -t 2 searx
 Restart=on-failure
 
 # https://gist.github.com/ageis/f5595e59b1cddb1513d1b425a323db04

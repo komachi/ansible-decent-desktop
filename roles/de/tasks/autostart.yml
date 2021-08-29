@@ -12,7 +12,7 @@
     owner: "{{ username }}"
     group: "{{ username }}"
   loop:
-    - urxvtd
+    - foot
 
 - name: Symlink some desktop files to autostart
   file:

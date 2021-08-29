@@ -1,0 +1,45 @@
+- name: Install deps
+  apt:
+    name:
+      - sbsigntool
+      - openssl
+      - util-linux
+      - efitools
+    state: present
+
+- name: Find UUID of root disk
+  shell: "blkid -s UUID -o value /dev/{{ root_disk }}"
+  changed_when: False
+  register: root_disk_find_uuid
+
+- set_fact:
+    root_disk_uuid: "{{ root_disk_find_uuid.stdout }}"
+  when: root_disk_find_uuid.stdout != ''
+
+- name: Ensures entries dir exists
+  file:
+    path: "/boot/efi/loader/entries"
+    state: directory
+
+- name: Configure loader
+  copy:
+    src: 'loader.conf'
+    dest: "/boot/efi/loader/loader.conf"
+
+- name: Copy update-systemd-boot.sh
+  template:
+    src: 'update-systemd-boot.sh.j2'
+    dest: "/usr/local/bin/update-systemd-boot.sh"
+    mode: '+x'
+
+- name: Copy kernel hooks
+  copy:
+    src: 'systemd-boot-kernel-hook.sh'
+    dest: "{{ item }}"
+    mode: '+x'
+  loop:
+    - /etc/kernel/postinst.d/zz-update-systemd-boot
+    - /etc/kernel/postrm.d/zz-update-systemd-boot
+
+- name: Install systemd-boot
+  shell: bootctl install --path=/boot/efi

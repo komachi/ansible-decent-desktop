@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=foot
+Exec=foot --server
+StartupNotify=false
+Terminal=false

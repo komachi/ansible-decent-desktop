@@ -45,11 +45,11 @@
 
 (assoc
   #:pattern "^https?://\\w+\\.onion"
-  #:program "notify-send 'Opening onion resource %f blocked, link copied'; echo '%f' | xclip -selection clipboard")
+  #:program "notify-send 'Opening onion resource %f blocked, link copied'; echo '%f' | wl-copy")
 
 (assoc
   #:pattern "^https?://\\w+\\.i2p"
-  #:program "notify-send 'Opening i2p resource %f blocked, link copied'; echo '%f' | xclip -selection clipboard")
+  #:program "notify-send 'Opening i2p resource %f blocked, link copied'; echo '%f' | wl-copy")
 
 (assoc
   #:pattern '("^message/rfc822$"
@@ -62,12 +62,6 @@
     "^https?://t.me/"
   )
   #:program "telegram-desktop -- '%f'")
-
-(assoc
-  #:pattern "^https?://"
-  #:test "youtube-dl-supports.py '%f'"
-  #:on-fail (open-with 'browser')
-  #:program "mpv '%f'")
 
 (assoc
   #:pattern "^https?://*\\.(iso|rar|zip|djvu|fb2|torrent|metalink)"
@@ -99,5 +93,5 @@
 (assoc
   #:name 'browser'
   #:pattern "^https?://"
-  #:program "x-www-browser '%f'")
+  #:program "/usr/lib/firefox-esr/firefox-esr '%f'")
   

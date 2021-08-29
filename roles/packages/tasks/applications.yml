@@ -16,8 +16,14 @@
     - 'aria2p'
     - 'nnn'
     - 'pms'
-    - 'slack-term'
+    - 'firefox-esr'
     - 'deanon'
     - 'dev'
     - 'electroncash'
     - 'mycrypto'
+    - github
+    - clickup
+    - slack
+    - figma
+    - firebase
+    - codium

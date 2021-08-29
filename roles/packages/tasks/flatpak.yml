@@ -2,8 +2,10 @@
   apt:
     name:
       - flatpak
+      - flatpak-xdg-utils
       - xdg-desktop-portal
       - xdg-desktop-portal-gtk
+      - xdg-desktop-portal-wlr
     state: present
 
 - name: Ensures /etc/flatpak/remotes.d exists
@@ -50,5 +52,5 @@
     state: present
   loop:
     - "org.gtk.Gtk3theme.Adwaita-dark"
-    - "org.kde.KStyle.Adwaita/x86_64/5.14"
-    - "org.kde.PlatformTheme.QGnomePlatform/x86_64/5.14"
+    - "org.kde.KStyle.Adwaita/x86_64/5.15"
+    - "org.kde.PlatformTheme.QGnomePlatform/x86_64/5.15"

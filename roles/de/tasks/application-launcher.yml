@@ -1,18 +1,18 @@
-- name: Install rofi
+- name: Install wofi
   apt:
-    name: rofi
+    name: wofi
     state: present
 
-- name: Ensures ~/.config/rofi exists
+- name: Ensures ~/.config/wofi exists
   file:
-    path: "/home/{{ username }}/.config/rofi"
+    path: "/home/{{ username }}/.config/wofi"
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
 
-- name: Copy rofi config
+- name: Copy wofi config
   copy:
-    src: rofi/config
-    dest: "/home/{{ username }}/.config/rofi/config"
+    src: wofi/config
+    dest: "/home/{{ username }}/.config/wofi/config"
     owner: "{{ username }}"
     group: "{{ username }}"

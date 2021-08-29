@@ -28,6 +28,3 @@
     regexp: '^(deb|deb-src) (https?:\/\/.*)$'
     replace: '\1 tor+\2'
   loop: "{{ sources_list.files | map(attribute='path') | list + ['/etc/apt/sources.list'] }}"
-  when:
-    - item is not match('.*https:\/\/gitlab\.com/.*')
-    - item is not match('.*https:\/\/apt\.qm64\.tech/.*')

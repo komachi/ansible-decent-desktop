@@ -1,49 +1,10 @@
-# Sadly we can't use xsecurelock until this is fixed
-# https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=947840
-# libc6 is too old in buster
-
-- name: Install xsecurelock
+- name: Install swaylock from unstable
   apt:
-    name: xsecurelock
+    name: swaylock
     state: present
-  when: ansible_distribution_release != 'buster'
-  tags:
-    - dependencies
+    default_release: unstable
 
-- name: Ensures ~/.local/bin exists
-  file:
-    path: "~/.local/bin"
-    state: directory
-    owner: "{{ username }}"
-    group: "{{ username }}"
-
-- name: Ensures ~/.config/xsecurelock exists
-  file:
-    path: "~/.config/xsecurelock"
-    state: directory
-    owner: "{{ username }}"
-    group: "{{ username }}"
-  when: ansible_distribution_release != 'buster'
-
-- name: Copy xsecurelock config
-  copy:
-    src: xsecurelock/xsecurelock.env
-    dest: "~/.config/xsecurelock/xsecurelock.env"
-    owner: "{{ username }}"
-    group: "{{ username }}"
-  when: ansible_distribution_release != 'buster'
-
-- name: Install i3lock
+- name: Install swayidle
   apt:
-    name: i3lock
+    name: swayidle
     state: present
-  when: ansible_distribution_release == 'buster'
-  tags:
-    - dependencies
-
-- name: Install xss-lock
-  apt:
-    name: xss-lock
-    state: present
-  tags:
-  - dependencies

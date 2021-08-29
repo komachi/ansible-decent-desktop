@@ -1,7 +1,7 @@
 [Desktop Entry]
 Version=1.0
 Name=dev
-Exec=/usr/lib/firefox-esr/firefox-esr --class="firefox-dev" -P dev -no-remote
+Exec=env MOZ_ENABLE_WAYLAND=1 MOZ_USE_XINPUT2=1 /usr/lib/firefox-esr/firefox-esr --class="firefox-dev" -P dev -no-remote
 Terminal=false
 Type=Application
 Categories=Network;WebBrowser;

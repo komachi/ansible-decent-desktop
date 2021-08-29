@@ -6,7 +6,7 @@
 - name: Install dconfs module deps
   apt:
     name:
-      - python-psutil
+      - python3-psutil
       - dconf-cli
     state: present
 

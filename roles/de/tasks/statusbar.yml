@@ -1,7 +1,7 @@
-- name: Install polybar and deps
+- name: Install waybar and deps
   apt:
     name:
-      - polybar
+      - waybar
       - gsimplecal
     state: present
 
@@ -19,34 +19,25 @@
     owner: "{{ username }}"
     group: "{{ username }}"
 
-- name: Ensures ~/.config/polybar/scripts exists
+- name: Ensures ~/.config/waybar exists
   file:
-    path: "/home/{{ username }}/.config/polybar/scripts"
+    path: "/home/{{ username }}/.config/waybar"
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
 
-- name: Copy polybar scripts
+- name: Configure waybar
   copy:
-    src: 'polybar/{{ item }}'
-    dest: "/home/{{ username }}/.config/polybar/scripts/{{ item }}"
-    mode: +x
+    src: "waybar/{{ item }}"
+    dest: "/home/{{ username }}/.config/waybar/{{ item }}"
     owner: "{{ username }}"
     group: "{{ username }}"
   loop:
-    - pulseaudio-microphone.sh
+    - 'config'
+    - 'style.css'
+    - 'microphone.sh'
 
-- name: Copy polybar launch script
-  copy:
-    src: 'polybar/launch.sh'
-    dest: "/home/{{ username }}/.config/polybar/launch.sh"
-    mode: +x
-    owner: "{{ username }}"
-    group: "{{ username }}"
-
-- name: Configure polybar
-  copy:
-    src: 'polybar/config'
-    dest: "/home/{{ username }}/.config/polybar/config"
-    owner: "{{ username }}"
-    group: "{{ username }}"
+- name: Add executable for microphone.sh
+  file:
+    dest: "/home/{{ username }}/.config/waybar/microphone.sh"
+    mode: 'a+x'

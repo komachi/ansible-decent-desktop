@@ -1,0 +1,55 @@
+* {
+  border: none;
+  border-radius: 0;
+  font-family: FontAwesome, hack;
+  font-size: 11px;
+  min-height: 0;
+}
+
+window#waybar {
+  background: #000000;
+  color: #ffffff;
+}
+
+tooltip {
+  background: #000000;
+  color: #ffffff;
+}
+
+tooltip label {
+  color: #ffffff;
+}
+
+#workspaces button {
+  padding: 0 5px;
+  background: transparent;
+  color: #ffffff;
+}
+
+#workspaces button.focused {
+  background: #070707;
+  border-bottom: 1px solid #ffffff;
+}
+
+#tray > .passive {
+  -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+  -gtk-icon-effect: highlight;
+  background-color: #eb4d4b;
+}
+
+#network.disconnected,
+#pulseaudio.muted,
+#custom-wg {
+  color: #bf616a;
+}
+
+#custom-microphone {
+  color: #20D896;
+}
+
+#custom-syncthing {
+  color: #2f2f2f;
+}

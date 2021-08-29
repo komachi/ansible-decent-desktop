@@ -1,4 +1,2 @@
 - include_tasks: install.yml
-- include_tasks: xresources.yml
-- include_tasks: xsettingsd.yml
 - include_tasks: hinting.yml

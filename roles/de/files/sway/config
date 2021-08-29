@@ -1,0 +1,290 @@
+set $mod Mod1
+set $left h
+set $down j
+set $up k
+set $right l
+
+set $term footclient
+set $menu wofi --show drun
+
+font pango:Hack 11
+
+output * bg #000000 solid_color
+
+xwayland disable
+
+bar {
+	swaybar_command waybar
+}
+
+input "1133:50184:Logitech USB Trackball" {
+    scroll_method on_button_down
+    scroll_button button8
+    middle_emulation enabled
+}
+
+input * {
+    xkb_layout "us,ru"
+    xkb_options "grp:caps_toggle"
+}
+
+default_border none
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod normal
+
+# start a terminal
+bindsym $mod+Return exec $term
+
+# kill focused window
+bindsym $mod+Shift+q kill
+
+# move workspace to another output
+bindsym $mod+o move workspace to output left
+
+# start wofi
+bindsym --release $mod+f exec $menu
+
+# change focus
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus right
+
+# move between workspaces
+bindsym $mod+Right workspace next
+bindsym $mod+Leftt workspace prev
+
+# move focused window
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+colon move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# split in horizontal orientation
+bindsym $mod+h split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+F11 fullscreen toggle
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus urgent
+bindsym $mod+u [urgent=latest] focus
+
+set $ws1 "www"
+set $ws2 "code"
+set $ws3 "term"
+set $ws4 "music"
+set $ws5 "fm"
+set $ws6 "im"
+set $ws7 "mail"
+set $ws8 "edit"
+set $ws9 "pass"
+set $ws10 "view"
+set $ws11 "money"
+set $ws12 "game"
+set $ws13 "etc"
+set $ws14 "debug"
+set $ws15 "subs"
+set $ws16 "dl"
+set $ws17 "deanon"
+set $ws18 "map"
+set $ws19 "config"
+
+set $nonprimary DVI-D-1 DP-1-2
+
+workspace www output primary
+workspace code output primary
+workspace term output $nonprimary primary
+workspace music output $nonprimary primary
+workspace fm output $nonprimary primary
+workspace im output $nonprimary primary
+workspace mail output $nonprimary primary
+workspace edit output primary
+workspace pass output $nonprimary primary
+workspace view output primary
+workspace money output $nonprimary primary
+workspace config output $nonprimary primary
+workspace etc output $nonprimary primary
+workspace debug output $nonprimary primary
+workspace subs output $nonprimary primary
+workspace dl output $nonprimary primary
+workspace deanon output primary
+workspace map output primary
+workspace game output primary
+
+# switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+bindsym $mod+q workspace money
+bindsym $mod+w workspace game
+bindsym $mod+e workspace etc
+bindsym $mod+a workspace debug
+bindsym $mod+s workspace subs
+bindsym $mod+d workspace dl
+bindsym $mod+z workspace deanon
+bindsym $mod+x workspace map
+bindsym $mod+c workspace config
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+bindsym $mod+Shift+w move container to workspace game
+bindsym $mod+Shift+e move container to workspace etc
+bindsym $mod+Shift+a move container to workspace debug
+bindsym $mod+Shift+s move container to workspace subs
+bindsym $mod+Shift+d move container to workspace dl
+bindsym $mod+Shift+z move container to workspace deanon
+bindsym $mod+Shift+x move container to workspace map
+bindsym $mod+Shift+c move container to workspace config
+
+# reload the configuration file
+bindsym $mod+Ctrl+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Ctrl+r restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Ctrl+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym semicolon resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+bindsym $mod+F1 exec --no-startup-id loginctl lock-session
+bindsym $mod+F2 exec --no-startup-id systemctl suspend
+bindsym $mod+F4 exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +1000
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -1000
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym XF86Tools exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym XF86AudioNext exec --no-startup-id playerctl next
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+bindsym XF86AudioPause exec --no-startup-id playerctl play-pause
+bindsym XF86AudioStop exec --no-startup-id playerctl stop
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl s 10%+
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl s 10%-
+bindsym XF86ScreenSaver exec --no-startup-id loginctl lock-session
+bindsym XF86Explorer exec sensible-browser
+
+bindsym --release Print exec --no-startup-id grim -g "$(slurp)" - | wl-copy
+
+mode "$mode_system" {
+    bindsym l exec --no-startup-id loginctl lock-session, mode "default"
+    bindsym e exec --no-startup-id i3-msg exit, mode "default"
+    bindsym s exec --no-startup-id systemctl suspend, mode "default"
+    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym Ctrl+s exec --no-startup-id systemctl poweroff -i, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+Pause mode "$mode_system"
+
+for_window [class="^.*"] border pixel 1
+assign [class="^((F|f)irefox(-esr|)|(C|c)hromium|(B|b)rave-browser)$"] www
+for_window [class="^(VSCodium|codium|mousepad)$"] move container to workspace code
+for_window [app_id="foot"] move container to workspace term
+for_window [app_id="pms"] move container to workspace music
+for_window [class="^(spacefm|pcmanfm)$"] move container to workspace fm
+for_window [app_id="nnn"] move container to workspace fm
+for_window [class="^(TelegramDesktop|(J|j)ami-gnome|deltachat|quaternion)"] move container to workspace im
+for_window [app_id="slack-term"] move container to workspace im
+for_window [class="^(thunderbird|Mail)$"] move container to workspace mail
+for_window [class="^(gimp|inkscape|libreoffice|simple-scan|audacity|org-openstreetmap-josm-.*|zim)$"] move container to workspace edit, focus
+for_window [class="^(keepassxc|KeePassXC)$"] move container to workspace pass
+for_window [class="^(mpv|sxiv|imvr|zathura)$"] move container to workspace view, focus
+for_window [class="^(uget-gtk|Uget-gtk|ariang-native)$"] move container to workspace dl
+for_window [app_id="aria2p"] move container to workspace dl
+for_window [class="^(Wireshark|Devtools|restscope|firefox-dev|gucharmap)$"] move container to workspace debug
+for_window [title="^DevTools - .*$" window_role="pop-up" class="^((B|b)rave-browser|(C|c)hromium)$"] move container to workspace debug, floating disable
+for_window [class="^FreeTube$"] move container to workspace subs, focus
+for_window [class="^io.github.rinigus.PureMaps$"] move container to workspace map, focus
+for_window [class="^(pavucontrol|qt5ct|nm-connection-editor|system-config-printer|osmscout-server|virt-manager)$"] move container to workspace config
+for_window [class="^(Wasabi Wallet|electrum|simpleos|electrum-dash|electron-cash|mycrypto|monero-wallet-gui|monero-core|bisq.desktop.app.BisqApp)$"] move container to workspace money
+for_window [class="^firefox-deanon$"] move container to workspace deanon
+for_window [class="^(Tor|i2p) Browser$"] move container to workspace www, floating enable
+for_window [class="^(pinentry|Gsimplecal)$"] floating enable, focus
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+
+# colour of border, background, text, indicator, and child_border
+client.focused              #2f2f2f #000000 #2f2f2f #2f2f2f #2f2f2f
+client.focused_inactive     #000000 #000000 #2f2f2f #000000 #000000
+client.unfocused            #000000 #000000 #2f2f2f #000000 #000000
+client.urgent               #bf616a #000000 #2f2f2f #bf616a #000000
+client.placeholder          #000000 #000000 #2f2f2f #000000 #000000
+client.background           #000000
+
+floating_minimum_size 75 x 50
+focus_on_window_activation urgent
+hide_edge_borders none
+focus_follows_mouse yes
+show_marks no
+
+exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ mute
+exec_always --no-startup-id pidof pms > /dev/null && exit 0 || footclient --app-id=pms pms
+exec_always --no-startup-id pidof nnn > /dev/null && exit 0 || footclient --app-id=nnn nnn
+exec --no-startup-id $term
+exec --no-startup-id kanshi
+exec swayidle -w \
+    timeout 280 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+    timeout 300 'swaylock -f -c 2f2f2f' \
+    before-sleep 'swaylock -f -c 2f2f2f'
+
+include /etc/sway/config.d/*

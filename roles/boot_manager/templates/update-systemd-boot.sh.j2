@@ -1,0 +1,145 @@
+#!/bin/sh
+#
+# This is a simple kernel hook to populate the systemd-boot entries
+# whenever kernel images are added or removed.
+# 
+# Based on theese two blog posts, check them out
+# https://p5r.uk/blog/2020/using-systemd-boot-on-debian-bullseye.html
+# https://blobfolio.com/2018/replace-grub2-with-systemd-boot-on-ubuntu-18-04/
+
+# The disk containing the root partition; also see `sudo blkid`
+UUID="{{ root_disk_uuid }}"
+root_disk="/dev/mapper/{{ root_disk }}_crypt"
+
+# Kernel params
+flags="ro"
+# Enable all the speculative execution kernel attacks mitigations
+flags="$flags spectre_v2=on spec_store_bypass_disable=on tsx=off tsx_async_abort=full,nosmt mds=full,nosmt l1tf=full,force nosmt=force kvm.nx_huge_pages=force random.trust_cpu=off intel_iommu=on amd_iommu=on efi=disable_early_pci_dma slab_nomerge slub_debug=FZ init_on_alloc=1 init_on_free=1 mce=0 pti=on vsyscall=none page_alloc.shuffle=1 extra_latent_entropy debugfs=off cgroup_enable=memory"
+# Enable AppArmor
+flags="$flags lsm=lockdown,capability,yama,apparmor apparmor=1 security=apparmor"
+# Disable watchdog
+flags="$flags nowatchdog modprobe.blacklist=iTCO_wdt modprobe.blacklist=iTCO_vendor_support nmi_watchdog=0"
+# Disable all messages during boot (so-called silet boot) 
+flags="$flags libahci.ignore_sss=1 quiet loglevel=3 rd.systemd.show_status=auto rd.udev.log_level=3 vt.global_cursor_default=0"
+
+prog_name=`basename $0`
+boot_dir="/boot"
+sd_boot_dir="loader/entries"
+sd_boot_path="$boot_dir/efi/$sd_boot_dir"
+title=
+prefix=
+force=0
+verbose=0
+
+
+usage() {
+    echo "$prog_name [OPTIONS]"
+}
+
+help() {
+    usage
+    echo
+    echo "OPTIONS"
+    echo "  -h          show this help page"
+    echo "  -f          force overwrite"
+    echo "  -v          make verbose"
+}
+
+while getopts hfv opt; do
+    case "$opt" in
+        h)  help
+            exit 0;;
+        f)  force=1;;
+        v)  verbose=1;;
+        \?)     # unknown flag
+            usage >&2
+            exit 1;;
+    esac
+done
+shift `expr $OPTIND - 1`
+
+if [ $# -ne 0 ]; then
+    echo >&2 "No extra argument allowed"
+    exit 1
+fi
+
+
+sd_boot_entry() {
+    cat <<-EOF
+	title   $title
+	version $version
+	linux   /$sd_boot_dir/vmlinuz-$version
+	initrd  /$sd_boot_dir/initrd.img-$version
+	options root=$root_disk rd.luks.name=$UUID=cryptroot $flags
+	EOF
+}
+
+
+if [ ! -h "/dev/disk/by-uuid/${root_disk#UUID=}" ]; then
+    echo >&2 "error: root disk '$root_disk' not found"
+    exit 1
+fi
+
+if [ ! -d "$sd_boot_path" ]; then
+    echo >&2 "error: directory '$sd_boot_path' not found"
+    exit 1
+fi
+
+if [ ! -f /etc/machine-id ]; then
+    echo >&2 "error: machine id file '/etc/machine-id' not found"
+    exit 1
+fi
+prefix="`cat /etc/machine-id`-v"
+
+if [ -f /etc/os-release ]; then
+    title=`sed -ne '/^PRETTY_NAME=/s/.*"\(.*\)".*/\1/p' /etc/os-release`
+else
+    title=Debian
+fi
+
+
+echo "Updating Systemd boot entries"
+
+# Copy images from the Debian install directory to the EFI partition
+find "$boot_dir" -maxdepth 1 -type f -name '*.dpkg-tmp' -prune -o -name 'vmlinuz-*' -exec cp -u {} "$sd_boot_path" \;
+find "$boot_dir" -maxdepth 1 -type f -name '*.dpkg-tmp' -prune -o -name 'initrd.img-*' -exec cp -u {} "$sd_boot_path" \;
+
+# Remove files from the EFI if they are missing from the Debian install directory
+find "$sd_boot_path" -maxdepth 1 -type f -name 'vmlinuz-*' | while read i; do
+    kernel="$boot_dir/`basename $i`"
+    if [ ! -f "$kernel" ]; then
+        rm -f "$i"
+    fi
+done
+find "$sd_boot_path" -maxdepth 1 -type f -name 'initrd.img-*' | while read i; do
+    initrd="$boot_dir/`basename $i`"
+    if [ ! -f "$initrd" ]; then
+        rm -f "$i"
+    fi
+done
+
+# Remove the conf file
+find "$sd_boot_path" -maxdepth 1 -type f -name "$prefix*.conf" | sort -Vr | while read i; do
+    version=`basename $i | sed -e "s/$prefix//; s/.conf$//"`
+    kernel="$sd_boot_path/vmlinuz-$version"
+    initrd="$sd_boot_path/initrd.img-$version"
+    if [ ! -f "$kernel" -o ! -f "$initrd" ]; then
+        echo "Removing kernel v$version"
+        rm -f "$i" "$kernel" "$initrd"
+    fi
+done
+
+# Add new kernel entries
+find "$boot_dir" -maxdepth 1 -type f -name '*.dpkg-tmp' -prune -o -name 'vmlinuz-*' -print | sort -Vr | while read i; do
+    version=`basename $i | sed -e 's/vmlinuz-//'`
+    initrd="$boot_dir/initrd.img-$version"
+    file="$sd_boot_path/$prefix$version.conf"
+    echo "Found kernel `basename $i`"
+    if [ ! -f "$initrd" ]; then
+        echo "Ignoring $i"
+    elif [ $force -eq 1 -o ! -f "$file" ]; then
+        echo "Adding $file"
+        sd_boot_entry "$version" > "$file"
+        cp -v $i "$initrd" "$sd_boot_path"
+    fi
+done

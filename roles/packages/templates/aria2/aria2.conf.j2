@@ -30,7 +30,3 @@ min-split-size=25M
 bt-exclude-tracker=http://retracker.local/announce
 enable-dht=true
 enable-dht6=true
-{% if mullvad_account is defined %}
-dht-listen-port={{ mullvad_ports[0] }}
-listen-port={{ mullvad_ports[0] }}
-{% endif %}

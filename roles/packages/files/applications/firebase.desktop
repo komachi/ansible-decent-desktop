@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Firebase Console
+Exec=/usr/bin/chromium --class="firebase" --profile-directory=firebase --app=https://console.firebase.google.com
+Terminal=false
+Type=Application
+Categories=Network;
+Keywords=firebase;
+StartupWMClass=firebase
+StartupNotify=true

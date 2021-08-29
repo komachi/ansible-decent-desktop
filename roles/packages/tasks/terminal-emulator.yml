@@ -1,21 +1,23 @@
-- name: Install rxvt-unicode
+- name: Install foot
   package:
-    name: rxvt-unicode
+    name: foot
     state: present
-  tags:
-    - dependencies
+
+- name: Ensures ~/.config/foot exists
+  file:
+    path: "/home/{{ username }}/.config/foot"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Copy foot config
+  copy:
+    src: foot/foot.ini
+    dest: "/home/{{ username }}/.config/foot/foot.ini"
+    owner: "{{ username }}"
+    group: "{{ username }}"
 
 - name: Set as default terminal emulator
   alternatives:
     name: x-terminal-emulator
-    path: /usr/bin/urxvtc
-
-- name: Configure urxvt
-  blockinfile:
-    path: /home/{{ username }}/.Xresources
-    create: true
-    marker: "! {mark} URXVT SETTINGS ANSIBLE MANAGED BLOCK"
-    block: "{{ lookup('file', 'rxvt-xresources') }}"
-    owner: "{{ username }}"
-    group: "{{ username }}"
-    mode: 0640
+    path: /usr/bin/foot

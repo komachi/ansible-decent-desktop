@@ -1,14 +1,13 @@
-- name: Install python3-venv and pipx
+- name: Install python3-venv
   apt:
     name:
       - python3-venv
-      - pipx
     state: present
 
-- name: Install pipx from pipx
+- name: Install pipx
   become: yes
   become_user: "{{ username }}"
-  shell: "pipx install --force pipx"
+  shell: "python3 -m pip install --user pipx"
 
 - name: Ensures ~/.config/systemd/user exists
   file:

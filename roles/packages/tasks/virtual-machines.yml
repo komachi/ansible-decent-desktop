@@ -1,24 +1,16 @@
-- name: Install tools to run vm
+- name: Install vagrant
   apt:
     name: 
       - vagrant
       - vagrant-cachier
       - vagrant-libvirt
-      - dnsmasq-base
-      - gir1.2-spiceclientgtk-3.0
-      - virtinst
-      - libvirt-clients
-      - libvirt-daemon-system
-      - qemu-kvm
-      - qemu-utils
       - virt-manager
-      - libguestfs-tools
     state: present
 
 - name: Install dconfs module deps
   apt:
     name:
-      - python-psutil
+      - python3-psutil
       - dconf-cli
     state: present
 
@@ -31,4 +23,4 @@
     state: present
   loop:
     - name: "urls/urls"
-      value: "['https://deb.debian.org/debian/dists/buster/main/installer-amd64/']"
+      value: "['https://deb.debian.org/debian/dists/{{ ansible_distribution_release }}/main/installer-amd64/']"

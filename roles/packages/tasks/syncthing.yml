@@ -1,6 +1,8 @@
-- name: Install Syncthing
+- name: Install Syncthing and GTK gui
   apt:
-    name: syncthing
+    name:
+      - syncthing
+      - syncthing-gtk
     state: present
 
 - name: Ensures ~/.config/systemd/user exists

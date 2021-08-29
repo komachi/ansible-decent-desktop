@@ -1,36 +1,48 @@
-- name: Install searx
-  become: yes
-  become_user: "{{ username }}"
-  #shell: "pipx install --force git+https://github.com/searx/searx.git#{{ searx_commit }}"
-  shell: "pipx install --force searx"
+- name: Create searx user
+  user:
+    name: searx
+    shell: /bin/false
+    create_home: no
+    system: yes
 
-- name: Ensures ~/.config/searx exists
+- name: Pull searx image
+  containers.podman.podman_image:
+    name: registry.hub.docker.com/searx/searx
+
+- name: Ensures /etc/searx exists
   file:
-    path: "/home/{{ username }}/.config/searx"
+    path: "/etc/searx"
     state: directory
-    owner: "{{ username }}"
-    group: "{{ username }}"
+    owner: "searx"
+    group: "searx"
 
 - name: Copy searx config
   template:
     src: searx/settings.yml.j2
-    dest: "/home/{{ username }}/.config/searx/settings.yml"
-    owner: "{{ username }}"
-    group: "{{ username }}"
+    dest: "/etc/searx/settings.yml"
+    owner: "searx"
+    group: "searx"
+
+- name: Run searx container
+  containers.podman.podman_container:
+    name: searx
+    image: registry.hub.docker.com/searx/searx
+    state: started
+    ports:
+      - "8888:8080"
+    env:
+      BASE_URL: "http://localhost:8888/"
+    volume:
+      - '/etc/searx:/etc/searx'
 
 - name: Add systemd service
   template:
     src: 'systemd/searx.service.j2'
-    dest: "/home/{{ username }}/.config/systemd/user/searx.service"
+    dest: "/etc/systemd/system/searx.service"
     mode: '0640'
-    owner: "{{ username }}"
-    group: "{{ username }}"
 
 - name: Enable searx service
-  become: yes
-  become_user: "{{ username }}"
   systemd:
-    scope: user
     name: searx
     enabled: yes
     state: started

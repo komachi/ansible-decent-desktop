@@ -1,0 +1,18 @@
+[Desktop Entry]
+Name=VSCodium
+Comment=Code Editing. Redefined.
+GenericName=Text Editor
+Exec=/usr/share/codium/codium --enable-features=UseOzonePlatform --ozone-platform=wayland --enable-gpu --unity-launch %F
+Icon=vscodium
+Type=Application
+StartupNotify=false
+StartupWMClass=VSCodium
+Categories=Utility;TextEditor;Development;IDE;
+MimeType=text/plain;inode/directory;application/x-codium-workspace;
+Actions=new-empty-window;
+Keywords=vscode;
+
+[Desktop Action new-empty-window]
+Name=New Empty Window
+Exec=/usr/share/codium/codium --enable-features=UseOzonePlatform --ozone-platform=wayland --enable-gpu --new-window %F
+Icon=vscodium

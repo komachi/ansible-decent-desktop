@@ -1,7 +1,7 @@
 [Desktop Entry]
 Version=1.0
 Name=pms
-Exec=urxvtc -name pms -e pms
+Exec=foot --app-id=pms pms
 Terminal=false
 StartupWMClass=pms
 Type=Application

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=GitHub
+Exec=flatpak run com.github.Eloston.UngoogledChromium --class="github" --profile-directory=github --app=https://github.com
+Terminal=false
+Type=Application
+Categories=Network;
+Keywords=github;
+StartupWMClass=github
+StartupNotify=true

@@ -1,6 +1,6 @@
 - name: Install guile
   apt:
-    name: guile-2.2
+    name: guile-3.0
     state: present
 
 - name: Download jaro

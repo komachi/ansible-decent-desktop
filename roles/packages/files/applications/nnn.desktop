@@ -1,7 +1,7 @@
 [Desktop Entry]
 Version=1.0
 Name=nnn
-Exec=urxvtc -name nnn -e nnn
+Exec=foot --app-id=nnn nnn
 Terminal=false
 StartupWMClass=nnn
 Type=Application

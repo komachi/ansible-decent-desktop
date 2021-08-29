@@ -3,7 +3,8 @@
 Description=Flatpak update
 
 [Timer]
-OnCalendar=4:00
+OnCalendar=*-*-* 6:00
+RandomizedDelaySec=60m
 Persistent=true
 
 [Install]

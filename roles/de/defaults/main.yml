@@ -1,8 +1,2 @@
-calendar_url: "https://raw.githubusercontent.com/deficient/calendar/00860a3e21989121550f1eabbaeed84b88a1367f/calendar.lua"
-calendar_checksum: "sha256:be259a6b586f514a4478878b5e6f7016332b664d66d1f43bae695e63d1d9d2e1"
-xpub_url: "https://raw.githubusercontent.com/Ventto/xpub/13e3f7a62b6c1921e5d5365705d10bf94528b4af/src/xpub.sh"
-xpub_checksum: "sha256:17a8bb23f0c782d5683482d6e1946776873bc69035a93cff515446a3ea533a9f"
-batify_udev_url: "https://raw.githubusercontent.com/Ventto/batify/691dc5bac771269c487587f9775cc32a01587fcf/99-batify.rules"
-batify_udev_checksum: "sha256:6bad7128386ca81fe39d8862e69ba0394e0dff5b08836d3e12128ef78d7b646b"
 jaro_url: "https://raw.githubusercontent.com/isamert/jaro/cba1bfa24e84de1b4c6afd766df6d09aa0654510/jaro"
 jaro_checksum: "sha256:5e6c19a29e3da9d03f8ac5b463c44a07ef701eaed4d4b2a1a2e781ebfb3601cb"

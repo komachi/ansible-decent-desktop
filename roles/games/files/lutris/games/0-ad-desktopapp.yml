@@ -1,7 +1,0 @@
-game:
-  appid: com.play0ad.zeroad
-  args: run --branch=stable --arch=x86_64 --command=0ad com.play0ad.zeroad
-  exe: /usr/bin/flatpak
-linux: {}
-system:
-  disable_runtime: true

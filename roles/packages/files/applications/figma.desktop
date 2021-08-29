@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Figma
+Exec=flatpak run com.github.Eloston.UngoogledChromium --class="figma" --profile-directory=figma --app=https://figma.com
+Terminal=false
+Type=Application
+Categories=Network;
+Keywords=figma;
+StartupWMClass=figma
+StartupNotify=true

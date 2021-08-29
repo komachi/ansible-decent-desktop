@@ -3,5 +3,5 @@
     name:
       - zim
       - libgtksourceview2.0-0
-      - python-gtkspellcheck
+      - python3-gtkspellcheck
     state: present

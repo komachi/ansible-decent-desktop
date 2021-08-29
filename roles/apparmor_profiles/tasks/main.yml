@@ -9,8 +9,8 @@
     dest: "{{ apparmor_profiles_tempdir.path }}"
     recursive: yes
     depth: "1"
+    clone: yes
     version: "{{ apparmor_even_more_profiles_commit }}"
-    refspec: '+refs/heads/*:refs/remotes/origin/*'
 
 - name: Copy profiles
   copy:

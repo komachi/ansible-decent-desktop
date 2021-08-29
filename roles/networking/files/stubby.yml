@@ -15,46 +15,22 @@ listen_addresses:
 upstream_recursive_servers:
   - address_data: 185.49.141.37
     tls_auth_name: "getdnsapi.net"
-    tls_pubkey_pinset:
-      - digest: "sha256"
-        value: foxZRnIh9gZpWnl+zEiKa0EJ2rdCGroMWm02gaxSc9Q=
   - address_data: 89.233.43.71
     tls_auth_name: "unicast.censurfridns.dk"
-    tls_pubkey_pinset:
-      - digest: "sha256"
-        value: wikE3jYAA6jQmXYTr/rbHeEPmC78dQwZbQp6WdrseEs=
   - address_data: 145.100.185.18
     tls_auth_name: "dnsovertls3.sinodun.com"
-    tls_pubkey_pinset:
-      - digest: "sha256"
-        value: 5SpFz7JEPzF71hditH1v2dBhSErPUMcLPJx1uk2svT8=
   - address_data: 146.185.167.43
     tls_auth_name: "dot.securedns.eu"
-    tls_pubkey_pinset:
-      - digest: "sha256"
-        value: h3mufC43MEqRD6uE4lz6gAgULZ5/riqH/E+U+jE3H8g=
   - address_data: 94.130.110.185
     tls_auth_name: "ns1.dnsprivacy.at"
-    tls_pubkey_pinset:
-      - digest: "sha256"
-        value: vqVQ9TcoR9RDY3TpO0MTXw1YQLjF44zdN3/4PkLwtEY=
   - address_data: 94.130.110.178
     tls_auth_name: "ns2.dnsprivacy.at"
-    tls_pubkey_pinset:
-      - digest: "sha256"
-        value: s5Em89o0kigwfBF1gcXWd8zlATSWVXsJ6ecZfmBDTKg=
   - address_data: 145.100.185.15
     tls_port: 443
     tls_auth_name: "dnsovertls.sinodun.com"
-    tls_pubkey_pinset:
-      - digest: "sha256"
-        value: 62lKu9HsDVbyiPenApnc4sfmSYTHOVfFgL3pyB+cBL4=
   - address_data: 145.100.185.16
     tls_port: 443
     tls_auth_name: "dnsovertls1.sinodun.com"
-    tls_pubkey_pinset:
-      - digest: "sha256"
-        value: cE2ecALeE5B+urJhDrJlVFmf38cJLAvqekONvjvpqUA=
   - address_data: 37.252.185.232
     tls_port: 443
     tls_auth_name: "dot1.appliedprivacy.net"
@@ -72,37 +48,16 @@ upstream_recursive_servers:
   - address_data: 2001:610:1:40ba:145:100:185:15
     tls_port: 443
     tls_auth_name: "dnsovertls.sinodun.com"
-    tls_pubkey_pinset:
-      - digest: "sha256"
-        value: 62lKu9HsDVbyiPenApnc4sfmSYTHOVfFgL3pyB+cBL4=
   - address_data: 2001:610:1:40ba:145:100:185:16
     tls_port: 443
     tls_auth_name: "dnsovertls1.sinodun.com"
-    tls_pubkey_pinset:
-      - digest: "sha256"
-        value: cE2ecALeE5B+urJhDrJlVFmf38cJLAvqekONvjvpqUA=
   - address_data: 2a04:b900:0:100::38
     tls_auth_name: "getdnsapi.net"
-    tls_pubkey_pinset:
-      - digest: "sha256"
-        value: foxZRnIh9gZpWnl+zEiKa0EJ2rdCGroMWm02gaxSc9Q=
   - address_data: 2a01:3a0:53:53::0
     tls_auth_name: "unicast.censurfridns.dk"
-    tls_pubkey_pinset:
-      - digest: "sha256"
-        value: wikE3jYAA6jQmXYTr/rbHeEPmC78dQwZbQp6WdrseEs=
   - address_data: 2001:610:1:40ba:145:100:185:18
     tls_auth_name: "dnsovertls3.sinodun.com"
-    tls_pubkey_pinset:
-      - digest: "sha256"
-        value: 5SpFz7JEPzF71hditH1v2dBhSErPUMcLPJx1uk2svT8=
   - address_data: 2a01:4f8:c0c:3c03::2
     tls_auth_name: "ns1.dnsprivacy.at"
-    tls_pubkey_pinset:
-      - digest: "sha256"
-        value: vqVQ9TcoR9RDY3TpO0MTXw1YQLjF44zdN3/4PkLwtEY=
   - address_data: 2a01:4f8:c0c:3bfc::2
     tls_auth_name: "ns2.dnsprivacy.at"
-    tls_pubkey_pinset:
-      - digest: "sha256"
-        value: s5Em89o0kigwfBF1gcXWd8zlATSWVXsJ6ecZfmBDTKg=

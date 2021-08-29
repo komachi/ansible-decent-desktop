@@ -1,8 +1,5 @@
-- include_tasks: intel-video.yml
-  when: thinkpad_x230|d(False) == True
 - include_tasks: iwlwifi.yml
   when: thinkpad_x230|d(False) == True
-- include_tasks: logitech-marble.yml
 - include_tasks: nitrokey.yml
 - include_tasks: onlykey.yml
 - include_tasks: ledger.yml

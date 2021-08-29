@@ -1,0 +1,7 @@
+- name: Install podman and deps
+  apt:
+    name:
+      - podman
+      - slirp4netns
+      - rootlesskit
+    state: present

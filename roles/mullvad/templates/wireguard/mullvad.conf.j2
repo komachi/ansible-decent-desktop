@@ -1,6 +1,6 @@
 [Interface]
 PrivateKey = {{ mullvad_wireguard_private_key }}
-Address = {{ mullvad_wireguard_address.content }}
+Address = {{ mullvad_wireguard_address.json.ipv4_address }}
 
 [Peer]
 PublicKey = {{ item.public_key }}

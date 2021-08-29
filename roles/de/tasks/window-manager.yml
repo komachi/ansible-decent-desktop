@@ -1,20 +1,18 @@
-- name: Install i3-wm and some deps
+- name: Install sway
   apt:
-    name:
-      - i3-wm
-      - hsetroot
+    name: sway
     state: present
 
-- name: Ensures ~/.config/i3 exists
+- name: Ensures ~/.config/sway exists
   file:
-    path: "/home/{{ username }}/.config/i3"
+    path: "/home/{{ username }}/.config/sway"
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
 
-- name: Copy i3 config
+- name: Copy sway config
   copy:
-    src: i3/config
-    dest: "/home/{{ username }}/.config/i3/config"
+    src: sway/config
+    dest: "/home/{{ username }}/.config/sway/config"
     owner: "{{ username }}"
     group: "{{ username }}"

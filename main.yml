@@ -12,15 +12,15 @@
   roles:
     - remote_keyring
     - apt_transport_tor
-    - core
     - apt_preferences
+    # TODO enable and move to systemd-boot
+    # - boot_manager
+    - grub
     - apt
     - unattended_upgrades
     - kmod
-    - grub
     - sysctl
-    # broken https://github.com/dev-sec/ansible-collection-hardening/issues/387
-    #- ssh_hardening
+    - ssh_hardening
     - logind
     - journald
     - logrotate
@@ -30,15 +30,15 @@
     - audio
     - firewall
     - timezone
-    #- ntp
-    - display-server
+    - ntp
     - dm
     - de
     - apt_install
     - python
+    - libvirtd
     - packages
+    - nodejs
     - games
-    #- docker_server
     - themes
     - fonts
     - hardware
@@ -50,7 +50,7 @@
     - gantsign.keyboard
     - additional_hardering
     - apparmor_profiles
-    #- os_hardening
+    - os_hardening
   vars_prompt:
     - name: local_ip
       prompt: "IP range of your home local network"
@@ -69,7 +69,11 @@
     - name: large_dirs
       prompt: "Large dirs storage prefix (e.g XDG user dirs)"
       private: no
-      default: "/mnt/hdd"
+      default: "/data"
+    # - name: root_disk
+    #   prompt: "Disk hosting /boot directory"
+    #   private: no
+    #   default: "sdb3"
   vars:
     tor_browser_user_agent: "Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101 Firefox/78.0"
     timezone: 'Etc/UTC'
@@ -81,6 +85,7 @@
     sysctl_overwrite:
       net.ipv6.conf.all.disable_ipv6: 0
       net.ipv4.ip_forward: 1
+      kernel.unprivileged_userns_clone: 1
     os_desktop_enable: True
     ufw_manage_defaults: False
     ssh_server_enabled: False
@@ -94,7 +99,6 @@
     ntp__daemon_enabled: True
     ntp__daemon: 'chrony'
     ntp__timezone: "{{ timezone }}"
-    docker_server__upstream: True
     journald__configuration:
         - name: 'SystemMaxUse'
           value: '500M'
@@ -132,7 +136,6 @@
           - netdev
           - lpadmin
           - console
-          - docker
           - wireshark
           - debian-tor
           - libvirt
@@ -140,6 +143,11 @@
           - kvm
           - boinc
         shell: '/bin/bash'
+    nodejs__node_upstream: True
+    nodejs__yarn_upstream: True
+    nodejs__node_upstream_release: 'node_14.x'
+    nodejs__yarn_upstream_repository: 'deb [arch=amd64 signed-by=/usr/share/keyrings/dl.yarnpkg.com-keyring.gpg] tor+https://dl.yarnpkg.com/debian/ stable main'
+    nodejs__node_upstream_repository: 'deb [arch=amd64 signed-by=/usr/share/keyrings/deb.nodesource.com-keyring.gpg] tor+https://deb.nodesource.com/{{ nodejs__node_upstream_release }} {{ ansible_distribution_release }} main'
     packages:
       - haveged
       - whois
@@ -162,8 +170,6 @@
       - gstreamer1.0-plugins-bad
       - gstreamer1.0-plugins-ugly
       - ripgrep
-      - maim
-      - xclip
       - dnsutils
       - gimp
       - inkscape
@@ -187,9 +193,7 @@
       - telegram-desktop
       - needrestart
       - lm-sensors
-      - playerctl
       - shellcheck
-      - xinput
       - fuse
       - wireshark
       - devscripts
@@ -199,125 +203,16 @@
       - command-not-found
       - apt-file
       - direnv
-      - appstream
       - libvips-tools
-      - tb-starter
-      - tb-updater
       - p7zip-full
       - openclipart-svg
       - beignet-opencl-icd
       - v4l2loopback-dkms
-      - appstream
-      - packagekit
-      - packagekit-tools
-      - apt-config-icons
+      - nfs-common
+      - nfs-kernel-server
     apt_install__all_packages:
       - "{{ packages }}"
     apt_preferences__list:
-      - packages:
-          - telegram-desktop
-          - nheko
-          - tlp
-          - tlp-rdw
-          - shellcheck
-          - josm
-          - jmapviewer
-          - wireguard
-          - wireguard-dkms
-          - wireguard-tools
-          - unclutter-xfixes
-          - unclutter-startup
-          - firmware-misc-nonfree
-          - firmware-realtek
-          - flatpak
-          - libostree-1-1
-          - bubblewrap
-          - xdg-desktop-portal
-          - xdg-desktop-portal-gtk
-          - virt-manager
-          - virtinst
-          - 'libreoffice-*'
-          - libuno-cppu3
-          - libuno-cppuhelpergcc3-3
-          - libuno-sal3
-          - libuno-salhelpergcc3-3
-          - uno-libs-private
-          - python3-uno
-          - ure
-          - keepassxc
-          - git
-          - git-man
-          - git-cvs
-          - git-daemon-sysvinit
-          - git-daemon-run
-          - git-doc
-          - git-el
-          - git-email
-          - git-gui
-          - git-mediawiki
-          - git-svn
-          - gitk
-          - gitweb
-          - golang
-          - golang-doc
-          - golang-go
-          - golang-src
-          - 'golang-1.*'
-          - systemd
-          - systemd-container
-          - systemd-coredump
-          - systemd-journal-remote
-          - systemd-sysv
-          - systemd-tests
-          - systemd-timesyncd
-          - udev
-          - udev-udeb
-          - libsystemd0
-          - libnss-myhostname
-          - libnss-mymachines
-          - libnss-resolve
-          - libnss-systemd
-          - libpam-systemd
-          - libsystemd-dev
-          - libudev-dev
-          - libudev1
-          - libudev1-udeb
-          - libzstd1
-          - libcryptsetup12
-          - libinih1
-          - gamemode
-          - gamemode-daemon
-          - libgamemode0
-          - libgamemodeauto0
-          - ansible
-          - python-cryptography
-          - firmware-amd-graphics
-          - zstd
-          - boinc
-          - boinc-dev
-          - boinc-client
-          - boinc-client-opencl
-          - boinc-client-nvidia-cuda
-          - boinc-screensaver
-          - boinc-virtualbox
-          - libboinc-app-dev
-          - libboinc-app7
-          - libboinc7
-          - boinc-manager
-          - v4l2loopback-dkms
-          - v4l2loopback-utils
-          # backported kernel
-          - 'linux-compiler-gcc-*'
-          - 'linux-headers-*'
-          - 'linux-image-*'
-          - 'linux-kbuild-*'
-          - 'linux-config-*'
-          - 'linux-doc-*'
-          - 'kernel-image-*'
-          - linux-doc
-          - linux-libc-dev
-        suffix: '_backports'
-        backports: [ 'buster' ]
       - '{{ apt_preferences__preset_list | list }}'
       - package: '*'
         suffix: '_tor'
@@ -332,32 +227,28 @@
     apt__install_recommends: False
     apt__install_suggests: False
     apt__repositories:
-      - repo: 'deb [arch=amd64] tor+http://vwakviie2ienjx6t.onion/debian testing main'
-      - repo: 'deb [arch=amd64] tor+http://vwakviie2ienjx6t.onion/debian unstable main'
+      - repo: 'deb [arch=amd64] tor+http://2s4yqjx5ul6okpp3f2gaunr2syex5jgbfpfvhxxbbjwnrsvbk5v3qbid.onion/debian testing main'
+      - repo: 'deb [arch=amd64] tor+http://2s4yqjx5ul6okpp3f2gaunr2syex5jgbfpfvhxxbbjwnrsvbk5v3qbid.onion/debian unstable main'
       - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/repo.i2pd.xyz-keyring.gpg] tor+https://repo.i2pd.xyz/debian {{ ansible_distribution_release }} main'
-      - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/deb.nodesource.com-keyring.gpg] tor+https://deb.nodesource.com/node_14.x {{ ansible_distribution_release }} main'
       - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/vscodium-keyring.gpg] tor+https://paulcarroty.gitlab.io/vscodium-deb-rpm-repo/debs vscodium main'
-      - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg] tor+http://sdscoq7snqtznauu.onion/torproject.org {{ ansible_distribution_release }} main'
-      - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/download.docker.com-keyring.gpg] tor+https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable'
+      - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg] tor+http://apow7mjfryruh65chtdydfmqfpj5btws7nbocgtaovhvezgccyjazpqd.onion/torproject.org {{ ansible_distribution_release }} main'
       - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/whonix.org-keyring.gpg] tor+http://deb.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion {{ ansible_distribution_release }} main'
       - repo: 'deb-src [signed-by=/usr/share/keyrings/uget-keyring.gpg] tor+http://ppa.launchpad.net/uget-team/ppa/ubuntu bionic main'
-      - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/dl.yarnpkg.com-keyring.gpg] tor+https://dl.yarnpkg.com/debian/ stable main'
-      - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/apt.qm64.tech-keyring.gpg] https://apt.qm64.tech/ apt/'
+      - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/apt.qm64.tech-keyring.gpg] tor+https://apt.qm64.tech/ apt/'
       - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/apt.syncthing.net-keyring.gpg] tor+https://apt.syncthing.net/ syncthing stable'
       - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/brave-keyring.gpg] tor+https://brave-browser-apt-release.s3.brave.com/ stable main'
       - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/deb.imaginary.stream-keyring.gpg] tor+https://deb.imaginary.stream {{ ansible_distribution_release }} main'
-      - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/ungoogled-chromium-keyring.gpg] tor+https://download.opensuse.org/repositories/home:/ungoogled_chromium/Debian_Buster/ /'
       - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/jami-archive-keyring.gpg] tor+https://dl.jami.net/nightly/debian_10/ ring main'
     apt__default_sources:
-      - uri: 'tor+http://vwakviie2ienjx6t.onion/debian'
+      - uri: 'tor+http://2s4yqjx5ul6okpp3f2gaunr2syex5jgbfpfvhxxbbjwnrsvbk5v3qbid.onion/debian'
         comment: 'Official Debian repositories'
         distribution: 'Debian'
         state: 'present'
     apt__security_sources:
-      - uri: 'tor+http://sgvtcaew4bxjd7ln.onion'
+      - uri: 'tor+http://5ajw6aqf3ep7sijnscdzw77t7xq4xjpsy335yb2wiwgouo7yfxtjlmid.onion/debian-security'
         comment: 'Debian Security repository'
         type: 'deb'
-        suite: '{{ ansible_distribution_release + "/updates" }}'
+        suite: '{{ ansible_distribution_release + "-security" }}'
         components: ['main', 'contrib', 'non-free']
         distribution: 'Debian'
         state: 'present'
@@ -375,11 +266,10 @@
         options:
           - 'fs.inotify.max_user_watches': 1048576
     python__v3: True
-    python__v2: True
-    python__packages2:
-      - python-dev
+    python__v2: False
     python__packages3:
       - python3-dev
+      - python-is-python3
     locales__list:
       - 'ru_RU.UTF-8'
       - 'en_DK.UTF-8'

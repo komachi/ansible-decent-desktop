@@ -4,7 +4,7 @@ Name=MyCrypto
 GenericName=Ethereum Wallet
 Exec=mycrypto
 Terminal=false
-StartupWMClass=mycrypto
+StartupWMClass=mycrypto --enable-features=UseOzonePlatform --ozone-platform=wayland
 Type=Application
 Categories=Office;Finance;
 Keywords=mycrypto;ethereum;eth;wallet;crypto;blockchain;

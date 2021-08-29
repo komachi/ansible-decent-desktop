@@ -1,4 +1,0 @@
-- name: Install intel video driver
-  apt:
-    name: xserver-xorg-video-intel
-    state: present
