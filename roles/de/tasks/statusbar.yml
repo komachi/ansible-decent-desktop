@@ -41,3 +41,19 @@
   file:
     dest: "/home/{{ username }}/.config/waybar/microphone.sh"
     mode: 'a+x'
+
+- name: Add waybar systemd user unit
+  copy:
+    src: 'systemd/waybar.service'
+    dest: "/home/{{username}}/.config/systemd/user/waybar.service"
+    mode: '0640'
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Enable waybar systemd user service
+  become: yes
+  become_user: "{{ username }}"
+  systemd:
+    scope: user
+    name: "waybar"
+    enabled: yes

@@ -6,19 +6,9 @@
     owner: "{{ username }}"
     group: "{{ username }}"
     block: |
-      TERM=xterm
-      NODE_OPTIONS=--max_old_space_size=8192
-      _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=gasp -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dswing.crossplatformlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Djdk.gtk.version=3'
-      _JAVA_AWT_WM_NONREPARENTING=1
-      GTK2_RC_FILES="$HOME/.gtkrc-2.0"
-      CLUTTER_BACKEND=wayland
-      SDL_VIDEDRIVER=wayland
-      XDG_SESSION_TYPE=wayland
-      XDG_CURRENT_DESKTOP="sway"
-      QT_QPA_PLATFORMTHEME=qt5ct
-      QT_QPA_PLATFORM=wayland
-      QT_WAYLAND_DISABLE_WINDOWDECORATION=1
-      SAL_USE_VCLPLUGIN=gtk3
+      while read -r l; do
+        eval export $l
+      done < <(/usr/lib/systemd/user-environment-generators/30-systemd-environment-d-generator)
       if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
         exec sway
       fi

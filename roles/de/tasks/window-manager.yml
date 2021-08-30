@@ -16,3 +16,11 @@
     dest: "/home/{{ username }}/.config/sway/config"
     owner: "{{ username }}"
     group: "{{ username }}"
+
+- name: Add sway-session.target
+  copy:
+    src: 'systemd/sway-session.target'
+    dest: "/home/{{username}}/.config/systemd/user/sway-session.target"
+    mode: '0640'
+    owner: "{{ username }}"
+    group: "{{ username }}"

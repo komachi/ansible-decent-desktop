@@ -14,5 +14,5 @@ Keywords=vscode;
 
 [Desktop Action new-empty-window]
 Name=New Empty Window
-Exec=/usr/share/codium/codium --enable-features=UseOzonePlatform --ozone-platform=wayland --enable-gpu --new-window %F
+Exec==env FREETYPE_PROPERTIES="truetype:interpreter-version=35" /usr/share/codium/codium --enable-features=UseOzonePlatform --ozone-platform=wayland --enable-gpu --new-window %F
 Icon=vscodium

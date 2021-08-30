@@ -1,0 +1,34 @@
+- name: Install mako
+  apt:
+    name: mako-notifier
+    state: present
+
+- name: Ensures ~/.config/mako exists
+  file:
+    path: "/home/{{ username }}/.config/mako"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Copy mako config
+  copy:
+    src: mako/config
+    dest: "/home/{{ username }}/.config/mako/config"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Add mako systemd user unit
+  copy:
+    src: 'systemd/mako.service'
+    dest: "/home/{{username}}/.config/systemd/user/mako.service"
+    mode: '0640'
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Enable mako systemd user service
+  become: yes
+  become_user: "{{ username }}"
+  systemd:
+    scope: user
+    name: "mako"
+    enabled: yes

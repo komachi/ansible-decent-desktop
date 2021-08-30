@@ -20,4 +20,20 @@
 - name: Set as default terminal emulator
   alternatives:
     name: x-terminal-emulator
-    path: /usr/bin/foot
+    path: /usr/bin/footclient
+
+- name: Add systemd user units
+  copy:
+    src: 'systemd/foot.service'
+    dest: "/home/{{username}}/.config/systemd/user/foot.service"
+    mode: '0640'
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Enable systemd user services
+  become: yes
+  become_user: "{{ username }}"
+  systemd:
+    scope: user
+    name: "foot"
+    enabled: yes

@@ -1,0 +1,11 @@
+[Unit]
+Description=Foot server
+Documentation=https://codeberg.org/dnkl/foot
+BindsTo=sway-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/foot --server
+
+[Install]
+WantedBy=sway-session.target

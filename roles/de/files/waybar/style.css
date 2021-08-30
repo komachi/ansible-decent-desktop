@@ -2,7 +2,7 @@
   border: none;
   border-radius: 0;
   font-family: FontAwesome, hack;
-  font-size: 11px;
+  font-size: 12px;
   min-height: 0;
 }
 
@@ -21,7 +21,7 @@ tooltip label {
 }
 
 #workspaces button {
-  padding: 0 5px;
+  padding: 0 2px;
   background: transparent;
   color: #ffffff;
 }

@@ -1,7 +1,7 @@
 [Desktop Entry]
 Version=1.0
 Name=GitHub
-Exec=flatpak run com.github.Eloston.UngoogledChromium --class="github" --profile-directory=github --app=https://github.com
+Exec=/usr/bin/flatpak run com.github.Eloston.UngoogledChromium --class="github" --profile-directory=github --app=https://github.com
 Terminal=false
 Type=Application
 Categories=Network;

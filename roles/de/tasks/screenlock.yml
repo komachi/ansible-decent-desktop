@@ -8,3 +8,17 @@
   apt:
     name: swayidle
     state: present
+
+- name: Ensures ~/.config/swaylock exists
+  file:
+    path: "/home/{{ username }}/.config/swaylock"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Copy swaylock config
+  copy:
+    src: swaylock/config
+    dest: "/home/{{ username }}/.config/swaylock/config"
+    owner: "{{ username }}"
+    group: "{{ username }}"

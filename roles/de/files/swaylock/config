@@ -1,0 +1,10 @@
+ignore-empty-password
+font=Hack
+
+indicator
+show-keyboard-layout
+indicator-caps-lock
+
+color=2f2f2f
+
+daemonize

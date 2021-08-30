@@ -123,3 +123,19 @@
     - basic
     - adblock
     - optout
+
+- name: Add kanshi systemd user units
+  copy:
+    src: 'systemd/kanshi.service'
+    dest: "/home/{{username}}/.config/systemd/user/kanshi.service"
+    mode: '0640'
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Enable kanshi systemd user services
+  become: yes
+  become_user: "{{ username }}"
+  systemd:
+    scope: user
+    name: "kanshi"
+    enabled: yes

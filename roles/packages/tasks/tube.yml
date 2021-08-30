@@ -27,3 +27,8 @@
       !profiles.db
       *
     dest: "~/.var/app/io.freetubeapp.FreeTube/config/FreeTube/.stignore"
+
+- name: Allow wayland socket
+  shell: "flatpak override {{ item }}"
+  loop:
+    - '--socket=wayland io.freetubeapp.FreeTube'

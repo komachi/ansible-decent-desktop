@@ -1,9 +1,9 @@
 [Desktop Entry]
 Version=1.0
 Name=pms
-Exec=foot --app-id=pms pms
+Exec=/usr/bin/footclient --app-id=pms pms
 Terminal=false
 StartupWMClass=pms
 Type=Application
 Categories=AudioVideo;Audio;
-Keywords=pms;mpd;music;player;music player;
+Keywords=pms;mpd;music;player;music player

@@ -5,25 +5,37 @@
     owner: "{{ username }}"
     group: "{{ username }}"
 
-- name: Copy autostart files
-  copy:
-    src: autostart/{{ item }}.desktop
-    dest: "/home/{{ username }}/.config/autostart/{{ item }}.desktop"
-    owner: "{{ username }}"
-    group: "{{ username }}"
-  loop:
-    - foot
-
 - name: Symlink some desktop files to autostart
   file:
-    src: "/usr/share/applications/{{ item }}.desktop"
-    dest: "/home/{{ username }}/.config/autostart/{{ item }}.desktop"
+    src: "{{ item.location }}/{{ item.name }}.desktop"
+    dest: "/home/{{ username }}/.config/autostart/{{ item.name }}.desktop"
     state: link
     owner: "{{ username }}"
     group: "{{ username }}"
   loop:
-    - "org.keepassxc.KeePassXC"
-    - "telegramdesktop"
-    - "firefox-esr"
-    - "thunderbird"
-    - "codium"
+    - location: "/usr/share/applications"
+      name: org.keepassxc.KeePassXC
+    - location: "/usr/share/applications"
+      name: telegramdesktop
+    - location: "/home/{{ username }}/.local/share/applications"
+      name: thunderbird
+    - location: "/home/{{ username }}/.local/share/applications"
+      name: firefox-esr
+    - location: "/home/{{ username }}/.local/share/applications"
+      name: codium
+
+- name: Add dex systemd user units
+  copy:
+    src: 'systemd/dex.service'
+    dest: "/home/{{username}}/.config/systemd/user/dex.service"
+    mode: '0640'
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Enable dex systemd user services
+  become: yes
+  become_user: "{{ username }}"
+  systemd:
+    scope: user
+    name: dex
+    enabled: yes

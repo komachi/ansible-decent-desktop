@@ -1,0 +1,11 @@
+[Unit]
+Description=DesktopEntry Execution 
+BindsTo=sway-session.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/dex -a
+
+[Install]
+WantedBy=sway-session.target

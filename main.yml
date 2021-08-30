@@ -31,12 +31,12 @@
     - firewall
     - timezone
     - ntp
+    - packages
     - dm
     - de
     - apt_install
     - python
     - libvirtd
-    - packages
     - nodejs
     - games
     - themes
