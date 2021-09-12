@@ -2,8 +2,15 @@
   user:
     name: searx
     shell: /bin/false
-    create_home: no
+    create_home: yes
+    home: /var/lib/searx
     system: yes
+
+- name: Add subguid/subuids for user
+  shell: usermod --add-subuids 100000-165535 --add-subgids 100000-165535 searx
+
+- name: Run podman system migrate
+  shell: podman system migrate
 
 - name: Pull searx image
   containers.podman.podman_image:
@@ -23,21 +30,23 @@
     owner: "searx"
     group: "searx"
 
-- name: Run searx container
+- name: Create searx container
+  become: yes
+  become_user: searx
   containers.podman.podman_container:
     name: searx
     image: registry.hub.docker.com/searx/searx
-    state: started
-    ports:
-      - "8888:8080"
+    state: present
+    network: host
     env:
       BASE_URL: "http://localhost:8888/"
+      BIND_ADDRESS: "127.0.0.1:8888"
     volume:
-      - '/etc/searx:/etc/searx'
+      - '/etc/searx:/etc/searx:ro'
 
 - name: Add systemd service
-  template:
-    src: 'systemd/searx.service.j2'
+  copy:
+    src: 'systemd/searx.service'
     dest: "/etc/systemd/system/searx.service"
     mode: '0640'
 

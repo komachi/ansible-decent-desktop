@@ -25,6 +25,7 @@ LockPersonality=yes
 IPAddressDeny=any
 IPAddressAllow=localhost
 Nice=10
+AppArmorProfile=-shiori
 
 [Install]
 WantedBy=default.target

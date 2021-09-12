@@ -7,6 +7,7 @@ BindsTo=sway-session.target
 ExecStart=/usr/bin/waybar
 ExecReload=kill -SIGUSR2 $MAINPID
 Restart=on-failure
+AppArmorProfile=-waybar
 
 [Install]
 WantedBy=sway-session.target

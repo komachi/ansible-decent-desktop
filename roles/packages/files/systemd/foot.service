@@ -6,6 +6,7 @@ BindsTo=sway-session.target
 [Service]
 Type=simple
 ExecStart=/usr/bin/foot --server
+AppArmorProfile=-foot
 
 [Install]
 WantedBy=sway-session.target

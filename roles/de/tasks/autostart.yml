@@ -23,19 +23,3 @@
       name: firefox-esr
     - location: "/home/{{ username }}/.local/share/applications"
       name: codium
-
-- name: Add dex systemd user units
-  copy:
-    src: 'systemd/dex.service'
-    dest: "/home/{{username}}/.config/systemd/user/dex.service"
-    mode: '0640'
-    owner: "{{ username }}"
-    group: "{{ username }}"
-
-- name: Enable dex systemd user services
-  become: yes
-  become_user: "{{ username }}"
-  systemd:
-    scope: user
-    name: dex
-    enabled: yes

@@ -1,20 +1,34 @@
-- name: Install onlykey deps
-  apt:
-    name:
-      - python3-tk
-      - libusb-1.0-0-dev
-      - libudev-dev
-    state: present
-
-- name: Install onlykey 
+- name: Install onlykey-agent
   become: yes
   become_user: "{{ username }}"
-  shell: "pipx install --force onlykey"
+  shell: "pipx install --force {{ item }}"
+  loop:
+    - onlykey-agent
 
-- name: Copy udev rules required by onlykey
-  template:
-    src: udev/onlykey.rules.j2
-    dest: /etc/udev/rules.d/49-onlykey.rules
-    mode: 0640
-  notify:
-    - reload udev
+- name: Collect package facts
+  package_facts:
+    manager: auto
+
+- name: Create temp dir for OnlyKey app
+  tempfile:
+    state: directory
+  register: onlykey_download_tempdir
+  when: "('onlykey' not in ansible_facts.packages) or ('onlykey' in ansible_facts.packages and ansible_facts.packages.onlykey[0].version != onlykey_version)"
+
+- name: Get onlykey
+  get_url:
+    url: "https://github.com/trustcrypto/OnlyKey-App/releases/download/v{{ onlykey_version }}/OnlyKey_{{ onlykey_version }}_amd64.deb"
+    dest: "{{ onlykey_download_tempdir.path }}/onlykey.deb"
+    checksum: "{{ onlykey_checksum }}"
+  when: "('onlykey' not in ansible_facts.packages) or ('onlykey' in ansible_facts.packages and ansible_facts.packages.onlykey[0].version != onlykey_version)"
+
+- name: Install onlykey
+  apt:
+    deb: "{{ onlykey_download_tempdir.path }}/onlykey.deb"
+  when: "('onlykey' not in ansible_facts.packages) or ('onlykey' in ansible_facts.packages and ansible_facts.packages.onlykey[0].version != onlykey_version)"
+
+- name: Remove tempdir
+  file:
+    path: "{{ onlykey_download_tempdir.path }}"
+    state: absent
+  when: "('onlykey' not in ansible_facts.packages) or ('onlykey' in ansible_facts.packages and ansible_facts.packages.onlykey[0].version != onlykey_version)"

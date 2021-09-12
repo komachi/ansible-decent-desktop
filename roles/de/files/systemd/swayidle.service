@@ -1,0 +1,12 @@
+[Unit]
+Description=Idle management daemon for Wayland
+Documentation=https://github.com/swaywm/swayidle
+BindsTo=sway-session.target
+
+[Service]
+Type=simple
+ExecStart=swayidle -w timeout 250 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' timeout 200 'swaylock' before-sleep 'swaylock'
+AppArmorProfile=-swayidle
+
+[Install]
+WantedBy=sway-session.target

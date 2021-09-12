@@ -1,7 +1,7 @@
 [Desktop Entry]
 Version=1.0
 Name=Slack
-Exec=/usr/bin/flatpak run com.github.Eloston.UngoogledChromium --class="slack" --profile-directory=slack --app=https://slack.com
+Exec=chromium --class="slack" --profile-directory=slack --app=https://slack.com
 Terminal=false
 Type=Application
 Categories=Network;

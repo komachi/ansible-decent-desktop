@@ -22,3 +22,19 @@
     dest: "/home/{{ username }}/.config/swaylock/config"
     owner: "{{ username }}"
     group: "{{ username }}"
+
+- name: Add swayidle systemd user unit
+  copy:
+    src: 'systemd/swayidle.service'
+    dest: "/home/{{username}}/.config/systemd/user/swayidle.service"
+    mode: '0640'
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Enable swayidle systemd user service
+  become: yes
+  become_user: "{{ username }}"
+  systemd:
+    scope: user
+    name: swayidle
+    enabled: yes

@@ -4,9 +4,10 @@
 - include_tasks: pipx.yml
 - include_tasks: flatpak.yml
 - include_tasks: shell.yml
-- include_tasks: password-manager.yml
 - include_tasks: tor.yml
 - include_tasks: privoxy.yml
+- include_tasks: graphicsmagick.yml
+- include_tasks: password-manager.yml
 - include_tasks: vscodium.yml
 - include_tasks: firefox.yml
 - include_tasks: chromium.yml
@@ -28,16 +29,13 @@
 - include_tasks: wine.yml
 - include_tasks: text-editor.yml
 - include_tasks: nodejs.yml
-- include_tasks: searx.yml
 - include_tasks: bisq.yml
 - include_tasks: openbazaar.yml
 - include_tasks: zim.yml
-- include_tasks: applications.yml
 - include_tasks: dash.yml
 - include_tasks: simpleos.yml
 - include_tasks: xd.yml
 - include_tasks: deltachat.yml
-- include_tasks: ipfs.yml
 - include_tasks: xmpp-client.yml
 - include_tasks: maps.yml
 - include_tasks: matrix.yml
@@ -57,3 +55,4 @@
 - include_tasks: psd.yml
 - include_tasks: boinc.yml
 - include_tasks: searx.yml
+- include_tasks: ipfs.yml

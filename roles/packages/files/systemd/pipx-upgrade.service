@@ -4,4 +4,5 @@ Description=Pipx upgrade
 [Service]
 Type=oneshot
 ExecStart=pipx upgrade-all
+AppArmorProfile=-pipx
 Nice=19

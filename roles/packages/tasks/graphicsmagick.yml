@@ -1,0 +1,11 @@
+- name: Install GraphicsMagick
+  apt:
+    name:
+      - graphicsmagick
+      - graphicsmagick-imagemagick-compat
+    state: present
+
+- name: Configure GraphicsMagick delegates
+  copy:
+    src: 'GraphicsMagick/delegates.mgk'
+    dest: '/usr/lib/GraphicsMagick-1.4/config/delegates.mgk'

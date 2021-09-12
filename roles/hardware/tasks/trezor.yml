@@ -2,3 +2,8 @@
   apt:
     name: trezor
     state: present
+
+- name: Install trezor_agent
+  become: yes
+  become_user: "{{ username }}"
+  shell: "pipx install --force trezor_agent"

@@ -31,6 +31,16 @@ tooltip label {
   border-bottom: 1px solid #ffffff;
 }
 
+#tray,
+#language,
+#network,
+#cpu,
+#pulseaudio,
+#custom-micrphone,
+#custom-syncthing {
+  padding: 0 2px;
+}
+
 #tray > .passive {
   -gtk-icon-effect: dim;
 }

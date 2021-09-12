@@ -5,3 +5,4 @@
   loop:
     - 'quiet'
     - 'write-cache'
+    - 'cache-loc /etc/apparmor/earlypolicy/'

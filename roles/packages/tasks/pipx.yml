@@ -1,4 +1,4 @@
-- name: Install python3-venv
+- name: Install pipx
   apt:
     name: pipx
     state: present

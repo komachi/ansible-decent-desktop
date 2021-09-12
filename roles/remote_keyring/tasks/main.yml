@@ -9,7 +9,6 @@
     dest: "/usr/share/keyrings/{{ item }}"
     mode: '0644'
   loop:
-    - apt.qm64.tech-keyring.gpg
     - apt.syncthing.net-keyring.gpg
     - brave-keyring.gpg
     - deb.imaginary.stream-keyring.gpg
@@ -21,3 +20,5 @@
     - vscodium-keyring.gpg
     - whonix.org-keyring.gpg
     - jami-archive-keyring.gpg
+    - gvisor.gpg
+    - ungoogled-chromium-keyring.gpg

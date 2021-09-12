@@ -1,20 +1,20 @@
 [Unit]
-Description=IPFS
+Description=Searx
 Wants=network-online.target
 After=network-online.target
 
 [Service]
 Restart=always
-User=ipfs
-Group=ipfs
+User=searx
+Group=searx
 Environment=PODMAN_SYSTEMD_UNIT=%n
-ReadWritePaths=/var/lib/ipfs
-ExecStart=/usr/bin/podman start -a ipfs
-ExecStop=/usr/bin/podman stop -t 1 ipfs
+ReadWritePaths=/var/lib/searx
+ExecStart=/usr/bin/podman start -a searx
+ExecStop=/usr/bin/podman stop -t 1 searx
 PrivateTmp=yes
 ProtectSystem=strict
 ProtectHome=yes
-Nice=5
+Nice=10
 
 [Install]
 WantedBy=default.target

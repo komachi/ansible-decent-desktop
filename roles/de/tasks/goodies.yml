@@ -17,6 +17,7 @@
       - wl-clipboard
       - swaybg
       - qtwayland5
+      - xwayland
     state: present
 
 - name: Ensures ~/.config exists
@@ -124,7 +125,7 @@
     - adblock
     - optout
 
-- name: Add kanshi systemd user units
+- name: Add kanshi systemd user unit
   copy:
     src: 'systemd/kanshi.service'
     dest: "/home/{{username}}/.config/systemd/user/kanshi.service"
@@ -132,7 +133,7 @@
     owner: "{{ username }}"
     group: "{{ username }}"
 
-- name: Enable kanshi systemd user services
+- name: Enable kanshi systemd user service
   become: yes
   become_user: "{{ username }}"
   systemd:

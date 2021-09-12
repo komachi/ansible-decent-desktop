@@ -1,29 +1,16 @@
-
-- name: Make sure chromium is not installed with apt
+- name: Make sure chromium is not installed
   apt:
     name:
       - chromium
       - chromium-sandbox
-      - ungoogled-chromium
-      - ungoogled-chromium-sandbox
     state: absent
 
-- name: Install Ungoogled Chromium from flatpak
-  flatpak:
-    name: com.github.Eloston.UngoogledChromium
+- name: Install Ungoogled-Chromium
+  apt:
+    name: ungoogled-chromium
     state: present
-
-- name: Ensures ~/.var/app/com.github.Eloston.UngoogledChromium/config exists
-  file:
-    path: "/home/{{ username }}/.var/app/com.github.Eloston.UngoogledChromium/config"
-    state: directory
-    owner: "{{ username }}"
-    group: "{{ username }}"
 
 - name: Configure chromium
   copy:
-    src: 'chromium/chromium-flags.conf'
-    dest: "/home/{{ username }}/.var/app/com.github.Eloston.UngoogledChromium/config/chromium-flags.conf"
-    mode: 0640
-    owner: "{{ username }}"
-    group: "{{ username }}"
+    src: 'chromium/additional-flags'
+    dest: "/etc/chromium.d/additional-flags"

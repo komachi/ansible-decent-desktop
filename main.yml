@@ -86,6 +86,9 @@
       net.ipv6.conf.all.disable_ipv6: 0
       net.ipv4.ip_forward: 1
       kernel.unprivileged_userns_clone: 1
+    os_auth_retries: 10
+    os_filesystem_whitelist:
+      - squashfs
     os_desktop_enable: True
     ufw_manage_defaults: False
     ssh_server_enabled: False
@@ -179,8 +182,6 @@
       - gvfs
       - gvfs-backends
       - imv
-      - graphicsmagick
-      - graphicsmagick-imagemagick-compat
       - pngquant
       - optipng
       - jpegoptim
@@ -234,11 +235,12 @@
       - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg] tor+http://apow7mjfryruh65chtdydfmqfpj5btws7nbocgtaovhvezgccyjazpqd.onion/torproject.org {{ ansible_distribution_release }} main'
       - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/whonix.org-keyring.gpg] tor+http://deb.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion {{ ansible_distribution_release }} main'
       - repo: 'deb-src [signed-by=/usr/share/keyrings/uget-keyring.gpg] tor+http://ppa.launchpad.net/uget-team/ppa/ubuntu bionic main'
-      - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/apt.qm64.tech-keyring.gpg] tor+https://apt.qm64.tech/ apt/'
       - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/apt.syncthing.net-keyring.gpg] tor+https://apt.syncthing.net/ syncthing stable'
       - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/brave-keyring.gpg] tor+https://brave-browser-apt-release.s3.brave.com/ stable main'
       - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/deb.imaginary.stream-keyring.gpg] tor+https://deb.imaginary.stream {{ ansible_distribution_release }} main'
       - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/jami-archive-keyring.gpg] tor+https://dl.jami.net/nightly/debian_10/ ring main'
+      - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/ungoogled-chromium-keyring.gpg] tor+https://download.opensuse.org/repositories/home:/ungoogled_chromium/Debian_Buster/ /'
+      - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/gvisor.gpg] tor+https://storage.googleapis.com/gvisor/releases release main'
     apt__default_sources:
       - uri: 'tor+http://2s4yqjx5ul6okpp3f2gaunr2syex5jgbfpfvhxxbbjwnrsvbk5v3qbid.onion/debian'
         comment: 'Official Debian repositories'
@@ -288,6 +290,9 @@
       - aspell-ru
       - enchant
     locales__system_lang: 'en_US.UTF-8'
+    kmod__load:
+      - name: 'tun'
+      - name: 'v4l2loopback'
     kmod__modules:
       - name: 'pcspkr'
         state: 'blacklist'
@@ -301,8 +306,6 @@
             value: "Webcam"
           - name: exclusive_caps
             value: "1"
-      - name: 'tcp_lp'
-        state: 'present'
       - name: 'thinkpad_acpi'
         comment: 'Enable fan speed control for "thinkfan"'
         state: '{{ "present" if (thinkpad_x230|d(False) == True) else "absent" }}'
