@@ -1,9 +1,10 @@
-- name: Install pulseaudio and openal packages
+- name: Install pulseaudio, openal and pipewire
   apt:
     name:
       - pulseaudio
       - pulseaudio-utils
       - libopenal1
+      - pipewire
     state: present
 
 - name: Configure pulseaudio

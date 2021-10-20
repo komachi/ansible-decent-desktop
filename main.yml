@@ -238,8 +238,8 @@
       - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/apt.syncthing.net-keyring.gpg] tor+https://apt.syncthing.net/ syncthing stable'
       - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/brave-keyring.gpg] tor+https://brave-browser-apt-release.s3.brave.com/ stable main'
       - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/deb.imaginary.stream-keyring.gpg] tor+https://deb.imaginary.stream {{ ansible_distribution_release }} main'
-      - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/jami-archive-keyring.gpg] tor+https://dl.jami.net/nightly/debian_10/ ring main'
-      - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/ungoogled-chromium-keyring.gpg] tor+https://download.opensuse.org/repositories/home:/ungoogled_chromium/Debian_Buster/ /'
+      - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/jami-archive-keyring.gpg] tor+`https://dl.jami.net/nightly/debian_11`/ ring main'
+      - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/ungoogled-chromium-keyring.gpg] tor+https://download.opensuse.org/repositories/home:/ungoogled_chromium/Debian_Bullseye/ /'
       - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/gvisor.gpg] tor+https://storage.googleapis.com/gvisor/releases release main'
     apt__default_sources:
       - uri: 'tor+http://2s4yqjx5ul6okpp3f2gaunr2syex5jgbfpfvhxxbbjwnrsvbk5v3qbid.onion/debian'

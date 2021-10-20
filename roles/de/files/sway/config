@@ -7,27 +7,46 @@ set $right l
 set $term footclient
 set $menu wofi
 
-set $ws1 1 # "www"
-set $ws2 2 # "code"
-set $ws3 3 # "term"
-set $ws4 4 # "music"
-set $ws5 5 # "fm"
-set $ws6 6 # "im"
-set $ws7 7 # "mail"
-set $ws8 8 # "edit"
-set $ws9 9 # "pass"
-set $ws10 10 # "view"
-set $ws11 11 # "money"
-set $ws12 12 # "game"
-set $ws13 13 # "etc"
-set $ws14 14 # "debug"
-set $ws15 15 # "subs"
-set $ws16 16 # "dl"
-set $ws17 17 # "deanon"
-set $ws18 18 # "map"
-set $ws19 19 # "config"
+# "www"
+set $ws1 1
+# "code"
+set $ws2 2
+# "term"
+set $ws3 3
+# "music"
+set $ws4 4
+# "fm"
+set $ws5 5
+# "im"
+set $ws6 6
+# "mail"
+set $ws7 7
+# "edit"
+set $ws8 8
+# "pass"
+set $ws9 9
+# "view"
+set $ws10 10
+# "money"
+set $ws11 11
+# "game"
+set $ws12 12
+# "etc"
+set $ws13 13
+# "debug"
+set $ws14 14
+# "subs"
+set $ws15 15
+# "dl"
+set $ws16 16
+# "deanon"
+set $ws17 17
+# "map"
+set $ws18 18
+# "config"
+set $ws19 19
 
-set $nonprimary DVI-D-1 DP-2
+set $nonprimary DVI-D-1 DVI-D-2 DP-2 HDMI-2 HDMI-A-1
 
 font pango:Hack 12
 
@@ -35,15 +54,15 @@ output * bg #000000 solid_color
 
 # xwayland disable
 
-input "1133:50184:Logitech USB Trackball" {
+input "1133:50184:Logitech_USB_Trackball" {
     scroll_method on_button_down
-    scroll_button button8
+    scroll_button BTN_SIDE
     middle_emulation enabled
 }
 
 input * {
     xkb_layout "us,ru"
-    xkb_options "grp:caps_toggle"
+    xkb_options "grp:caps_toggle,compose:ralt"
 }
 
 # Use Mouse+$mod to drag floating windows to their wanted position
@@ -143,10 +162,8 @@ bindsym --to-code {
 
     # reload the configuration file
     $mod+Ctrl+c reload
-    # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+    # restart sway inplace (preserves your layout/session, can be used to upgrade sway)
     $mod+Ctrl+r restart
-    # exit i3 (logs you out of your X session)
-    $mod+Ctrl+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
     $mod+r mode "resize"
     $mod+F1 exec --no-startup-id loginctl lock-session
@@ -232,6 +249,7 @@ mode "$mode_system" {
 }
 
 assign [app_id="firefox-esr"] $ws1
+assign [class="Chromium-browser"] $ws1
 for_window [app_id="VSCodium"] move container to workspace $ws2
 for_window [app_id="foot"] move container to workspace $ws3
 for_window [app_id="pms"] move container to workspace $ws4
@@ -287,5 +305,5 @@ include /etc/sway/config.d/*
 exec --no-startup-id "systemctl --user start sway-session.target"
 
 exec --no-startup-id $term
-exec_always --no-startup-id pidof pms > /dev/null && exit 0 || footclient --app-id=pms pms
-exec_always --no-startup-id pidof nnn > /dev/null && exit 0 || footclient --app-id=nnn nnn
+# exec_always --no-startup-id pidof pms > /dev/null && exit 0 || footclient --app-id=pms pms
+# exec_always --no-startup-id pidof nnn > /dev/null && exit 0 || footclient --app-id=nnn nnn

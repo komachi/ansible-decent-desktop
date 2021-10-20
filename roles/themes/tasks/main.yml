@@ -8,6 +8,7 @@
     - adwaita-icon-theme
     - adwaita-qt
     - papirus-icon-theme
+    - anon-icon-pack
     - gtk3-nocsd
   tags:
     - dependencies

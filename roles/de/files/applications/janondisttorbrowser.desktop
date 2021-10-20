@@ -1,0 +1,14 @@
+## Copyright (C) 2012 - 2021 ENCRYPTED SUPPORT LP <adrelanos@whonix.org>
+## See the file COPYING for copying conditions.
+
+[Desktop Entry]
+Exec=env MOZ_ENABLE_WAYLAND=1 MOZ_USE_XINPUT2=1 TOR_SKIP_LAUNCH=1 TOR_CONTROL_PORT=9051 TOR_CONTROL_COOKIE_AUTH_FILE=/run/tor/control.authcookie torbrowser %u
+Type=Application
+Name=Tor Browser (AnonDist)
+GenericName=Privacy Browser
+Comment=Start Tor Browser (AnonDist)
+Categories=Network;
+Icon=/usr/share/icons/anon-icon-pack/torbrowser.png
+X-KDE-StartupNotify=false
+Keywords=browser;privacy;Tor;
+MimeType=text/html;text/xml;application/xhtml+xml;application/xml;application/vnd.mozilla.xul+xml;application/rss+xml;application/rdf+xml;image/gif;image/jpeg;image/png;x-scheme-handler/http;x-scheme-handler/https;

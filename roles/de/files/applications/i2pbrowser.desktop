@@ -1,0 +1,6 @@
+[Desktop Entry]
+Exec=env MOZ_ENABLE_WAYLAND=1 MOZ_USE_XINPUT2=1 i2pbrowser %u
+Type=Application
+Name=I2P Browser 
+Categories=Network;
+Keywords=browser;privacy;i2p;

@@ -1,10 +1,4 @@
-- name: Download coyim
-  get_url:
-    url: "https://github.com/coyim/coyim/releases/download/v{{ coyim_version }}/coyim-linux-{{ coyim_version }}"
-    dest: "/usr/local/bin/coyim"
-    checksum: "{{ coyim_checksum }}"
-
-- name: Add executable permission to coyim
-  file:
-    dest: /usr/local/bin/coyim
-    mode: 'a+x'
+- name: Install Dino
+  apt:
+    name: dino-im
+    state: present

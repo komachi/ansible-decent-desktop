@@ -1,5 +1,5 @@
-allow-images=true
-allow-markup=true
+allow_images=true
+allow_markup=true
 insensitive=true
 hide_scroll=true
 location=center

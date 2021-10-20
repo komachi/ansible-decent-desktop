@@ -47,7 +47,7 @@ You should look for sources for full list, but here are some choices I made:
 - Image viewer: [imv](https://github.com/eXeC64/imv)
 - Password manager: [KeePassXC](https://keepassxc.org/)
 - Local bookmarks with [shiori](https://github.com/go-shiori/shiori)
-- [DeltaChat](https://delta.chat), XMPP ([coyim](https://coy.im/)), [Telegram](https://telegram.org), [Jami](https://jami.net), Matrix ([Quaternion](https://github.com/quotient-im/Quaternion)) messengers
+- [DeltaChat](https://delta.chat), XMPP ([Dino](https://dino.im/)), [Telegram](https://telegram.org), [Jami](https://jami.net), Matrix ([Quaternion](https://github.com/quotient-im/Quaternion)) messengers
 - Local maps with [Pure Maps](https://github.com/rinigus/pure-maps) and [OSM Scout Server](https://github.com/rinigus/osmscout-server)
 - Local dicts with [dictd](https://sourceforge.net/projects/dict/) and [GoldenDict](http://goldendict.org/)
 - Virtual machines: [libvirt](https://libvirt.org/) + [QEMU](https://www.qemu.org/) + [virt-manager](https://virt-manager.org/)
