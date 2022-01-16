@@ -10,7 +10,7 @@
 
 - name: Download wasabi wallet
   get_url:
-    url: "https://github.com/zkSNACKs/WalletWasabi/releases/download/v{{ wasabiwallet_version }}/Wasabi-{{ wasabiwallet_version }}.deb"
+    url: "https://github.com/zkSNACKs/WalletWasabi/releases/download/v{{ wasabiwallet_version_full }}/Wasabi-{{ wasabiwallet_version }}.deb"
     dest: "{{ wasabiwallet_download_tempdir.path }}/wasabi.deb"
     checksum: "{{ wasabiwallet_checksum }}"
   when: "('wassabee' not in ansible_facts.packages) or ('wassabee' in ansible_facts.packages and ansible_facts.packages.wassabee[0].version != wasabiwallet_version)"

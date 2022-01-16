@@ -52,5 +52,5 @@
     state: present
   loop:
     - "org.gtk.Gtk3theme.Adwaita-dark"
-    - "org.kde.KStyle.Adwaita/x86_64/5.15"
-    - "org.kde.PlatformTheme.QGnomePlatform/x86_64/5.15"
+    - "org.kde.KStyle.Adwaita/x86_64/6.2"
+    - "org.kde.PlatformTheme.QGnomePlatform/x86_64/6.2"

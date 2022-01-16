@@ -1,7 +1,7 @@
 [Desktop Entry]
 Version=1.0
 Name=ClickUp
-Exec=chromium --class="clickup" --profile-directory=clickup --app=https://clickup.com
+Exec=chromium --class="clickup" --profile-directory=clickup --app=https://app.clickup.com
 Terminal=false
 Type=Application
 Categories=Network;

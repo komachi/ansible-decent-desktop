@@ -40,8 +40,6 @@
 - include_tasks: maps.yml
 - include_tasks: matrix.yml
 - include_tasks: restscope.yml
-- include_tasks: jackett.yml
-- include_tasks: brave.yml
 - include_tasks: lokinet.yml
 - include_tasks: rss.yml
 - include_tasks: virtual-machines.yml
@@ -54,5 +52,6 @@
 - include_tasks: dictionaries.yml
 - include_tasks: psd.yml
 - include_tasks: boinc.yml
+- include_tasks: jackett.yml
 - include_tasks: searx.yml
 - include_tasks: ipfs.yml

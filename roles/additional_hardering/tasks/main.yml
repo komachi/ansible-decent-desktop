@@ -10,10 +10,11 @@
       - security-misc
       - tirdad
       - kloak
-#      - lkrg
+      - lkrg
 
 - name: Disable hidepid service
   systemd:
     name: proc-hidepid.service
     enabled: no
     state: stopped
+    

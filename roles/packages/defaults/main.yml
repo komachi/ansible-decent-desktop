@@ -1,33 +1,31 @@
 simpleos_version: '1.0.5'
 simpleos_checksum: 'sha256:4ac8fbaa7ecf8635c4f62dcc0d65b820dd6b2f05a88eed255f9c7dab123cafa6'
-electroncash_version: "4.2.5"
-electroncash_checksum: "sha256:70424828836f81b71ffa99a684e34b4266d5a478135db9fae4868e4ee093a362"
-zecwallet_lite_version: "1.7.4"
-zecwallet_lite_checksum: "sha256:3a84b2db1f7c2559a1a24e148e5d9867629528edf8cf45a90270cde4987600f9"
+electroncash_version: "4.2.6"
+electroncash_checksum: "sha256:2262852cebe2c36c52006a911896b80c3d077720f86d3d38afc561d82fb125ac"
+zecwallet_lite_version: "1.7.8"
+zecwallet_lite_checksum: "sha256:e017360ee95af1c5c7ac2dfcc6d4f1944e50a2c20569d10e799bd4e2abc239b0"
 mycrypto_version: "1.7.17"
 mycrypto_checksum: "sha256:20eb48989b5ae5e60e438eff6830ac79a0d89ac26dff058097260e747e866444"
-bisq_version: "1.7.2"
-bisq_checksum: "sha256:00718de7837a3079bbd3650a7fa0ca60bfec80a0395faea6733c31787582592c"
+bisq_version: "1.8.0"
+bisq_checksum: "sha256:02a26a5610246957930a8256912f156bb2d783b9226e0a45415d955b1137dde0"
 openbazaar_version: "2.4.10"
 openbazaar_checksum: "sha256:9d9dee3ebf81d67a152bde53a11deaaf2a58e7277fe1decf7bf3e903160a47fe"
 XD_version: "0.4.0"
 XD_checksum: "sha256:8e5fed410f7babf33a02992afe17c3a86c8f8e5e117a3d69cb9ef0c6ee686f93"
-ghacks_url: "https://raw.githubusercontent.com/arkenfox/user.js/fe0af3bb348fb996d4635ad87d1c4f22b2a3b557/user.js"
-ghacks_checksum: "sha256:d3c054227134e9716d09a9b809ca32f4cde1c49e256d5f543a54f39a05cf62af"
-thunderbird_userjs_url: "https://raw.githubusercontent.com/HorlogeSkynet/thunderbird-user.js/b36710a76e9a378ca7d54a4d68c2e0a4024dad36/user.js"
-thunderbird_userjs_checksum: "sha256:f46d955f5490a28f0b9b02f52c087bf028b1368dcd35d5d82f3f76a4583ae5dc"
+ghacks_url: "https://raw.githubusercontent.com/arkenfox/user.js/91.1/user.js"
+ghacks_checksum: "sha256:f8486b732e02f16ab0ca3b74f85a6e74092782658b0f0ec6205a00886000d5db"
+thunderbird_userjs_url: "https://raw.githubusercontent.com/HorlogeSkynet/thunderbird-user.js/v78.1/user.js"
+thunderbird_userjs_checksum: "sha256:540c8c78f7ebef3f9ee7e775d0a304b79ad90094000716375f3190be3e12aaaa"
 zaread_url: "https://raw.githubusercontent.com/paoloap/zaread/3efb9f514428572076a20b9a067ed435fd916d92/zaread"
 zaread_checksum: "sha256:e91f8e912666c3719e8f068725771573f1c879c8900293e59f6715c6ecfa6662"
-wasabiwallet_version: "1.1.12.9"
-wasabiwallet_checksum: "sha256:a99a5365188908f2920ec1a44657688fabe33410fbecf83ad32d3a0ad205d9bf"
-jackett_version: "v0.18.616"
-jackett_checksum: "sha256:e6737c4a49fbc93cb77cec9697344eb1864f33da4d3805cffbbb43636091c644"
-ff2mpv_url: "https://raw.githubusercontent.com/woodruffw/ff2mpv/35388974231626d9e5977c706bb384ca9afda456/ff2mpv.py"
-ff2mpv_checksum: "sha256:c63a762d4ddce972177f505c2503b8505a92930e977c3642cfebcaf2fb154909"
+wasabiwallet_version_full: "1.1.13.0"
+wasabiwallet_version: "1.1.13"
+wasabiwallet_checksum: "sha256:bbe6622704b46b829c4fa097f431914b3d611d8315c6fdb251dd2308536a14d1"
 shiori_version: "v1.5.0"
 shiori_checksum: "sha512:480dfbf0bd8260a1777b6a51d881d1f876a70c549eca8c89938cca5c0dc73dbd678522bfb55530f4195a323edc703b3b8e2478207c9a7aa2168c266f61621ec7"
 
 vscodium_extensions:
+  - aaron-bond.better-comments
   - EditorConfig.EditorConfig
   - JuanBlanco.solidity
   - mikestead.dotenv
@@ -44,7 +42,6 @@ vscodium_extensions:
   - Zignd.html-css-class-completion
   - DavidAnson.vscode-markdownlint
   - naumovs.color-highlight
-  - thekalinga.bootstrap4-vscode
   - pranaygp.vscode-css-peek
   - christian-kohler.path-intellisense
   - ms-python.python
@@ -56,6 +53,9 @@ vscodium_extensions:
   - mrmlnc.vscode-scss
   - stylelint.vscode-stylelint
   - ms-azuretools.vscode-docker
+  - orta.vscode-jest
+  - tabnine.tabnine-vscode
+
 thunderbird_profiles:
   - name: default
     prefs:
@@ -71,6 +71,32 @@ thunderbird_profiles:
         value: "5"
       - pref: "network.proxy.no_proxies_on"
         value: "\"\""
+      - pref: "network.dns.disableIPv6"
+        value: "false"
+      - pref: "network.http.altsvc.enabled"
+        value: "true"
+      - pref: "network.http.altsvc.oe"
+        value: "true"
+      - pref: "gfx.webrender.all"
+        value: "true"
+      - pref: "gfx.webrender.compositor.force-enabled"
+        value: "true"
+      - pref: "gfx.webrender.compositor"
+        value: "true"
+      - pref: "gfx.webrender.enabled"
+        value: "true"
+      - pref: "media.ffmpeg.vaapi.enabled"
+        value: "true"
+      - pref: "media.navigator.mediadatadecoder_vpx_enabled"
+        value: "true"
+      - pref: "general.warnOnAboutConfig"
+        value: "false"
+      - pref: "network.http.http3.enabled"
+        value: "true"
+      - pref: "layers.acceleration.force-enabled"
+        value: "true"
+      - pref: "layers.force-active"
+        value: "true"
 firefox_profiles:
   - name: default
     prefs:
@@ -88,8 +114,6 @@ firefox_profiles:
         value: "true"
       - pref: "webgl.disabled"
         value: "false"
-      - pref: "webgl.enable-webgl2"
-        value: "true"
       - pref: "webgl.force-enabled"
         value: "true"
       - pref: "webgl.msaa-force"
@@ -114,12 +138,6 @@ firefox_profiles:
         value: "true"
       - pref: "mousewheel.horizscroll.withnokey.action"
         value: "0"
-      - pref: "dom.event.clipboardevents.enabled"
-        value: "true"
-      - pref: "middlemouse.paste"
-        value: "true"
-      - pref: "dom.allow_cut_copy"
-        value: "true"
       - pref: "gfx.font_rendering.opentype_svg.enabled"
         value: "true"
       - pref: "gfx.downloadable_fonts.woff2.enabled"
@@ -130,9 +148,15 @@ firefox_profiles:
         value: "1"
       - pref: "gfx.webrender.all"
         value: "true"
-      - pref: "media.ffmpeg.vaapi.enabled"
+      - pref: "gfx.webrender.compositor.force-enabled"
+        value: "true"
+      - pref: "gfx.webrender.compositor"
+        value: "true"
+      - pref: "gfx.webrender.enabled"
         value: "true"
       - pref: "media.ffmpeg.vaapi.enabled"
+        value: "true"
+      - pref: "media.navigator.mediadatadecoder_vpx_enabled"
         value: "true"
       - pref: "browser.cache.disk.enable"
         value: "true"
@@ -164,12 +188,6 @@ firefox_profiles:
         value: "true"
       - pref: "layers.force-active"
         value: "true"
-      - pref: "webgl.disable-fail-if-major-performance-caveat"
-        value: "true"
-      - pref: "gfx.webrender.compositor"
-        value: "true"
-      - pref: "gfx.webrender.enabled"
-        value: "true"
   - name: deanon
     prefs:
       - pref: "security.OCSP.require"
@@ -186,8 +204,6 @@ firefox_profiles:
         value: "true"
       - pref: "webgl.disabled"
         value: "false"
-      - pref: "webgl.enable-webgl2"
-        value: "true"
       - pref: "webgl.force-enabled"
         value: "true"
       - pref: "webgl.msaa-force"
@@ -212,12 +228,6 @@ firefox_profiles:
         value: "true"
       - pref: "mousewheel.horizscroll.withnokey.action"
         value: "0"
-      - pref: "dom.event.clipboardevents.enabled"
-        value: "true"
-      - pref: "middlemouse.paste"
-        value: "true"
-      - pref: "dom.allow_cut_copy"
-        value: "true"
       - pref: "gfx.font_rendering.opentype_svg.enabled"
         value: "true"
       - pref: "gfx.downloadable_fonts.woff2.enabled"
@@ -228,9 +238,11 @@ firefox_profiles:
         value: "1"
       - pref: "gfx.webrender.all"
         value: "true"
-      - pref: "media.ffmpeg.vaapi.enabled"
+      - pref: "gfx.webrender.compositor.force-enabled"
         value: "true"
       - pref: "media.ffmpeg.vaapi.enabled"
+        value: "true"
+      - pref: "media.navigator.mediadatadecoder_vpx_enabled"
         value: "true"
       - pref: "browser.sessionstore.resume_from_crash"
         value: "false"
@@ -270,10 +282,8 @@ firefox_profiles:
         value: "true"
       - pref: "webgl.disabled"
         value: "false"
-      - pref: "webgl.enable-webgl2"
-        value: "true"
       - pref: "webgl.force-enabled"
-        value: "true"
+        value: "true"  
       - pref: "webgl.msaa-force"
         value: "true"
       - pref: "dom.serviceWorkers.enabled"
@@ -296,12 +306,6 @@ firefox_profiles:
         value: "true"
       - pref: "mousewheel.horizscroll.withnokey.action"
         value: "0"
-      - pref: "dom.event.clipboardevents.enabled"
-        value: "true"
-      - pref: "middlemouse.paste"
-        value: "true"
-      - pref: "dom.allow_cut_copy"
-        value: "true"
       - pref: "gfx.font_rendering.opentype_svg.enabled"
         value: "true"
       - pref: "gfx.downloadable_fonts.woff2.enabled"
@@ -312,7 +316,11 @@ firefox_profiles:
         value: "1"
       - pref: "gfx.webrender.all"
         value: "true"
+      - pref: "gfx.webrender.compositor.force-enabled"
+        value: "true"
       - pref: "media.ffmpeg.vaapi.enabled"
+        value: "true"
+      - pref: "media.navigator.mediadatadecoder_vpx_enabled"
         value: "true"
       - pref: "browser.cache.memory.enable"
         value: "true"
@@ -380,3 +388,40 @@ osmscout_options:
  - ["server-general", "firstTime", "0"]
  - ["valhalla", "route_port", "8554"]
  - ["valhalla", "use_valhalla", "1"]
+
+josm_settings:
+  - ["laf", "com.sun.java.swing.plaf.gtk.GTKLookAndFeel"]
+  - ["pluginmanager.time-based-update.policy", "always"]
+  - ["pluginmanager.version-based-update.policy", "always"]
+  - ["use.native.file.dialog", "true"]
+  - ["expert", "true"]
+  - ["remotecontrol.always-confirm", "true"]
+  - ["remotecontrol.enabled", "true"]
+  - ["download.osm.notes", "true"]
+  - ["gui.maximized", "true"]
+  - ["iso.dates", "true"]
+  - ["validator.visible", "true"]
+  - ["upload.source.obtainautomatically", "true"]
+josm_plugins:
+  - FixAddresses
+  - HouseNumberTaggingTool
+  - ImproveOsm
+  - MakeParallel
+  - apache-commons
+  - apache-http
+  - ejml
+  - geotools
+  - gson
+  - jaxb
+  - jna
+  - jts
+  - mapdust
+  - mapwithai
+  - opendata
+  - imagery_offset_db
+  - OpeningHoursEditor
+  - gridify
+  - http2
+  - utilsplugin2
+  - Mapillary
+  - wikipedia

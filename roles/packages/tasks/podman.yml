@@ -2,6 +2,7 @@
   apt:
     name:
       - podman
+      - podman-docker
       - slirp4netns
       - rootlesskit
       - runsc
@@ -17,3 +18,8 @@
   copy:
     src: podman/containers.conf
     dest: "/etc/containers/containers.conf"
+
+- name: Create nodocker
+  file:
+    path: /etc/containers/nodocker
+    state: touch

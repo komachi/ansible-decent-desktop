@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Gitlab
+Exec=chromium --class="gitlab" --profile-directory=gitlab --app=https://gitlab.com
+Terminal=false
+Type=Application
+Categories=Network;
+Keywords=gitlab;
+StartupWMClass=gitlab
+StartupNotify=true

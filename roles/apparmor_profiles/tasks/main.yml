@@ -31,7 +31,6 @@
     name:
       - apparmor-profiles
       - apparmor-profile-torbrowser
-      - apparmor-profile-icedove
       - apparmor-profile-dist
     state: present
 
@@ -48,7 +47,7 @@
   when: apparmorprofilescopy.changed or apparmorextraprofiles.changed
   systemd:
     name: apparmor
-    state: restarted
+    state: reloaded
     daemon_reload: yes
     enabled: yes
 

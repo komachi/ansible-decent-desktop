@@ -19,6 +19,20 @@
     owner: "{{ username }}"
     group: "{{ username }}"
 
+- name: Ensures ~/.config/TabNine exists
+  file:
+    path: "/home/{{ username }}/.config/TabNine"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Copy TabNine config
+  copy:
+    src: vscodium/tabnine_config.json
+    dest: "/home/{{ username }}/.config/TabNine/tabnine_config.json"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
 - name: Find installed vscodium extensions
   become: yes
   become_user: "{{ username }}"

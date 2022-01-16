@@ -16,7 +16,6 @@
     - 'aria2p'
     - 'nnn'
     - 'pms'
-    - 'firefox-esr'
     - 'deanon'
     - 'dev'
     - 'electroncash'
@@ -26,9 +25,9 @@
     - slack
     - figma
     - firebase
+    - gcloud
+    - gitlab
     - codium
-    - thunderbird
     - 'io.freetubeapp.FreeTube'
-    - brave-browser
     - janondisttorbrowser
     - i2pbrowser

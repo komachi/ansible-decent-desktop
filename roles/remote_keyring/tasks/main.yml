@@ -10,7 +10,6 @@
     mode: '0644'
   loop:
     - apt.syncthing.net-keyring.gpg
-    - brave-keyring.gpg
     - deb.imaginary.stream-keyring.gpg
     - deb.nodesource.com-keyring.gpg
     - deb.torproject.org-keyring.gpg

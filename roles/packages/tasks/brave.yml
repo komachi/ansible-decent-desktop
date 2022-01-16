@@ -1,4 +1,0 @@
-- name: Install Brave
-  apt:
-    name: brave-browser
-    state: present

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<preferences xmlns='http://josm.openstreetmap.de/preferences-1.0' version='17428'>
+{% for item in josm_settings %}
+  <tag key='{{ item[0] }}' value='{{ item[1] }}' />
+{% endfor %}
+
+  <list key='plugins'>
+{% for item in josm_plugins %}
+    <entry value='{{ item }}'/>
+{% endfor %}
+  </list>
+</preferences>

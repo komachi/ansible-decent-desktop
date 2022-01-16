@@ -1,0 +1,15 @@
+- name: Install oomd
+  apt:
+    name: oomd
+    state: present
+
+- name: Enable required accounting settings
+  lineinfile:
+    path: /etc/systemd/system.conf
+    regexp: "^{{item}}="
+    line: "{{item}}=true"
+  loop:
+    - DefaultCPUAccounting
+    - DefaultIOAccounting
+    - DefaultMemoryAccounting
+    - DefaultTasksAccounting

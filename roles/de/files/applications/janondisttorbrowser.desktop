@@ -2,7 +2,7 @@
 ## See the file COPYING for copying conditions.
 
 [Desktop Entry]
-Exec=env MOZ_ENABLE_WAYLAND=1 MOZ_USE_XINPUT2=1 TOR_SKIP_LAUNCH=1 TOR_CONTROL_PORT=9051 TOR_CONTROL_COOKIE_AUTH_FILE=/run/tor/control.authcookie torbrowser %u
+Exec=env TOR_SKIP_LAUNCH=1 TOR_CONTROL_PORT=9051 TOR_CONTROL_COOKIE_AUTH_FILE=/run/tor/control.authcookie torbrowser %u
 Type=Application
 Name=Tor Browser (AnonDist)
 GenericName=Privacy Browser

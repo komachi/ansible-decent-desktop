@@ -33,7 +33,7 @@ You should look for sources for full list, but here are some choices I made:
 - Media player: [mpv](https://mpv.io)
 - [FreeTube](https://freetubeapp.io/) as alternative less privacy-invasing YouTube frontend, also [yt-dlp](https://github.com/yt-dlp/yt-dlp) configured to be used with mpv
 - Music player: [mpd](https://musicpd.org/) + [pms](https://ambientsound.github.io/pms/)
-- Browser: [Firefox](https://mozilla.org/firefox), but [Ungoogled Chromium](https://github.com/Eloston/ungoogled-chromium) and [Brave](https://brave.com/) also available
+- Browser: [Firefox](https://mozilla.org/firefox), but [Ungoogled Chromium](https://github.com/Eloston/ungoogled-chromium) also available
 - Email client: [Thunderbird](https://www.thunderbird.net)
 - Source code editor: [VSCodium](https://github.com/VSCodium/vscodium)
 - File sync: [Syncthing](https://syncthing.net/)

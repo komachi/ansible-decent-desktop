@@ -18,8 +18,4 @@
     - location: "/usr/share/applications"
       name: telegramdesktop
     - location: "/home/{{ username }}/.local/share/applications"
-      name: thunderbird
-    - location: "/home/{{ username }}/.local/share/applications"
-      name: firefox-esr
-    - location: "/home/{{ username }}/.local/share/applications"
       name: codium

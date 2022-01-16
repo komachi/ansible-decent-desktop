@@ -60,4 +60,5 @@
     "rest-client.enableTelemetry": false,
     "serverlessIDE.telemetry.enableTelemetry": false,
     "terminal.enableAppInsights": false,
+    "tabnine.experimentalAutoImports": true
 }

@@ -16,6 +16,7 @@
     # TODO enable and move to systemd-boot
     # - boot_manager
     - grub
+    - swapfile
     - apt
     - unattended_upgrades
     - kmod
@@ -56,10 +57,10 @@
       prompt: "IP range of your home local network"
       private: no
       default: "192.168.0.0/16"
-    - name: homeserver_ip
-      prompt: "IP address of your home server"
-      private: no
-      default: "192.168.1.1"
+    # - name: homeserver_ip
+    #   prompt: "IP address of your home server"
+    #   private: no
+    #   default: "192.168.1.1"
     - name: mullvad_account
       prompt: "Mullvad account number"
     - name: wireguard_server
@@ -75,7 +76,7 @@
     #   private: no
     #   default: "sdb3"
   vars:
-    tor_browser_user_agent: "Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101 Firefox/78.0"
+    tor_browser_user_agent: "Mozilla/5.0 (Windows NT 10.0; rv:91.0) Gecko/20100101 Firefox/91.0"
     timezone: 'Etc/UTC'
     # gantsign.keyboard vars
     keyboard_model: pc105
@@ -113,16 +114,16 @@
           value: 10
           state: 'present'
         - name: 'MaxFileSec'
-          value: '5day'
+          value: '3day'
           state: 'present'
     logrotate__config:
       - state: 'present'
         options: |
           daily
-          rotate 5
+          rotate 2
           create
           compress
-          maxage 5
+          maxage 3
           shred
           tabooext + .dpkg-divert
           include /etc/logrotate.d
@@ -148,7 +149,7 @@
         shell: '/bin/bash'
     nodejs__node_upstream: True
     nodejs__yarn_upstream: True
-    nodejs__node_upstream_release: 'node_14.x'
+    nodejs__node_upstream_release: 'node_16.x'
     nodejs__yarn_upstream_repository: 'deb [arch=amd64 signed-by=/usr/share/keyrings/dl.yarnpkg.com-keyring.gpg] tor+https://dl.yarnpkg.com/debian/ stable main'
     nodejs__node_upstream_repository: 'deb [arch=amd64 signed-by=/usr/share/keyrings/deb.nodesource.com-keyring.gpg] tor+https://deb.nodesource.com/{{ nodejs__node_upstream_release }} {{ ansible_distribution_release }} main'
     packages:
@@ -214,6 +215,10 @@
     apt_install__all_packages:
       - "{{ packages }}"
     apt_preferences__list:
+      - packages:
+          - telegram-desktop
+        suffix: '_backports'
+        backports: [ 'bullseye' ]
       - '{{ apt_preferences__preset_list | list }}'
       - package: '*'
         suffix: '_tor'
@@ -236,9 +241,8 @@
       - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/whonix.org-keyring.gpg] tor+http://deb.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion {{ ansible_distribution_release }} main'
       - repo: 'deb-src [signed-by=/usr/share/keyrings/uget-keyring.gpg] tor+http://ppa.launchpad.net/uget-team/ppa/ubuntu bionic main'
       - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/apt.syncthing.net-keyring.gpg] tor+https://apt.syncthing.net/ syncthing stable'
-      - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/brave-keyring.gpg] tor+https://brave-browser-apt-release.s3.brave.com/ stable main'
       - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/deb.imaginary.stream-keyring.gpg] tor+https://deb.imaginary.stream {{ ansible_distribution_release }} main'
-      - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/jami-archive-keyring.gpg] tor+`https://dl.jami.net/nightly/debian_11`/ ring main'
+      - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/jami-archive-keyring.gpg] tor+https://dl.jami.net/nightly/debian_11/ ring main'
       - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/ungoogled-chromium-keyring.gpg] tor+https://download.opensuse.org/repositories/home:/ungoogled_chromium/Debian_Bullseye/ /'
       - repo: 'deb [arch=amd64 signed-by=/usr/share/keyrings/gvisor.gpg] tor+https://storage.googleapis.com/gvisor/releases release main'
     apt__default_sources:
@@ -297,6 +301,8 @@
       - name: 'pcspkr'
         state: 'blacklist'
         comment: 'Disable PC Speaker support'
+      - name: 'p_lkrg'
+        state: 'present'
       - name: 'v4l2loopback'
         state: 'present'
         options:
@@ -316,6 +322,7 @@
     grub__configuration:
       - name: 'cmdline_linux_default'
         value:
+          - 'zswap.enabled=1'
           # apparmor
           - 'apparmor=1'
           - 'security=apparmor'
@@ -333,3 +340,6 @@
           - 'rd.systemd.show_status=auto'
           - 'rd.udev.log_level=3'
           - 'vt.global_cursor_default=0'
+          # required by oomd
+          - 'swapaccount=1'
+          - 'systemd.unified_cgroup_hierarchy=1'

@@ -1,3 +1,5 @@
+
+- include_tasks: oom.yml
 - include_tasks: screenlock.yml
 - include_tasks: statusbar.yml
 - include_tasks: application-launcher.yml

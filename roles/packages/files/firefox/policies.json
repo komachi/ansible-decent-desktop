@@ -127,10 +127,6 @@
         "installation_mode": "normal_installed",
         "install_url": "https://addons.mozilla.org/firefox/downloads/latest/multi-account-containers/latest.xpi"
       },
-      "ff2mpv@yossarian.net": {
-        "installation_mode": "normal_installed",
-        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/ff2mpv/latest.xpi"
-      },
       "{569456be-2850-4f7e-b669-71e55140ee0a}": {
         "installation_mode": "normal_installed",
         "install_url": "https://addons.mozilla.org/firefox/downloads/latest/amp2html/latest.xpi"

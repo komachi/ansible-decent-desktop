@@ -1,7 +1,7 @@
 [Desktop Entry]
 Version=1.0
 Name=Firebase Console
-Exec=chromium --class="firebase" --profile-directory=firebase --app=https://console.firebase.google.com
+Exec=chromium --class="firebase" --profile-directory=google --app=https://console.firebase.google.com
 Terminal=false
 Type=Application
 Categories=Network;
