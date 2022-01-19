@@ -97,6 +97,8 @@ thunderbird_profiles:
         value: "true"
       - pref: "layers.force-active"
         value: "true"
+      - pref: "ui.systemUsesDarkTheme"
+        value: "1"
 firefox_profiles:
   - name: default
     prefs:
@@ -188,6 +190,12 @@ firefox_profiles:
         value: "true"
       - pref: "layers.force-active"
         value: "true"
+      - pref: "ui.systemUsesDarkTheme"
+        value: "1"
+      - pref: "extensions.activeThemeID"
+        value: "\"firefox-compact-dark@mozilla.org\""
+      - pref: "pdfjs.viewerCssTheme"
+        value: "2"
   - name: deanon
     prefs:
       - pref: "security.OCSP.require"
@@ -266,6 +274,8 @@ firefox_profiles:
         value: "false"
       - pref: "privacy.cpd.sessions"
         value: "false"
+      - pref: "ui.systemUsesDarkTheme"
+        value: "1"
   - name: dev
     prefs:
       - pref: "security.OCSP.require"
@@ -332,6 +342,8 @@ firefox_profiles:
         value: "true"
       - pref: "network.http.http3.enabled"
         value: "true"
+      - pref: "ui.systemUsesDarkTheme"
+        value: "1"
 bitcoinrpc_user: "bitcoinrpcuser"
 keepassxc_options:
   - ["General", "AutoReloadOnChange", "true"]

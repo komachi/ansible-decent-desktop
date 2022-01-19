@@ -17,5 +17,3 @@
       name: org.keepassxc.KeePassXC
     - location: "/usr/share/applications"
       name: telegramdesktop
-    - location: "/home/{{ username }}/.local/share/applications"
-      name: codium

@@ -1,3 +1,28 @@
+- name: Ensure we don't have globally installed electrum
+  package:
+    name: electrum
+    state: absent
+
+- name: Install electrum from flatpak
+  flatpak:
+    name: org.electrum.electrum
+    state: present
+
+- name: Ensures ~/.var/app/org.electrum.electrum/.electrum exists
+  file:
+    path: "/home/{{ username }}/.var/app/org.electrum.electrum/.electrum"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Configure electrum
+  copy:
+    src: 'electrum/config'
+    dest: "/home/{{ username }}/.var/app/org.electrum.electrum/.electrum/config"
+    mode: 0640
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
 - name: Gather package facts
   package_facts:
     manager: auto

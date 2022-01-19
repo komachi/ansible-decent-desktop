@@ -21,6 +21,7 @@
     - unattended_upgrades
     - kmod
     - sysctl
+    - sysfs
     - ssh_hardening
     - logind
     - journald
@@ -100,6 +101,7 @@
     os_auditd_enabled: false
     hidepid_option: 0
     # debops vars
+    swapfile__size: 2048
     ntp__daemon_enabled: True
     ntp__daemon: 'chrony'
     ntp__timezone: "{{ timezone }}"
@@ -212,6 +214,8 @@
       - v4l2loopback-dkms
       - nfs-common
       - nfs-kernel-server
+      - timidity
+      - fluid-soundfont-gm
     apt_install__all_packages:
       - "{{ packages }}"
     apt_preferences__list:
@@ -266,11 +270,23 @@
         options:
           - 'vm.dirty_ratio': 3
           - 'vm.dirty_background_ratio': 2
-          - 'vm.swappiness': 0
+          - 'vm.swappiness': 5
           - 'vm.vfs_cache_pressure': 50
       - name: inotify
         options:
-          - 'fs.inotify.max_user_watches': 1048576
+          - 'fs.inotify.max_user_watches': 4194304
+          - 'fs.inotify.max_user_instances': 8192
+      - name: net
+        options:
+          - 'net.core.netdev_max_backlog': 16384
+          - 'net.core.somaxconn': 8192
+          - 'net.ipv4.tcp_fastopen': 3
+    sysfs__attributes:
+      - name: 'governor'
+        state: 'defined'
+        options:
+          - name: 'devices/system/cpu/cpu0/cpufreq/scaling_governor'
+            value: 'performance'
     python__v3: True
     python__v2: False
     python__packages3:
@@ -322,7 +338,10 @@
     grub__configuration:
       - name: 'cmdline_linux_default'
         value:
+          # zswap
           - 'zswap.enabled=1'
+          - 'zswap.compressor=zstd'
+          - 'zswap.max_pool_percent=15'
           # apparmor
           - 'apparmor=1'
           - 'security=apparmor'

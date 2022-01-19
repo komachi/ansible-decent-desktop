@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=OpenRA - Red Alert
+GenericName=Real Time Strategy Game
+GenericName[de]=Echtzeit-Strategiespiel
+Icon=net.openra.OpenRA
+Exec=/usr/games/gamemoderun /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=openra-ra --file-forwarding net.openra.OpenRA @@u %U @@
+Terminal=false
+Categories=Game;StrategyGame;
+StartupWMClass=openra-ra-release-20210321
+MimeType=x-scheme-handler/openra-ra-release-20210321;
+X-Flatpak-RenamedFrom=net.openra.OpenRA-ra.desktop;
+X-Flatpak=net.openra.OpenRA

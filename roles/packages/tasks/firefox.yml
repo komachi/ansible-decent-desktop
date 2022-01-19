@@ -60,9 +60,27 @@
     owner: "{{ username }}"
     group: "{{ username }}"
 
-- name: Ensure ~/.mozilla/native-messaging-hosts exists
+# - name: Ensure ~/.mozilla/native-messaging-hosts exists
+#   file:
+#     path: "/home/{{ username }}/.mozilla/native-messaging-hosts"
+#     state: directory
+#     owner: "{{ username }}"
+#     group: "{{ username }}"
+
+- name: Ensures ~/.local/share/applications exists
   file:
-    path: "/home/{{ username }}/.mozilla/native-messaging-hosts"
+    path: "/home/{{ username }}/.local/share/applications"
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
+
+- name: Copy desktop files for profiles
+  copy:
+    src: "applications/{{ item }}.desktop"
+    dest: "/home/{{ username }}/.local/share/applications/{{ item }}.desktop"
+    mode: 0640
+    owner: "{{ username }}"
+    group: "{{ username }}"
+  loop:
+    - 'deanon'
+    - 'dev'

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=scrcpy
+Exec=scrcpy --window-borderless --stay-awake --turn-screen-off --window-title 'Phone'
+Terminal=false
+Type=Application
+Keywords=scrcpy;phone;android;device;
+StartupWMClass=scrcpy
+StartupNotify=true

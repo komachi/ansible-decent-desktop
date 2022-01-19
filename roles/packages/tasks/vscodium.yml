@@ -49,3 +49,17 @@
   when: item not in vscodium_installed_extensions
   loop: "{{ vscodium_extensions | map('lower') | list }}"
    
+- name: Ensures ~/.local/share/applications exists
+  file:
+    path: "/home/{{ username }}/.local/share/applications"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Copy desktop file
+  copy:
+    src: "applications/codium.desktop"
+    dest: "/home/{{ username }}/.local/share/applications/codium.desktop"
+    mode: 0640
+    owner: "{{ username }}"
+    group: "{{ username }}"

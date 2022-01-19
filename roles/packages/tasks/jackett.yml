@@ -37,8 +37,7 @@
     name: jackett
     image: registry.hub.docker.com/linuxserver/jackett
     state: present
-    ports:
-      - "127.0.0.1:9117:9117"
+    network: host
     volume:
       - '/etc/jackett:/config:rw'
       - '/var/lib/jackett:/downloads:rw'

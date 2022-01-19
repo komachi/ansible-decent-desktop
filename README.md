@@ -18,6 +18,7 @@ You should look for sources for full list, but here are some choices I made:
 - Shell: [bash](https://www.gnu.org/software/bash/)
 - Init: [systemd](https://systemd.io)
 - MAC: [AppArmor](https://apparmor.net/), [bubblewrap](https://github.com/containers/bubblewrap) used for [Flatpak](https://flatpak.org/)-packed apps. Sister project [apparmor-even-more-profiles](https://github.com/komachi/apparmor-even-more-profiles) deployed by default, bringing many profiles in enforce mode, much more than defauts one.
+- More hardering: [tirdad](https://github.com/0xsirus/tirdad), [LKRG](https://lkrg.org/), [kloak](https://github.com/vmonaco/kloak)
 - VPN client: [Wireguard](https://wireguard.com)
 - Firewall: [nftables](https://netfilter.org/projects/nftables/)
 - Display server: [Wayland](https://wayland.freedesktop.org/)
@@ -29,7 +30,7 @@ You should look for sources for full list, but here are some choices I made:
 - URI opener: [jaro](https://github.com/isamert/jaro)
 - Terminal emulator: [foot](https://codeberg.org/dnkl/foot)
 - Network configuration: [NetworkManager](https://wiki.gnome.org/Projects/NetworkManager)
-- DNS server: [stubby](https://github.com/getdnsapi/stubby) + [unbound](https://github.com/NLnetLabs/unbound)
+- DNS server: [stubby](https://github.com/getdnsapi/stubby) + [unbound](https://github.com/NLnetLabs/unbound) with DNS blocklists enabled
 - Media player: [mpv](https://mpv.io)
 - [FreeTube](https://freetubeapp.io/) as alternative less privacy-invasing YouTube frontend, also [yt-dlp](https://github.com/yt-dlp/yt-dlp) configured to be used with mpv
 - Music player: [mpd](https://musicpd.org/) + [pms](https://ambientsound.github.io/pms/)
@@ -51,7 +52,7 @@ You should look for sources for full list, but here are some choices I made:
 - Local maps with [Pure Maps](https://github.com/rinigus/pure-maps) and [OSM Scout Server](https://github.com/rinigus/osmscout-server)
 - Local dicts with [dictd](https://sourceforge.net/projects/dict/) and [GoldenDict](http://goldendict.org/)
 - Virtual machines: [libvirt](https://libvirt.org/) + [QEMU](https://www.qemu.org/) + [virt-manager](https://virt-manager.org/)
-- [podman](https://podman.io) for launching [OCI containers](https://opencontainers.org)
+- [podman](https://podman.io) + [gvisor](https://gvisor.dev/) for launching [OCI containers](https://opencontainers.org), 
 - [JOSM](https://josm.openstreetmap.de/) for OpenStreetMap editing
 - [node.js](https://nodejs.org), [golang](https://golang.org/), etc.
 - et cetera, et cetera

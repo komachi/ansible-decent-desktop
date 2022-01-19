@@ -12,5 +12,24 @@
 
 - name: Configure chromium
   copy:
-    src: 'chromium/additional-flags'
-    dest: "/etc/chromium.d/additional-flags"
+    src: 'chromium/chromium-flags.conf'
+    dest: "/home/{{ username }}/.config/chromium-flags.conf"
+    mode: '0640'
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Copy desktop files for web apps
+  copy:
+    src: "applications/{{ item }}.desktop"
+    dest: "/home/{{ username }}/.local/share/applications/{{ item }}.desktop"
+    mode: 0640
+    owner: "{{ username }}"
+    group: "{{ username }}"
+  loop:
+    - github
+    - clickup
+    - slack
+    - figma
+    - firebase
+    - gcloud
+    - gitlab

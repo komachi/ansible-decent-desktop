@@ -52,20 +52,16 @@ outgoing:
     pool_connections: 100
     pool_maxsize: 50
     extra_proxy_timeout: 10.0
+    enable_http2: True
 
 engines:
   - name: ddg definitions
     engine: duckduckgo_definitions
     shortcut: ddd
     weight: 2
-    disabled: False
-    url: http://api.3g2upl4pq6kufc4m.onion/?{query}&format=json&pretty=0&no_redirect=1&d=1
-    using_tor_proxy: True
+    disabled: True
     timeout: 5.0
     categories: general
-    proxies:
-       http: socks5h://searx:searx@127.0.0.1:9050
-       https: socks5h://searx:searx@127.0.0.1:9050
 
   - name: wikipedia
     engine: wikipedia
@@ -84,7 +80,7 @@ engines:
     engine: duckduckgo
     shortcut: ddg
     disabled: False
-    url: https://3g2upl4pq6kufc4m.onion/html
+    url: http://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion/html
     timeout: 5.0
     using_tor_proxy: True
     proxies:
@@ -118,8 +114,8 @@ engines:
     shortcut: ddi
     timeout: 5.0
     disabled: False
-    images_url: https://3g2upl4pq6kufc4m.onion/i.js?{query}&s={offset}&p={safesearch}&o=json&vqd={vqd}
-    site_url: https://3g2upl4pq6kufc4m.onion/?{query}&iar=images&iax=1&ia=images
+    images_url: http://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion/i.js?{query}&s={offset}&p={safesearch}&o=json&vqd={vqd}
+    site_url: http://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion/?{query}&iar=images&iax=1&ia=images
     using_tor_proxy: True
     proxies:
        http: socks5h://searx:searx@127.0.0.1:9050
@@ -205,12 +201,7 @@ engines:
     timeout: 7.0
     disabled: False
     shortcut: lg
-    search_url: http://genotypeinczgrxr.onion/search.php?req={query}
-    using_tor_proxy: True
     categories: science
-    proxies:
-       http: socks5h://searx:searx@127.0.0.1:9050
-       https: socks5h://searx:searx@127.0.0.1:9050
 
   - name: soundcloud
     engine: soundcloud

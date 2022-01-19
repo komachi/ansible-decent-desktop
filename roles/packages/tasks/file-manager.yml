@@ -1,8 +1,6 @@
-- name: Install OpenRA from flatpak
-  become: yes
-  become_user: "{{ username }}"
-  flatpak:
-    name: net.openra.OpenRA
+- name: Install nnn
+  apt:
+    name: nnn
     state: present
 
 - name: Ensures ~/.local/share/applications exists
@@ -14,8 +12,8 @@
 
 - name: Copy desktop file
   copy:
-    src: "applications/net.openra.OpenRA.desktop"
-    dest: "/home/{{ username }}/.local/share/applications/net.openra.OpenRA.desktop"
+    src: "applications/nnn.desktop"
+    dest: "/home/{{ username }}/.local/share/applications/nnn.desktop"
     mode: 0640
     owner: "{{ username }}"
     group: "{{ username }}"

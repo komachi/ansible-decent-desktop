@@ -7,9 +7,9 @@
       - mpdris2
     state: present
 
-- name: Ensures ~/.config/mpd exists
+- name: Ensures ~/.config/mpd/playlists exists
   file:
-    path: "/home/{{ username }}/.config/mpd"
+    path: "/home/{{ username }}/.config/mpd/playlists"
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
@@ -27,3 +27,18 @@
     name: mpd
     enabled: no
     state: stopped
+
+- name: Ensures ~/.local/share/applications exists
+  file:
+    path: "/home/{{ username }}/.local/share/applications"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Copy desktop file
+  copy:
+    src: "applications/pms.desktop"
+    dest: "/home/{{ username }}/.local/share/applications/pms.desktop"
+    mode: 0640
+    owner: "{{ username }}"
+    group: "{{ username }}"

@@ -4,3 +4,18 @@
   flatpak:
     name: com.play0ad.zeroad
     state: present
+
+- name: Ensures ~/.local/share/applications exists
+  file:
+    path: "/home/{{ username }}/.local/share/applications"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Copy desktop file
+  copy:
+    src: "applications/com.play0ad.zeroad.desktop"
+    dest: "/home/{{ username }}/.local/share/applications/com.play0ad.zeroad.desktop"
+    mode: 0640
+    owner: "{{ username }}"
+    group: "{{ username }}"

@@ -44,3 +44,18 @@
   become_user: "{{ username }}"
   shell: "update-torbrowser --noask --ordinary"
   when: not tbb_exists.stat.exists
+
+- name: Ensures ~/.local/share/applications exists
+  file:
+    path: "/home/{{ username }}/.local/share/applications"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Copy desktop file
+  copy:
+    src: "applications/janondisttorbrowser.desktop"
+    dest: "/home/{{ username }}/.local/share/applications/janondisttorbrowser.desktop"
+    mode: 0640
+    owner: "{{ username }}"
+    group: "{{ username }}"

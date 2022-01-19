@@ -8,6 +8,7 @@
 - include_tasks: privoxy.yml
 - include_tasks: graphicsmagick.yml
 - include_tasks: password-manager.yml
+- include_tasks: file-manager.yml
 - include_tasks: vscodium.yml
 - include_tasks: firefox.yml
 - include_tasks: chromium.yml
@@ -17,9 +18,8 @@
 - include_tasks: mpd.yml
 - include_tasks: terminal-emulator.yml
 - include_tasks: i2p.yml
-- include_tasks: electrum.yml
+- include_tasks: bitcoin.yml
 - include_tasks: electroncash.yml
-- include_tasks: wasabiwallet.yml
 - include_tasks: monero.yml
 - include_tasks: zecwallet.yml
 - include_tasks: ethereum.yml
@@ -52,6 +52,7 @@
 - include_tasks: dictionaries.yml
 - include_tasks: psd.yml
 - include_tasks: boinc.yml
+- include_tasks: scrcpy.yml
 - include_tasks: jackett.yml
 - include_tasks: searx.yml
 - include_tasks: ipfs.yml

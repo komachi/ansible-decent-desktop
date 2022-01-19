@@ -1,0 +1,36 @@
+- name: Install Taisei Project from flatpak
+  become: yes
+  become_user: "{{ username }}"
+  flatpak:
+    name: org.taisei_project.Taisei
+    state: present
+
+- name: Ensures ~/.local/share/applications exists
+  file:
+    path: "/home/{{ username }}/.local/share/applications"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Copy desktop file
+  copy:
+    src: "applications/org.taisei_project.Taisei.desktop"
+    dest: "/home/{{ username }}/.local/share/applications/org.taisei_project.Taisei.desktop"
+    mode: 0640
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Ensures ~/.var/app/org.taisei_project.Taisei/data/taisei exists
+  file:
+    path: "/home/{{ username }}/.var/app/org.taisei_project.Taisei/data/taisei"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Copy Taisei Project config
+  copy:
+    src: "taisei/config"
+    dest: "/home/{{ username }}/.var/app/org.taisei_project.Taisei/data/taisei/config"
+    mode: 0640
+    owner: "{{ username }}"
+    group: "{{ username }}"

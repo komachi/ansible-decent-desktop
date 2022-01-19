@@ -43,6 +43,37 @@
     owner: unbound
   register: unboundconfigure
 
+- name: Ensures /etc/unbound/lists.d exists
+  file:
+    path: "/etc/unbound/lists.d"
+    state: directory
+    owner: "unbound"
+    group: "unbound"
+
+- name: Copy dns blacklist updater script
+  copy:
+    src: blocklist.sh
+    dest: /usr/local/bin/blocklist.sh
+    mode: 'a+x'
+
+- name: Add systemd timer for blocklist
+  copy:
+    src: 'systemd/blocklist.timer'
+    dest: "/etc/systemd/system/blocklist.timer"
+    mode: '0640'
+
+- name: Add systemd service for blocklist updates
+  copy:
+    src: 'systemd/blocklist.service'
+    dest: "/etc/systemd/system/blocklist.service"
+    mode: '0640'
+
+- name: Enable blocklist timer
+  systemd:
+    name: blocklist.timer
+    enabled: yes
+    state: started
+
 - name: Restart unbound
   when: unboundconfigure.changed
   systemd:

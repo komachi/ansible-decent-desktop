@@ -1,8 +1,9 @@
-- name: Install OpenRA from flatpak
-  become: yes
-  become_user: "{{ username }}"
-  flatpak:
-    name: net.openra.OpenRA
+
+- name: Install scrcpy
+  apt:
+    name:
+      - scrcpy
+      - adb
     state: present
 
 - name: Ensures ~/.local/share/applications exists
@@ -14,8 +15,8 @@
 
 - name: Copy desktop file
   copy:
-    src: "applications/net.openra.OpenRA.desktop"
-    dest: "/home/{{ username }}/.local/share/applications/net.openra.OpenRA.desktop"
+    src: "applications/scrcpy.desktop"
+    dest: "/home/{{ username }}/.local/share/applications/scrcpy.desktop"
     mode: 0640
     owner: "{{ username }}"
     group: "{{ username }}"
