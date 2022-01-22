@@ -4,7 +4,7 @@ Description=OSM Scout Server
 [Service]
 ExecStart=/usr/bin/flatpak run io.github.rinigus.OSMScoutServer --console
 Restart=on-failure
-Nice=15
+Nice=16
 
 [Install]
 WantedBy=default.target

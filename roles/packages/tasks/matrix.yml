@@ -1,4 +1,15 @@
-- name: Install Quaternion from flatpak
-  flatpak:
-    name: com.github.quaternion
+- name: Install nheko
+  apt:
+    name: nheko
     state: present
+
+- name: Configure nheko
+  ini_file:
+    path: "/home/{{ username }}/.config/nheko/nheko.conf"
+    section: "{{ item[0] }}"
+    option: "{{ item[1] }}"
+    value: "{{ item[2] }}"
+    create: yes
+    group: "{{ username }}"
+    owner: "{{ username }}"
+  loop: "{{ nheko_options }}"

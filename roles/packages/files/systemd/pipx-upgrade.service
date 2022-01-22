@@ -6,3 +6,5 @@ Type=oneshot
 ExecStart=pipx upgrade-all
 AppArmorProfile=-pipx
 Nice=19
+IOSchedulingClass=idle
+IOSchedulingPriority=7

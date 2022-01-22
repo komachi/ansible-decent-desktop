@@ -23,7 +23,9 @@ MemoryDenyWriteExecute=yes
 LockPersonality=yes
 IPAddressDeny=any
 IPAddressAllow=localhost
-Nice=10
+Nice=19
+IOSchedulingClass=idle
+IOSchedulingPriority=7
 
 [Install]
 WantedBy=default.target

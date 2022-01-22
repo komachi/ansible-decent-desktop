@@ -22,7 +22,7 @@ RestrictSUIDSGID=yes
 MemoryDenyWriteExecute=yes
 LockPersonality=yes
 #CapabilityBoundingSet=CAP_NET_BIND_SERVICE
-Nice=10
+Restart=always
 
 [Install]
 WantedBy=default.target

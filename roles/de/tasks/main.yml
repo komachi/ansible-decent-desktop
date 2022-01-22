@@ -7,4 +7,5 @@
 - include_tasks: window-manager.yml
 - include_tasks: goodies.yml
 - include_tasks: autostart.yml
+- include_tasks: autonice.yml
 - include_tasks: notifications.yml

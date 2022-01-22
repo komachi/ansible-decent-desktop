@@ -15,11 +15,6 @@
     mode: '0640'
   register: i2pdconfigure
 
-- name: Enable i2pd service
-  systemd:
-    name: i2pd
-    enabled: yes
-
 - name: Check if i2p browser is already downloaded
   stat: 
     path: "/home/{{ username }}/.i2pb/i2p-browser"
@@ -37,6 +32,26 @@
     dest: /usr/share/tb-profile-i2p/check-i2p
     force: yes
     mode: 0555
+
+- name: Add systemd service for update-i2pbrowser
+  copy:
+    src: "systemd/update-i2pbrowser.{{ item }}"
+    dest: "/home/{{username}}/.config/systemd/user/update-i2pbrowser.{{ item }}"
+    mode: '0640'
+    owner: "{{ username }}"
+    group: "{{ username }}"
+  loop:
+    - 'service'
+    - 'timer'
+
+- name: Enable update-i2pbrowser timer
+  become: yes
+  become_user: "{{ username }}"
+  systemd:
+    scope: user
+    name: update-i2pbrowser.timer
+    enabled: yes
+    state: started
 
 - name: Ensures ~/.local/share/applications exists
   file:

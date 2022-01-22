@@ -1,0 +1,9 @@
+[Unit]
+Description=update-torbrowser
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/update-torbrowser --noask --ordinary
+Nice=19
+IOSchedulingClass=idle
+IOSchedulingPriority=7

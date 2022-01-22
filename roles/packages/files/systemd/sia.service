@@ -5,7 +5,6 @@ After=network.target
 [Service]
 Type=simple
 User=sia
-Nice=15
 WorkingDirectory=/var/lib/sia/
 ExecStart=/usr/bin/siad -M gctwr
 Restart=on-failure

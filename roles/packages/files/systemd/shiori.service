@@ -24,7 +24,9 @@ MemoryDenyWriteExecute=yes
 LockPersonality=yes
 IPAddressDeny=any
 IPAddressAllow=localhost
-Nice=10
+Nice=16
+IOSchedulingClass=idle
+IOSchedulingPriority=7
 AppArmorProfile=-shiori
 
 [Install]

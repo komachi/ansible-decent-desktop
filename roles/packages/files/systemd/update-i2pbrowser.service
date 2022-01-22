@@ -1,0 +1,9 @@
+[Unit]
+Description=update-i2pbrowser
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/update-i2pbrowser --noask --ordinary
+Nice=19
+IOSchedulingClass=idle
+IOSchedulingPriority=7

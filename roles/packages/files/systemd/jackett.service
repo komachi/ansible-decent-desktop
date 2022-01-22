@@ -14,7 +14,8 @@ ExecStop=/usr/bin/podman stop -t 1 jackett
 PrivateTmp=yes
 ProtectSystem=strict
 ProtectHome=yes
-Nice=5
+Nice=16
+IOSchedulingPriority=5
 
 [Install]
 WantedBy=default.target

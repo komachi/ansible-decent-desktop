@@ -29,7 +29,9 @@ IPAddressDeny=any
 IPAddressAllow={{ local_ip }}
 IPAddressAllow=localhost
 IPAddressAllow=127.0.0.1
-Nice=15
+Nice=19
+IOSchedulingClass=idle
+IOSchedulingPriority=7
 
 [Install]
 WantedBy=default.target

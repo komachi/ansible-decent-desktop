@@ -437,3 +437,21 @@ josm_plugins:
   - utilsplugin2
   - Mapillary
   - wikipedia
+
+nheko_options:
+  - ["user", "alert_on_notification", "false"]
+  - ["user", "avatar_circles", "false"]
+  - ["user", "decrypt_sidebar", "true"]
+  - ["user", "desktop_notifications", "false"]
+  - ["user", "emoji_font_family", "Noto Color Emoji"]
+  - ["user", "font_family", "Noto Sans Display"]
+  - ["user", "font_size", "12"]
+  - ["user", "group_view", "false"]
+  - ["user", "markdown_enabled", "true"]
+  - ["user", "read_receipts", "false"]
+  - ["user", "theme", "system"]
+  - ["user", "typing_notifications", "false"]
+  - ["user", "window\\start_in_tray", "false"]
+  - ["user", "window\\tray", "false"]
+
+ 

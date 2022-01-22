@@ -78,15 +78,14 @@
 
 (assoc
   #:pattern "^text/"
-  #:program "nano '%f'"
-  #:term "mousepad '%f'"
+  #:program "micro '%f'"
   #:edit "codium '%f'"
-  #:standalone #t)
+)
 
 (assoc
   #:pattern "^application/json$"
   #:program "cat '%f' | jq"
-  #:term "mousepad '%f'"
+  #:term "micro '%f'"
   #:edit "codium '%f'"
   #:standalone #t)
 
@@ -95,3 +94,6 @@
   #:pattern "^https?://"
   #:program "/usr/lib/firefox-esr/firefox-esr '%f'")
   
+(assoc
+  #:pattern "^xmpp:"
+  #:program "dino-im '%f')

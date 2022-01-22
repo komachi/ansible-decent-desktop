@@ -6,3 +6,5 @@ Description=Flatpak update
 Type=oneshot
 ExecStart=/usr/bin/flatpak update -y
 Nice=19
+IOSchedulingClass=idle
+IOSchedulingPriority=7

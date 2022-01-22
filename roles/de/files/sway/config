@@ -7,46 +7,30 @@ set $right l
 set $term footclient
 set $menu wofi
 
-# "www"
-set $ws1 1
-# "code"
-set $ws2 2
-# "term"
-set $ws3 3
-# "music"
-set $ws4 4
-# "fm"
-set $ws5 5
-# "im"
-set $ws6 6
-# "mail"
-set $ws7 7
-# "edit"
-set $ws8 8
-# "pass"
-set $ws9 9
-# "view"
-set $ws10 10
-# "money"
-set $ws11 11
-# "game"
-set $ws12 12
-# "etc"
-set $ws13 13
-# "debug"
-set $ws14 14
-# "subs"
-set $ws15 15
-# "dl"
-set $ws16 16
-# "deanon"
-set $ws17 17
-# "map"
-set $ws18 18
-# "config"
-set $ws19 19
+# outputs
+set $left HDMI-A-1 primary
+set $center DP-1 primary
+set $right DVI-D-1 primary
 
-set $nonprimary DVI-D-1 DVI-D-2 DP-2 HDMI-2 HDMI-A-1
+set $ws_www 1
+set $ws_code 2
+set $ws_term 3
+set $ws_music 4
+set $ws_fm 5
+set $ws_im 6
+set $ws_mail 7
+set $ws_edit 8
+set $ws_pass 9
+set $ws_view 10
+set $ws_money 11
+set $ws_game 12
+set $ws_etc 13
+set $ws_debug 14
+set $ws_subs 15
+set $ws_dl 16
+set $ws_deanon 17
+set $ws_map 18
+set $ws_config 19
 
 font pango:Hack 12
 
@@ -73,8 +57,10 @@ bindsym --to-code {
     $mod+Return exec $term
     # kill focused window
     $mod+Shift+q kill
+
     # move workspace to another output
-    $mod+o move workspace to output left
+    $mod+section+Left move workspace to output left
+    $mod+section+Right move workspace to output right
 
     # start wofi
     $mod+f exec $menu
@@ -120,45 +106,45 @@ bindsym --to-code {
     $mod+u [urgent=latest] focus
 
     # switch to workspace
-    $mod+1 workspace $ws1
-    $mod+2 workspace $ws2
-    $mod+3 workspace $ws3
-    $mod+4 workspace $ws4
-    $mod+5 workspace $ws5
-    $mod+6 workspace $ws6
-    $mod+7 workspace $ws7
-    $mod+8 workspace $ws8
-    $mod+9 workspace $ws9
-    $mod+0 workspace $ws10
-    $mod+q workspace $ws11
-    $mod+w workspace $ws12
-    $mod+e workspace $ws13
-    $mod+a workspace $ws14
-    $mod+s workspace $ws15
-    $mod+d workspace $ws16
-    $mod+z workspace $ws17
-    $mod+x workspace $ws18
-    $mod+c workspace $ws19
+    $mod+1 workspace $ws_www
+    $mod+2 workspace $ws_code
+    $mod+3 workspace $ws_term
+    $mod+4 workspace $ws_music
+    $mod+5 workspace $ws_fm
+    $mod+6 workspace $ws_im
+    $mod+7 workspace $ws_mail
+    $mod+8 workspace $ws_edit
+    $mod+9 workspace $ws_pass
+    $mod+0 workspace $ws_view
+    $mod+q workspace $ws_money
+    $mod+w workspace $ws_game
+    $mod+e workspace $ws_etc
+    $mod+a workspace $ws_debug
+    $mod+s workspace $ws_subs
+    $mod+d workspace $ws_dl
+    $mod+z workspace $ws_deanon
+    $mod+x workspace $ws_map
+    $mod+c workspace $ws_config
 
     # move focused container to workspace
-    $mod+Shift+1 move container to workspace $ws1
-    $mod+Shift+2 move container to workspace $ws2
-    $mod+Shift+3 move container to workspace $ws3
-    $mod+Shift+4 move container to workspace $ws4
-    $mod+Shift+5 move container to workspace $ws5
-    $mod+Shift+6 move container to workspace $ws6
-    $mod+Shift+7 move container to workspace $ws7
-    $mod+Shift+8 move container to workspace $ws8
-    $mod+Shift+9 move container to workspace $ws9
-    $mod+Shift+0 move container to workspace $ws10
-    $mod+Shift+w move container to workspace $ws12
-    $mod+Shift+e move container to workspace $ws13
-    $mod+Shift+a move container to workspace $ws14
-    $mod+Shift+s move container to workspace $ws15
-    $mod+Shift+d move container to workspace $ws16
-    $mod+Shift+z move container to workspace $ws17
-    $mod+Shift+x move container to workspace $ws18
-    $mod+Shift+c move container to workspace $ws19
+    $mod+Shift+1 move container to workspace $ws_www
+    $mod+Shift+2 move container to workspace $ws_code
+    $mod+Shift+3 move container to workspace $ws_term
+    $mod+Shift+4 move container to workspace $ws_music
+    $mod+Shift+5 move container to workspace $ws_fm
+    $mod+Shift+6 move container to workspace $ws_im
+    $mod+Shift+7 move container to workspace $ws_mail
+    $mod+Shift+8 move container to workspace $ws_edit
+    $mod+Shift+9 move container to workspace $ws_pass
+    $mod+Shift+0 move container to workspace $ws_view
+    $mod+Shift+w move container to workspace $ws_game
+    $mod+Shift+e move container to workspace $ws_etc
+    $mod+Shift+a move container to workspace $ws_debug
+    $mod+Shift+s move container to workspace $ws_subs
+    $mod+Shift+d move container to workspace $ws_dl
+    $mod+Shift+z move container to workspace $ws_deanon
+    $mod+Shift+x move container to workspace $ws_map
+    $mod+Shift+c move container to workspace $ws_config
 
     # reload the configuration file
     $mod+Ctrl+c reload
@@ -176,7 +162,6 @@ bindsym --to-code {
     XF86ScreenSaver exec --no-startup-id loginctl lock-session
     XF86Explorer exec sensible-browser
     Print exec --no-startup-id grim -g "$(slurp)" - | wl-copy
-    $mod+Pause mode "$mode_system"
 }
 
 bindsym --locked {
@@ -191,25 +176,25 @@ bindsym --locked {
 }
 
 
-workspace $ws1 output primary
-workspace $ws2 output primary
-workspace $ws3 output $nonprimary primary
-workspace $ws4 output $nonprimary primary
-workspace $ws5 output $nonprimary primary
-workspace $ws6 output $nonprimary primary
-workspace $ws7 output $nonprimary primary
-workspace $ws8 output primary
-workspace $ws9 output $nonprimary primary
-workspace $ws10 output primary
-workspace $ws11 output $nonprimary primary
-workspace $ws12 output primary
-workspace $ws13 output $nonprimary primary
-workspace $ws14 output $nonprimary primary
-workspace $ws15 output $nonprimary primary
-workspace $ws16 output $nonprimary primary
-workspace $ws17 output primary
-workspace $ws18 output primary
-workspace $ws19 output $nonprimary primary
+workspace $ws_www output $center
+workspace $ws_code output $center
+workspace $ws_term output $left
+workspace $ws_music output $left
+workspace $ws_fm output $left
+workspace $ws_im output $right
+workspace $ws_mail output $right
+workspace $ws_edit output $center
+workspace $ws_pass output $right
+workspace $ws_view output $center
+workspace $ws_money output $left
+workspace $ws_game output $center
+workspace $ws_etc output $center
+workspace $ws_debug output $right
+workspace $ws_subs output $right
+workspace $ws_dl output $left
+workspace $ws_deanon output $right
+workspace $ws_map output $center
+workspace $ws_config output $left
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -236,42 +221,41 @@ mode "resize" {
         bindsym $mod+r mode "default"
 }
 
-mode "$mode_system" {
-    bindsym l exec --no-startup-id loginctl lock-session, mode "default"
-    bindsym e exec --no-startup-id i3-msg exit, mode "default"
-    bindsym s exec --no-startup-id systemctl suspend, mode "default"
-    bindsym r exec --no-startup-id systemctl reboot, mode "default"
-    bindsym Ctrl+s exec --no-startup-id systemctl poweroff -i, mode "default"
 
-    # back to normal: Enter or Escape
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
-
-assign [app_id="firefox-esr"] $ws1
-assign [class="Chromium-browser"] $ws1
-for_window [app_id="VSCodium"] move container to workspace $ws2
-for_window [app_id="foot"] move container to workspace $ws3
-for_window [app_id="pms"] move container to workspace $ws4
-for_window [app_id="^(spacefm|pcmanfm)$"] move container to workspace $ws5
-for_window [app_id="nnn"] move container to workspace $ws5
-for_window [app_id="telegramdesktop"] move container to workspace $ws6
-for_window [app_id="slack-term"] move container to workspace $ws6
-for_window [app_id="thunderbird"] move container to workspace $ws7
-for_window [app_id="^(gimp|inkscape|libreoffice|simple-scan|audacity|org-openstreetmap-josm-.*|zim)$"] move container to workspace $ws8, focus
-for_window [app_id="org.keepassxc.KeePassXC"] move container to workspace $ws9
-for_window [app_id="^(mpv|sxiv|imvr|zathura)$"] move container to workspace $ws10, focus
-for_window [app_id="^(uget-gtk|Uget-gtk|ariang-native)$"] move container to workspace $ws16
-for_window [app_id="aria2p"] move container to workspace $ws16
-for_window [app_id="^(Wireshark|Devtools|restscope|firefox-dev|gucharmap)$"] move container to workspace $ws14
-for_window [app_id="firefox-dev"] move container to workspace $ws14
-for_window [title="^DevTools - .*$" window_role="pop-up" app_id="^((B|b)rave-browser|(C|c)hromium)$"] move container to workspace $ws14, floating disable
-for_window [app_id="FreeTube"] move container to workspace $ws15, focus
-for_window [app_id="io.github.rinigus.PureMaps"] move container to workspace $ws18, focus
-for_window [app_id="^(pavucontrol|qt5ct|nm-connection-editor|system-config-printer|osmscout-server|virt-manager)$"] move container to workspace $ws19
-for_window [app_id="^(Wasabi Wallet|electrum|simpleos|electrum-dash|electron-cash|mycrypto|monero-wallet-gui|monero-core|bisq.desktop.app.BisqApp)$"] move container to workspace $ws11
-for_window [app_id="^firefox-deanon$"] move container to workspace $ws17
-for_window [app_id="^(Tor|i2p) Browser$"] move container to workspace $ws1, floating enable
+for_window [app_id="firefox-esr"] move container to workspace $www
+for_window [class="^(Chromium-browser|Firefox-esr)$"] move container to workspace $ws_www
+for_window [app_id="^(Tor|i2p) Browser$"] move container to workspace $ws_www, floating enable
+for_window [class="^(Tor|i2p) Browser$"] move container to workspace $ws_www, floating enable
+for_window [app_id="VSCodium"] move container to workspace $ws_code
+for_window [app_id="foot"] move container to workspace $ws_term
+for_window [app_id="pms"] move container to workspace $ws_music
+for_window [app_id="^(spacefm|pcmanfm)$"] move container to workspace $ws_fm
+for_window [app_id="nnn"] move container to workspace $ws_fm
+for_window [app_id="^(telegramdesktop|slack-term|dino-im|org.eu.encom.spectral|net.jami.jami-qt)$"] move container to workspace $ws_im
+for_window [class="DeltaChat"] move container to workspace $ws_im
+for_window [app_id="thunderbird"] move container to workspace $ws_mail
+for_window [class="thunderbird"] move container to workspace $ws_mail
+for_window [app_id="^(gimp|inkscape|libreoffice|simple-scan|audacity|org-openstreetmap-josm-.*|zim)$"] move container to workspace $ws_edit, focus
+for_window [class="org-openstreetmap-josm-.*"] move container to workspace $ws_edit, focus
+for_window [app_id="org.keepassxc.KeePassXC"] move container to workspace $ws_pass
+for_window [app_id="com.yubico.yubikey-personalization-gui"] move container to workspace $ws_pass
+for_window [app_id="com.nitrokey.nitrokey-app"] move container to workspace $ws_pass
+for_window [class="OnlyKey"] move container to workspace $ws_pass
+for_window [app_id="^(mpv|sxiv|imvr|zathura)$"] move container to workspace $ws_view, focus
+for_window [app_id="^(uget-gtk|Uget-gtk|ariang-native)$"] move container to workspace $ws_dl
+for_window [app_id="aria2p"] move container to workspace $ws_dl
+for_window [app_id="^(Wireshark|Devtools|restscope|gucharmap)$"] move container to workspace $ws_debug
+for_window [app_id="figma"] move container to workspace $ws_debug
+for_window [class="Firefox-esr" instance="Devtools"] move container to workspace $ws_debug
+for_window [title="DevTools - .*" app_id="chromium"] move container to workspace $ws_debug
+for_window [app_id="FreeTube"] move container to workspace $ws_subs, focus
+for_window [app_id="io.github.rinigus.PureMaps"] move container to workspace $ws_map, focus
+for_window [app_id="^(pavucontrol|qt5ct|nm-connection-editor|system-config-printer|osmscout-server|virt-manager)$"] move container to workspace $ws_config
+for_window [app_id="^(Wasabi Wallet|electrum|simpleos|electrum-dash|electron-cash|mycrypto|monero-wallet-gui|monero-core|bisq.desktop.app.BisqApp)$"] move container to workspace $ws_money
+for_window [app_id="^(firefox-deanon|bank|gov)$"] move container to workspace $ws_deanon
+for_window [app_id="taisei"] move container to workspace $ws_game, focus
+for_window [title="OpenRA"] move container to workspace $ws_game, focus
+for_window [app_id="^(github|clickup|slack|firebase|gcloud|gitlab)$"] move container to workspace $ws_etc
 for_window [app_id="^(pinentry|Gsimplecal)$"] floating enable, focus
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="bubble"] floating enable
@@ -305,5 +289,3 @@ include /etc/sway/config.d/*
 exec --no-startup-id "systemctl --user start sway-session.target"
 
 exec --no-startup-id $term
-# exec_always --no-startup-id pidof pms > /dev/null && exit 0 || footclient --app-id=pms pms
-# exec_always --no-startup-id pidof nnn > /dev/null && exit 0 || footclient --app-id=nnn nnn

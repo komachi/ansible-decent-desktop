@@ -10,49 +10,116 @@
     - community.general
     - ansible.posix
   roles:
-    - remote_keyring
-    - apt_transport_tor
-    - apt_preferences
+    - role: remote_keyring
+      tags:
+        - repos
+    - role: apt_transport_tor
+      tags:
+        - repos
+    - role: apt_preferences
+      tags:
+        - repos
     # TODO enable and move to systemd-boot
     # - boot_manager
-    - grub
-    - swapfile
-    - apt
+    - role: grub
+      tags:
+        - boot
+    - role: swapfile
+      tags:
+        - swap
+        - optimizations
+    - role: apt
+      tags:
+        - repos
     - unattended_upgrades
     - kmod
     - sysctl
     - sysfs
-    - ssh_hardening
+    - role: ssh_hardening
+      tags:
+        - hardering
     - logind
-    - journald
-    - logrotate
-    - networking
+    - role: journald
+      tags:
+        - logs
+    - role: logrotate
+      tags:
+        - logs
+    - role: networking
+      tags:
+        - networking
     - role: mullvad
       when: mullvad_account is defined
-    - audio
-    - firewall
-    - timezone
-    - ntp
-    - packages
-    - dm
-    - de
-    - apt_install
-    - python
-    - libvirtd
-    - nodejs
-    - games
-    - themes
-    - fonts
-    - hardware
-    - bin
-    - locales
-    - additional_locales
-    - libuser
-    - users
+      tags:
+        - mullvad
+    - role: audio
+      tags:
+        - audio
+    - role: firewall
+      tags:
+        - firewall
+    - role: timezone
+      tags:
+        - time
+    - role: ntp
+      tags:
+        - time
+    - role: packages
+      tags:
+        - packages
+    - role: dm
+      tags:
+        - dm
+    - role: de
+      tags:
+        - de
+    - role: apt_install
+      tags:
+        - packages
+    - role: python
+      tags:
+        - python
+    - role: libvirtd
+      tags:
+        - libvirtd
+    - role: nodejs
+      tags:
+        - nodejs
+    - role: games
+      tags:
+        - games
+    - role: themes
+      tags:
+        - theme
+    - role: fonts
+      tags:
+        - fonts
+    - role: hardware
+      tags:
+        - hardware
+    # - bin
+    - role: locales
+      tags:
+        - locale
+    - role: additional_locales
+      tags:
+        - locale
+    - role: libuser
+      tags:
+        - users
+    - role: users
+      tags:
+        - users
     - gantsign.keyboard
-    - additional_hardering
-    - apparmor_profiles
-    - os_hardening
+    - role: additional_hardering
+      tags:
+        - hardering
+    - role: apparmor_profiles
+      tags:
+        - hardering
+    - role: os_hardening
+      tags:
+        - hardering
   vars_prompt:
     - name: local_ip
       prompt: "IP range of your home local network"
@@ -157,7 +224,7 @@
     packages:
       - haveged
       - whois
-      - mlocate
+      - plocate
       - jq
       - pavucontrol
       - ffmpeg
@@ -233,7 +300,7 @@
           Pin-Priority: 900
     apt_install__default_alternatives:
       - name: 'editor'
-        path: '/usr/bin/nano'
+        path: '/usr/bin/micro'
     apt__install_recommends: False
     apt__install_suggests: False
     apt__repositories:

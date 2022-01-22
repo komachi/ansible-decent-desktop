@@ -25,6 +25,7 @@ You should look for sources for full list, but here are some choices I made:
 - Sound server: [PulseAudio](https://www.freedesktop.org/wiki/Software/PulseAudio/)
 - Display manager: we don't need one, it can be replaced with single systemd unit
 - Window manager: [sway](https://swaywm.org/)
+- Notification daemon: [mako](https://wayland.emersion.fr/mako)
 - Bar: [waybar](https://github.com/Alexays/Waybar)
 - Applications launcher: [wofi](https://hg.sr.ht/~scoopta/wofi)
 - URI opener: [jaro](https://github.com/isamert/jaro)
@@ -48,7 +49,7 @@ You should look for sources for full list, but here are some choices I made:
 - Image viewer: [imv](https://github.com/eXeC64/imv)
 - Password manager: [KeePassXC](https://keepassxc.org/)
 - Local bookmarks with [shiori](https://github.com/go-shiori/shiori)
-- [DeltaChat](https://delta.chat), XMPP ([Dino](https://dino.im/)), [Telegram](https://telegram.org), [Jami](https://jami.net), Matrix ([Quaternion](https://github.com/quotient-im/Quaternion)) messengers
+- [DeltaChat](https://delta.chat), XMPP ([Dino](https://dino.im/)), [Telegram](https://telegram.org), [Jami](https://jami.net), Matrix ([nheko](https://nheko-reborn.github.io)) messengers
 - Local maps with [Pure Maps](https://github.com/rinigus/pure-maps) and [OSM Scout Server](https://github.com/rinigus/osmscout-server)
 - Local dicts with [dictd](https://sourceforge.net/projects/dict/) and [GoldenDict](http://goldendict.org/)
 - Virtual machines: [libvirt](https://libvirt.org/) + [QEMU](https://www.qemu.org/) + [virt-manager](https://virt-manager.org/)

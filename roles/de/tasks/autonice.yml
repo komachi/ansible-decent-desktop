@@ -1,0 +1,32 @@
+- name: Create ananicy tempdir
+  tempfile:
+    state: directory
+  register: ananicy_tempdir
+
+- name: Clone ananicy repo
+  git:
+    repo: "{{ ananicy_repo }}"
+    dest: "{{ ananicy_tempdir.path }}"
+    depth: "1"
+    clone: yes
+    version: "{{ ananicy_commit }}"
+
+- name: Build ananicy deb
+  shell:
+    chdir: "{{ ananicy_tempdir.path }}"
+    cmd: "bash package.sh debian && mv ananicy-*.deb ananicy.deb"
+  
+- name: Install ananicy
+  apt:
+    deb: "{{ ananicy_tempdir.path }}/ananicy.deb"
+
+- name: Remove tempdir
+  file:
+    path: "{{ ananicy_tempdir.path }}"
+    state: absent
+
+- name: Enable ananicy service
+  systemd:
+    name: ananicy
+    enabled: yes
+    state: started

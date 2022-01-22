@@ -21,21 +21,16 @@
     - 'flathub.flatpakrepo'
     - 'flathub-beta.flatpakrepo'
 
-- name: Add systemd timer for auto updates
-  copy:
-    src: 'systemd/flatpak-update.timer'
-    dest: "/home/{{username}}/.config/systemd/user/flatpak-update.timer"
-    mode: '0640'
-    owner: "{{ username }}"
-    group: "{{ username }}"
-
 - name: Add systemd service for auto updates
   copy:
-    src: 'systemd/flatpak-update.service'
-    dest: "/home/{{username}}/.config/systemd/user/flatpak-update.service"
+    src: "systemd/flatpak-update.{{ item }}"
+    dest: "/home/{{username}}/.config/systemd/user/flatpak-update.{{ item }}"
     mode: '0640'
     owner: "{{ username }}"
     group: "{{ username }}"
+  loop:
+    - 'service'
+    - 'timer'
 
 - name: Enable flatpak timer
   become: yes

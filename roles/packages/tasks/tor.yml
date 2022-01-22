@@ -45,6 +45,26 @@
   shell: "update-torbrowser --noask --ordinary"
   when: not tbb_exists.stat.exists
 
+- name: Add systemd service for update-torbrowser
+  copy:
+    src: "systemd/update-torbrowser.{{ item }}"
+    dest: "/home/{{username}}/.config/systemd/user/update-torbrowser.{{ item }}"
+    mode: '0640'
+    owner: "{{ username }}"
+    group: "{{ username }}"
+  loop:
+    - 'service'
+    - 'timer'
+
+- name: Enable update-torbrowser timer
+  become: yes
+  become_user: "{{ username }}"
+  systemd:
+    scope: user
+    name: update-torbrowser.timer
+    enabled: yes
+    state: started
+
 - name: Ensures ~/.local/share/applications exists
   file:
     path: "/home/{{ username }}/.local/share/applications"
