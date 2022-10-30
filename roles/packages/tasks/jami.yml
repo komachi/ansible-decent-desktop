@@ -1,4 +1,7 @@
+---
 - name: Install jami
+  register: install_jami
+  until: install_jami is succeeded
   apt:
     name: jami
     state: present
@@ -11,22 +14,22 @@
     state: present
 
 - name: Configure Jami
-  become: yes
+  become: true
   become_user: "{{ username }}"
   dconf:
-    key: "/net/jami/JamiGnome/{{ item.name }}"
+    key: /net/jami/JamiGnome/{{ item.name }}
     value: "{{ item.value }}"
     state: present
   loop:
-    - name: "enable-typing-indication"
+    - name: enable-typing-indication
       value: "false"
-    - name: "start-on-login"
+    - name: start-on-login
       value: "false"
-    - name: "show-status-icon"
+    - name: show-status-icon
       value: "false"
-    - name: "migrated-from-homedir"
+    - name: migrated-from-homedir
       value: "true"
-    - name: "history-limit"
+    - name: history-limit
       value: "5"
-    - name: "download-folder"
+    - name: download-folder
       value: "'{{ large_dirs }}/Downloads/'"

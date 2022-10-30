@@ -1,66 +1,48 @@
-- name: Ensure we don't have globally installed electrum
-  package:
-    name: electrum
-    state: absent
-
-- name: Install electrum from flatpak
-  flatpak:
-    name: org.electrum.electrum
+---
+- name: Install electrum
+  apt:
+    name:
+      - electrum
+      - python3-btchip
+      - python3-trezor
+      - python3-zbar
     state: present
 
-- name: Ensures ~/.var/app/org.electrum.electrum/.electrum exists
+- name: Ensures ~/.electrum exists
   file:
-    path: "/home/{{ username }}/.var/app/org.electrum.electrum/.electrum"
+    path: /home/{{ username }}/.electrum
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: 0750
 
 - name: Configure electrum
   copy:
-    src: 'electrum/config'
-    dest: "/home/{{ username }}/.var/app/org.electrum.electrum/.electrum/config"
+    src: electrum/config
+    dest: /home/{{ username }}/.electrum/config
     mode: 0640
     owner: "{{ username }}"
     group: "{{ username }}"
 
-- name: Gather package facts
-  package_facts:
-    manager: auto
+- name: Install wasabiwallet from flatpak
+  become: true
+  become_user: "{{ username }}"
+  flatpak:
+    name: io.wasabiwallet.WasabiWallet
+    state: present
 
-- name: Create temp dir for wasabiwallet
-  tempfile:
-    state: directory
-  register: wasabiwallet_download_tempdir
-  when: "('wassabee' not in ansible_facts.packages) or ('wassabee' in ansible_facts.packages and ansible_facts.packages.wassabee[0].version != wasabiwallet_version)"
-
-- name: Download wasabi wallet
-  get_url:
-    url: "https://github.com/zkSNACKs/WalletWasabi/releases/download/v{{ wasabiwallet_version_full }}/Wasabi-{{ wasabiwallet_version }}.deb"
-    dest: "{{ wasabiwallet_download_tempdir.path }}/wasabi.deb"
-    checksum: "{{ wasabiwallet_checksum }}"
-  when: "('wassabee' not in ansible_facts.packages) or ('wassabee' in ansible_facts.packages and ansible_facts.packages.wassabee[0].version != wasabiwallet_version)"
-
-- name: Install wasabi wallet
-  apt:
-    deb: "{{ wasabiwallet_download_tempdir.path }}/wasabi.deb"
-  when: "('wassabee' not in ansible_facts.packages) or ('wassabee' in ansible_facts.packages and ansible_facts.packages.wassabee[0].version != wasabiwallet_version)"
-
-- name: Remove tempdir
+- name: Ensures ~/.var/io.wasabiwallet.WasabiWallet/.walletwasabi/client exists
   file:
-    path: "{{ wasabiwallet_download_tempdir.path }}"
-    state: absent
-  when: "('wassabee' not in ansible_facts.packages) or ('wassabee' in ansible_facts.packages and ansible_facts.packages.wassabee[0].version != wasabiwallet_version)"
-
-- name: Ensures ~/.walletwasabi/client exists
-  file:
-    path: "/home/{{ username }}/.walletwasabi/client"
+    path: /home/{{ username }}/.var/io.wasabiwallet.WasabiWallet/.walletwasabi/client
+    mode: 0750
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
 
 - name: Configure wasabi wallet ui
   copy:
-    src: 'walletwasabi/UiConfig.json'
-    dest: "/home/{{ username }}/.walletwasabi/client/UiConfig.json"
+    src: walletwasabi/UiConfig.json
+    dest: "/home/{{ username }}/.var/io.wasabiwallet.WasabiWallet/.walletwasabi/client/UiConfig.json"
+    mode: 0440
     owner: "{{ username }}"
     group: "{{ username }}"

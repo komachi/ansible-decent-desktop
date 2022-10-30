@@ -1,0 +1,7 @@
+---
+- name: Install Inkscape
+  register: install_inkscape
+  until: install_inkscape is succeeded
+  apt:
+    name: inkscape
+    state: present

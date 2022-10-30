@@ -1,20 +1,24 @@
+---
 - name: Install JOSM
+  register: install_josm
+  until: install_josm is succeeded
   apt:
     name: josm
     state: present
 
 - name: Ensures ~/.config/JOSM exists
   file:
-    path: "/home/{{ username }}/.config/JOSM"
+    path: /home/{{ username }}/.config/JOSM
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: 0750
 
 - name: Write JOSM configuration
   template:
-    src: 'JOSM/preferences.xml.j2'
-    dest: "/home/{{ username }}/.config/JOSM/preferences.xml"
+    src: JOSM/preferences.xml.j2
+    dest: /home/{{ username }}/.config/JOSM/preferences.xml
     mode: 0640
     owner: "{{ username }}"
     group: "{{ username }}"
-    force: no
+    force: false

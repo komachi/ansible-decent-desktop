@@ -1,14 +1,15 @@
+---
 - name: Install wireguard
+  register: install_wireguard
+  until: install_wireguard is succeeded
   apt:
     name:
       - wireguard
       - wireguard-tools
     state: present
-  tags:
-    - dependencies
 
 - name: Disable managing wireguard interfaces by nm
   copy:
-    src: 'networkmanager/unmanaged.conf'
-    dest: '/etc/NetworkManager/conf.d/10-unmanaged.conf'
+    src: networkmanager/unmanaged.conf
+    dest: /etc/NetworkManager/conf.d/10-unmanaged.conf
     mode: 0640

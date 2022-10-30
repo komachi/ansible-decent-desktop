@@ -1,4 +1,7 @@
+---
 - name: Install Syncthing and GTK gui
+  register: install_syncthing
+  until: install_syncthing is succeeded
   apt:
     name:
       - syncthing
@@ -7,73 +10,82 @@
 
 - name: Ensures ~/.config/systemd/user exists
   file:
-    path: "/home/{{ username }}/.config/systemd/user"
+    path: /home/{{ username }}/.config/systemd/user
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: 0750
 
 - name: Add systemd service
   template:
-    src: 'systemd/syncthing.service.j2'
-    dest: "/home/{{ username }}/.config/systemd/user/syncthing.service"
-    mode: '0640'
+    src: systemd/syncthing.service.j2
+    dest: /home/{{ username }}/.config/systemd/user/syncthing.service
+    mode: "0640"
     owner: "{{ username }}"
     group: "{{ username }}"
 
+- name: Ensures ~/.config/syncthing exists
+  file:
+    path: /home/{{ username }}/.config/syncthing
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: 0750
+
 - name: Check if config exists
-  stat: 
-    path: "/home/{{ username }}/.config/syncthing/config.xml"
+  stat:
+    path: /home/{{ username }}/.config/syncthing/config.xml
   register: config_stat
 
 - name: Restart Syncthing
-  when: config_stat.stat.exists == False
-  become: yes
+  when: not config_stat.stat.exists
+  become: true
   become_user: "{{ username }}"
   systemd:
     scope: user
     name: syncthing
     state: restarted
-    daemon_reload: yes
+    daemon_reload: true
 
 - name: Waiting for config
-  when: config_stat.stat.exists == False
+  when: not config_stat.stat.exists
   wait_for:
-    path: "/home/{{ username }}/.config/syncthing/config.xml"
+    path: /home/{{ username }}/.config/syncthing/config.xml
 
 - name: Configure syncthing
   xml:
-    path: "/home/{{ username }}/.config/syncthing/config.xml"
+    path: /home/{{ username }}/.config/syncthing/config.xml
     xpath: "{{ item.xpath }}"
     value: "{{ item.value }}"
-  loop: 
-    - xpath: '/configuration/gui/address'
-      value: '127.0.0.1:8384'
-    - xpath: '/configuration/options/globalAnnounceEnabled'
-      value: 'false'
-    - xpath: '/configuration/options/relaysEnabled'
-      value: 'false'
-    - xpath: '/configuration/options/natEnabled'
-      value: 'false'
-    - xpath: '/configuration/options/startBrowser'
-      value: 'false'
-    - xpath: '/configuration/gui/theme'
-      value: 'black'
+  loop:
+    - xpath: /configuration/gui/address
+      value: 127.0.0.1:8384
+    - xpath: /configuration/options/globalAnnounceEnabled
+      value: "false"
+    - xpath: /configuration/options/relaysEnabled
+      value: "false"
+    - xpath: /configuration/options/natEnabled
+      value: "false"
+    - xpath: /configuration/options/startBrowser
+      value: "false"
+    - xpath: /configuration/gui/theme
+      value: black
   register: syncthing_configure
 
 - name: Restart Syncthing
   when: syncthing_configure.changed
-  become: yes
+  become: true
   become_user: "{{ username }}"
   systemd:
     scope: user
     name: syncthing
     state: restarted
-    daemon_reload: yes
+    daemon_reload: true
 
 - name: Enable Syncthing service
-  become: yes
+  become: true
   become_user: "{{ username }}"
   systemd:
     scope: user
     name: syncthing
-    enabled: yes
+    enabled: true

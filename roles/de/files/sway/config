@@ -31,6 +31,7 @@ set $ws_dl 16
 set $ws_deanon 17
 set $ws_map 18
 set $ws_config 19
+set $ws_phone 20
 
 font pango:Hack 12
 
@@ -125,6 +126,7 @@ bindsym --to-code {
     $mod+z workspace $ws_deanon
     $mod+x workspace $ws_map
     $mod+c workspace $ws_config
+    $mod+p workspace $ws_phone
 
     # move focused container to workspace
     $mod+Shift+1 move container to workspace $ws_www
@@ -145,6 +147,7 @@ bindsym --to-code {
     $mod+Shift+z move container to workspace $ws_deanon
     $mod+Shift+x move container to workspace $ws_map
     $mod+Shift+c move container to workspace $ws_config
+    $mod+Shift+p move container to workspace $ws_phone
 
     # reload the configuration file
     $mod+Ctrl+c reload
@@ -195,6 +198,7 @@ workspace $ws_dl output $left
 workspace $ws_deanon output $right
 workspace $ws_map output $center
 workspace $ws_config output $left
+workspace $ws_phone output $right
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -222,16 +226,16 @@ mode "resize" {
 }
 
 
-for_window [app_id="firefox-esr"] move container to workspace $www
+for_window [app_id="firefox-esr"] move container to workspace $ws_www
 for_window [class="^(Chromium-browser|Firefox-esr)$"] move container to workspace $ws_www
 for_window [app_id="^(Tor|i2p) Browser$"] move container to workspace $ws_www, floating enable
 for_window [class="^(Tor|i2p) Browser$"] move container to workspace $ws_www, floating enable
 for_window [app_id="VSCodium"] move container to workspace $ws_code
 for_window [app_id="foot"] move container to workspace $ws_term
-for_window [app_id="pms"] move container to workspace $ws_music
+for_window [app_id="^(pms|sonata)$"] move container to workspace $ws_music
 for_window [app_id="^(spacefm|pcmanfm)$"] move container to workspace $ws_fm
 for_window [app_id="nnn"] move container to workspace $ws_fm
-for_window [app_id="^(telegramdesktop|slack-term|dino-im|org.eu.encom.spectral|net.jami.jami-qt)$"] move container to workspace $ws_im
+for_window [app_id="^(telegramdesktop|slack-term|dino-im|org.eu.encom.spectral|net.jami.jami-qt|nheko)$"] move container to workspace $ws_im
 for_window [class="DeltaChat"] move container to workspace $ws_im
 for_window [app_id="thunderbird"] move container to workspace $ws_mail
 for_window [class="thunderbird"] move container to workspace $ws_mail
@@ -255,7 +259,9 @@ for_window [app_id="^(Wasabi Wallet|electrum|simpleos|electrum-dash|electron-cas
 for_window [app_id="^(firefox-deanon|bank|gov)$"] move container to workspace $ws_deanon
 for_window [app_id="taisei"] move container to workspace $ws_game, focus
 for_window [title="OpenRA"] move container to workspace $ws_game, focus
-for_window [app_id="^(github|clickup|slack|firebase|gcloud|gitlab)$"] move container to workspace $ws_etc
+for_window [class="Steam"] move container to workspace $ws_game
+for_window [app_id="^(github|clickup|slack|firebase|google|gitlab)$"] move container to workspace $ws_etc
+for_window [class="scrcpy"] move container to workspace $ws_phone
 for_window [app_id="^(pinentry|Gsimplecal)$"] floating enable, focus
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="bubble"] floating enable

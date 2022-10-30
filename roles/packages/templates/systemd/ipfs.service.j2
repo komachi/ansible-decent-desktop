@@ -1,0 +1,23 @@
+[Unit]
+Description=IPFS
+Wants=network.target
+After=network-online.target user-runtime-dir@{{ ipfs_user.uid }}.service
+
+[Service]
+User=ipfs
+Group=ipfs
+Environment=PODMAN_SYSTEMD_UNIT=%n
+Restart=on-failure
+TimeoutStopSec=70
+ExecStartPre=/bin/rm -f /run/user/{{ ipfs_user.uid }}/container-%n.pid /run/user/{{ ipfs_user.uid }}/container-%n.ctr-id
+ExecStart=/usr/bin/podman container run --conmon-pidfile /run/user/{{ ipfs_user.uid }}/container-%n.pid --cidfile /run/user/{{ ipfs_user.uid }}/container-%n.ctr-id --cgroups=no-conmon --replace --name %n --volume /var/lib/ipfs/export:/export --volume /var/lib/ipfs/data:/data/ipfs --publish 4001:4001 --publish 4001:4001/udp --publish 127.0.0.1:8080:8080 --publish 127.0.0.1:5001:5001 --detach=True registry.hub.docker.com/ipfs/go-ipfs
+ExecStop=/usr/bin/podman container stop --ignore --cidfile /run/user/{{ ipfs_user.uid }}/container-%n.ctr-id -t 10
+ExecStopPost=/usr/bin/podman container rm --ignore -f --cidfile /run/user/{{ ipfs_user.uid }}/container-%n.ctr-id
+PIDFile=/run/user/{{ ipfs_user.uid }}/container-%n.pid
+Type=simple
+Nice=16
+IOSchedulingPriority=5
+KillMode=none
+
+[Install]
+WantedBy=multi-user.target default.target

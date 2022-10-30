@@ -1,0 +1,7 @@
+---
+- name: Install iwlwifi firmware
+  register: install_realtek
+  until: install_realtek is succeeded
+  package:
+    name: firmware-realtek
+    state: present

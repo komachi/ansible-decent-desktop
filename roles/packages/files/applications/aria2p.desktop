@@ -1,9 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Name=aria2p
-Exec=foot --app-id=aria2p aria2p 
-Terminal=false
-StartupWMClass=aria2p
-Type=Application
-Categories=Network;FileTransfer;P2P;
-Keywords=aria2;torrent;bittorrent;metalink;magnet;aria2p;

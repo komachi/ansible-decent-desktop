@@ -14,15 +14,15 @@ It enables autologin and intended to use only on single-user desktop machines. U
 
 You should look for sources for full list, but here are some choices I made:
 
-- OS: [Debian GNU/Linux](https://debian.org), stable (currentl bullseye)
+- OS: [Debian GNU/Linux](https://debian.org), stable (current bullseye)
 - Shell: [bash](https://www.gnu.org/software/bash/)
 - Init: [systemd](https://systemd.io)
-- MAC: [AppArmor](https://apparmor.net/), [bubblewrap](https://github.com/containers/bubblewrap) used for [Flatpak](https://flatpak.org/)-packed apps. Sister project [apparmor-even-more-profiles](https://github.com/komachi/apparmor-even-more-profiles) deployed by default, bringing many profiles in enforce mode, much more than defauts one.
+- MAC: [AppArmor](https://apparmor.net/), [bubblewrap](https://github.com/containers/bubblewrap) used for [Flatpak](https://flatpak.org/)-packed apps. Sister project [apparmor-even-more-profiles](https://github.com/komachi/apparmor-even-more-profiles) deployed by default, bringing profiles for most of included software in enforce mode.
 - More hardering: [tirdad](https://github.com/0xsirus/tirdad), [LKRG](https://lkrg.org/), [kloak](https://github.com/vmonaco/kloak)
 - VPN client: [Wireguard](https://wireguard.com)
-- Firewall: [nftables](https://netfilter.org/projects/nftables/)
+- Firewall: [nftables](https://netfilter.org/projects/nftables/) + [OpenSnitch](https://github.com/evilsocket/opensnitch)
 - Display server: [Wayland](https://wayland.freedesktop.org/)
-- Sound server: [PulseAudio](https://www.freedesktop.org/wiki/Software/PulseAudio/)
+- Audio/video server: [PipeWire](https://pipewire.org)
 - Display manager: we don't need one, it can be replaced with single systemd unit
 - Window manager: [sway](https://swaywm.org/)
 - Notification daemon: [mako](https://wayland.emersion.fr/mako)
@@ -35,25 +35,25 @@ You should look for sources for full list, but here are some choices I made:
 - Media player: [mpv](https://mpv.io)
 - [FreeTube](https://freetubeapp.io/) as alternative less privacy-invasing YouTube frontend, also [yt-dlp](https://github.com/yt-dlp/yt-dlp) configured to be used with mpv
 - Music player: [mpd](https://musicpd.org/) + [pms](https://ambientsound.github.io/pms/)
-- Browser: [Firefox](https://mozilla.org/firefox), but [Ungoogled Chromium](https://github.com/Eloston/ungoogled-chromium) also available
+- Browser: [Firefox](https://mozilla.org/firefox), but [Chromium](https://chromium.org) also available
 - Email client: [Thunderbird](https://www.thunderbird.net)
 - Source code editor: [VSCodium](https://github.com/VSCodium/vscodium)
 - File sync: [Syncthing](https://syncthing.net/)
-- Download manager: [aria2](https://github.com/aria2/aria2) + [uGet](https://ugetdm.com/), [XD](https://xd-torrent.github.io) for I2P torrents
-- Some cryptocurrency wallets: [Monero](https://www.getmonero.org/) fullnode, [Electrum](https://electrum.org) and [Wasabi Wallet](https://www.wasabiwallet.io/) for [Bitcoin](https://bitcoin.org/) network, [Electron Cash](https://electroncash.org/) for [Bitcoin Cash](https://bitcoincash.org/), [MyCrypto](https://www.mycrypto.com/) for [Ethereum](https://ethereum.org), [Zecwallet Lite](https://www.zecwallet.co/) for [Zcash](https://z.cash/), [Electrum Dash](https://electrum.dash.org/) for [Dash](https://dash.org/), [SimpleOS](https://eosrio.io/simpleos/) for [EOS](https://eos.io/), [Bisq](https://bisq.network/) for DEX
+- Download manager: [aria2](https://github.com/aria2/aria2), <https://ugetdm.com/>), [XD](https://xd-torrent.github.io) for I2P torrents
+- Some cryptocurrency wallets: [Monero](https://www.getmonero.org/) fullnode, [Electrum](https://electrum.org) and [Wasabi Wallet](https://www.wasabiwallet.io/) for [Bitcoin](https://bitcoin.org/) network, [Electron Cash](https://electroncash.org/) for [Bitcoin Cash](https://bitcoincash.org/), [MyCrypto](https://www.mycrypto.com/) for [Ethereum](https://ethereum.org), [Zecwallet Lite](https://www.zecwallet.co/) for [Zcash](https://z.cash/), [Electrum Dash](https://electrum.dash.org/) for [Dash](https://dash.org/), [Bisq](https://bisq.network/) and [Uniswap](https://uniswap.org/) as DEX
 - Support for [Ledger](https://www.ledger.com/), [Trezor](https://trezor.io/), [Nitrokey](https://www.nitrokey.com/), and [OnlyKey](https://onlykey.io/) hardware tokens
-- [I2P](https://geti2p.net/), [Tor](https://torproject.org), [IPFS](https://ipfs.io/), [Lokinet](https://loki.network), [Gnunet](https://gnunet.org), [OpenBazaar](https://openbazaar.org/), etc.
+- [I2P](https://geti2p.net/), [Tor](https://torproject.org), [IPFS](https://ipfs.io/), etc.
 - Localhosted [Searx](https://searx.github.io/searx/) instance as a privacy-respecting metasearch engine
 - [Jackett](https://github.com/Jackett/Jackett) for searching on trackers
 - Office package: [zathura](https://pwmt.org/projects/zathura/) + [zaread](https://github.com/paoloap/zaread) for simple document viewing and [LibreOffice](https://www.libreoffice.org/) for classical office package editing needs
 - Image viewer: [imv](https://github.com/eXeC64/imv)
 - Password manager: [KeePassXC](https://keepassxc.org/)
 - Local bookmarks with [shiori](https://github.com/go-shiori/shiori)
-- [DeltaChat](https://delta.chat), XMPP ([Dino](https://dino.im/)), [Telegram](https://telegram.org), [Jami](https://jami.net), Matrix ([nheko](https://nheko-reborn.github.io)) messengers
+- [DeltaChat](https://delta.chat), XMPP ([Dino](https://dino.im/)), [Telegram](https://telegram.org), [Jami](https://jami.net), Matrix ([nheko](https://nheko-reborn.github.io)), [Mumble](https://www.mumble.info) messengers
 - Local maps with [Pure Maps](https://github.com/rinigus/pure-maps) and [OSM Scout Server](https://github.com/rinigus/osmscout-server)
 - Local dicts with [dictd](https://sourceforge.net/projects/dict/) and [GoldenDict](http://goldendict.org/)
 - Virtual machines: [libvirt](https://libvirt.org/) + [QEMU](https://www.qemu.org/) + [virt-manager](https://virt-manager.org/)
-- [podman](https://podman.io) + [gvisor](https://gvisor.dev/) for launching [OCI containers](https://opencontainers.org), 
+- [podman](https://podman.io) + [gvisor](https://gvisor.dev/) for launching [OCI containers](https://opencontainers.org),
 - [JOSM](https://josm.openstreetmap.de/) for OpenStreetMap editing
 - [node.js](https://nodejs.org), [golang](https://golang.org/), etc.
 - et cetera, et cetera
@@ -71,9 +71,11 @@ Install some additional keyrings.
 ### apt_transport_tor
 
 Enable and enforce apt-transport-tor.
+
 ### boot_manager
 
 Configure boot manager.
+
 ### audio
 
 Configure audio settings.
@@ -128,7 +130,7 @@ Configure hardware.
 
 ### bin
 
-Just checkouts https://github.com/komachi/bin to ~/bin
+Just checkouts <https://github.com/komachi/bin> to ~/bin
 
 ### timezone
 

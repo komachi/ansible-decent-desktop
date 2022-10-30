@@ -1,0 +1,8 @@
+--type-add
+web:*.{html,css,sass,scss,js,jsx,ts,tsx}*
+
+--type-add
+yml:*.{yml,yaml}*
+
+--colors=always
+--smart-case

@@ -1,0 +1,72 @@
+---
+- name: Install mpv
+  register: install_mpv
+  until: install_mpv is succeeded
+  apt:
+    name: mpv
+    state: present
+
+- name: Ensure we don't have globally installed youtube-dl or streamlink
+  apt:
+    name:
+      - youtube-dl
+      - yt-dlp
+      - streamlink
+    state: absent
+
+- name: Install yt-dlp and streamlink
+  become: true
+  become_user: "{{ username }}"
+  shell: pipx install --force {{ item }}
+  loop:
+    - yt-dlp
+    - streamlink
+  changed_when: true
+
+- name: Ensures ~/.config/streamlink exists
+  file:
+    path: /home/{{ username }}/.config/streamlink
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: 0750
+
+- name: Configure streamlink
+  copy:
+    src: streamlink/config
+    dest: /home/{{ username }}/.config/streamlink/config
+    mode: 0640
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Ensures ~/.config/yt-dlp exists
+  file:
+    path: /home/{{ username }}/.config/yt-dlp
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: 0750
+
+- name: Configure yt-dlp
+  template:
+    src: yt-dlp/config.j2
+    dest: /home/{{ username }}/.config/yt-dlp/config
+    mode: 0640
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Ensures ~/.config/mpv exists
+  file:
+    path: /home/{{ username }}/.config/mpv
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: 0750
+
+- name: Configure mpv
+  template:
+    src: mpv/mpv.conf.j2
+    dest: /home/{{ username }}/.config/mpv/mpv.conf
+    mode: 0640
+    owner: "{{ username }}"
+    group: "{{ username }}"

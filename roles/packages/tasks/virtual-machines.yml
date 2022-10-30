@@ -1,26 +1,24 @@
+---
 - name: Install vagrant
+  register: install_vagrant
+  until: install_vagrant is succeeded
   apt:
-    name: 
+    name:
       - vagrant
       - vagrant-cachier
       - vagrant-libvirt
       - virt-manager
-    state: present
-
-- name: Install dconfs module deps
-  apt:
-    name:
       - python3-psutil
       - dconf-cli
     state: present
 
 - name: Configure virt-manager
-  become: yes
+  become: true
   become_user: "{{ username }}"
   dconf:
-    key: "/org/virt-manager/virt-manager/{{ item.name }}"
+    key: /org/virt-manager/virt-manager/{{ item.name }}
     value: "{{ item.value }}"
     state: present
   loop:
-    - name: "urls/urls"
-      value: "['https://deb.debian.org/debian/dists/{{ ansible_distribution_release }}/main/installer-amd64/']"
+    - name: urls/urls
+      value: "['https://deb.debian.org/debian/dists/{{ ansible_distribution_release }}/main/installer-{{ architecture_map[ansible_architecture] }}/']"

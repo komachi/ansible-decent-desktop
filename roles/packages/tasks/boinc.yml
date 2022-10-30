@@ -1,4 +1,7 @@
+---
 - name: Install boinc packages
+  register: install_boinc
+  until: install_boinc is succeeded
   apt:
     name:
       - boinc-client

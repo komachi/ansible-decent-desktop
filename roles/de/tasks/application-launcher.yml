@@ -1,18 +1,23 @@
+---
 - name: Install wofi
+  register: install_wofi
+  until: install_wofi is succeeded
   apt:
     name: wofi
     state: present
 
 - name: Ensures ~/.config/wofi exists
   file:
-    path: "/home/{{ username }}/.config/wofi"
+    path: /home/{{ username }}/.config/wofi
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: 0750
 
 - name: Copy wofi config
   copy:
     src: wofi/config
-    dest: "/home/{{ username }}/.config/wofi/config"
+    dest: /home/{{ username }}/.config/wofi/config
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: 0440

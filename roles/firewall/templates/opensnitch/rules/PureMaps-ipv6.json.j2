@@ -1,0 +1,37 @@
+{
+  "created": "1970-01-01T12:00:00.000000000Z",
+  "updated": "1970-01-01T12:00:00.000000000Z",
+  "name": "PureMaps-ipv6",
+  "enabled": true,
+  "precedence": false,
+  "action": "allow",
+  "duration": "always",
+  "operator": {
+    "type": "list",
+    "operand": "list",
+    "sensitive": false,
+    "list": [
+      {
+        "type": "simple",
+        "operand": "process.path",
+        "sensitive": false,
+        "data": "/app/bin/io.github.rinigus.PureMaps",
+        "list": null
+      },
+      {
+        "type": "simple",
+        "operand": "dest.port",
+        "sensitive": false,
+        "data": "8553",
+        "list": null
+      },
+      {
+        "type": "network",
+        "operand": "dest.network",
+        "sensitive": false,
+        "data": "::1/128",
+        "list": null
+      }
+    ]
+  }
+}

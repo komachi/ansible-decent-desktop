@@ -1,55 +1,43 @@
+---
 - name: Create ipfs user
   user:
     name: ipfs
     shell: /bin/false
-    create_home: yes
+    create_home: true
     home: /var/lib/ipfs
-    system: yes
+    system: true
+  register: ipfs_user
 
 - name: Add subguid/subuids for user
   shell: usermod --add-subuids 100000-165535 --add-subgids 100000-165535 ipfs
+  changed_when: false
 
 - name: Run podman system migrate
   shell: podman system migrate
+  changed_when: false
 
 - name: Ensures required dirs exists
   file:
-    path: "/var/lib/ipfs/{{ item }}"
+    path: /var/lib/ipfs/{{ item }}
     state: directory
-    owner: "ipfs"
-    group: "ipfs"
+    owner: ipfs
+    group: ipfs
+    mode: 0750
   loop:
     - export
     - data
 
-- name: Pull ipfs image
-  containers.podman.podman_image:
-    name: registry.hub.docker.com/ipfs/go-ipfs
-
-- name: Create ipfs container
-  become: yes
+- name: Create jackett container
+  become: true
   become_user: ipfs
   containers.podman.podman_container:
     name: ipfs
     image: registry.hub.docker.com/ipfs/go-ipfs
-    state: present
-    ports:
-      - "4001:4001"
-      - "4001:4001/udp"
-      - "127.0.0.1:8080:8080"
-      - "127.0.0.1:5001:5001"
-    volume:
-      - '/var/lib/ipfs/export:/export'
-      - '/var/lib/ipfs/data:/data/ipfs'
-
-- name: Add systemd service
-  copy:
-    src: 'systemd/ipfs.service'
-    dest: "/etc/systemd/system/ipfs.service"
-    mode: '0640'
-
-- name: Enable ipfs service
-  systemd:
-    name: ipfs
-    enabled: yes
     state: started
+    expose:
+      - 127.0.0.1:9117:9117
+    volumes:
+      - /etc/jackett:/config:rw
+      - /var/lib/jackett:/downloads:rw
+    generate_systemd:
+      restart_policy: on-failure

@@ -1,0 +1,13 @@
+---
+- name: Install doas
+  register: install_doas
+  until: install_doas is succeeded
+  apt:
+    name: doas
+    state: present
+
+- name: Configure doas
+  template:
+    src: doas.conf.j2
+    dest: /etc/doas.conf
+    mode: 0440

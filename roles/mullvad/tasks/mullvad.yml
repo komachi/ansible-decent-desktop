@@ -1,19 +1,22 @@
-
+---
 - name: Get Mullvad servers list
   uri:
     url: https://api.mullvad.net/public/relays/wireguard/v1/
-    return_content: yes
+    return_content: true
   register: mullvad_servers_orig
   failed_when: "'countries' not in mullvad_servers_orig.content"
 
 - name: Flatten servers list
   set_fact:
     mullvad_servers: "{{ mullvad_servers_orig.json | json_query('countries[].cities[].relays[]') }}"
-    cacheable: yes
+    cacheable: true
 
 - name: Trying to find already registred private key
-  shell: "grep -hEr -m1 '^PrivateKey[ ]*=[ ]*(.*)([a-zA-Z0-9+/]{43}=)$' --include=\"mullvad-*\" \"/etc/wireguard\" | head -1 | cut -d'=' -f1 --complement | xargs"
-  changed_when: False
+  shell:
+    executable: /bin/bash
+    cmd: >
+      grep -hEr -m1 '^PrivateKey[ ]*=[ ]*(.*)([a-zA-Z0-9+/]{43}=)$' --include="mullvad-*" "/etc/wireguard" | head -1 | cut -d'=' -f1 --complement | xargs
+  changed_when: false
   register: mullvad_wireguard_find_private_key
 
 - set_fact:
@@ -30,28 +33,32 @@
   when: mullvad_wireguard_find_private_key.stdout == ''
 
 - name: Get public key from our private key
-  shell: "echo \"{{ mullvad_wireguard_private_key }}\" | wg pubkey"
-  changed_when: False
+  shell:
+    executable: /bin/bash
+    cmd: >
+      set -e -o pipefail;
+      echo "{{ mullvad_wireguard_private_key }}" | wg pubkey
+  changed_when: false
   register: mullvad_wireguard_public_key
 
 - name: Login to mullvad
   uri:
-    url: "https://api.mullvad.net/www/accounts/{{ mullvad_account }}/"
-    return_content: yes
+    url: https://api.mullvad.net/www/accounts/{{ mullvad_account }}/
+    return_content: true
   register: mullvad_auth
   failed_when: mullvad_auth.json.auth_token is not match('^[0-9a-f:/.,]+$')
 
 - name: Register our public key on mullvad
   uri:
-    url: "https://api.mullvad.net/www/wg-pubkeys/add/"
+    url: https://api.mullvad.net/www/wg-pubkeys/add/
     method: POST
     body_format: json
     status_code: 201
     body:
       pubkey: "{{ mullvad_wireguard_public_key.stdout }}"
     headers:
-      authorization: "Token {{ mullvad_auth.json.auth_token }}"
-    return_content: yes
+      authorization: Token {{ mullvad_auth.json.auth_token }}
+    return_content: true
   register: mullvad_wireguard_address
   failed_when: mullvad_wireguard_address.json.ipv4_address is not match('^[0-9a-f:/.,\/]+$')
 
@@ -59,11 +66,11 @@
 - name: Write wireguard conf files
   template:
     src: wireguard/mullvad.conf.j2
-    dest: "/etc/wireguard/mullvad-{{ item.hostname | regex_replace('-wireguard') }}.conf"
+    dest: /etc/wireguard/mullvad-{{ item.hostname | regex_replace('-wireguard') }}.conf
     mode: 0640
   loop: "{{ mullvad_servers }}"
 
 - name: Connect to wireguard on boot
-  systemd: 
-    name: "wg-quick@{{ wireguard_server }}"
-    enabled: yes
+  systemd:
+    name: wg-quick@{{ wireguard_server }}
+    enabled: true

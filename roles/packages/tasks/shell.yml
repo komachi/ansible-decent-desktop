@@ -1,3 +1,4 @@
+---
 # bash isn't haxxxor enough, but it's ok
 - name: Configure bash aliases
   copy:

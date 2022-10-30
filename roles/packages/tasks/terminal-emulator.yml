@@ -1,39 +1,46 @@
+---
 - name: Install foot
+  register: install_foot
+  until: install_foot is succeeded
   package:
     name: foot
     state: present
 
 - name: Ensures ~/.config/foot exists
   file:
-    path: "/home/{{ username }}/.config/foot"
+    path: /home/{{ username }}/.config/foot
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: 0750
 
 - name: Copy foot config
   copy:
     src: foot/foot.ini
-    dest: "/home/{{ username }}/.config/foot/foot.ini"
+    dest: /home/{{ username }}/.config/foot/foot.ini
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: 0440
 
 - name: Set as default terminal emulator
   alternatives:
+    link: /usr/local/bin/x-terminal-emulator
     name: x-terminal-emulator
     path: /usr/bin/footclient
+  failed_when: false
 
 - name: Add systemd user units
   copy:
-    src: 'systemd/foot.service'
-    dest: "/home/{{username}}/.config/systemd/user/foot.service"
-    mode: '0640'
+    src: systemd/foot.service
+    dest: /home/{{ username }}/.config/systemd/user/foot.service
+    mode: "0640"
     owner: "{{ username }}"
     group: "{{ username }}"
 
 - name: Enable systemd user services
-  become: yes
+  become: true
   become_user: "{{ username }}"
   systemd:
     scope: user
-    name: "foot"
-    enabled: yes
+    name: foot
+    enabled: true

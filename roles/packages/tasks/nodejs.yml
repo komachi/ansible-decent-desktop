@@ -1,7 +1,8 @@
+---
 - name: Configure npm
   copy:
     src: npmrc
-    dest: "/home/{{ username }}/.npmrc"
+    dest: /home/{{ username }}/.npmrc
     mode: 0640
     owner: "{{ username }}"
     group: "{{ username }}"

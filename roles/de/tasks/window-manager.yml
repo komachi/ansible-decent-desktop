@@ -1,26 +1,31 @@
+---
 - name: Install sway
+  register: install_sway
+  until: install_sway is succeeded
   apt:
     name: sway
     state: present
 
 - name: Ensures ~/.config/sway exists
   file:
-    path: "/home/{{ username }}/.config/sway"
+    path: /home/{{ username }}/.config/sway
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: 0750
 
 - name: Copy sway config
   copy:
     src: sway/config
-    dest: "/home/{{ username }}/.config/sway/config"
+    dest: /home/{{ username }}/.config/sway/config
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: 0440
 
 - name: Add sway-session.target
   copy:
-    src: 'systemd/sway-session.target'
-    dest: "/home/{{username}}/.config/systemd/user/sway-session.target"
-    mode: '0640'
+    src: systemd/sway-session.target
+    dest: /home/{{ username }}/.config/systemd/user/sway-session.target
+    mode: "0640"
     owner: "{{ username }}"
     group: "{{ username }}"

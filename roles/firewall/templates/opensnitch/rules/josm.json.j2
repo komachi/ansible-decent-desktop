@@ -1,0 +1,30 @@
+{
+  "created": "1970-01-01T12:00:00.000000000Z",
+  "updated": "1970-01-01T12:00:00.000000000Z",
+  "name": "josm",
+  "enabled": true,
+  "precedence": false,
+  "action": "allow",
+  "duration": "always",
+  "operator": {
+    "type": "list",
+    "operand": "list",
+    "sensitive": false,
+    "list": [
+      {
+        "type": "simple",
+        "operand": "process.command",
+        "sensitive": false,
+        "data": "/bin/java -Djosm.restart=true -Djava.net.useSystemProxies=true -jar /usr/share/josm/josm.jar",
+        "list": null
+      },
+      {
+        "type": "regexp",
+        "operand": "dest.host",
+        "sensitive": false,
+        "data": "^(clarity\\.maptiles\\.arcgis\\.com|dev\\.virtualearth\\.net|gokaart\\.gitlab\\.io|grab\\.community\\.improve-osm\\.org|josm\\.openstreetmap\\.de|maps\\.kosmosnimki\\.ru|mapwith\\.ai|offsets\\.textual\\.ru|(|.*\\.)openstreetmap\\.org|server\\.arcgisonline\\.com|services\\.arcgisonline\\.com|services\\.digitalglobe\\.com|.*\\.tiles\\.mapbox\\.com|tiles\\.openaerialmap\\.org|.*\\.tiles\\.virtualearth\\.net|tiles\\.wmflabs\\.org|upload\\.wikimedia\\.org|wayback\\.maptiles\\.arcgis\\.com)$",
+        "list": null
+      }
+    ]
+  }
+}

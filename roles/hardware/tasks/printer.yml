@@ -1,4 +1,7 @@
+---
 - name: Install cups, gutenprint driver and foomatic db
+  register: install_cups
+  until: install_cups is succeeded
   apt:
     name:
       - cups
@@ -6,8 +9,6 @@
       - foomatic-db-compressed-ppds
       - system-config-printer
     state: present
-  tags:
-    - dependencies
 
 - name: Stop cups
   service:
@@ -18,7 +19,7 @@
   template:
     src: cups/printers.conf.j2
     dest: /etc/cups/printers.conf
-    mode: 600
+    mode: 0600
     owner: root
     group: lp
 
@@ -26,7 +27,7 @@
   copy:
     src: cups/cupsd.conf
     dest: /etc/cups/cupsd.conf
-    mode: 600
+    mode: 0600
     owner: root
     group: lp
 

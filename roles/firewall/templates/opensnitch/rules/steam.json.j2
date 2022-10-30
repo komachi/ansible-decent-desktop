@@ -1,0 +1,30 @@
+{
+  "created": "1970-01-01T12:00:00.000000000Z",
+  "updated": "1970-01-01T12:00:00.000000000Z",
+  "name": "steam",
+  "enabled": true,
+  "precedence": false,
+  "action": "allow",
+  "duration": "always",
+  "operator": {
+    "type": "list",
+    "operand": "list",
+    "sensitive": false,
+    "list": [
+      {
+        "type": "simple",
+        "operand": "process.path",
+        "sensitive": false,
+        "data": "/home/{{ username }}/.var/app/com.valvesoftware.Steam/.local/share/Steam/ubuntu12_32/steam",
+        "list": null
+      },
+      {
+        "type": "regexp",
+        "operand": "dest.host",
+        "sensitive": false,
+        "data": "^((steamcommunity-a|steamusercontent-a)\\.akamaihd.net|steamcdn-a\\.akamaihd\\.net|steamstore-a\\.akamaihd\\.net|.*\\.steamstatic\\.com|steampipe\\.akamaized\\.net|(steamcloud-dub\\.s3\\.dualstack\\.eu-west-1|steamcloud-frf\\.s3\\.dualstack\\.eu-central-1|steamcloud-br\\.s3\\.dualstack\\.sa-east-1|steamcloud-sg\\.s3\\.dualstack\\.ap-southeast-1)\\.amazonaws\\.com|.*\\.steamcontent\\.com|.*\\.steampowered\\.com|steamcommunity\\.com|.*\\.gvt1\\.com|(steamugcquincy|steamcloudams|steamcloudams2|steamclouddub|steamcloudfrankfurt|steamcloudlrsuswest|steamcloudsaopaulo|steamcloudsg|steamclouduseast)\\.blob\\.core\\.windows\\.net|steamcloud-ugc\\.storage\\.googleapis\\.com|(steamcloud-eu|steamcloud-eu-ams|steamcloud-eu-fra|steamcloud-finland|steamcloud-saopaulo|steamcloud-singapore|steamcloud-sydney|steamcloud-taiwan|steamcloud-ugc)\\.storage\\.googleapis\\.com|.*\\.ssl\\.hwcdn\\.net|(cacerts|crl4|ocsp)\\.digicert\\.com|status\\.thawte\\.com)$",
+        "list": null
+      }
+    ]
+  }
+}

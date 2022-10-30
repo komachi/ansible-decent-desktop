@@ -1,8 +1,0 @@
-- name: Configure apparmor
-  lineinfile:
-    path: /etc/apparmor/parser.conf
-    line: "{{ item }}"
-  loop:
-    - 'quiet'
-    - 'write-cache'
-    - 'cache-loc /etc/apparmor/earlypolicy/'

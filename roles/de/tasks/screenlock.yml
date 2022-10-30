@@ -1,40 +1,40 @@
-- name: Install swaylock from unstable
-  apt:
-    name: swaylock
-    state: present
-    default_release: unstable
-
+---
 - name: Install swayidle
+  register: install_swaylock
+  until: install_swaylock is succeeded
   apt:
-    name: swayidle
+    name:
+      - swayidle
     state: present
 
 - name: Ensures ~/.config/swaylock exists
   file:
-    path: "/home/{{ username }}/.config/swaylock"
+    path: /home/{{ username }}/.config/swaylock
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: 0750
 
 - name: Copy swaylock config
   copy:
     src: swaylock/config
-    dest: "/home/{{ username }}/.config/swaylock/config"
+    dest: /home/{{ username }}/.config/swaylock/config
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: 0440
 
 - name: Add swayidle systemd user unit
   copy:
-    src: 'systemd/swayidle.service'
-    dest: "/home/{{username}}/.config/systemd/user/swayidle.service"
-    mode: '0640'
+    src: systemd/swayidle.service
+    dest: /home/{{ username }}/.config/systemd/user/swayidle.service
+    mode: 0640
     owner: "{{ username }}"
     group: "{{ username }}"
 
 - name: Enable swayidle systemd user service
-  become: yes
+  become: true
   become_user: "{{ username }}"
   systemd:
     scope: user
     name: swayidle
-    enabled: yes
+    enabled: false

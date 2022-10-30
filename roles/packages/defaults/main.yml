@@ -1,33 +1,27 @@
-simpleos_version: '1.0.5'
-simpleos_checksum: 'sha256:4ac8fbaa7ecf8635c4f62dcc0d65b820dd6b2f05a88eed255f9c7dab123cafa6'
-electroncash_version: "4.2.6"
-electroncash_checksum: "sha256:2262852cebe2c36c52006a911896b80c3d077720f86d3d38afc561d82fb125ac"
-zecwallet_lite_version: "1.7.8"
-zecwallet_lite_checksum: "sha256:e017360ee95af1c5c7ac2dfcc6d4f1944e50a2c20569d10e799bd4e2abc239b0"
-mycrypto_version: "1.7.17"
-mycrypto_checksum: "sha256:20eb48989b5ae5e60e438eff6830ac79a0d89ac26dff058097260e747e866444"
-bisq_version: "1.8.0"
-bisq_checksum: "sha256:02a26a5610246957930a8256912f156bb2d783b9226e0a45415d955b1137dde0"
-openbazaar_version: "2.4.10"
-openbazaar_checksum: "sha256:9d9dee3ebf81d67a152bde53a11deaaf2a58e7277fe1decf7bf3e903160a47fe"
-XD_version: "0.4.0"
-XD_checksum: "sha256:8e5fed410f7babf33a02992afe17c3a86c8f8e5e117a3d69cb9ef0c6ee686f93"
-ghacks_url: "https://raw.githubusercontent.com/arkenfox/user.js/91.1/user.js"
-ghacks_checksum: "sha256:f8486b732e02f16ab0ca3b74f85a6e74092782658b0f0ec6205a00886000d5db"
-thunderbird_userjs_url: "https://raw.githubusercontent.com/HorlogeSkynet/thunderbird-user.js/v78.1/user.js"
-thunderbird_userjs_checksum: "sha256:540c8c78f7ebef3f9ee7e775d0a304b79ad90094000716375f3190be3e12aaaa"
-zaread_url: "https://raw.githubusercontent.com/paoloap/zaread/3efb9f514428572076a20b9a067ed435fd916d92/zaread"
-zaread_checksum: "sha256:e91f8e912666c3719e8f068725771573f1c879c8900293e59f6715c6ecfa6662"
-wasabiwallet_version_full: "1.1.13.0"
-wasabiwallet_version: "1.1.13"
-wasabiwallet_checksum: "sha256:bbe6622704b46b829c4fa097f431914b3d611d8315c6fdb251dd2308536a14d1"
-shiori_version: "v1.5.0"
-shiori_checksum: "sha512:480dfbf0bd8260a1777b6a51d881d1f876a70c549eca8c89938cca5c0dc73dbd678522bfb55530f4195a323edc703b3b8e2478207c9a7aa2168c266f61621ec7"
+---
+electroncash_version: 4.2.11
+electroncash_checksum: sha256:378117e584e000ab9b316fe6efd74992021f2a332e6986d2324cee6eee3f5486
+zecwallet_lite_version: 1.8.8
+zecwallet_lite_checksum: sha256:ca372ed24ed1a166d746b7f99e6f926dc2bfe5ff8693580633daa7d6a8ec232b
+mycrypto_version: 1.7.17
+mycrypto_checksum: sha256:20eb48989b5ae5e60e438eff6830ac79a0d89ac26dff058097260e747e866444
+XD_version: 0.4.2
+XD_checksum: sha256:71f09dbe497fafa82e2f10bf76af12511aa70a347552f3bb5b158464dba663d4
+ghacks_url: https://raw.githubusercontent.com/arkenfox/user.js/102.1/user.js
+ghacks_checksum: sha256:ea865820bd07322c7f09a81952078f70953daf5633d015acba611b530924c03b
+thunderbird_userjs_url: https://raw.githubusercontent.com/HorlogeSkynet/thunderbird-user.js/v102.1/user.js
+thunderbird_userjs_checksum: sha256:9d646b8294a999cb4855f6789839c667afd7593cb607f1ae40caa02f1d122dfe
+zaread_url: https://raw.githubusercontent.com/paoloap/zaread/3efb9f514428572076a20b9a067ed435fd916d92/zaread
+zaread_checksum: sha256:e91f8e912666c3719e8f068725771573f1c879c8900293e59f6715c6ecfa6662
+shiori_version: v1.5.0
+shiori_checksum: sha512:480dfbf0bd8260a1777b6a51d881d1f876a70c549eca8c89938cca5c0dc73dbd678522bfb55530f4195a323edc703b3b8e2478207c9a7aa2168c266f61621ec7
+kstyle_adwaita_version: 6.3
+qgnomeplatform_version: 6.3
 
 vscodium_extensions:
+  - nico-castell.linux-desktop-file
   - aaron-bond.better-comments
   - EditorConfig.EditorConfig
-  - JuanBlanco.solidity
   - mikestead.dotenv
   - redhat.vscode-yaml
   - eamodio.gitlens
@@ -36,9 +30,10 @@ vscodium_extensions:
   - dbaeumer.vscode-eslint
   - streetsidesoftware.code-spell-checker
   - streetsidesoftware.code-spell-checker-russian
+  - streetsidesoftware.code-spell-checker-scientific-terms
   - Equinusocio.vsc-community-material-theme
+  - Equinusocio.vsc-material-theme-icons
   - ms-azuretools.vscode-docker
-  - xabikos.JavaScriptSnippets
   - Zignd.html-css-class-completion
   - DavidAnson.vscode-markdownlint
   - naumovs.color-highlight
@@ -53,367 +48,285 @@ vscodium_extensions:
   - mrmlnc.vscode-scss
   - stylelint.vscode-stylelint
   - ms-azuretools.vscode-docker
-  - orta.vscode-jest
-  - tabnine.tabnine-vscode
+  - james-yu.latex-workshop
+  - graphql.vscode-graphql
+  - prisma.prisma
+  - 42crunch.vscode-openapi
+  - marcostazi.vs-code-vagrantfile
+  - coolbear.systemd-unit-file
 
 thunderbird_profiles:
   - name: default
     prefs:
-      - pref: "network.trr.mode"
+      - pref: network.trr.mode
         value: "0"
-      - pref: "network.proxy.type"
+      - pref: network.proxy.type
         value: "1"
-      - pref: "network.proxy.socks"
-        value: "\"127.0.0.1\""
-      - pref: "network.proxy.socks_port"
+      - pref: network.proxy.socks
+        value: '"127.0.0.1"'
+      - pref: network.proxy.socks_port
         value: "9050"
-      - pref: "network.proxy.socks_version"
+      - pref: network.proxy.socks_version
         value: "5"
-      - pref: "network.proxy.no_proxies_on"
-        value: "\"\""
-      - pref: "network.dns.disableIPv6"
+      - pref: network.proxy.no_proxies_on
+        value: '""'
+      - pref: network.dns.disableIPv6
         value: "false"
-      - pref: "network.http.altsvc.enabled"
+      - pref: network.http.altsvc.enabled
         value: "true"
-      - pref: "network.http.altsvc.oe"
+      - pref: network.http.altsvc.oe
         value: "true"
-      - pref: "gfx.webrender.all"
-        value: "true"
-      - pref: "gfx.webrender.compositor.force-enabled"
-        value: "true"
-      - pref: "gfx.webrender.compositor"
-        value: "true"
-      - pref: "gfx.webrender.enabled"
-        value: "true"
-      - pref: "media.ffmpeg.vaapi.enabled"
-        value: "true"
-      - pref: "media.navigator.mediadatadecoder_vpx_enabled"
-        value: "true"
-      - pref: "general.warnOnAboutConfig"
+      - pref: general.warnOnAboutConfig
         value: "false"
-      - pref: "network.http.http3.enabled"
-        value: "true"
-      - pref: "layers.acceleration.force-enabled"
-        value: "true"
-      - pref: "layers.force-active"
-        value: "true"
-      - pref: "ui.systemUsesDarkTheme"
-        value: "1"
-firefox_profiles:
-  - name: default
-    prefs:
-      - pref: "security.OCSP.require"
-        value: "false"
-      - pref: "security.OCSP.enabled"
-        value: "0"
-      - pref: "privacy.resistFingerprinting.letterboxing"
-        value: "false"
-      - pref: "network.dns.disableIPv6"
-        value: "false"
-      - pref: "network.http.altsvc.enabled"
-        value: "true"
-      - pref: "network.http.altsvc.oe"
-        value: "true"
-      - pref: "webgl.disabled"
-        value: "false"
-      - pref: "webgl.force-enabled"
-        value: "true"
-      - pref: "webgl.msaa-force"
-        value: "true"
-      - pref: "dom.serviceWorkers.enabled"
-        value: "true"
-      - pref: "javascript.options.wasm"
-        value: "true"
-      - pref: "keyword.enabled"
-        value: "true"
-      - pref: "identity.fxaccounts.enabled"
-        value: "false"
-      - pref: "browser.newtabpage.activity-stream.asrouter.userprefs.cfr"
-        value: "false"
-      - pref: "general.warnOnAboutConfig"
-        value: "false"
-      - pref: "browser.backspace_action"
-        value: "2"
-      - pref: "layout.spellcheckDefault"
-        value: "2"
-      - pref: "browser.urlbar.decodeURLsOnCop"
-        value: "true"
-      - pref: "mousewheel.horizscroll.withnokey.action"
-        value: "0"
-      - pref: "gfx.font_rendering.opentype_svg.enabled"
-        value: "true"
-      - pref: "gfx.downloadable_fonts.woff2.enabled"
-        value: "true"
-      - pref: "gfx.font_rendering.graphite.enabled"
-        value: "true"
-      - pref: "browser.display.use_document_fonts"
-        value: "1"
-      - pref: "gfx.webrender.all"
-        value: "true"
-      - pref: "gfx.webrender.compositor.force-enabled"
-        value: "true"
-      - pref: "gfx.webrender.compositor"
-        value: "true"
-      - pref: "gfx.webrender.enabled"
-        value: "true"
-      - pref: "media.ffmpeg.vaapi.enabled"
-        value: "true"
-      - pref: "media.navigator.mediadatadecoder_vpx_enabled"
-        value: "true"
-      - pref: "browser.cache.disk.enable"
-        value: "true"
-      - pref: "browser.cache.memory.enable"
-        value: "true"
-      - pref: "browser.cache.memory.capacity"
-        value: "-1"
-      - pref: "browser.sessionstore.resume_from_crash"
-        value: "false"
-      - pref: "extensions.pocket.enabled"
-        value: "false"
-      - pref: "media.hardware-video-decoding.force-enabled"
-        value: "true"
-      - pref: "network.proxy.type"
-        value: "1"
-      - pref: "network.proxy.http"
-        value: "\"127.0.0.1\""
-      - pref: "network.proxy.http_port"
-        value: "9999"
-      - pref: "network.dns.blockDotOnion"
-        value: "false"
-      - pref: "dom.securecontext.whitelist_onions"
-        value: "true"
-      - pref: "dom.security.https_only_mode"
-        value: "true"
-      - pref: "network.http.http3.enabled"
-        value: "true"
-      - pref: "layers.acceleration.force-enabled"
-        value: "true"
-      - pref: "layers.force-active"
-        value: "true"
-      - pref: "ui.systemUsesDarkTheme"
-        value: "1"
-      - pref: "extensions.activeThemeID"
-        value: "\"firefox-compact-dark@mozilla.org\""
-      - pref: "pdfjs.viewerCssTheme"
-        value: "2"
-  - name: deanon
-    prefs:
-      - pref: "security.OCSP.require"
-        value: "false"
-      - pref: "security.OCSP.enabled"
-        value: "0"
-      - pref: "privacy.resistFingerprinting.letterboxing"
-        value: "false"
-      - pref: "network.dns.disableIPv6"
-        value: "false"
-      - pref: "network.http.altsvc.enabled"
-        value: "true"
-      - pref: "network.http.altsvc.oe"
-        value: "true"
-      - pref: "webgl.disabled"
-        value: "false"
-      - pref: "webgl.force-enabled"
-        value: "true"
-      - pref: "webgl.msaa-force"
-        value: "true"
-      - pref: "dom.serviceWorkers.enabled"
-        value: "true"
-      - pref: "javascript.options.wasm"
-        value: "true"
-      - pref: "keyword.enabled"
-        value: "true"
-      - pref: "identity.fxaccounts.enabled"
-        value: "false"
-      - pref: "browser.newtabpage.activity-stream.asrouter.userprefs.cfr"
-        value: "false"
-      - pref: "general.warnOnAboutConfig"
-        value: "false"
-      - pref: "browser.backspace_action"
-        value: "2"
-      - pref: "layout.spellcheckDefault"
-        value: "2"
-      - pref: "browser.urlbar.decodeURLsOnCop"
-        value: "true"
-      - pref: "mousewheel.horizscroll.withnokey.action"
-        value: "0"
-      - pref: "gfx.font_rendering.opentype_svg.enabled"
-        value: "true"
-      - pref: "gfx.downloadable_fonts.woff2.enabled"
-        value: "true"
-      - pref: "gfx.font_rendering.graphite.enabled"
-        value: "true"
-      - pref: "browser.display.use_document_fonts"
-        value: "1"
-      - pref: "gfx.webrender.all"
-        value: "true"
-      - pref: "gfx.webrender.compositor.force-enabled"
-        value: "true"
-      - pref: "media.ffmpeg.vaapi.enabled"
-        value: "true"
-      - pref: "media.navigator.mediadatadecoder_vpx_enabled"
-        value: "true"
-      - pref: "browser.sessionstore.resume_from_crash"
-        value: "false"
-      - pref: "media.hardware-video-decoding.force-enabled"
-        value: "true"
       - pref: network.http.http3.enabled
         value: "true"
-      - pref: "network.proxy.type"
+      - pref: ui.systemUsesDarkTheme
         value: "1"
-      - pref: "network.proxy.socks"
-        value: "\"10.64.0.1\""
-      - pref: "network.proxy.socks_port"
+
+firefox_extensions:
+  - id: "{6d96bb5e-1175-4ebf-8ab5-5f56f1c79f65}"
+    url: https://dl.google.com/analytics/optout/gaoptoutaddon_1.0.8.xpi
+    checksum: sha256:bc929eefb90a7043ab4a4a432779c65b78f5e7985e3a0a231640eba32484d2bf
+  - id: optout@google.com
+    url: https://addons.mozilla.org/firefox/downloads/file/1185119/interest_advertising_opt_out-2.0.xpi
+    checksum: sha256:e10ce94f895cb1639d0ce6461b76e9351ac5601542eba585da72dc5aefd4a76d
+  - id: "{c607c8df-14a7-4f28-894f-29e8722976af}"
+    url: https://addons.mozilla.org/firefox/downloads/file/3723251/temporary_containers-1.9.2.xpi
+    checksum: sha256:3340a08c29be7c83bd0fea3fc27fde71e4608a4532d932114b439aa690e7edc0
+  - id: "{dc501fe1-520b-41f2-9421-ecbb2e7f0255}"
+    url: https://addons.mozilla.org/firefox/downloads/file/3778219/protect_my_choices-1.2.6.xpi
+    checksum: sha256:1c853159ca947b45d0d9c9d0f3c9a72e36953cad059eebc17099f24d9c7240de
+  - id: "{569456be-2850-4f7e-b669-71e55140ee0a}"
+    url: https://addons.mozilla.org/firefox/downloads/file/3546077/amp2html-2.1.0.xpi
+    checksum: sha256:762e4032782c30d3d4805371c7730ac36255ab57f5ce5279b4849f0d4ca65790
+  - id: "@testpilot-containers"
+    url: https://addons.mozilla.org/firefox/downloads/file/3932862/multi_account_containers-8.0.7.xpi
+    checksum: sha256:0e60e00c13dcc372b43ddb2e5428c2e3c1e79d2b23d7166df82d45245edc4f10
+  - id: "{48748554-4c01-49e8-94af-79662bf34d50}"
+    url: https://addons.mozilla.org/firefox/downloads/file/3962152/privacy_pass-3.0.3.xpi
+    checksum: sha256:41fbbd038b3fb9b18edf41f8b10c9726ea3108753e3906112ab222afdccb9884
+  - id: jid1-BoFifL9Vbdl2zQ@jetpack
+    url: https://addons.mozilla.org/firefox/downloads/file/3902154/decentraleyes-2.0.17.xpi
+    checksum: sha256:e7f16ddc458eb2bc5bea75832305895553fca53c2565b6f1d07d5d9620edaff1
+  - id: "{74145f27-f039-47ce-a470-a662b129930a}"
+    url: https://addons.mozilla.org/firefox/downloads/file/3927638/clearurls-1.24.1.xpi
+    checksum: sha256:41259fc4c330261e19ff4d38734eb5fdad92e7a358a16175383e31c62d50f06b
+  - id: uBlock0@raymondhill.net
+    url: https://addons.mozilla.org/firefox/downloads/file/3961087/ublock_origin-1.43.0.xpi
+    checksum: sha256:ab2d4fa8dfc4f50841093830ff131d7a6e99052ba6e7359f8592e84f39c18a16
+  - id: ipfs-firefox-addon@lidel.org
+    url: https://addons.mozilla.org/firefox/downloads/file/3804013/ipfs_companion-2.19.1.xpi
+    checksum: sha256:6abe23deb1fdf9e0634aa8bd0c8115b03631affc67e2a88b47590b389dca2017
+
+firefox_default_prefs:
+  - pref: security.OCSP.require
+    value: "false"
+  - pref: security.OCSP.enabled
+    value: "0"
+  - pref: privacy.resistFingerprinting.letterboxing
+    value: "false"
+  - pref: network.dns.disableIPv6
+    value: "false"
+  - pref: network.http.altsvc.enabled
+    value: "true"
+  - pref: network.http.altsvc.oe
+    value: "true"
+  - pref: dom.serviceWorkers.enabled
+    value: "true"
+  - pref: javascript.options.wasm
+    value: "true"
+  - pref: keyword.enabled
+    value: "true"
+  - pref: identity.fxaccounts.enabled
+    value: "false"
+  - pref: browser.newtabpage.activity-stream.asrouter.userprefs.cfr
+    value: "false"
+  - pref: general.warnOnAboutConfig
+    value: "false"
+  - pref: browser.backspace_action
+    value: "2"
+  - pref: layout.spellcheckDefault
+    value: "2"
+  - pref: browser.urlbar.decodeURLsOnCop
+    value: "true"
+  - pref: mousewheel.horizscroll.withnokey.action
+    value: "0"
+  - pref: gfx.font_rendering.opentype_svg.enabled
+    value: "true"
+  - pref: gfx.downloadable_fonts.woff2.enabled
+    value: "true"
+  - pref: gfx.font_rendering.graphite.enabled
+    value: "true"
+  - pref: browser.display.use_document_fonts
+    value: "1"
+  - pref: browser.cache.disk.enable
+    value: "true"
+  - pref: browser.cache.memory.enable
+    value: "true"
+  - pref: browser.cache.memory.capacity
+    value: "-1"
+  - pref: browser.sessionstore.resume_from_crash
+    value: "false"
+  - pref: extensions.pocket.enabled
+    value: "false"
+  - pref: dom.security.https_only_mode
+    value: "true"
+  - pref: network.http.http3.enabled
+    value: "true"
+  - pref: ui.systemUsesDarkTheme
+    value: "1"
+  - pref: browser.urlbar.decodeURLsOnCop
+    value: "true"
+  - pref: pdfjs.viewerCssTheme
+    value: "2"
+  - pref: extensions.autoDisableScope
+    value: "0"
+  - pref: extensions.enablesScopes
+    value: "15"
+  - pref: media.ffmpeg.vaapi.enabled
+    value: "true"
+
+firefox_profiles:
+  - name: default
+    extensions:
+      - id: bypasspaywalls@bypasspaywalls.weebly.com
+        url: https://github.com/iamadamdev/bypass-paywalls-chrome/releases/download/v1.8.0/bypass-paywalls-firefox.xpi
+        checksum: sha256:0852055341620121b6c5f7ac71177880e0d6ca4b1f85e1e7f5d51e6170f1c198
+    prefs:
+      - pref: network.proxy.type
+        value: "1"
+      - pref: network.proxy.http
+        value: '"127.0.0.1"'
+      - pref: network.proxy.http_port
+        value: "9999"
+      - pref: network.dns.blockDotOnion
+        value: "false"
+      - pref: dom.securecontext.whitelist_onions
+        value: "true"
+      - pref: extensions.activeThemeID
+        value: '"firefox-compact-dark@mozilla.org"'
+  - name: deanon
+    prefs:
+      - pref: network.proxy.type
+        value: "1"
+      - pref: network.proxy.socks
+        value: '"10.64.0.1"'
+      - pref: network.proxy.socks_port
         value: "1080"
-      - pref: "network.proxy.socks_remote_dns"
+      - pref: network.proxy.socks_remote_dns
         value: "false"
-      - pref: "privacy.cpd.cache"
+      - pref: privacy.cpd.cache
         value: "false"
-      - pref: "privacy.cpd.cookies"
+      - pref: privacy.cpd.cookies
         value: "false"
-      - pref: "privacy.cpd.offlineApps"
+      - pref: privacy.cpd.offlineApps
         value: "false"
-      - pref: "privacy.cpd.sessions"
+      - pref: privacy.cpd.sessions
         value: "false"
-      - pref: "ui.systemUsesDarkTheme"
+      - pref: ui.systemUsesDarkTheme
         value: "1"
   - name: dev
+    extensions:
+      - id: extension@redux.devtools
+        url: https://addons.mozilla.org/firefox/downloads/file/3902220/redux_devtools-3.0.9-fx.xpi
+        checksum: sha256:216f0ed66aa16442624760d458a741b15e64fc87122290f6979b09c304ad647a
+      - id: "@react-devtools"
+        url: https://addons.mozilla.org/firefox/downloads/file/3899222/react_developer_tools-4.23.0-fx.xpi
+        checksum: sha256:6660e0c9a5bd3e87f3ba06d4807334dcde3656963f13c699394e2ec9b6a0695b
+  - name: web3
+    extensions:
+      - id: webextension@metamask.io
+        url: https://addons.mozilla.org/firefox/downloads/file/3885451/metamask-10.8.1-an+fx.xpi
+        checksum: sha256:a9d10052cb7d4e74c7e560fc54975f9f29dc1c02205ee6964925097d18db2da7
+      - id: "{7e3ce1f0-15fb-4fb1-99c6-25774749ec6d}"
+        url: https://addons.mozilla.org/firefox/downloads/file/3879725/polkadotjs_extension-0.42.2-fx.xpi
+        checksum: sha256:4a81850eb1dd83059f3638e15cfe8357e34b3cfed6e146b88d5de5c747bd44a2
     prefs:
-      - pref: "security.OCSP.require"
-        value: "false"
-      - pref: "security.OCSP.enabled"
-        value: "0"
-      - pref: "privacy.resistFingerprinting.letterboxing"
-        value: "false"
-      - pref: "network.dns.disableIPv6"
-        value: "false"
-      - pref: "network.http.altsvc.enabled"
-        value: "true"
-      - pref: "network.http.altsvc.oe"
-        value: "true"
-      - pref: "webgl.disabled"
-        value: "false"
-      - pref: "webgl.force-enabled"
-        value: "true"  
-      - pref: "webgl.msaa-force"
-        value: "true"
-      - pref: "dom.serviceWorkers.enabled"
-        value: "true"
-      - pref: "javascript.options.wasm"
-        value: "true"
-      - pref: "keyword.enabled"
-        value: "true"
-      - pref: "identity.fxaccounts.enabled"
-        value: "false"
-      - pref: "browser.newtabpage.activity-stream.asrouter.userprefs.cfr"
-        value: "false"
-      - pref: "general.warnOnAboutConfig"
-        value: "false"
-      - pref: "browser.backspace_action"
-        value: "2"
-      - pref: "layout.spellcheckDefault"
-        value: "2"
-      - pref: "browser.urlbar.decodeURLsOnCop"
-        value: "true"
-      - pref: "mousewheel.horizscroll.withnokey.action"
-        value: "0"
-      - pref: "gfx.font_rendering.opentype_svg.enabled"
-        value: "true"
-      - pref: "gfx.downloadable_fonts.woff2.enabled"
-        value: "true"
-      - pref: "gfx.font_rendering.graphite.enabled"
-        value: "true"
-      - pref: "browser.display.use_document_fonts"
+      - pref: network.proxy.type
         value: "1"
-      - pref: "gfx.webrender.all"
-        value: "true"
-      - pref: "gfx.webrender.compositor.force-enabled"
-        value: "true"
-      - pref: "media.ffmpeg.vaapi.enabled"
-        value: "true"
-      - pref: "media.navigator.mediadatadecoder_vpx_enabled"
-        value: "true"
-      - pref: "browser.cache.memory.enable"
-        value: "true"
-      - pref: "browser.cache.memory.capacity"
-        value: "-1"
-      - pref: "browser.sessionstore.resume_from_crash"
+      - pref: network.proxy.http
+        value: '"127.0.0.1"'
+      - pref: network.proxy.http_port
+        value: "9999"
+      - pref: network.dns.blockDotOnion
         value: "false"
-      - pref: "media.hardware-video-decoding.force-enabled"
+      - pref: dom.securecontext.whitelist_onions
         value: "true"
-      - pref: "network.http.http3.enabled"
-        value: "true"
-      - pref: "ui.systemUsesDarkTheme"
+      - pref: ui.systemUsesDarkTheme
         value: "1"
-bitcoinrpc_user: "bitcoinrpcuser"
+      - pref: extensions.activeThemeID
+        value: '"firefox-compact-dark@mozilla.org"'
+
+bitcoinrpc_user: bitcoinrpcuser
 keepassxc_options:
-  - ["General", "AutoReloadOnChange", "true"]
-  - ["General", "AutoSaveAfterEveryChange", "true"]
-  - ["General", "AutoSaveOnExit", "true"]
-  - ["General", "AutoTypeDelay", "true"]
-  - ["General", "LastDir", "/home/{{ username }}/Sync/.keys"]
-  - ["General", "MinimizeOnCopy", "false"]
-  - ["General", "OpenPreviousDatabasesOnStartup", "true"]
-  - ["General", "RememberLastDatabases", "true"]
-  - ["General", "RememberLastKeyFiles", "false"]
-  - ["General", "SSHAgent", "true"]
-  - ["General", "SingleInstance", "true"]
-  - ["FdoSecrets", "Enabled", "true"]
-  - ["FdoSecrets", "NoConfirmDeleteItem", "false"]
-  - ["FdoSecrets", "ShowNotification", "true"]
-  - ["GUI", "CheckForUpdates", "false"]
-  - ["GUI", "DarkTrayIcon", "true"]
-  - ["GUI", "HidePasswords", "true"]
-  - ["GUI", "HideUsernames", "true"]
-  - ["GUI", "MinimizeToTray", "false"]
-  - ["GUI", "ShowTrayIcon", "false"]
-  - ["Http", "Enabled", "false"]
-  - ["generator", "AdvancedMode", "true"]
-  - ["generator", "LowerCase", "true"]
-  - ["generator", "UpperCase", "true"]
-  - ["generator", "SpecialChars", "true"]
-  - ["generator", "Numbers", "true"]
-  - ["security", "HidePasswordPreviewPanel", "true"]
-  - ["security", "clearclipboard", "true"]
-  - ["security", "clearclipboardtimeout", "10"]
-  - ["security", "clearsearch", "true"]
-  - ["security", "hidenotes", "true"]
-  - ["security", "lockdatabaseidle", "false"]
-  - ["security", "lockdatabasescreenlock", "true"]
-  - ["security", "passwordemptynodots", "true"]
-  - ["security", "passwordscleartext", "false"]
+  - [General, AutoReloadOnChange, "true"]
+  - [General, AutoSaveAfterEveryChange, "true"]
+  - [General, AutoSaveOnExit, "true"]
+  - [General, AutoTypeDelay, "true"]
+  - [General, LastDir, "/home/{{ username }}/Sync/.keys"]
+  - [General, MinimizeOnCopy, "false"]
+  - [General, OpenPreviousDatabasesOnStartup, "true"]
+  - [General, RememberLastDatabases, "true"]
+  - [General, RememberLastKeyFiles, "false"]
+  - [General, SSHAgent, "true"]
+  - [General, SingleInstance, "true"]
+  - [FdoSecrets, Enabled, "true"]
+  - [FdoSecrets, NoConfirmDeleteItem, "false"]
+  - [FdoSecrets, ShowNotification, "true"]
+  - [GUI, CheckForUpdates, "false"]
+  - [GUI, DarkTrayIcon, "true"]
+  - [GUI, HidePasswords, "true"]
+  - [GUI, HideUsernames, "true"]
+  - [GUI, MinimizeToTray, "false"]
+  - [GUI, ShowTrayIcon, "false"]
+  - [Http, Enabled, "false"]
+  - [generator, AdvancedMode, "true"]
+  - [generator, LowerCase, "true"]
+  - [generator, UpperCase, "true"]
+  - [generator, SpecialChars, "true"]
+  - [generator, Numbers, "true"]
+  - [security, HidePasswordPreviewPanel, "true"]
+  - [security, clearclipboard, "true"]
+  - [security, clearclipboardtimeout, "10"]
+  - [security, clearsearch, "true"]
+  - [security, hidenotes, "true"]
+  - [security, lockdatabaseidle, "false"]
+  - [security, lockdatabasescreenlock, "true"]
+  - [security, passwordemptynodots, "true"]
+  - [security, passwordscleartext, "false"]
 
 osmscout_options:
- - ["geocoder-nlp", "continue_search_if_hit_found", "1"]
- - ["geocoder-nlp", "initialize_every_call", "0"]
- - ["geocoder-nlp", "languages", "en, ru"]
- - ["geocoder-nlp", "search_all_maps", "1"]
- - ["geocoder-nlp", "use_geocoder_nlp", "1"]
- - ["geocoder-nlp", "use_postal", "1"]
- - ["geocoder-nlp", "use_primitive", "1"]
- - ["http-listener", "127.0.0.1", "8553"]
- - ["maps", "postal_country", "1"]
- - ["maps", "geocoder_nlp", "1"]
- - ["maps", "mapboxgl", "1"]
- - ["maps", "mapnik", "0"]
- - ["maps", "valhalla", "1"]
- - ["maps", "root", "/home/{{ username }}/Maps.OSM"]
- - ["server-general", "firstTime", "0"]
- - ["valhalla", "route_port", "8554"]
- - ["valhalla", "use_valhalla", "1"]
+  - [geocoder-nlp, continue_search_if_hit_found, "1"]
+  - [geocoder-nlp, initialize_every_call, "0"]
+  - [geocoder-nlp, languages, "en, ru"]
+  - [geocoder-nlp, search_all_maps, "1"]
+  - [geocoder-nlp, use_geocoder_nlp, "1"]
+  - [geocoder-nlp, use_postal, "1"]
+  - [geocoder-nlp, use_primitive, "1"]
+  - [http-listener, 127.0.0.1, "8553"]
+  - [maps, postal_country, "1"]
+  - [maps, geocoder_nlp, "1"]
+  - [maps, mapboxgl, "1"]
+  - [maps, mapnik, "0"]
+  - [maps, valhalla, "1"]
+  - [maps, root, "/home/{{ username }}/Maps.OSM"]
+  - [server-general, firstTime, "0"]
+  - [valhalla, route_port, "8554"]
+  - [valhalla, use_valhalla, "1"]
 
 josm_settings:
-  - ["laf", "com.sun.java.swing.plaf.gtk.GTKLookAndFeel"]
-  - ["pluginmanager.time-based-update.policy", "always"]
-  - ["pluginmanager.version-based-update.policy", "always"]
-  - ["use.native.file.dialog", "true"]
-  - ["expert", "true"]
-  - ["remotecontrol.always-confirm", "true"]
-  - ["remotecontrol.enabled", "true"]
-  - ["download.osm.notes", "true"]
-  - ["gui.maximized", "true"]
-  - ["iso.dates", "true"]
-  - ["validator.visible", "true"]
-  - ["upload.source.obtainautomatically", "true"]
+  - [laf, com.sun.java.swing.plaf.gtk.GTKLookAndFeel]
+  - [pluginmanager.time-based-update.policy, always]
+  - [pluginmanager.version-based-update.policy, always]
+  - [use.native.file.dialog, "true"]
+  - [expert, "true"]
+  - [remotecontrol.always-confirm, "true"]
+  - [remotecontrol.enabled, "true"]
+  - [download.osm.notes, "true"]
+  - [gui.maximized, "true"]
+  - [iso.dates, "true"]
+  - [validator.visible, "true"]
+  - [upload.source.obtainautomatically, "true"]
 josm_plugins:
   - FixAddresses
   - HouseNumberTaggingTool
@@ -439,19 +352,55 @@ josm_plugins:
   - wikipedia
 
 nheko_options:
-  - ["user", "alert_on_notification", "false"]
-  - ["user", "avatar_circles", "false"]
-  - ["user", "decrypt_sidebar", "true"]
-  - ["user", "desktop_notifications", "false"]
-  - ["user", "emoji_font_family", "Noto Color Emoji"]
-  - ["user", "font_family", "Noto Sans Display"]
-  - ["user", "font_size", "12"]
-  - ["user", "group_view", "false"]
-  - ["user", "markdown_enabled", "true"]
-  - ["user", "read_receipts", "false"]
-  - ["user", "theme", "system"]
-  - ["user", "typing_notifications", "false"]
-  - ["user", "window\\start_in_tray", "false"]
-  - ["user", "window\\tray", "false"]
+  - [user, alert_on_notification, "false"]
+  - [user, avatar_circles, "false"]
+  - [user, decrypt_sidebar, "true"]
+  - [user, desktop_notifications, "false"]
+  - [user, emoji_font_family, Noto Color Emoji]
+  - [user, font_family, Noto Sans Display]
+  - [user, font_size, "12"]
+  - [user, group_view, "false"]
+  - [user, markdown_enabled, "true"]
+  - [user, read_receipts, "false"]
+  - [user, theme, system]
+  - [user, typing_notifications, "false"]
+  - [user, window\start_in_tray, "false"]
+  - [user, window\tray, "false"]
 
- 
+sonata_options:
+  - [connection, auto, "True"]
+  - [connection, profile_num, "0"]
+  - [audioscrobbler, use_audioscrobbler, "False"]
+  - [notebook, current_tab_visible, "True"]
+  - [notebook, info_tab_visible, "True"]
+  - [notebook, library_tab_visible, "True"]
+  - [notebook, playlists_tab_visible, "False"]
+  - [notebook, streams_tab_visible, "False"]
+  - [player, art_location, "0"]
+  - [player, covers_pref, "0"]
+  - [player, covers_type, "0"]
+  - [player, info_album_expanded, "True"]
+  - [player, info_lyrics_expanded, "True"]
+  - [player, info_song_expanded, "True"]
+  - [player, info_song_more, "True"]
+  - [player, minimize, "False"]
+  - [player, decorated, "False"]
+  - [player, expanded, "True"]
+  - [player, ontop, "False"]
+  - [player, covers, "True"]
+  - [player, lyrics, "False"]
+  - [player, lyrics_location, "0"]
+  - [player, notification, "False"]
+  - [player, playback, "True"]
+  - [player, progressbar, "True"]
+  - [player, statusbar, "False"]
+  - [player, trayicon, "False"]
+  - [player, sticky, "False"]
+  - [player, stop_on_exit, "False"]
+  - [player, update_on_start, "False"]
+  - [plugins, autostart_plugins, localmpd]
+  - [profiles, "names[0]", local]
+  - [profiles, "hosts[0]", localhost]
+  - [profiles, "ports[0]", "6600"]
+  - [profiles, "password[0]", "0"]
+  - [profiles, num_profile, "1"]

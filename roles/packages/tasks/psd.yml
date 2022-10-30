@@ -1,36 +1,40 @@
+---
 - name: Install profile-sync-daemon
+  register: install_psd
+  until: install_psd is succeeded
   apt:
     name: profile-sync-daemon
     state: present
 
 - name: Ensures ~/.config/psd exists
   file:
-    path: "/home/{{ username }}/.config/psd"
+    path: /home/{{ username }}/.config/psd
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: 0750
 
 - name: Copy psd config
   copy:
-    src: 'psd/psd.conf'
-    dest: "/home/{{ username }}/.config/psd/.psd.conf"
+    src: psd/psd.conf
+    dest: /home/{{ username }}/.config/psd/.psd.conf
     mode: 0660
     owner: "{{ username }}"
     group: "{{ username }}"
 
 - name: Allow to run /usr/bin/psd-overlay-helper without root
   lineinfile:
-   path: /etc/sudoers.d/psd
-   state: present
-   mode: 0440
-   create: yes
-   line: "{{ username }} ALL=(ALL) NOPASSWD: /usr/bin/psd-overlay-helper"
+    path: /etc/sudoers.d/psd
+    state: present
+    mode: 0440
+    create: true
+    line: "{{ username }} ALL=(ALL) NOPASSWD: /usr/bin/psd-overlay-helper"
 
 - name: Enable psd service
-  become: yes
+  become: true
   become_user: "{{ username }}"
   systemd:
     scope: user
     name: psd
-    enabled: yes
+    enabled: true
     state: started

@@ -1,4 +1,13 @@
+---
 - name: Install micro
+  register: install_micro
+  until: install_micro is succeeded
   apt:
     name: micro
     state: present
+
+- name: Set micro as default editor
+  alternatives:
+    name: editor
+    link: /usr/local/bin/editor
+    path: /usr/bin/micro

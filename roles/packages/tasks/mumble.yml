@@ -1,0 +1,7 @@
+---
+- name: Install mumble
+  register: install_mumble
+  until: install_mumble is succeeded
+  apt:
+    name: mumble
+    state: present

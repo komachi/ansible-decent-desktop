@@ -1,0 +1,7 @@
+---
+- name: Install Audacity
+  register: install_audacity
+  until: install_audacity is succeeded
+  apt:
+    name: audacity
+    state: present

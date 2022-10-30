@@ -1,4 +1,7 @@
+---
 - name: Install beancount
+  register: install_beancount
+  until: install_beancount is succeeded
   apt:
     name: beancount
     state: present

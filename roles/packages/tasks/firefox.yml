@@ -1,64 +1,114 @@
+---
 - name: Install Firefox
+  register: install_firefox
+  until: install_firefox is succeeded
   apt:
     name: firefox-esr
     state: present
-  tags:
-    - dependencies
 
 - name: Set Firefox as default browser
   alternatives:
-    name: x-www-browser
-    path: /usr/bin/firefox
+    link: /usr/local/bin/{{ item }}
+    name: "{{ item }}"
+    path: /usr/bin/firefox-esr
+  loop:
+    - x-www-browser
+    - gnome-www-browser
 
 - name: Ensures every profile dir exists
   file:
-    path: "/home/{{ username }}/.mozilla/firefox/{{ item.name }}"
+    path: /home/{{ username }}/.mozilla/firefox/{{ item.name }}/extensions
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: 0750
   loop: "{{ firefox_profiles }}"
+
+- name: Ensures ~/.mozilla/extensions exists
+  file:
+    path: /home/{{ username }}/.mozilla/extensions
+    mode: 0750
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Ensures ~/.mozilla/managed-storage exists
+  file:
+    path: /home/{{ username }}/.mozilla/managed-storage
+    mode: 0750
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
 
 - name: Configure profiles.ini
   template:
-    src: 'firefox/profiles.ini.j2'
-    dest: "/home/{{ username }}/.mozilla/firefox/profiles.ini"
+    src: firefox/profiles.ini.j2
+    dest: /home/{{ username }}/.mozilla/firefox/profiles.ini
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: 0440
 
 - name: Install ghacks-user.js for every profile
   get_url:
     url: "{{ ghacks_url }}"
     checksum: "{{ ghacks_checksum }}"
-    dest: "/home/{{ username }}/.mozilla/firefox/{{ item.name }}/user.js"
+    dest: /home/{{ username }}/.mozilla/firefox/{{ item.name }}/user.js
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: 0440
   loop: "{{ firefox_profiles }}"
 
-- name: Configure firefox
+- name: Install firefox extensions
+  get_url:
+    url: "{{ item[1].url }}"
+    checksum: "{{ item[1].checksum }}"
+    dest: /home/{{ username }}/.mozilla/firefox/{{ item[0].name }}/extensions/{{ item[1].id }}.xpi
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: 0440
+  with_nested:
+    - "{{ firefox_profiles }}"
+    - "{{ firefox_extensions }}"
+
+- name: Install firefox extensions for profiles
+  get_url:
+    url: "{{ item[1].url }}"
+    checksum: "{{ item[1].checksum }}"
+    dest: /home/{{ username }}/.mozilla/firefox/{{ item[0].name }}/extensions/{{ item[1].id }}.xpi
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: 0440
+  loop: "{{ firefox_profiles | subelements('extensions', skip_missing=True) }}"
+
+- name: Configure firefox profiles
   lineinfile:
-    dest: "/home/{{ username }}/.mozilla/firefox/{{ item.0.name }}/user.js"
-    regexp: '^user_pref\("{{ item.1.pref | regex_escape() }}",.*\)\;.*$'
-    line: 'user_pref("{{ item.1.pref }}", {{ item.1.value }});'
-  loop: "{{ firefox_profiles | subelements('prefs') }}"
+    dest: /home/{{ username }}/.mozilla/firefox/{{ item[0].name }}/user.js
+    regexp: ^user_pref\("{{ item[1].pref | regex_escape() }}",.*\)\;.*$
+    line: user_pref("{{ item[1].pref }}", {{ item[1].value }});
+  with_nested:
+    - "{{ firefox_profiles }}"
+    - "{{ firefox_default_prefs }}"
+
+- name: Configure firefox profiles specific settings
+  lineinfile:
+    dest: /home/{{ username }}/.mozilla/firefox/{{ item[0].name }}/user.js
+    regexp: ^user_pref\("{{ item[1].pref | regex_escape() }}",.*\)\;.*$
+    line: user_pref("{{ item[1].pref }}", {{ item[1].value }});
+  loop: "{{ firefox_profiles | subelements('prefs', skip_missing=True) }}"
 
 - name: Copy policies.json
   copy:
-    src: "firefox/policies.json"
-    dest: "/usr/lib/firefox-esr/distribution/policies.json"
-
-- name: Ensure ~/.mozilla/managed-storage exists
-  file:
-    path: "/home/{{ username }}/.mozilla/managed-storage"
-    state: directory
-    owner: "{{ username }}"
-    group: "{{ username }}"
+    src: firefox/policies.json
+    dest: /usr/lib/firefox-esr/distribution/policies.json
+    mode: 0444
 
 - name: Configure uBlock Origin
   template:
-    src: "firefox/uBlock0@raymondhill.net.json.j2"
-    dest: "/home/{{ username }}/.mozilla/managed-storage/uBlock0@raymondhill.net.json"
+    src: firefox/uBlock0@raymondhill.net.json.j2
+    dest: /home/{{ username }}/.mozilla/managed-storage/uBlock0@raymondhill.net.json
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: 0440
 
 # - name: Ensure ~/.mozilla/native-messaging-hosts exists
 #   file:
@@ -69,18 +119,21 @@
 
 - name: Ensures ~/.local/share/applications exists
   file:
-    path: "/home/{{ username }}/.local/share/applications"
+    path: /home/{{ username }}/.local/share/applications
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: 0750
 
 - name: Copy desktop files for profiles
   copy:
-    src: "applications/{{ item }}.desktop"
-    dest: "/home/{{ username }}/.local/share/applications/{{ item }}.desktop"
+    src: applications/{{ item }}.desktop
+    dest: /home/{{ username }}/.local/share/applications/{{ item }}.desktop
     mode: 0640
     owner: "{{ username }}"
     group: "{{ username }}"
   loop:
-    - 'deanon'
-    - 'dev'
+    - firefox-esr
+    - deanon
+    - dev
+    - web3

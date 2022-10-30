@@ -1,0 +1,7 @@
+---
+- name: Install telegram-desktop
+  register: install_telegram
+  until: install_telegram is succeeded
+  apt:
+    name: telegram-desktop
+    state: present

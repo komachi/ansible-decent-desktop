@@ -1,63 +1,36 @@
-
 resolution_type: GETDNS_RESOLUTION_STUB
 dns_transport_list:
   - GETDNS_TRANSPORT_TLS
 tls_authentication: GETDNS_AUTHENTICATION_REQUIRED
 tls_query_padding_blocksize: 128
-edns_client_subnet_private : 1
+edns_client_subnet_private: 1
 round_robin_upstreams: 1
 idle_timeout: 10000
-tls_min_version: GETDNS_TLS1_3
-
 listen_addresses:
   - 127.0.0.1@8053
 
 upstream_recursive_servers:
   - address_data: 185.49.141.37
     tls_auth_name: "getdnsapi.net"
-  - address_data: 89.233.43.71
-    tls_auth_name: "unicast.censurfridns.dk"
-  - address_data: 145.100.185.18
-    tls_auth_name: "dnsovertls3.sinodun.com"
-  - address_data: 146.185.167.43
-    tls_auth_name: "dot.securedns.eu"
-  - address_data: 94.130.110.185
-    tls_auth_name: "ns1.dnsprivacy.at"
-  - address_data: 94.130.110.178
-    tls_auth_name: "ns2.dnsprivacy.at"
-  - address_data: 145.100.185.15
     tls_port: 443
-    tls_auth_name: "dnsovertls.sinodun.com"
-  - address_data: 145.100.185.16
-    tls_port: 443
-    tls_auth_name: "dnsovertls1.sinodun.com"
-  - address_data: 37.252.185.232
-    tls_port: 443
-    tls_auth_name: "dot1.appliedprivacy.net"
+  - address_data: 91.239.100.100
+    tls_auth_name: "anycast.censurfridns.dk"
   - address_data: 185.222.222.222
-    tls_auth_name: "public-dns-a.dns.sb"
-  - address_data: 185.184.222.222
-    tls_auth_name: "public-dns-b.dns.sb"
-  - address_data: 2a09:0000:0000:0000:0000:0000:0000:0000
-    tls_auth_name: "public-dns-a.dns.sb"
-  - address_data: 2a09::1
-    tls_auth_name: "public-dns-b.dns.sb"
-  - address_data: 2a00:63c1:a:229::3
+    tls_auth_name: "dot.sb"
+  - address_data: 45.11.45.11
+    tls_auth_name: "dot.sb"
+  - address_data: 146.255.56.98
     tls_port: 443
-    tls_auth_name: "dot1.appliedprivacy.net"
-  - address_data: 2001:610:1:40ba:145:100:185:15
+    tls_auth_name: "dot1.applied-privacy.net"
+  - address_data: 2a02:1b8:10:234::2
     tls_port: 443
-    tls_auth_name: "dnsovertls.sinodun.com"
-  - address_data: 2001:610:1:40ba:145:100:185:16
-    tls_port: 443
-    tls_auth_name: "dnsovertls1.sinodun.com"
+    tls_auth_name: "dot1.applied-privacy.net"
+  - address_data: 2001:67c:28a4::0
+    tls_auth_name: "anycast.censurfridns.dk"
   - address_data: 2a04:b900:0:100::38
+    tls_port: 443
     tls_auth_name: "getdnsapi.net"
-  - address_data: 2a01:3a0:53:53::0
-    tls_auth_name: "unicast.censurfridns.dk"
-  - address_data: 2001:610:1:40ba:145:100:185:18
-    tls_auth_name: "dnsovertls3.sinodun.com"
-  - address_data: 2a01:4f8:c0c:3c03::2
-    tls_auth_name: "ns1.dnsprivacy.at"
-  - address_data: 2a01:4f8:c0c:3bfc::2
-    tls_auth_name: "ns2.dnsprivacy.at"
+  - address_data: 2a09:0000:0000:0000:0000:0000:0000:0000
+    tls_auth_name: "dot.sb"
+  - address_data: 2a11:0000:0000:0000:0000:0000:0000:0000
+    tls_auth_name: "dot.sb"

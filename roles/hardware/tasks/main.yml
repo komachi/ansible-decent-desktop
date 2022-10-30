@@ -1,15 +1,60 @@
+---
 - include_tasks: iwlwifi.yml
   when: thinkpad_x230|d(False) == True
-- include_tasks: nitrokey.yml
-- include_tasks: onlykey.yml
-- include_tasks: ledger.yml
-- include_tasks: trezor.yml
+- include_tasks:
+    file: nitrokey.yml
+    apply:
+      tags:
+        - nitrofen
+  tags:
+    - always
+- include_tasks:
+    file: onlykey.yml
+    apply:
+      tags:
+        - onlykey
+  tags:
+    - always
+- include_tasks:
+    file: ledger.yml
+    apply:
+      tags:
+        - ledger
+  tags:
+    - always
+- include_tasks:
+    file: trezor.yml
+    apply:
+      tags:
+        - trezor
+  tags:
+    - always
 - include_tasks: thinkfan.yml
   when: thinkpad_x230|d(False) == True
 - include_tasks: tlp.yml
   when: thinkpad_x230|d(False) == True
-- include_tasks: printer.yml
-- include_tasks: scanner.yml
+- include_tasks:
+    file: printer.yml
+    apply:
+      tags:
+        - printer
+  tags:
+    - always
+- include_tasks:
+    file: scanner.yml
+    apply:
+      tags:
+        - scanner
+  tags:
+    - always
+- include_tasks:
+    file: realtek.yml
+    apply:
+      tags:
+        - realtek
+  when: nonfree_firmware|d(False) == True
+  tags:
+    - always
 - include_tasks: nonfree_firmware.yml
   when: nonfree_firmware|d(False) == True
 - include_tasks: amdgpu.yml

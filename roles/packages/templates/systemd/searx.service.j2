@@ -1,0 +1,23 @@
+[Unit]
+Description=Searx
+Wants=network.target
+After=network-online.target user-runtime-dir@{{ searx_user.uid }}.service
+
+[Service]
+User=searx
+Group=searx
+Environment=PODMAN_SYSTEMD_UNIT=%n
+Restart=on-failure
+TimeoutStopSec=70
+ExecStartPre=/bin/rm -f /run/user/{{ searx_user.uid }}/container-%n.pid /run/user/{{ searx_user.uid }}/container-%n.ctr-id
+ExecStart=/usr/bin/podman container run --conmon-pidfile /run/user/{{ searx_user.uid }}/container-%n.pid --cidfile /run/user/{{ searx_user.uid }}/container-%n.ctr-id --cgroups=no-conmon --replace --name %n --env BASE_URL=http://localhost:8888/ --env BIND_ADDRESS=127.0.0.1:8888 --volume /etc/searx:/etc/searx:ro --detach=True --publish 127.0.0.1:8888:8888 registry.hub.docker.com/searx/searx
+ExecStop=/usr/bin/podman container stop --ignore --cidfile /run/user/{{ searx_user.uid }}/container-%n.ctr-id -t 10
+ExecStopPost=/usr/bin/podman container rm --ignore -f --cidfile /run/user/{{ searx_user.uid }}/container-%n.ctr-id
+PIDFile=/run/user/{{ searx_user.uid }}/container-%n.pid
+Type=simple
+Nice=16
+IOSchedulingPriority=5
+KillMode=none
+
+[Install]
+WantedBy=default.target

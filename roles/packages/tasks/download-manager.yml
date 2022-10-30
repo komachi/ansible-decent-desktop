@@ -1,54 +1,41 @@
-- name: Install aria2
+---
+- name: Install aria2 and uget
+  register: install_aria2
+  until: install_aria2 is succeeded
   apt:
-    name: aria2
+    name:
+      - aria2
+      - uget
     state: present
 
 - name: Ensures ~/.config/aria2 exists
   file:
-    path: "/home/{{ username }}/.config/aria2"
+    path: /home/{{ username }}/.config/aria2
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: 0750
 
 - name: Copy aria2 config
   template:
     src: aria2/aria2.conf.j2
-    dest: "/home/{{ username }}/.config/aria2/aria2.conf"
+    dest: /home/{{ username }}/.config/aria2/aria2.conf
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: 0440
 
 - name: Add systemd service
   copy:
-    src: 'systemd/aria2cd.service'
-    dest: "/home/{{username}}/.config/systemd/user/aria2cd.service"
-    mode: '0640'
+    src: systemd/aria2cd.service
+    dest: /home/{{ username }}/.config/systemd/user/aria2cd.service
+    mode: "0640"
     owner: "{{ username }}"
     group: "{{ username }}"
 
 - name: Enable aria2cd service
-  become: yes
+  become: true
   become_user: "{{ username }}"
   systemd:
     scope: user
     name: aria2cd
-    enabled: yes
-
-- name: Install aria2p
-  become: yes
-  become_user: "{{ username }}"
-  shell: "pipx install --force aria2p[tui]"
-
-- name: Ensures ~/.local/share/applications exists
-  file:
-    path: "/home/{{ username }}/.local/share/applications"
-    state: directory
-    owner: "{{ username }}"
-    group: "{{ username }}"
-
-- name: Copy desktop file
-  copy:
-    src: "applications/aria2p.desktop"
-    dest: "/home/{{ username }}/.local/share/applications/aria2p.desktop"
-    mode: 0640
-    owner: "{{ username }}"
-    group: "{{ username }}"
+    enabled: true

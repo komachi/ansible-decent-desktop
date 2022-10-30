@@ -1,12 +1,13 @@
+---
 - name: Change behaviour of power button and lid switch
   lineinfile:
     path: /etc/systemd/logind.conf
-    insertafter: '^\[Login\]'
+    insertafter: ^\[Login\]
     line: "{{ item }}"
   loop:
-    - 'HandlePowerKey=ignore'
-    - 'HandleLidSwitch=suspend'
-    - 'HandleLidSwitchExternalPower=lock'
-    - 'HandleLidSwitchDocked=lock'
-    - 'IdleAction=lock'
-    - 'IdleActionSec=300'
+    - HandlePowerKey=ignore
+    - HandleLidSwitch=suspend
+    - HandleLidSwitchExternalPower=lock
+    - HandleLidSwitchDocked=lock
+    - IdleAction=lock
+    - IdleActionSec=300

@@ -1,0 +1,30 @@
+{
+  "created": "1970-01-01T12:00:00.000000000Z",
+  "updated": "1970-01-01T12:00:00.000000000Z",
+  "name": "proton-wine-preloader-deny",
+  "enabled": true,
+  "precedence": false,
+  "action": "deny",
+  "duration": "always",
+  "operator": {
+    "type": "list",
+    "operand": "list",
+    "sensitive": false,
+    "list": [
+      {
+        "type": "regexp",
+        "operand": "process.path",
+        "sensitive": false,
+        "data": "/home/{{ username }}/\\.var/app/com\\.valvesoftware\\.steam/\\.local/share/steam/steamapps/common/proton .*/files/bin/wine-preloader",
+        "list": null
+      },
+      {
+        "type": "regexp",
+        "operand": "dest.host",
+        "sensitive": false,
+        "data": "^(motd\\.gamegsc\\.com|stalkersc\\.available\\.gamegsc\\.com|aoe-api\\.reliclink\\.com|api\\.ageofempires\\.com|title\\.mgt\\.xboxlive\\.com)(\\.lan|)$",
+        "list": null
+      }
+    ]
+  }
+}

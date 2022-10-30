@@ -1,4 +1,7 @@
+---
 - name: Install podman and deps
+  register: install_podman
+  until: install_podman is succeeded
   apt:
     name:
       - podman
@@ -11,15 +14,17 @@
 - name: Enable docker.io registry
   lineinfile:
     path: /etc/containers/registries.conf
-    regexp: '^unqualified-search-registries='
-    line: 'unqualified-search-registries = ["docker.io"]'
+    regexp: ^unqualified-search-registries=
+    line: unqualified-search-registries = ["docker.io"]
 
 - name: Copy containers.conf
   copy:
     src: podman/containers.conf
-    dest: "/etc/containers/containers.conf"
+    dest: /etc/containers/containers.conf
+    mode: 0444
 
 - name: Create nodocker
   file:
     path: /etc/containers/nodocker
     state: touch
+    mode: 0444

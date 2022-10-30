@@ -1,0 +1,31 @@
+[Unit]
+Description=Standalone I2P BitTorrent Client
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/XD-i2p /home/{{ username }}/.config/XD/torrents.ini
+Restart=on-failure
+
+# https://gist.github.com/ageis/f5595e59b1cddb1513d1b425a323db04
+NoNewPrivileges=yes
+PrivateTmp=yes
+#PrivateDevices=yes
+DevicePolicy=closed
+ProtectSystem=strict
+ProtectControlGroups=yes
+#ProtectKernelModules=yes
+ProtectKernelTunables=yes
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 AF_NETLINK
+RestrictNamespaces=yes
+RestrictRealtime=yes
+RestrictSUIDSGID=yes
+MemoryDenyWriteExecute=yes
+LockPersonality=yes
+IPAddressDeny=any
+IPAddressAllow=localhost
+Nice=19
+IOSchedulingClass=idle
+IOSchedulingPriority=7
+
+[Install]
+WantedBy=default.target

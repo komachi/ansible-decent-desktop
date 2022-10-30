@@ -1,12 +1,13 @@
+---
 - name: Install dictd, goldendict and some dictionaries
+  register: install_dicts
+  until: install_dicts is succeeded
   apt:
     name:
       - dictd
       - goldendict
       - mueller7-dict
       - dict-freedict-eng-rus
-      - dict-bouvier
-      - dict-moby-thesaurus
       - dict-foldoc
       - dict-gcide
       - dict-elements
@@ -14,15 +15,16 @@
 
 - name: Ensures ~/.goldendict exists
   file:
-    path: "/home/{{ username }}/.goldendict"
+    path: /home/{{ username }}/.goldendict
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: 0750
 
 - name: Configure goldendict
   copy:
-    src: 'goldendict/config'
-    dest: "/home/{{ username }}/.goldendict/config"
+    src: goldendict/config
+    dest: /home/{{ username }}/.goldendict/config
     mode: 0640
     owner: "{{ username }}"
     group: "{{ username }}"

@@ -22,13 +22,8 @@ table inet filter {
     ip protocol icmp icmp type { destination-unreachable, router-solicitation, router-advertisement, time-exceeded, parameter-problem } limit rate 10/second accept
 
 {% if username == 'vagrant' %}
-    tcp dport ssh ip saddr { 10.0.2.2 } accept comment "Accept SSH from vagrant"
+    tcp dport 22 accept comment "Accept SSH"
 {% endif %}
-
-    tcp dport 22000 ip saddr { {{ local_ip }} } accept comment "Syncthing"
-    udp dport 22000 ip saddr { {{ local_ip }} } accept comment "Syncthing"
-    udp dport 21027 ip saddr { {{ local_ip }} } accept comment "Syncthing discovery broadcast"
-    tcp dport 6600 ip saddr { {{ local_ip }} } accept comment "MPD"
   }
 
   chain forward {
@@ -40,16 +35,10 @@ table inet filter {
   chain output {
     type filter hook output priority 0; policy accept;
 
-    skuid messagebus drop comment "don't allow internet for dbus"
-    skuid pulse drop comment "we don't use pulseaudio networking caps"
-    skuid systemd-coredump drop comment "systemd-coredump doesn't use internet"
-
     ip protocol icmp icmp type echo-request limit rate 10/second log accept
     ip6 nexthdr icmpv6 icmpv6 type { nd-neighbor-solicit, echo-request, nd-router-advert, nd-neighbor-advert } limit rate 10/second accept
   }
-}
 
-table inet filter {
   chain DOCKER-USER {
     mark set 1
   }

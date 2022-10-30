@@ -1,26 +1,29 @@
+---
 - name: Install linux headers
+  register: install_headers
+  until: install_headers is succeeded
   apt:
-    name: "linux-headers-{{ ansible_kernel }}"
+    name: linux-headers-{{ ansible_kernel }}
     state: present
 
 - name: Install tlp
+  register: install_tlp
+  until: install_tlp is succeeded
   apt:
     name:
       - acpi-call-dkms
       - tlp
       - tlp-rdw
     state: present
-  tags:
-    - dependencies
 
 - name: Set START_CHARGE_THRESH_BAT0
   lineinfile:
     path: /etc/default/tlp
-    regexp: '^START_CHARGE_THRESH_BAT0='
+    regexp: ^START_CHARGE_THRESH_BAT0=
     line: START_CHARGE_THRESH_BAT0=67
 
 - name: Set STOP_CHARGE_THRESH_BAT0
   lineinfile:
     path: /etc/default/tlp
-    regexp: '^STOP_CHARGE_THRESH_BAT0='
+    regexp: ^STOP_CHARGE_THRESH_BAT0=
     line: STOP_CHARGE_THRESH_BAT0=100

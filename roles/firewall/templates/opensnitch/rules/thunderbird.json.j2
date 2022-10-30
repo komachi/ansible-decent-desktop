@@ -1,0 +1,37 @@
+{
+  "created": "1970-01-01T12:00:00.000000000Z",
+  "updated": "1970-01-01T12:00:00.000000000Z",
+  "name": "thunderbird",
+  "enabled": true,
+  "precedence": false,
+  "action": "allow",
+  "duration": "always",
+  "operator": {
+    "type": "list",
+    "operand": "list",
+    "sensitive": false,
+    "list": [
+      {
+        "type": "simple",
+        "operand": "process.path",
+        "sensitive": false,
+        "data": "/usr/lib/thunderbird/thunderbird-bin",
+        "list": null
+      },
+      {
+        "type": "simple",
+        "operand": "dest.port",
+        "sensitive": false,
+        "data": "9050",
+        "list": null
+      },
+      {
+        "type": "network",
+        "operand": "dest.network",
+        "sensitive": false,
+        "data": "127.0.0.0/8",
+        "list": null
+      }
+    ]
+  }
+}

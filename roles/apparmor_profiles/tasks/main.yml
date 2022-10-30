@@ -1,3 +1,13 @@
+---
+- name: Configure apparmor
+  lineinfile:
+    path: /etc/apparmor/parser.conf
+    line: "{{ item }}"
+  loop:
+    - quiet
+    - write-cache
+    - cache-loc /etc/apparmor/earlypolicy/
+
 - name: Create apparmor-even-more-profiles tempdir
   tempfile:
     state: directory
@@ -5,21 +15,23 @@
 
 - name: Clone apparmor-even-more-profiles repo
   git:
-    repo: 'https://github.com/komachi/apparmor-even-more-profiles.git'
+    repo: https://github.com/komachi/apparmor-even-more-profiles.git
     dest: "{{ apparmor_profiles_tempdir.path }}"
-    recursive: yes
-    depth: "1"
-    clone: yes
+    recursive: true
+    clone: true
     version: "{{ apparmor_even_more_profiles_commit }}"
 
 - name: Copy profiles
   copy:
     src: "{{ apparmor_profiles_tempdir.path }}/profiles/"
-    dest: "/etc/apparmor.d/"
-    remote_src: yes
-    follow: yes
-    force: yes
+    dest: /etc/apparmor.d/
+    remote_src: true
+    follow: true
+    force: true
+    mode: 0440
   register: apparmorprofilescopy
+  notify:
+    - reload apparmor
 
 - name: Read extra profiles file
   slurp:
@@ -36,20 +48,22 @@
 
 - name: Symlink extra profiles
   file:
-    src: "/usr/share/apparmor/extra-profiles/{{ item }}"
-    dest: "/etc/apparmor.d/{{ item }}"
+    src: /usr/share/apparmor/extra-profiles/{{ item }}
+    dest: /etc/apparmor.d/{{ item }}
     state: link
   when: item != ""
   loop: "{{ (extra_apparmor_profiles.content | b64decode).split('\n') }}"
   register: apparmorextraprofiles
+  notify:
+    - reload apparmor
 
 - name: Restart AppArmor
   when: apparmorprofilescopy.changed or apparmorextraprofiles.changed
   systemd:
     name: apparmor
     state: reloaded
-    daemon_reload: yes
-    enabled: yes
+    daemon_reload: true
+    enabled: true
 
 - name: Remove tempdir
   file:

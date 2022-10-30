@@ -1,0 +1,32 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: vagrant
+  provider:
+    name: virtualbox
+#  name: podman
+platforms:
+  - name: debian
+    box: debian/bullseye64
+    memory: 4096
+    cpus: 2
+provisioner:
+  name: ansible
+  config_options:
+    defaults:
+      interpreter_python: auto_silent
+      callback_whitelist: profile_tasks, timer, yaml
+  inventory:
+    host_vars:
+      debian:
+        username: vagrant
+        local_ip: 192.168.0.0/16
+        large_dirs: "/home/vagrant"
+
+verifier:
+  name: ansible
+lint: |
+  set -e
+  yamllint roles *.yml
+  ansible-lint -p main.yml roles

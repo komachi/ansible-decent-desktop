@@ -1,0 +1,30 @@
+{
+  "created": "1970-01-01T12:00:00.000000000Z",
+  "updated": "1970-01-01T12:00:00.000000000Z",
+  "name": "mother-russia-bleeds-deny",
+  "enabled": true,
+  "precedence": false,
+  "action": "deny",
+  "duration": "always",
+  "operator": {
+    "type": "list",
+    "operand": "list",
+    "sensitive": false,
+    "list": [
+      {
+        "type": "simple",
+        "operand": "process.path",
+        "sensitive": false,
+        "data": "/home/{{ username }}/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/common/Mother Russia Bleeds/Mother Russia Bleeds.{{ ansible_architecture }}",
+        "list": null
+      },
+      {
+        "type": "regexp",
+        "operand": "dest.host",
+        "sensitive": false,
+        "data": "^stats\\.unity3d\\.com(|\\.lan)$",
+        "list": null
+      }
+    ]
+  }
+}

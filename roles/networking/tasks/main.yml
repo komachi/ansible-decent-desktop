@@ -1,3 +1,22 @@
-- include_tasks: dns.yml
-- include_tasks: networkmanager.yml
-- include_tasks: wireguard.yml
+---
+- include_tasks:
+    file: dns.yml
+    apply:
+      tags:
+        - dns
+  tags:
+    - always
+- include_tasks:
+    file: network-manager.yml
+    apply:
+      tags:
+        - "network-manager"
+  tags:
+    - always
+- include_tasks:
+    file: wireguard.yml
+    apply:
+      tags:
+        - wireguard
+  tags:
+    - always

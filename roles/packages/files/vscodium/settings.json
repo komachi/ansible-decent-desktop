@@ -1,6 +1,6 @@
 {
     "editor.tabSize": 2,
-    "editor.fontFamily": "Hack, 'Noto Sans Mono Black'",
+    "editor.fontFamily": "Hack, 'Noto Sans Mono Black', 'Noto Color Emoji'",
     "editor.minimap.enabled": false,
     "editor.detectIndentation": true,
     "editor.smoothScrolling": true,

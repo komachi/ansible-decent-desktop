@@ -1,3 +1,6 @@
+---
 - name: Install monero
+  register: install_monero
+  until: install_monero is succeeded
   apt:
     name: monero-gui

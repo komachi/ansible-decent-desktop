@@ -1,59 +1,88 @@
+---
 - name: Install themes
-  package:
-    name: "{{ item }}"
+  register: install_themes
+  until: install_themes is succeeded
+  apt:
+    name:
+      - qt5ct
+      - gnome-themes-extra
+      - adwaita-icon-theme
+      - adwaita-qt
+      - papirus-icon-theme
+      - anon-icon-pack
+      - gtk3-nocsd
     state: present
-  with_items:
-    - qt5ct
-    - gnome-themes-extra
-    - adwaita-icon-theme
-    - adwaita-qt
-    - papirus-icon-theme
-    - anon-icon-pack
-    - gtk3-nocsd
-  tags:
-    - dependencies
 
 - name: Set style for Qt4 apps
   lineinfile:
-    path: "/home/{{ username }}/.config/Trolltech.conf"
-    regexp: '^style='
+    path: /home/{{ username }}/.config/Trolltech.conf
+    regexp: ^style=
     line: style=Adwaita-Dark
-    insertafter: '[Qt]'
-    create: yes
-    
+    insertafter: "[Qt]"
+    create: true
+    mode: 0440
+
 - name: Copy gtk2 settings
   copy:
-    src: 'gtkrc-2.0'
-    dest: "/home/{{username}}/.gtkrc-2.0"
-    mode: '0640'
+    src: gtkrc-2.0
+    dest: /home/{{ username }}/.gtkrc-2.0
+    mode: "0640"
     owner: "{{ username }}"
     group: "{{ username }}"
 
 - name: Ensures ~/.config/gtk-3.0 exists
   file:
-    path: "/home/{{username}}/.config/gtk-3.0/"
+    path: /home/{{ username }}/.config/gtk-3.0/
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: 0750
 
 - name: Copy gtk3 settings
   copy:
-    src: 'settings.ini'
-    dest: "/home/{{username}}/.config/gtk-3.0/settings.ini"
-    mode: '0640'
+    src: settings.ini
+    dest: /home/{{ username }}/.config/gtk-3.0/settings.ini
+    mode: "0640"
     owner: "{{ username }}"
     group: "{{ username }}"
 
 - name: Ensures ~/.config/qt5ct exists
   file:
-    path: "/home/{{ username }}/.config/qt5ct"
+    path: /home/{{ username }}/.config/qt5ct
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: 0750
 
 - name: Configure qt5ct
   template:
     src: qt5ct/qt5ct.conf.j2
-    dest: "/home/{{ username }}/.config/qt5ct/qt5ct.conf"
+    dest: /home/{{ username }}/.config/qt5ct/qt5ct.conf
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: 0440
+
+- name: Configure dconf settings
+  become: true
+  become_user: "{{ username }}"
+  dconf:
+    key: /org/gnome/desktop/interface/{{ item.name }}
+    value: "{{ item.value }}"
+    state: present
+  loop:
+    - name: enable-animations
+      value: "false"
+    - name: icon-theme
+      value: "'Papirus-Dark'"
+    - name: cursor-theme
+      value: "'Papirus-Dark'"
+    - name: gtk-theme
+      value: "'Adwaita-dark'"
+    - name: monospace-font-name
+      value: "'Hack 12'"
+    - name: font-name
+      value: "'Noto Sans Display 12'"
+    - name: document-font-name
+      value: "'Noto Sans Display 12'"
+    - name: color-scheme
+      value: "'prefer-dark'"

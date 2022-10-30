@@ -1,4 +1,7 @@
+---
 - name: Install newsboat
+  register: install_newsboat
+  until: install_newsboat is succeeded
   apt:
     name: newsboat
     state: present

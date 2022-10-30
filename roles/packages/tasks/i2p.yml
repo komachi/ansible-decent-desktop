@@ -1,4 +1,7 @@
+---
 - name: Install i2pd
+  register: install_i2pd
+  until: install_i2pd is succeeded
   apt:
     name:
       - i2pd
@@ -8,62 +11,63 @@
 
 - name: Configure i2pd
   template:
-    src: 'i2pd/i2pd.conf.j2'
-    dest: '/etc/i2pd/i2pd.conf'
-    owner: 'i2pd'
-    group: 'i2pd'
-    mode: '0640'
+    src: i2pd/i2pd.conf.j2
+    dest: /etc/i2pd/i2pd.conf
+    owner: i2pd
+    group: i2pd
+    mode: "0640"
   register: i2pdconfigure
 
 - name: Check if i2p browser is already downloaded
-  stat: 
-    path: "/home/{{ username }}/.i2pb/i2p-browser"
+  stat:
+    path: /home/{{ username }}/.i2pb/i2p-browser
   register: i2pbb_exists
 
 - name: Download i2p browser
-  become: yes
+  become: true
   become_user: "{{ username }}"
-  shell: "update-i2pbrowser --noask --ordinary"
+  shell: update-i2pbrowser --noask --ordinary
   when: not i2pbb_exists.stat.exists
 
 - name: Create dummy file to fix i2pbrowser
   copy:
     content: ""
     dest: /usr/share/tb-profile-i2p/check-i2p
-    force: yes
+    force: true
     mode: 0555
 
 - name: Add systemd service for update-i2pbrowser
   copy:
-    src: "systemd/update-i2pbrowser.{{ item }}"
-    dest: "/home/{{username}}/.config/systemd/user/update-i2pbrowser.{{ item }}"
-    mode: '0640'
+    src: systemd/update-i2pbrowser.{{ item }}
+    dest: /home/{{ username }}/.config/systemd/user/update-i2pbrowser.{{ item }}
+    mode: "0640"
     owner: "{{ username }}"
     group: "{{ username }}"
   loop:
-    - 'service'
-    - 'timer'
+    - service
+    - timer
 
 - name: Enable update-i2pbrowser timer
-  become: yes
+  become: true
   become_user: "{{ username }}"
   systemd:
     scope: user
     name: update-i2pbrowser.timer
-    enabled: yes
+    enabled: true
     state: started
 
 - name: Ensures ~/.local/share/applications exists
   file:
-    path: "/home/{{ username }}/.local/share/applications"
+    path: /home/{{ username }}/.local/share/applications
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: 0750
 
 - name: Copy desktop file
   copy:
-    src: "applications/i2pbrowser.desktop"
-    dest: "/home/{{ username }}/.local/share/applications/i2pbrowser.desktop"
+    src: applications/i2pbrowser.desktop
+    dest: /home/{{ username }}/.local/share/applications/i2pbrowser.desktop
     mode: 0640
     owner: "{{ username }}"
     group: "{{ username }}"

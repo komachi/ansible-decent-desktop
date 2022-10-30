@@ -1,0 +1,24 @@
+---
+- name: Converge
+  become: true
+  hosts: all
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: true
+    - name: Install deps
+      apt:
+        name:
+          - python3-jmespath
+          - python3-passlib
+          - python3-lxml
+          - git
+          - python-is-python3
+        state: present
+    - name: Wrire policy-rc.d 
+      copy:
+        content: |
+          #!/bin/sh
+          exit 0
+        dest: /usr/sbin/policy-rc.d
+- import_playbook: ../../main.yml

@@ -1,5 +1,8 @@
+---
 - name: Install cargo
+  register: install_cargo
+  until: install_cargo is succeeded
   apt:
-    name: 
+    name:
       - cargo
     state: present

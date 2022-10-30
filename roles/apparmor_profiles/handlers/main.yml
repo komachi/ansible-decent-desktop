@@ -1,0 +1,7 @@
+---
+- name: reload apparmor
+  systemd:
+    name: apparmor
+    state: reloaded
+    enabled: true
+  

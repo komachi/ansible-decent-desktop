@@ -1,0 +1,57 @@
+---
+- name: Install mpd, mpc, pms, mpdris2
+  register: install_mpd
+  until: install_mpd is succeeded
+  apt:
+    name:
+      - mpd
+      - mpc
+      - pms
+      - mpdris2
+    state: present
+
+- name: Ensures ~/.config/mpd/playlists exists
+  file:
+    path: /home/{{ username }}/.config/mpd/playlists
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: 0750
+
+- name: Configure mpd
+  template:
+    src: mpd/mpd.conf.j2
+    dest: /home/{{ username }}/.config/mpd/mpd.conf
+    mode: 0640
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Disable global mpd unit, we want to run it under user
+  systemd:
+    name: mpd
+    enabled: false
+    state: stopped
+
+- name: Enable mpd user service
+  become: true
+  become_user: "{{ username }}"
+  systemd:
+    scope: user
+    name: mpd
+    enabled: true
+
+- name: Ensures ~/.local/share/applications exists
+  file:
+    path: /home/{{ username }}/.local/share/applications
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: 0750
+
+- name: Copy pms desktop file
+  copy:
+    src: applications/pms.desktop
+    dest: /home/{{ username }}/.local/share/applications/pms.desktop
+    mode: 0640
+    owner: "{{ username }}"
+    group: "{{ username }}"

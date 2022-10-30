@@ -1,55 +1,47 @@
+---
 - name: Create jackett user
   user:
     name: jackett
     shell: /bin/false
-    create_home: yes
+    create_home: true
     home: /var/lib/jackett
-    system: yes
+    system: true
+  register: jackett_user
 
 - name: Add subguid/subuids for user
   shell: usermod --add-subuids 100000-165535 --add-subgids 100000-165535 jackett
+  changed_when: false
 
 - name: Run podman system migrate
   shell: podman system migrate
-  
+  changed_when: false
+
 - name: Ensures /etc/jackett exists
   file:
-    path: "/etc/jackett"
+    path: /etc/jackett
     state: directory
-    owner: "jackett"
-    group: "jackett"
+    owner: jackett
+    group: jackett
+    mode: 0750
 
 - name: Copy jackett server config
   template:
-    src: 'jackett/ServerConfig.json.j2'
-    dest: "/etc/jackett/ServerConfig.json"
+    src: jackett/ServerConfig.json.j2
+    dest: /etc/jackett/ServerConfig.json
     owner: jackett
     group: jackett
-
-- name: Pull jackett image
-  containers.podman.podman_image:
-    name: registry.hub.docker.com/linuxserver/jackett
+    mode: 0440
 
 - name: Create jackett container
-  become: yes
-  become_user: jackett
   containers.podman.podman_container:
     name: jackett
     image: registry.hub.docker.com/linuxserver/jackett
-    state: present
-    network: host
-    volume:
-      - '/etc/jackett:/config:rw'
-      - '/var/lib/jackett:/downloads:rw'
-
-- name: Add systemd service
-  copy:
-    src: 'systemd/jackett.service'
-    dest: "/etc/systemd/system/jackett.service"
-    mode: '0640'
-
-- name: Enable jackett service
-  systemd:
-    name: jackett
-    enabled: yes
     state: started
+    subuidname: jackett
+    publish:
+      - 127.0.0.1:9117:9117
+    volumes:
+      - /etc/jackett:/config:rw
+      - /var/lib/jackett:/downloads:rw
+    generate_systemd:
+      restart_policy: on-failure

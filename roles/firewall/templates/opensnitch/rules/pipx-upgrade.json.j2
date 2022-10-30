@@ -1,0 +1,30 @@
+{
+  "created": "1970-01-01T12:00:00.000000000Z",
+  "updated": "1970-01-01T12:00:00.000000000Z",
+  "name": "pipx-upgrade",
+  "enabled": true,
+  "precedence": false,
+  "action": "allow",
+  "duration": "always",
+  "operator": {
+    "type": "list",
+    "operand": "list",
+    "sensitive": false,
+    "list": [
+      {
+        "type": "simple",
+        "operand": "process.command",
+        "sensitive": false,
+        "data": "/home/{{ username }}/.local/pipx/shared/bin/python -m pip --disable-pip-version-check install -q --upgrade pip setuptools wheel",
+        "list": null
+      },
+      {
+        "type": "regexp",
+        "operand": "dest.host",
+        "sensitive": false,
+        "data": "^(files\\.pythonhosted\\.org|pypi\\.org)$",
+        "list": null
+      }
+    ]
+  }
+}

@@ -1,0 +1,6 @@
+---
+opensnitch_version: 1.5.2-1
+opensnitch_link: https://github.com/evilsocket/opensnitch/releases/download/v1.5.2/opensnitch_1.5.2-1_amd64.deb
+opensnitch_checksum: sha256:18b424dc3c9dad53afef2658b4221f1fa64f7e875acba5c80f8498820074605b
+opensnitch_ui_link: https://github.com/evilsocket/opensnitch/releases/download/v1.5.2/python3-opensnitch-ui_1.5.2-1_all.deb
+opensnitch_ui_checksum: sha256:2c32011cfed88452aca717448d69d2f29887eeca86ef5732e7462700bbd06b51

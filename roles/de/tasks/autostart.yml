@@ -1,19 +1,27 @@
+---
 - name: Ensures ~/.config/autostart exists
   file:
-    path: "/home/{{ username }}/.config/autostart"
+    path: /home/{{ username }}/.config/autostart
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: 0750
 
 - name: Symlink some desktop files to autostart
   file:
     src: "{{ item.location }}/{{ item.name }}.desktop"
-    dest: "/home/{{ username }}/.config/autostart/{{ item.name }}.desktop"
+    dest: /home/{{ username }}/.config/autostart/{{ item.name }}.desktop
     state: link
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: 0440
+    force: yes
   loop:
-    - location: "/usr/share/applications"
+    - location: /usr/share/applications
       name: org.keepassxc.KeePassXC
-    - location: "/usr/share/applications"
+    - location: /usr/share/applications
       name: telegramdesktop
+    - location: /usr/share/applications
+      name: im.dino.Dino
+    - location: /usr/share/applications
+      name: opensnitch_ui

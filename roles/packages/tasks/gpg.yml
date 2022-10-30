@@ -1,19 +1,27 @@
-- name: Install gpg
+---
+- name: Install gpg and sequoia
+  register: install_gpg
+  until: install_gpg is succeeded
   apt:
-    name: gpg
+    name:
+      - gpg
+      - sq
+      - sqv
+      - sqop
     state: present
 
 - name: Ensures ~/.gnupg exists
   file:
-    path: "/home/{{ username }}/.gnupg"
+    path: /home/{{ username }}/.gnupg
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: 0750
 
 - name: Copy gpg config
   copy:
-    src: 'gnupg/gpg.conf'
-    dest: "/home/{{username}}/.gnupg/gpg.conf"
-    mode: '0640'
+    src: gnupg/gpg.conf
+    dest: /home/{{ username }}/.gnupg/gpg.conf
+    mode: "0640"
     owner: "{{ username }}"
     group: "{{ username }}"

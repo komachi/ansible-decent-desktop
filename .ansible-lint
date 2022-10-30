@@ -1,0 +1,15 @@
+skip_list:
+  - fqcn-builtins
+  - unnamed-task
+  - empty-string-compare
+  - command-instead-of-shell
+enable_list:
+  - no-log-password
+  - no-same-owner
+  - yaml
+warn_list:
+  - deprecated-bare-vars
+  - experimental
+  - no-changed-when
+  - no-handler
+offline: true

@@ -1,0 +1,23 @@
+[Unit]
+Description=Jackett
+Wants=network.target
+After=network-online.target user-runtime-dir@{{ jackett_user.uid }}.service
+
+[Service]
+User=jackett
+Group=jackett
+Environment=PODMAN_SYSTEMD_UNIT=%n
+Restart=on-failure
+TimeoutStopSec=70
+ExecStartPre=/bin/rm -f /run/user/{{ jackett_user.uid }}/container-%n.pid /run/user/{{ jackett_user.uid }}/container-%n.ctr-id
+ExecStart=/usr/bin/podman container run --conmon-pidfile /run/user/{{ jackett_user.uid }}/container-%n.pid --cgroups=no-conmon --replace --name %n --volume /etc/jackett:/config:rw --volume /var/lib/jackett:/downloads:rw --detach=True --publish 127.0.0.1:9117:9117 registry.hub.docker.com/linuxserver/jackett
+ExecStop=/usr/bin/podman container stop --ignore --cidfile /run/user/{{ jackett_user.uid }}/container-%n.ctr-id -t 10
+ExecStopPost=/usr/bin/podman container rm --ignore -f --cidfile /run/user/{{ jackett_user.uid }}/container-%n.ctr-id
+PIDFile=/run/user/{{ jackett_user.uid }}/container-%n.pid
+Type=simple
+Nice=16
+IOSchedulingPriority=5
+KillMode=none
+
+[Install]
+WantedBy=multi-user.target default.target

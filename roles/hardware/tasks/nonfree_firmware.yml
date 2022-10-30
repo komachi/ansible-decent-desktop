@@ -1,20 +1,33 @@
-- name: Install nonfree firmware
+---
+- name: Install nonfree firmware and fwupd
+  register: install_nonfree_firmware
+  until: install_nonfree_firmware is succeeded
   apt:
     name:
       - firmware-misc-nonfree
-      - firmware-realtek
+      - fwupd
     state: present
 
 - name: Install intel microcode package
+  register: install_intel_microcode
+  until: install_intel_microcode is succeeded
   apt:
     name: intel-microcode
     state: present
-  when: thinkpad_x230|d(False) == True
+  when: ansible_processor | select('match', 'Intel') | list | length > 0
 
-- name: Install amd microcode package and amd gpu packages
+- name: Install amd microcode
+  register: install_amd_microcode
+  until: install_amd_microcode is succeeded
   apt:
-    name:
-      - amd64-microcode
-      - firmware-amd-graphics
+    name: amd64-microcode
     state: present
-  when: thinkpad_x230|d(False) == False
+  when: ansible_processor | select('match', 'AMD') | list | length > 0
+
+- name: Install amd gpu packages
+  register: install_amd_microcode
+  until: install_amd_microcode is succeeded
+  apt:
+    name: firmware-amd-graphics
+    state: present
+  when: not thinkpad_x230|d(False)

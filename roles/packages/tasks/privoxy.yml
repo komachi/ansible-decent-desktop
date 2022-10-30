@@ -1,22 +1,25 @@
+---
 - name: Install privoxy
+  register: install_privoxy
+  until: install_privoxy is succeeded
   apt:
     name: privoxy
     state: present
 
 - name: Configure privoxy
   copy:
-    src: "privoxy/config"
-    dest: "/etc/privoxy/config"
+    src: privoxy/config
+    dest: /etc/privoxy/config
     mode: 0644
 
 - name: Configure user.action
   template:
-    src: "privoxy/user.action.j2"
-    dest: "/etc/privoxy/user.action"
+    src: privoxy/user.action.j2
+    dest: /etc/privoxy/user.action
     mode: 0644
 
 - name: Enable privoxy service
   systemd:
     name: privoxy
     state: started
-    enabled: yes
+    enabled: true

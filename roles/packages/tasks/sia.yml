@@ -1,16 +1,20 @@
+---
 - name: Install sia
+  register: install_sia
+  until: install_sia is succeeded
   apt:
     name: sia
     state: present
 
 - name: Ensures /var/lib/sia exists
   file:
-    path: "/var/lib/sia"
+    path: /var/lib/sia
     state: directory
     owner: sia
+    mode: 0755
 
 - name: Add systemd service
   copy:
-    src: 'systemd/sia.service'
-    dest: "/etc/systemd/system/sia.service"
-    mode: '0640'
+    src: systemd/sia.service
+    dest: /etc/systemd/system/sia.service
+    mode: "0640"

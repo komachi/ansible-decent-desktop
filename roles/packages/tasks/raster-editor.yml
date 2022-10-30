@@ -1,0 +1,7 @@
+---
+- name: Install gimp
+  register: install_gimp
+  until: install_gimp is succeeded
+  apt:
+    name: gimp
+    state: present

@@ -1,0 +1,37 @@
+{
+  "created": "1970-01-01T12:00:00.000000000Z",
+  "updated": "1970-01-01T12:00:00.000000000Z",
+  "name": "proton-wine64-preloader",
+  "enabled": true,
+  "precedence": false,
+  "action": "allow",
+  "duration": "always",
+  "operator": {
+    "type": "list",
+    "operand": "list",
+    "sensitive": false,
+    "list": [
+      {
+        "type": "regexp",
+        "operand": "process.path",
+        "sensitive": false,
+        "data": "/home/{{ username }}/\\.var/app/com\\.valvesoftware\\.steam/\\.local/share/steam/steamapps/common/proton .*/dist/bin/wine64-preloader",
+        "list": null
+      },
+      {
+        "type": "regexp",
+        "operand": "dest.port",
+        "sensitive": false,
+        "data": "39637|45429|57343",
+        "list": null
+      },
+      {
+        "type": "simple",
+        "operand": "dest.ip",
+        "sensitive": false,
+        "data": "127.0.0.1",
+        "list": null
+      }
+    ]
+  }
+}

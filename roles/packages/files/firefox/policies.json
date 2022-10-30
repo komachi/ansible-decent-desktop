@@ -49,6 +49,12 @@
         "URL": "http://127.0.0.1:9000",
         "Placement": "menu",
         "Folder": "Local"
+      },
+      {
+        "Title": "Uniswap",
+        "URL": "http://bafybeifp7rduxritzodbbncuznhnzt24yt3wdm7ie77m4ea63vae7aiafe.ipfs.localhost:8080/#/swap?chain=mainnet",
+        "Placement": "menu",
+        "Folder": "Local"
       }
     ],
     "CaptivePortal": false,
@@ -59,7 +65,7 @@
       "RejectTracker": true
     },
     "DisableSetDesktopBackground": true,
-    "DisableSystemAddonUpdate": true,
+    "DisableSystemAddonUpdate": false,
     "DisableMasterPasswordCreation": true,
     "DisableAppUpdate": true,
     "DisableFeedbackCommands": true,
@@ -89,80 +95,6 @@
         "twitter@search.mozilla.org",
         "wikipedia@search.mozilla.org"
       ]
-    },
-    "ExtensionSettings": {
-      "uBlock0@raymondhill.net": {
-        "installation_mode": "normal_installed",
-        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi"
-      },
-      "{74145f27-f039-47ce-a470-a662b129930a}": {
-        "installation_mode": "normal_installed",
-        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/clearurls/latest.xpi"
-      },
-      "jid1-BoFifL9Vbdl2zQ@jetpack": {
-        "installation_mode": "normal_installed",
-        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/decentraleyes/latest.xpi"
-      },
-      "https-everywhere@eff.org": {
-        "installation_mode": "normal_installed",
-        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/https-everywhere/latest.xpi"
-      },
-      "jid1-MnnxcxisBPnSXQ@jetpack": {
-        "installation_mode": "normal_installed",
-        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/privacy-badger17/latest.xpi"
-      },
-      "{48748554-4c01-49e8-94af-79662bf34d50}": {
-        "installation_mode": "normal_installed",
-        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/privacy-pass/latest.xpi"
-      },
-      "uget-integration@slgobinath": {
-        "installation_mode": "normal_installed",
-        "install_url": "https://addons.mozilla.org/firefox/downloads/file/911315/uget_integration-2.1.3.1-an+fx-linux.xpi"
-      },
-      "ipfs-firefox-addon@lidel.org": {
-        "installation_mode": "normal_installed",
-        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/ipfs-companion/latest.xpi"
-      },
-      "@testpilot-containers": {
-        "installation_mode": "normal_installed",
-        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/multi-account-containers/latest.xpi"
-      },
-      "{569456be-2850-4f7e-b669-71e55140ee0a}": {
-        "installation_mode": "normal_installed",
-        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/amp2html/latest.xpi"
-      },
-      "{6b938c0c-fc53-4f27-805f-619778631082}": {
-        "installation_mode": "normal_installed",
-        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/dont-touch-my-tabs/latest.xpi"
-      },
-      "{dc501fe1-520b-41f2-9421-ecbb2e7f0255}": {
-        "installation_mode": "normal_installed",
-        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/protect-my-choices/latest.xpi"
-      },
-      "{c607c8df-14a7-4f28-894f-29e8722976af}": {
-        "installation_mode": "normal_installed",
-        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/temporary-containers/latest.xpi"
-      },
-      "optout@google.com": {
-        "installation_mode": "normal_installed",
-        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/interest-advertising-opt-out/latest.xpi"
-      },
-      "@metrics-optout-extension": {
-        "installation_mode": "normal_installed",
-        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/metrics-optout-extension/latest.xpi"
-      },
-      "bypasspaywalls@bypasspaywalls.weebly.com": {
-        "installation_mode": "normal_installed",
-        "install_url": "https://github.com/iamadamdev/bypass-paywalls-chrome/releases/latest/download/bypass-paywalls-firefox.xpi"
-      },
-      "{c6e8bd66-ebb4-4b63-bd29-5ef59c795901}": {
-        "installation_mode": "normal_installed",
-        "install_url": "https://github.com/go-shiori/shiori-web-ext/releases/download/0.8.4/shiori-0.8.4-fx.xpi"
-      },
-      "{6d96bb5e-1175-4ebf-8ab5-5f56f1c79f65}": {
-        "installation_mode": "normal_installed",
-        "install_url": "https://dl.google.com/analytics/optout/gaoptoutaddon_1.0.8.xpi"
-      }
     },
     "ExtensionUpdate": true,
     "FlashPlugin": {
@@ -214,9 +146,11 @@
     "SearchBar": "unified",
     "SearchSuggestEnabled": false,
     "UserMessaging": {
+      "WhatsNew": false,
       "ExtensionRecommendations": false,
       "FeatureRecommendations": false,
-      "UrlbarInterventions": false
+      "UrlbarInterventions": false,
+      "SkipOnboarding": true
     },
     "SearchEngines": {
       "Remove": [

@@ -1,6 +1,49 @@
+---
 - include_tasks: gamemode.yml
-- include_tasks: pcsxr.yml
-- include_tasks: 0ad.yml
-- include_tasks: openra.yml
-- include_tasks: xonotic.yml
-- include_tasks: taisei.yml
+- include_tasks:
+    file: pcsxr.yml
+    apply:
+      tags:
+        - pcsxr
+  tags:
+    - always
+
+- include_tasks:
+    file: 0ad.yml
+    apply:
+      tags:
+        - 0ad
+  tags:
+    - always
+
+- include_tasks:
+    file: openra.yml
+    apply:
+      tags:
+        - openra
+  tags:
+    - always
+
+- include_tasks:
+    file: xonotic.yml
+    apply:
+      tags:
+        - xonotic
+  tags:
+    - always
+
+- include_tasks:
+    file: taisei.yml
+    apply:
+      tags:
+        - taisei
+  tags:
+    - always
+
+- include_tasks:
+    file: steam.yml
+    apply:
+      tags:
+        - steam
+  tags:
+    - always

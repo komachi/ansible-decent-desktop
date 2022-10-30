@@ -1,59 +1,35 @@
-# https://github.com/bisq-network/bisq/issues/848
-- name: Ensures /usr/share/desktop-directories exists
-  file:
-    path: "/usr/share/desktop-directories"
-    state: directory
+---
+- name: Install Bisq from flatpak
+  become: true
+  become_user: "{{ username }}"
+  flatpak:
+    name: network.bisq.Bisq
+    state: present
 
-- name: Collect package facts
-  package_facts:
-    manager: auto
+# - name: Ensures ~/.local/share/Bisq exists
+#   file:
+#     path: /home/{{ username }}/.local/share/Bisq
+#     mode: 0750
+#     state: directory
+#     owner: "{{ username }}"
+#     group: "{{ username }}"
 
-- name: Create temp dir for bisq
-  tempfile:
-    state: directory
-  register: bisq_download_tempdir
-  when: "('bisq' not in ansible_facts.packages) or ('bisq' in ansible_facts.packages and ansible_facts.packages.bisq[0].version != bisq_version)"
-
-- name: Get bisq
-  get_url:
-    url: "https://bisq.network/downloads/v{{ bisq_version }}/Bisq-64bit-{{ bisq_version }}.deb"
-    dest: "{{ bisq_download_tempdir.path }}/bisq.deb"
-    checksum: "{{ bisq_checksum }}"
-  when: "('bisq' not in ansible_facts.packages) or ('bisq' in ansible_facts.packages and ansible_facts.packages.bisq[0].version != bisq_version)"
-
-- name: Install bisq
-  apt:
-    deb: "{{ bisq_download_tempdir.path }}/bisq.deb"
-  when: "('bisq' not in ansible_facts.packages) or ('bisq' in ansible_facts.packages and ansible_facts.packages.bisq[0].version != bisq_version)"
-
-- name: Remove tempdir
-  file:
-    path: "{{ bisq_download_tempdir.path }}"
-    state: absent
-  when: "('bisq' not in ansible_facts.packages) or ('bisq' in ansible_facts.packages and ansible_facts.packages.bisq[0].version != bisq_version)"
-
-- name: Ensures ~/.local/share/Bisq exists
-  file:
-    path: "/home/{{ username }}/.local/share/Bisq"
-    state: directory
-    owner: "{{ username }}"
-    group: "{{ username }}"
-
-- name: Configure bisq
-  lineinfile:
-    path: "/home/{{ username }}/.local/share/Bisq/bisq.properties"
-    regexp: '^{{ item.name }}'
-    line: "{{ item.name }}={{ item.value }}"
-    create: yes
-    owner: "{{ username }}"
-    group: "{{ username }}"
-  loop:
-    - name: 'torControlCookieFile'
-      value: '/run/tor/control.authcookie'
-    - name: 'torControlUseSafeCookieAuth'
-      value: 'true'
-    - name: 'torControlPort'
-      value: '9051'
+# - name: Configure bisq
+#   lineinfile:
+#     path: /home/{{ username }}/.local/share/Bisq/bisq.properties
+#     regexp: ^{{ item.name }}
+#     line: "{{ item.name }}={{ item.value }}"
+#     create: true
+#     owner: "{{ username }}"
+#     group: "{{ username }}"
+#     mode: 0440
+#   loop:
+#     - name: torControlCookieFile
+#       value: /run/tor/control.authcookie
+#     - name: torControlUseSafeCookieAuth
+#       value: "true"
+#     - name: torControlPort
+#       value: "9051"
     #- name: 'rpcUser'
     #  value: "{{ bitcoinrpc_user }}"
     #- name: 'rpcPassword'

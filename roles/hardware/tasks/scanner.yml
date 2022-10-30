@@ -1,23 +1,25 @@
+---
 - name: Install sane and simple-scan
+  register: install_sane
+  until: install_sane is succeeded
   apt:
     name:
       - sane-utils
       - simple-scan
     state: present
-  tags:
-    - dependencies
 
 - name: Ensures /etc/sane.d exists
   file:
-    path: "/etc/sane.d"
+    path: /etc/sane.d
     state: directory
     owner: saned
     group: saned
+    mode: 0750
 
 - name: Configure sane
   template:
-    src: 'sane.d/net.conf.j2'
-    dest: "/etc/sane.d/net.conf"
-    mode: '0640'
+    src: sane.d/net.conf.j2
+    dest: /etc/sane.d/net.conf
+    mode: "0640"
     owner: saned
     group: saned

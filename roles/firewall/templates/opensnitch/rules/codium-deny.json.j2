@@ -1,0 +1,30 @@
+{
+  "created": "2022-02-09T19:38:44.094876826Z",
+  "updated": "2022-02-09T19:38:44.095057216Z",
+  "name": "codium-deny",
+  "enabled": true,
+  "precedence": false,
+  "action": "deny",
+  "duration": "always",
+  "operator": {
+    "type": "list",
+    "operand": "list",
+    "sensitive": false,
+    "list": [
+      {
+        "type": "simple",
+        "operand": "process.path",
+        "sensitive": false,
+        "data": "/usr/share/codium/codium",
+        "list": null
+      },
+      {
+        "type": "regexp",
+        "operand": "dest.host",
+        "sensitive": false,
+        "data": "(www\\.tabnine\\.com|www\\.codota\\.com|alt-images\\.codestream\\.com|alt-images\\.codestream\\.com|developer\\.apple\\.com|img\\.shields\\.io|vsmarketplacebadge\\.apphb\\.com|www\\.gravatar\\.com|cdnjs\\.cloudflare\\.com|gist\\.github\\.com|aka\\.ms|api\\.travis-ci\\.org|dev\\.azure\\.com|.*\\.amazonaws\\.com|cdn\\.discordapp\\.com|cdn\\.rawgit\\.com|ci\\.appveyor\\.com|codecov\\.io|coveralls\\.io|i\\.imgur\\.com|i\\.bbg\\.co|storage\\.googleapis\\.com|www\\.codefactor\\.io|www\\.kernel\\.org|www\\.microsoft\\.com|(.*\\.|)visualstudio\\.com|camo\\.githubusecontent\\.com|user-images\\.githubusercontent\\.com|raw\\.githubusercontent\\.com)(\\.lan|)",
+        "list": null
+      }
+    ]
+  }
+}

@@ -1,10 +1,13 @@
+---
 - name: Make sure systemd-resolved is disabled
   systemd:
     name: systemd-resolved
     state: stopped
-    enabled: no
+    enabled: false
 
 - name: Install required packages
+  register: install_dns
+  until: install_dns is succeeded
   apt:
     name:
       - openresolv
@@ -18,82 +21,71 @@
   copy:
     src: stubby.yml
     dest: /etc/stubby/stubby.yml
-    mode: 0640
-    owner: stubby
-    group: stubby
-  register: stubbyconfigure
-
-- name: Restart stubby
-  when: stubbyconfigure.changed
-  systemd:
-    name: stubby
-    state: restarted
-    enabled: yes
+    mode: 0444
+  notify:
+    - restart stubby
 
 - name: Ensure stubby is enabled
   systemd:
     name: stubby
-    enabled: yes
+    enabled: true
 
 - name: Configure unbound
   copy:
     src: unbound.conf
     dest: /etc/unbound/unbound.conf
-    mode: 0644
+    mode: 0444
     owner: unbound
-  register: unboundconfigure
+    group: unbound
+  notify:
+    - reload unbound
 
 - name: Ensures /etc/unbound/lists.d exists
   file:
-    path: "/etc/unbound/lists.d"
+    path: /etc/unbound/lists.d
     state: directory
-    owner: "unbound"
-    group: "unbound"
+    owner: unbound
+    group: unbound
+    mode: 0555
 
 - name: Copy dns blacklist updater script
   copy:
     src: blocklist.sh
     dest: /usr/local/bin/blocklist.sh
-    mode: 'a+x'
+    mode: 0555
 
 - name: Add systemd timer for blocklist
   copy:
-    src: 'systemd/blocklist.timer'
-    dest: "/etc/systemd/system/blocklist.timer"
-    mode: '0640'
+    src: systemd/blocklist.timer
+    dest: /etc/systemd/system/blocklist.timer
+    mode: "0640"
 
 - name: Add systemd service for blocklist updates
   copy:
-    src: 'systemd/blocklist.service'
-    dest: "/etc/systemd/system/blocklist.service"
-    mode: '0640'
+    src: systemd/blocklist.service
+    dest: /etc/systemd/system/blocklist.service
+    mode: 0550
 
 - name: Enable blocklist timer
   systemd:
     name: blocklist.timer
-    enabled: yes
+    enabled: true
     state: started
-
-- name: Restart unbound
-  when: unboundconfigure.changed
-  systemd:
-    name: unbound
-    state: restarted
-    enabled: yes
 
 - name: Ensure unbound is enabled
   systemd:
     name: unbound
-    enabled: yes
+    enabled: true
 
 - name: Set our local dns resolver
   lineinfile:
-    path: '/etc/resolvconf.conf'
-    regexp: '^name_servers='
-    line: 'name_servers="::1 127.0.0.1"'
-    mode: 0640
+    path: /etc/resolvconf.conf
+    regexp: ^name_servers=
+    line: name_servers="::1 127.0.0.1"
+    mode: 0440
   register: resolvconfconfigure
 
 - name: Regenerate resolv.conf
-  shell: 'resolvconf -u'
+  shell: resolvconf -u
   when: resolvconfconfigure.changed
+  changed_when: False

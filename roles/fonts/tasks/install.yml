@@ -1,4 +1,7 @@
+---
 - name: Install fonts packages
+  register: install_fonts
+  until: install_fonts is succeeded
   apt:
     name:
       - fonts-hack
@@ -18,6 +21,10 @@
       - fonts-umeplus
       - fonts-croscore
       - fonts-font-awesome
+      - fonts-lato
+      - fonts-roboto
+      - fonts-stix
+      - fonts-opensymbol
     state: present
   tags:
     - dependencies

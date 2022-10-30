@@ -1,16 +1,20 @@
+---
 - name: Create searx user
   user:
     name: searx
     shell: /bin/false
-    create_home: yes
+    create_home: true
     home: /var/lib/searx
-    system: yes
+    system: true
+  register: searx_user
 
 - name: Add subguid/subuids for user
   shell: usermod --add-subuids 100000-165535 --add-subgids 100000-165535 searx
+  changed_when: false
 
 - name: Run podman system migrate
   shell: podman system migrate
+  changed_when: false
 
 - name: Pull searx image
   containers.podman.podman_image:
@@ -18,40 +22,28 @@
 
 - name: Ensures /etc/searx exists
   file:
-    path: "/etc/searx"
+    path: /etc/searx
     state: directory
-    owner: "searx"
-    group: "searx"
+    owner: searx
+    group: searx
+    mode: 0750
 
 - name: Copy searx config
   template:
     src: searx/settings.yml.j2
-    dest: "/etc/searx/settings.yml"
-    owner: "searx"
-    group: "searx"
-
-- name: Create searx container
-  become: yes
-  become_user: searx
-  containers.podman.podman_container:
-    name: searx
-    image: registry.hub.docker.com/searx/searx
-    state: present
-    network: host
-    env:
-      BASE_URL: "http://localhost:8888/"
-      BIND_ADDRESS: "127.0.0.1:8888"
-    volume:
-      - '/etc/searx:/etc/searx:ro'
+    dest: /etc/searx/settings.yml
+    mode: 0440
+    owner: searx
+    group: searx
 
 - name: Add systemd service
-  copy:
-    src: 'systemd/searx.service'
-    dest: "/etc/systemd/system/searx.service"
-    mode: '0640'
+  template:
+    src: systemd/searx.service.j2
+    dest: /etc/systemd/system/searx.service
+    mode: "0640"
 
 - name: Enable searx service
   systemd:
     name: searx
-    enabled: yes
+    enabled: true
     state: started

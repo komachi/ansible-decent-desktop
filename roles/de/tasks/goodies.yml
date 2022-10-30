@@ -1,54 +1,65 @@
+---
 - name: Install other gooodies
+  register: install_goodies
+  until: install_goodies is succeeded
   apt:
     name:
+      - kanshi
       - brightnessctl
       - brightness-udev
       - network-manager-gnome
       - xdg-user-dirs
-      - kanshi
       - ffmpegthumbnailer
       - tumbler
       - playerctl
-      - tb-starter
-      - tb-updater
       - grim
       - slurp
       - wl-clipboard
       - swaybg
       - qtwayland5
       - xwayland
-      - libappindicator1
+      - ripgrep
     state: present
 
 - name: Ensures ~/.config exists
   file:
-    path: "/home/{{ username }}/.config"
+    path: /home/{{ username }}/.config
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: 0750
+
+- name: Configure electron apps to use wayland
+  copy:
+    src: electron-flags.conf
+    dest: /home/{{ username }}/.config/electron-flags.conf
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: 0440
 
 - name: Configure user dirs
   template:
-    src: 'user-dirs.dirs.j2'
-    dest: "/home/{{ username }}/.config/user-dirs.dirs"
-    mode: 0760
+    src: user-dirs.dirs.j2
+    dest: /home/{{ username }}/.config/user-dirs.dirs
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: 0440
 
 - name: Ensures ~/.config/gtk-3.0 exists
   file:
-    path: "/home/{{ username }}/.config/gtk-3.0"
+    path: /home/{{ username }}/.config/gtk-3.0
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: 0750
 
 - name: Configure bookmarks
   template:
-    src: 'bookmarks.j2'
-    dest: "/home/{{ username }}/.config/gtk-3.0/bookmarks"
-    mode: 0660
+    src: bookmarks.j2
+    dest: /home/{{ username }}/.config/gtk-3.0/bookmarks
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: 0440
 
 - name: Install dconfs module deps
   apt:
@@ -58,67 +69,84 @@
     state: present
 
 - name: Configure file-chooser
-  become: yes
+  become: true
   become_user: "{{ username }}"
   dconf:
-    key: "/org/gtk/settings/file-chooser/{{ item.name }}"
+    key: /org/gtk/settings/file-chooser/{{ item.name }}
     value: "{{ item.value }}"
     state: present
   loop:
-    - name: "location-mode"
+    - name: location-mode
       value: "'filename-entry'"
-    - name: "sort-directories-first"
+    - name: sort-directories-first
       value: "true"
-    - name: "startup-mode"
+    - name: startup-mode
       value: "'cwd'"
 
 - name: Configure nm-applet
-  become: yes
+  become: true
   become_user: "{{ username }}"
   dconf:
-    key: "/org/gnome/nm-applet/{{ item.name }}"
+    key: /org/gnome/nm-applet/{{ item.name }}
     value: "{{ item.value }}"
     state: present
   loop:
-    - name: "suppress-wireless-networks-available"
+    - name: suppress-wireless-networks-available
       value: "true"
-    - name: "disable-connected-notification"
+    - name: disable-connected-notification
       value: "true"
 
+- name: Ensures ~/.config/autostart exists
+  file:
+    path: /home/{{ username }}/.config/autostart
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: 0750
+
+- name: Add nm-applet autostart file
+  copy:
+    src: applications/nm-applet.desktop
+    dest: /home/{{ username }}/.config/autostart/nm-applet.desktop
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: 0440
+
 - name: Configure other dconf settings
-  become: yes
+  become: true
   become_user: "{{ username }}"
   dconf:
-    key: "/org/gnome/desktop/{{ item.name }}"
+    key: /org/gnome/desktop/{{ item.name }}
     value: "{{ item.value }}"
     state: present
   loop:
-    - name: "privacy/hide-identity"
+    - name: privacy/hide-identity
       value: "true"
-    - name: "privacy/show-full-name-in-top-bar"
+    - name: privacy/show-full-name-in-top-bar
       value: "false"
-    - name: "privacy/remember-recent-files"
+    - name: privacy/remember-recent-files
       value: "false"
-    - name: "privacy/remember-app-usage"
+    - name: privacy/remember-app-usage
       value: "false"
-    - name: "privacy/old-files-age"
+    - name: privacy/old-files-age
       value: "3"
-    - name: "thumbnail_cache/maximum_age"
+    - name: thumbnail_cache/maximum_age
       value: "3"
-    - name: "media-handling/automount-open"
+    - name: media-handling/automount-open
       value: "false"
-    - name: "media-handling/autorun-never"
+    - name: media-handling/autorun-never
       value: "true"
 
 - name: Ensures /usr/lib/environment.d exists
   file:
-    path: "/usr/lib/environment.d"
+    path: /usr/lib/environment.d
     state: directory
+    mode: 0755
 
 - name: Configure env
   copy:
-    src: "environment.d/{{ item }}.conf"
-    dest: "/usr/lib/environment.d/{{ item }}.conf"
+    src: environment.d/{{ item }}.conf
+    dest: /usr/lib/environment.d/{{ item }}.conf
     mode: 0666
   loop:
     - basic
@@ -127,16 +155,24 @@
 
 - name: Add kanshi systemd user unit
   copy:
-    src: 'systemd/kanshi.service'
-    dest: "/home/{{username}}/.config/systemd/user/kanshi.service"
-    mode: '0640'
+    src: systemd/kanshi.service
+    dest: /home/{{ username }}/.config/systemd/user/kanshi.service
+    mode: 0640
     owner: "{{ username }}"
     group: "{{ username }}"
 
 - name: Enable kanshi systemd user service
-  become: yes
+  become: true
   become_user: "{{ username }}"
   systemd:
     scope: user
-    name: "kanshi"
-    enabled: yes
+    name: kanshi
+    enabled: true
+
+- name: Configure ripgrep
+  copy:
+    src: ripgreprc
+    dest: /home/{{ username }}/.ripgreprc
+    mode: 0660
+    owner: "{{ username }}"
+    group: "{{ username }}"

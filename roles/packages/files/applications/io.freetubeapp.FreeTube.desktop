@@ -2,7 +2,7 @@
 Name=FreeTube
 Comment=An Open Source YouTube app for privacy.
 GenericName=FreeTube
-Exec=/usr/bin/flatpak run --branch=stable --command=/app/bin/run.sh --file-forwarding io.freetubeapp.FreeTube --enable-features=UseOzonePlatform --ozone-platform=wayland --enable-gpu @@u %u @@
+Exec=/usr/bin/flatpak run --branch=stable --command=/app/bin/run.sh --file-forwarding io.freetubeapp.FreeTube --enable-gpu @@u %u @@
 Icon=io.freetubeapp.FreeTube
 Type=Application
 StartupNotify=true

@@ -1,7 +1,8 @@
+---
 - name: Copy fonts.conf
   copy:
-    src: 'fonts.conf'
-    dest: "/home/{{ username }}/.fonts.conf"
+    src: fonts.conf
+    dest: /home/{{ username }}/.fonts.conf
     mode: 0660
     owner: "{{ username }}"
     group: "{{ username }}"

@@ -1,81 +1,89 @@
+---
 - name: Install Tor
+  register: install_tor
+  until: install_tor is succeeded
   apt:
     name:
       - tor
       - deb.torproject.org-keyring
       - torsocks
+      - tb-starter
+      - tb-updater
+      - obfs4proxy
     state: present
 
 - name: Generate tor hashed password
-  become: yes
+  become: true
   become_user: "{{ username }}"
-  shell: "tor --hash-password \"{{ lookup('password', 'credentials/tor_hashed length=15') }}\""
+  shell: tor --hash-password "{{ lookup('password', 'credentials/tor_hashed length=15') }}"
   register: tor_hashed_password
+  changed_when: false
 
 - name: Configure Tor
   template:
-    src: 'tor/torrc.j2'
-    dest: '/etc/tor/torrc'
-    owner: 'debian-tor'
-    group: 'debian-tor'
+    src: tor/torrc.j2
+    dest: /etc/tor/torrc
+    owner: debian-tor
+    group: debian-tor
     mode: 0640
   register: torconfigure
 
 - name: Enable Tor service
   systemd:
     name: tor@default
-    enabled: yes
+    enabled: true
 
 - name: Restart Tor
   when: torconfigure.changed
   systemd:
     name: tor@default
     state: restarted
-    daemon_reload: yes
-    enabled: yes
+    daemon_reload: true
+    enabled: true
 
 - name: Check if tbb is already downloaded
-  stat: 
-    path: "/home/{{ username }}/.tb/tor-browser"
+  stat:
+    path: /home/{{ username }}/.tb/tor-browser
   register: tbb_exists
 
 - name: Download tbb
-  become: yes
+  become: true
   become_user: "{{ username }}"
-  shell: "update-torbrowser --noask --ordinary"
+  shell: update-torbrowser --noask --ordinary
   when: not tbb_exists.stat.exists
 
 - name: Add systemd service for update-torbrowser
   copy:
-    src: "systemd/update-torbrowser.{{ item }}"
-    dest: "/home/{{username}}/.config/systemd/user/update-torbrowser.{{ item }}"
-    mode: '0640'
+    src: systemd/update-torbrowser.{{ item }}
+    dest: /home/{{ username }}/.config/systemd/user/update-torbrowser.{{ item }}
+    mode: "0640"
     owner: "{{ username }}"
     group: "{{ username }}"
   loop:
-    - 'service'
-    - 'timer'
+    - service
+    - timer
 
 - name: Enable update-torbrowser timer
-  become: yes
+  become: true
   become_user: "{{ username }}"
   systemd:
     scope: user
     name: update-torbrowser.timer
-    enabled: yes
+    enabled: true
     state: started
 
 - name: Ensures ~/.local/share/applications exists
   file:
-    path: "/home/{{ username }}/.local/share/applications"
+    path: /home/{{ username }}/.local/share/applications
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: 0750
 
 - name: Copy desktop file
   copy:
-    src: "applications/janondisttorbrowser.desktop"
-    dest: "/home/{{ username }}/.local/share/applications/janondisttorbrowser.desktop"
+    src: applications/janondisttorbrowser.desktop
+    dest: /home/{{ username }}/.local/share/applications/janondisttorbrowser.desktop
     mode: 0640
     owner: "{{ username }}"
     group: "{{ username }}"

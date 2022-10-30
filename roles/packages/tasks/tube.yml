@@ -1,24 +1,27 @@
+---
 - name: Install FreeTube from flatpak
   flatpak:
-    name: "io.freetubeapp.FreeTube"
+    name: io.freetubeapp.FreeTube
     state: present
 
 - name: Ensures ~/.var/app/io.freetubeapp.FreeTube/config/FreeTube exists
   file:
-    path: "/home/{{ username }}/.var/app/io.freetubeapp.FreeTube/config/FreeTube"
+    path: /home/{{ username }}/.var/app/io.freetubeapp.FreeTube/config/FreeTube
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: 0750
 
 - name: Configure FreeTube
   copy:
-    src: "FreeTube/settings.db"
-    dest: "/home/{{ username }}/.var/app/io.freetubeapp.FreeTube/config/FreeTube/settings.db"
+    src: FreeTube/settings.db
+    dest: /home/{{ username }}/.var/app/io.freetubeapp.FreeTube/config/FreeTube/settings.db
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: 0440
 
 - name: Add .stignore to FreeTube dir, sync only important files
-  become: yes
+  become: true
   become_user: "{{ username }}"
   copy:
     content: |
@@ -26,24 +29,21 @@
       !history.db
       !profiles.db
       *
-    dest: "~/.var/app/io.freetubeapp.FreeTube/config/FreeTube/.stignore"
-
-- name: Allow wayland socket
-  shell: "flatpak override {{ item }}"
-  loop:
-    - '--socket=wayland io.freetubeapp.FreeTube'
+    dest: ~/.var/app/io.freetubeapp.FreeTube/config/FreeTube/.stignore
+    mode: 0440
 
 - name: Ensures ~/.local/share/applications exists
   file:
-    path: "/home/{{ username }}/.local/share/applications"
+    path: /home/{{ username }}/.local/share/applications
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: 0750
 
 - name: Copy desktop file
   copy:
-    src: "applications/io.freetubeapp.FreeTube.desktop"
-    dest: "/home/{{ username }}/.local/share/applications/io.freetubeapp.FreeTube.desktop"
+    src: applications/io.freetubeapp.FreeTube.desktop
+    dest: /home/{{ username }}/.local/share/applications/io.freetubeapp.FreeTube.desktop
     mode: 0640
     owner: "{{ username }}"
     group: "{{ username }}"

@@ -1,3 +1,4 @@
+---
 - name: Install deps
   apt:
     name:
@@ -8,8 +9,8 @@
     state: present
 
 - name: Find UUID of root disk
-  shell: "blkid -s UUID -o value /dev/{{ root_disk }}"
-  changed_when: False
+  shell: blkid -s UUID -o value /dev/{{ root_disk }}
+  changed_when: false
   register: root_disk_find_uuid
 
 - set_fact:
@@ -18,28 +19,31 @@
 
 - name: Ensures entries dir exists
   file:
-    path: "/boot/efi/loader/entries"
+    path: /boot/efi/loader/entries
     state: directory
+    mode: 0550
 
 - name: Configure loader
   copy:
-    src: 'loader.conf'
-    dest: "/boot/efi/loader/loader.conf"
+    src: loader.conf
+    dest: /boot/efi/loader/loader.conf
+    mode: 0440
 
 - name: Copy update-systemd-boot.sh
   template:
-    src: 'update-systemd-boot.sh.j2'
-    dest: "/usr/local/bin/update-systemd-boot.sh"
-    mode: '+x'
+    src: update-systemd-boot.sh.j2
+    dest: /usr/local/bin/update-systemd-boot.sh
+    mode: 0550
 
 - name: Copy kernel hooks
   copy:
-    src: 'systemd-boot-kernel-hook.sh'
+    src: systemd-boot-kernel-hook.sh
     dest: "{{ item }}"
-    mode: '+x'
+    mode: 0550
   loop:
     - /etc/kernel/postinst.d/zz-update-systemd-boot
     - /etc/kernel/postrm.d/zz-update-systemd-boot
 
 - name: Install systemd-boot
   shell: bootctl install --path=/boot/efi
+  changed_when: True

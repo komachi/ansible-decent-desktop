@@ -1,0 +1,16 @@
+{
+    "Server": {
+        "Address":"unix:///tmp/osui.sock",
+        "LogFile":"/var/log/opensnitchd.log"
+    },
+    "DefaultAction": "deny",
+    "DefaultDuration": "once",
+    "InterceptUnknown": true,
+    "ProcMonitorMethod": "ebpf",
+    "LogLevel": 2,
+    "Firewall": "nftables",
+    "Stats": {
+        "MaxEvents": 500,
+        "MaxStats": 25
+    }
+}

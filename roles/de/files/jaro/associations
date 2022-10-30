@@ -1,8 +1,7 @@
 (assoc
   #:pattern "^inode/directory$"
   #:program "nnn '%f'"
-  #:term "spacefm '%f'"
-  #:standalone #t)
+)
 
 (assoc
   #:pattern '("^application/(x-audacity-project|ogg)$"
@@ -52,6 +51,7 @@
   #:program "notify-send 'Opening i2p resource %f blocked, link copied'; echo '%f' | wl-copy")
 
 (assoc
+  #:name 'mail'
   #:pattern '("^message/rfc822$"
     "^text/x-vcard$"
     "^mailto:")
@@ -95,5 +95,6 @@
   #:program "/usr/lib/firefox-esr/firefox-esr '%f'")
   
 (assoc
+  #:name 'xmpp'
   #:pattern "^xmpp:"
   #:program "dino-im '%f')

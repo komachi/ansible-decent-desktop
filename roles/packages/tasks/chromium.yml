@@ -1,27 +1,36 @@
-- name: Make sure chromium is not installed
+---
+- name: Make sure ungoogled-chromium is not installed
   apt:
     name:
-      - chromium
-      - chromium-sandbox
+      - ungoogled-chromium
+      - ungoogled-chromium-dbgsym
     state: absent
 
-- name: Install Ungoogled-Chromium
+- name: Install chromium
+  register: install_chromium
+  until: install_chromium is succeeded
   apt:
-    name: ungoogled-chromium
+    name: chromium
     state: present
+
+- name: Add script to source chromium-flags.conf
+  copy:
+    src: chromium/chromium-flags.sh
+    dest: /etc/chromium.d/chromium-flags
+    mode: +x
 
 - name: Configure chromium
   copy:
-    src: 'chromium/chromium-flags.conf'
-    dest: "/home/{{ username }}/.config/chromium-flags.conf"
-    mode: '0640'
+    src: chromium/chromium-flags.conf
+    dest: /home/{{ username }}/.config/chromium-flags.conf
+    mode: "0640"
     owner: "{{ username }}"
     group: "{{ username }}"
 
 - name: Copy desktop files for web apps
   copy:
-    src: "applications/{{ item }}.desktop"
-    dest: "/home/{{ username }}/.local/share/applications/{{ item }}.desktop"
+    src: applications/{{ item }}.desktop
+    dest: /home/{{ username }}/.local/share/applications/{{ item }}.desktop
     mode: 0640
     owner: "{{ username }}"
     group: "{{ username }}"

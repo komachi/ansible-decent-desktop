@@ -1,5 +1,5 @@
 [Desktop Entry]
-Exec=i2pbrowser %u
+Exec=env MOZ_ENABLE_WAYLAND=1 i2pbrowser %u
 Type=Application
 Name=I2P Browser 
 Categories=Network;

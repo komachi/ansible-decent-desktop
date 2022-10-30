@@ -1,4 +1,7 @@
-jaro_url: "https://raw.githubusercontent.com/isamert/jaro/cba1bfa24e84de1b4c6afd766df6d09aa0654510/jaro"
-jaro_checksum: "sha256:5e6c19a29e3da9d03f8ac5b463c44a07ef701eaed4d4b2a1a2e781ebfb3601cb"
-ananicy_repo: "https://github.com/komachi/Ananicy.git"
-ananicy_commit: "94723fcbedd51fb24cea0979aa11401ccb8c530f"
+---
+jaro_url: https://raw.githubusercontent.com/isamert/jaro/cba1bfa24e84de1b4c6afd766df6d09aa0654510/jaro
+jaro_checksum: sha256:5e6c19a29e3da9d03f8ac5b463c44a07ef701eaed4d4b2a1a2e781ebfb3601cb
+ananicy_repo: https://github.com/komachi/Ananicy.git
+ananicy_commit: 94723fcbedd51fb24cea0979aa11401ccb8c530f
+cfs_zen_tweaks_version: 1.2.0
+cfs_zen_tweaks_checksum: sha256:6d1dfffddb44407899a6de2cbd08c212781edb63595c44b689558252a0f1f4be

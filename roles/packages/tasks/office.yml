@@ -1,4 +1,7 @@
+---
 - name: Install libreoffice packages and zathura
+  register: install_office
+  until: install_office is succeeded
   apt:
     name:
       - libreoffice-writer
@@ -13,22 +16,24 @@
 
 - name: Ensures ~/.config/libreoffice/4/user exists
   file:
-    path: "/home/{{ username }}/.config/libreoffice/4/user"
+    path: /home/{{ username }}/.config/libreoffice/4/user
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: 0750
 
 - name: Configure libreoffice
   copy:
     src: libreoffice/registrymodifications.xcu
-    dest: "/home/{{ username }}/.config/libreoffice/4/user/registrymodifications.xcu"
+    dest: /home/{{ username }}/.config/libreoffice/4/user/registrymodifications.xcu
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: 0440
 
 - name: Download zaread
   get_url:
     url: "{{ zaread_url }}"
-    dest: "/home/{{ username }}/.local/bin/zaread"
+    dest: /home/{{ username }}/.local/bin/zaread
     checksum: "{{ zaread_checksum }}"
     owner: "{{ username }}"
     group: "{{ username }}"

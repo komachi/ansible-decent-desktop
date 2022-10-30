@@ -10,8 +10,6 @@
     "cpu",
     "tray",
     "custom/wg",
-    "custom/syncthing",
-    "custom/microphone",
     "pulseaudio",
     "sway/language",
     "custom/time"
@@ -37,7 +35,7 @@
       "15": "",
       "16": "",
       "17": "",
-      "18": "",
+      "18": "",
       "19": "",
       "default": ""
     }
@@ -83,19 +81,9 @@
     "restart-interval": 1,
     "on-click": "gsimplecal"
   },
-  "custom/microphone": {
-    "exec": "~/.config/waybar/microphone.sh",
-    "interval": 1,
-    "on-click": "~/.config/waybar/microphone.sh --toggle &"
-  },
   "custom/wg": {
     "exec": "[ `wg show interfaces | wc -l` = '0' ] && echo '' || echo ''",
     "restart-interval": 3
-  },
-  "custom/syncthing": {
-    "exec": "journalctl --user --follow -o cat --unit syncthing.service | while read -r line; do [ `systemctl --user is-active syncthing.service` = 'active' ] && echo ''; done",
-    "on-click": "systemctl --user stop syncthing.service",
-    "interval": 1
   }
 }
 

@@ -1,0 +1,13 @@
+---
+- name: reload unbound
+  systemd:
+    name: unbound
+    state: reloaded
+    enabled: true
+
+- name: restart stubby
+  systemd:
+    name: stubby
+    state: restarted
+    enabled: true
+    

@@ -1,24 +1,37 @@
+---
 - name: Install guile
+  register: install_guile
+  until: install_guile is succeeded
   apt:
     name: guile-3.0
     state: present
 
 - name: Download jaro
+  register: get_jaro
+  until: get_jaro is succeeded
   get_url:
     url: "{{ jaro_url }}"
-    dest: "/usr/local/bin/jaro"
+    dest: /usr/local/bin/jaro
     checksum: "{{ jaro_checksum }}"
     mode: 0755
 
 - name: Configure jaro associations
   copy:
     src: jaro/associations
-    dest: "/home/{{ username }}/.config/associations"
+    dest: /home/{{ username }}/.config/associations
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: 0440
 
 - name: Use jaro as xdg-open
   file:
-    src: "/usr/local/bin/jaro"
-    dest: "/usr/local/bin/xdg-open"
+    src: /usr/local/bin/jaro
+    dest: /usr/local/bin/xdg-open
     state: link
+    mode: 0755
+
+- name: Set jaro as open
+  alternatives:
+    name: open
+    link: /usr/local/bin/open
+    path: /usr/local/bin/jaro

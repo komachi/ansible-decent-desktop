@@ -1,16 +1,16 @@
-- name: Install pulseaudio, openal and pipewire
+- name: Remove pulseaudio
+  apt:
+    name: pulseaudio
+    state: absent
+
+- name: Install pipewire and openal
   apt:
     name:
-      - pulseaudio
-      - pulseaudio-utils
       - libopenal1
       - pipewire
+      - wireplumber
+      - pipewire-pulse
+      - pipewire-alsa
+      - pipewire-jack
+      - pulseaudio-utils
     state: present
-
-- name: Configure pulseaudio
-  copy:
-    src: "{{ item }}"
-    dest: "/etc/pulse/{{ item }}"
-  loop:
-   - daemon.conf
-   - default.pa

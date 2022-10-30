@@ -1,4 +1,7 @@
+---
 - name: Install Dino
+  register: install_dino
+  until: install_dino is succeeded
   apt:
     name: dino-im
     state: present

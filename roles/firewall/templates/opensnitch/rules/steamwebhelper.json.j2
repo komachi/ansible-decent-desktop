@@ -1,0 +1,37 @@
+{
+  "created": "1970-01-01T12:00:00.000000000Z",
+  "updated": "1970-01-01T12:00:00.000000000Z",
+  "name": "steamwebhelper",
+  "enabled": true,
+  "precedence": false,
+  "action": "allow",
+  "duration": "always",
+  "operator": {
+    "type": "list",
+    "operand": "list",
+    "sensitive": false,
+    "list": [
+      {
+        "type": "simple",
+        "operand": "process.path",
+        "sensitive": false,
+        "data": "/home/{{ username }}/.var/app/com.valvesoftware.Steam/.local/share/Steam/ubuntu12_64/steamwebhelper",
+        "list": null
+      },
+      {
+        "type": "regexp",
+        "operand": "dest.port",
+        "sensitive": false,
+        "data": "53|443",
+        "list": null
+      },
+      {
+        "type": "regexp",
+        "operand": "dest.host",
+        "sensitive": false,
+        "data": "^(.*\\.steampowered\\.com|steamchat\\.com|steam-chat\\.com|.*\\.steamstatic\\.com|steamcdn-a\\.akamaihd\\.net|steamcommunity\\.com|www\\.gstatic\\.com|fonts\\.gstatic\\.com|fonts\\.googleapis\\.com|yt3\\.ggpht\\.com|www\\.google\\.com|googlevideo\\.com|recaptcha\\.net|steamuserimages-a\\.akamaihd\\.net|steamusercontent-a\\.akamaihd\\.net|steamstore-a\\.akamaihd\\.net|steambroadcast\\.akamaized\\.net|steamcommunity\\.com|media\\.st\\.dl\\.pinyuncloud\\.com|img\\.youtube\\.com|www\\.youtube\\.com|i\\.ytimg\\.com|crl4\\.digicert\\.com|ocsp\\.digicert\\.com|status\\.twawte\\.com|(www\\.|)paypal\\.com|www\\.paypalobjects\\.com)$",
+        "list": null
+      }
+    ]
+  }
+}

@@ -1,4 +1,7 @@
+---
 - name: Install waybar and deps
+  register: install_waybar
+  until: install_waybar is succeeded
   apt:
     name:
       - waybar
@@ -7,53 +10,43 @@
 
 - name: Ensures ~/.config/gsimplecal exists
   file:
-    path: "/home/{{ username }}/.config/gsimplecal"
+    path: /home/{{ username }}/.config/gsimplecal
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: 0750
 
 - name: Copy gsimplecal config
   copy:
     src: gsimplecal/config
-    dest: "/home/{{ username }}/.config/gsimplecal/config"
+    dest: /home/{{ username }}/.config/gsimplecal/config
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: 0440
 
 - name: Ensures ~/.config/waybar exists
   file:
-    path: "/home/{{ username }}/.config/waybar"
+    path: /home/{{ username }}/.config/waybar
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: 0750
 
 - name: Configure waybar
   copy:
-    src: "waybar/{{ item }}"
-    dest: "/home/{{ username }}/.config/waybar/{{ item }}"
+    src: waybar/{{ item }}
+    dest: /home/{{ username }}/.config/waybar/{{ item }}
     owner: "{{ username }}"
     group: "{{ username }}"
+    mode: 0440
   loop:
-    - 'config'
-    - 'style.css'
-    - 'microphone.sh'
-
-- name: Add executable for microphone.sh
-  file:
-    dest: "/home/{{ username }}/.config/waybar/microphone.sh"
-    mode: 'a+x'
-
-- name: Add waybar systemd user unit
-  copy:
-    src: 'systemd/waybar.service'
-    dest: "/home/{{username}}/.config/systemd/user/waybar.service"
-    mode: '0640'
-    owner: "{{ username }}"
-    group: "{{ username }}"
+    - config
+    - style.css
 
 - name: Enable waybar systemd user service
-  become: yes
+  become: true
   become_user: "{{ username }}"
   systemd:
     scope: user
-    name: "waybar"
-    enabled: yes
+    name: waybar
+    enabled: true

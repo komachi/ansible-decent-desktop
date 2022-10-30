@@ -1,0 +1,28 @@
+---
+- name: Install steam-devices
+  register: install_steam_devices
+  until: install_steam_devices is succeeded
+  package:
+    name: steam-devices
+    state: present
+
+- name: Install Steam from flatpak
+  become: true
+  become_user: "{{ username }}"
+  register: install_steam
+  until: install_steam is succeeded
+  flatpak:
+    name: com.valvesoftware.Steam
+    state: present
+
+- name: Ensures /var/lib/flatpak/overrides exists
+  file:
+    path: /var/lib/flatpak/overrides
+    state: directory
+    mode: 0555
+
+- name: Copy Steam overrides config
+  copy:
+    src: flatpak/overrides/com.valvesoftware.Steam
+    dest: /var/lib/flatpak/overrides/com.valvesoftware.Steam
+    mode: 0444
