@@ -1,6 +1,7 @@
 ---
-- name: Install monero
-  register: install_monero
-  until: install_monero is succeeded
-  apt:
-    name: monero-gui
+- name: Install monero from flatpak
+  become: true
+  become_user: "{{ username }}"
+  community.general.flatpak:
+    name: org.getmonero.Monero
+    state: present

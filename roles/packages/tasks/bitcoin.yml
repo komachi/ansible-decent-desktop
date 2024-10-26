@@ -1,48 +1,49 @@
 ---
 - name: Install electrum
-  apt:
+  ansible.builtin.apt:
     name:
       - electrum
+      - python3-qdarkstyle
       - python3-btchip
       - python3-trezor
       - python3-zbar
     state: present
 
 - name: Ensures ~/.electrum exists
-  file:
+  ansible.builtin.file:
     path: /home/{{ username }}/.electrum
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: 0750
+    mode: "0750"
 
 - name: Configure electrum
-  copy:
+  ansible.builtin.copy:
     src: electrum/config
     dest: /home/{{ username }}/.electrum/config
-    mode: 0640
+    mode: "0640"
     owner: "{{ username }}"
     group: "{{ username }}"
 
 - name: Install wasabiwallet from flatpak
   become: true
   become_user: "{{ username }}"
-  flatpak:
+  community.general.flatpak:
     name: io.wasabiwallet.WasabiWallet
     state: present
 
 - name: Ensures ~/.var/io.wasabiwallet.WasabiWallet/.walletwasabi/client exists
-  file:
+  ansible.builtin.file:
     path: /home/{{ username }}/.var/io.wasabiwallet.WasabiWallet/.walletwasabi/client
-    mode: 0750
+    mode: "0750"
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
 
 - name: Configure wasabi wallet ui
-  copy:
+  ansible.builtin.copy:
     src: walletwasabi/UiConfig.json
-    dest: "/home/{{ username }}/.var/io.wasabiwallet.WasabiWallet/.walletwasabi/client/UiConfig.json"
-    mode: 0440
+    dest: /home/{{ username }}/.var/io.wasabiwallet.WasabiWallet/.walletwasabi/client/UiConfig.json
+    mode: "0440"
     owner: "{{ username }}"
     group: "{{ username }}"

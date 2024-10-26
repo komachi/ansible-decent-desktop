@@ -1,55 +1,7 @@
 ---
-- name: Install OSM Scout Server and Pure Maps from flatpak
-  flatpak:
-    name: "{{ item }}"
+- name: Install Organic Maps from flatpak
+  become: true
+  become_user: "{{ username }}"
+  community.general.flatpak:
+    name: app.organicmaps.desktop
     state: present
-  loop:
-    - io.github.rinigus.OSMScoutServer
-    - io.github.rinigus.PureMaps
-
-- name: Ensures ~/.var/app/io.github.rinigus.OSMScoutServer/config/osmscout-server exists
-  file:
-    path: /home/{{ username }}/.var/app/io.github.rinigus.OSMScoutServer/config/osmscout-server
-    state: directory
-    owner: "{{ username }}"
-    group: "{{ username }}"
-    mode: 0750
-
-- name: Configure OSM Scout Server
-  ini_file:
-    path: /home/{{ username }}/.var/app/io.github.rinigus.OSMScoutServer/config/osmscout-server/osmscout-server.conf
-    section: "{{ item[0] }}"
-    option: "{{ item[1] }}"
-    value: "{{ item[2] }}"
-    create: true
-    group: "{{ username }}"
-    owner: "{{ username }}"
-    mode: 0440
-  loop: "{{ osmscout_options }}"
-
-- name: Ensures ~/.var/app/io.github.rinigus.PureMaps/config/io.github.rinigus.PureMaps exists
-  file:
-    path: /home/{{ username }}/.var/app/io.github.rinigus.PureMaps/config/io.github.rinigus.PureMaps
-    state: directory
-    owner: "{{ username }}"
-    group: "{{ username }}"
-    mode: 0750
-
-- name: Configure Pure Maps
-  copy:
-    src: PureMaps/pure-maps.json
-    dest: /home/{{ username }}/.var/app/io.github.rinigus.PureMaps/config/io.github.rinigus.PureMaps/pure-maps.json
-    owner: "{{ username }}"
-    group: "{{ username }}"
-    mode: 0440
-
-- name: Add systemd service and socket
-  copy:
-    src: systemd/osmscout-server.{{ item }}
-    dest: /home/{{ username }}/.config/systemd/user/osmscout-server.{{ item }}
-    mode: "0640"
-    owner: "{{ username }}"
-    group: "{{ username }}"
-  loop:
-    - service
-    - socket

@@ -2,24 +2,24 @@
 - name: Install scrcpy
   register: install_scrcpy
   until: install_scrcpy is succeeded
-  apt:
+  ansible.builtin.apt:
     name:
       - scrcpy
       - adb
     state: present
 
 - name: Ensures ~/.local/share/applications exists
-  file:
+  ansible.builtin.file:
     path: /home/{{ username }}/.local/share/applications
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: 0750
+    mode: "0750"
 
 - name: Copy desktop file
-  copy:
+  ansible.builtin.copy:
     src: applications/scrcpy.desktop
     dest: /home/{{ username }}/.local/share/applications/scrcpy.desktop
-    mode: 0640
+    mode: "0640"
     owner: "{{ username }}"
     group: "{{ username }}"

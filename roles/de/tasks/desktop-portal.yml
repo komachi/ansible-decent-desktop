@@ -1,0 +1,25 @@
+---
+- name: Install desktop portals
+  register: install_desktop_portals
+  until: install_desktop_portals is succeeded
+  ansible.builtin.apt:
+    name:
+      - xdg-desktop-portal
+      - xdg-desktop-portal-wlr
+    state: present
+
+- name: Ensures ~/.config/xdg-desktop-portal-wlr exists
+  ansible.builtin.file:
+    path: /home/{{ username }}/.config/xdg-desktop-portal-wlr
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "0750"
+
+- name: Configure xdg-desktop-portal-wlr
+  ansible.builtin.copy:
+    src: xdg-desktop-portal-wlr/config
+    dest: /home/{{ username }}/.config/xdg-desktop-portal-wlr/config
+    mode: "0640"
+    owner: "{{ username }}"
+    group: "{{ username }}"

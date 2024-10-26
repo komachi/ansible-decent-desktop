@@ -1,8 +1,8 @@
 ---
 - name: Add sway to ~/.profile
-  blockinfile:
+  ansible.builtin.blockinfile:
     path: /home/{{ username }}/.profile
-    mode: 0755
+    mode: "0755"
     create: true
     owner: "{{ username }}"
     group: "{{ username }}"
@@ -15,13 +15,18 @@
       fi
 
 - name: Ensures /etc/systemd/system/getty@tty1.service.d exists
-  file:
+  ansible.builtin.file:
     path: /etc/systemd/system/getty@tty1.service.d
     state: directory
-    mode: 0755
+    mode: "0755"
 
 - name: Enable autologin on tty1
-  template:
+  ansible.builtin.template:
     src: systemd/override.conf.j2
     dest: /etc/systemd/system/getty@tty1.service.d/override.conf
-    mode: 0644
+    mode: "0644"
+
+- name: Enable linger
+  ansible.builtin.command:
+    cmd: loginctl enable-linger {{ username }}
+    creates: /var/lib/systemd/linger/{{ username }}

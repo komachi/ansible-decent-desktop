@@ -17,7 +17,7 @@
 
 (assoc
   #:pattern "^image/(bmp|gif|jpeg|jpg|png|tiff|x-bmp|x-portable-anymap|x-portable-bitmap|x-portable-graymap|x-tga|x-xpixmap)$"
-  #:program "imvr '%f'"
+  #:program "imv-wayland '%f'"
   #:edit "gimp '%f'")
 
 (assoc
@@ -73,11 +73,15 @@
   #:program "uget-gtk '%f'")
 
 (assoc
+  #:pattern "^(magnet:\\?|ftp://)"
+  #:program "uget-gtk '%f'")
+
+(assoc
   #:pattern "^bitcoin:"
   #:program "wassabee '%f'")
 
 (assoc
-  #:pattern "^text/"
+  #:pattern "^(text/|application/toml)"
   #:program "micro '%f'"
   #:edit "codium '%f'"
 )

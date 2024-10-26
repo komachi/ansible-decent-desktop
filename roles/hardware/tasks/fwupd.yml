@@ -1,0 +1,20 @@
+---
+- name: Disable msr module load
+  ansible.builtin.file:
+    path: /etc/containers/nodocker
+    state: touch
+    mode: "0444"
+
+- name: Install fwupd
+  register: install_fwupd
+  until: install_fwupd is succeeded
+  ansible.builtin.apt:
+    name:
+      - fwupd
+    state: present
+
+- name: Disable msr plugin
+  ansible.builtin.lineinfile:
+    path: /etc/fwupd/daemon.conf
+    regexp: ^DisabledPlugins=
+    line: DisabledPlugins=test;test_ble;msr

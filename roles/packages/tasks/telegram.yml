@@ -2,6 +2,6 @@
 - name: Install telegram-desktop
   register: install_telegram
   until: install_telegram is succeeded
-  apt:
+  ansible.builtin.apt:
     name: telegram-desktop
     state: present

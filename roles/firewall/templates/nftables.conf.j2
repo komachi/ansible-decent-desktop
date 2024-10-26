@@ -21,16 +21,32 @@ table inet filter {
     ip6 nexthdr icmpv6 icmpv6 type { nd-neighbor-solicit, echo-request, nd-router-advert, nd-neighbor-advert } limit rate 10/second accept
     ip protocol icmp icmp type { destination-unreachable, router-solicitation, router-advertisement, time-exceeded, parameter-problem } limit rate 10/second accept
 
-{% if username == 'vagrant' %}
-    tcp dport 22 accept comment "Accept SSH"
-{% endif %}
+    tcp dport 4001 accept comment "ipfs"
+    udp dport 4001 accept comment "ipfs"
+    udp dport 6881 accept comment "bittorrent"
+    tcp dport 6881 accept comment "bittorrent"
+    tcp dport 22000 accept comment "syncthing"
+    udp dport 22000 accept comment "syncthing"
+    tcp dport 21027 accept comment "syncthing local discovery"
   }
 
   chain forward {
     type filter hook forward priority 0; policy drop;
-    ct state established, related accept;
+    jump DOCKER-ISOLATION-STAGE-1
+    iifname "docker0" accept
+    ct state vmap { established: accept, related: accept, invalid: drop }
     mark 1 accept
   }
+
+  chain DOCKER-ISOLATION-STAGE-1 {
+		iifname "docker0" oifname != "docker0" jump DOCKER-ISOLATION-STAGE-2
+		return
+	}
+
+	chain DOCKER-ISOLATION-STAGE-2 {
+		oifname "docker0" drop
+		return
+	}
 
   chain output {
     type filter hook output priority 0; policy accept;
@@ -55,5 +71,17 @@ table inet nat {
     tcp flags & (fin|syn|rst|ack) != syn \
       ct state new \
       drop
+
+    iifname "docker0" fib daddr type local accept
+  }
+
+  chain postrouting {
+    type nat hook postrouting priority 100; policy accept;
+		oifname != "docker0" ip saddr 172.17.0.0/16 counter masquerade
+  }
+
+  chain output {
+    type nat hook output priority -100; policy accept;
+		iifname "docker0" ip daddr != 127.0.0.0/8 fib daddr type local accept
   }
 }

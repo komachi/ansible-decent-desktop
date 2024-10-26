@@ -2,6 +2,6 @@
 - name: Install gimp
   register: install_gimp
   until: install_gimp is succeeded
-  apt:
+  ansible.builtin.apt:
     name: gimp
     state: present

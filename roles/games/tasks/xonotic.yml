@@ -2,6 +2,6 @@
 - name: Install Xonotic from flatpak
   become: true
   become_user: "{{ username }}"
-  flatpak:
+  community.general.flatpak:
     name: org.xonotic.Xonotic
     state: present

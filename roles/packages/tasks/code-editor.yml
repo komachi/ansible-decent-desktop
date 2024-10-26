@@ -1,56 +1,61 @@
 ---
-- name: Install vscodium
+- name: Install vscodium and deps
   register: install_vscodium
   until: install_vscodium is succeeded
-  apt:
-    name: codium
+  ansible.builtin.apt:
+    name:
+      - codium
+      - ansible-lint
+      - shellcheck
     state: present
 
 - name: Ensures ~/.config/VSCodium/User exists
-  file:
+  ansible.builtin.file:
     path: /home/{{ username }}/.config/VSCodium/User
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: 0750
+    mode: "0750"
 
 - name: Copy vscodium config
-  copy:
+  ansible.builtin.copy:
     src: vscodium/settings.json
     dest: /home/{{ username }}/.config/VSCodium/User/settings.json
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: 0440
+    mode: "0440"
 
 - name: Find installed vscodium extensions
   become: true
   become_user: "{{ username }}"
-  shell: codium --list-extensions
+  ansible.builtin.command: codium --list-extensions
   register: vscodium_installed_extensions_raw
   changed_when: false
 
-- set_fact:
+- ansible.builtin.set_fact:
     vscodium_installed_extensions: "{{ (vscodium_installed_extensions_raw.stdout | lower).split('\n') }}"
 
 - name: Install requested extensions
   become: true
   become_user: "{{ username }}"
-  shell: codium --install-extension {{ item }} --force
+  ansible.builtin.command: codium --install-extension {{ item }} --force
   when: item not in vscodium_installed_extensions
   loop: "{{ vscodium_extensions | map('lower') | list }}"
+  register: vscodium_installing_extensions
+  changed_when: vscodium_installing_extensions.stdout | length > 0
 
 - name: Ensures ~/.local/share/applications exists
-  file:
+  ansible.builtin.file:
     path: /home/{{ username }}/.local/share/applications
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: 0750
+    mode: "0750"
 
 - name: Copy desktop file
-  copy:
+  ansible.builtin.copy:
     src: applications/codium.desktop
     dest: /home/{{ username }}/.local/share/applications/codium.desktop
-    mode: 0640
+    mode: "0640"
     owner: "{{ username }}"
     group: "{{ username }}"

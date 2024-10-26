@@ -1,3 +1,38 @@
 ---
-- include_tasks: install.yml
-- include_tasks: hinting.yml
+- name: Install fonts packages
+  register: install_fonts
+  until: install_fonts is succeeded
+  ansible.builtin.apt:
+    name:
+      - fonts-hack
+      - fonts-liberation2
+      - fonts-noto-core
+      - fonts-noto-cjk
+      - fonts-noto-color-emoji
+      - fonts-noto-ui-core
+      - fonts-noto-mono
+      - fonts-roboto
+      - fonts-dejavu
+      - fonts-linuxlibertine
+      - fonts-open-sans
+      - fonts-stix
+      - fonts-crosextra-caladea
+      - fonts-crosextra-carlito
+      - fonts-umeplus
+      - fonts-croscore
+      - fonts-font-awesome
+      - fonts-lato
+      - fonts-roboto
+      - fonts-stix
+      - fonts-opensymbol
+    state: present
+  tags:
+    - dependencies
+
+- name: Copy fonts.conf
+  ansible.builtin.copy:
+    src: fonts.conf
+    dest: /home/{{ username }}/.fonts.conf
+    mode: "0660"
+    owner: "{{ username }}"
+    group: "{{ username }}"

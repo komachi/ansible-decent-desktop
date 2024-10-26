@@ -11,26 +11,53 @@ listen_addresses:
 
 upstream_recursive_servers:
   - address_data: 185.49.141.37
-    tls_auth_name: "getdnsapi.net"
+    tls_auth_name: getdnsapi.net
     tls_port: 443
+    tls_pubkey_pinset:
+      - digest: sha256
+        value: foxZRnIh9gZpWnl+zEiKa0EJ2rdCGroMWm02gaxSc9Q=
+  - address_data: 89.234.186.112
+    tls_port: 443
+    tls_auth_name: dns.neutopia.org
+    tls_pubkey_pinset:
+      - digest: sha256
+        value: wTeXHM8aczvhRSi0cv2qOXkXInoDU+2C+M8MpRyT3OI=
   - address_data: 91.239.100.100
-    tls_auth_name: "anycast.censurfridns.dk"
-  - address_data: 185.222.222.222
-    tls_auth_name: "dot.sb"
-  - address_data: 45.11.45.11
-    tls_auth_name: "dot.sb"
+    tls_auth_name: anycast.censurfridns.dk
+    tls_pubkey_pinset:
+      ######  pin for "deic-ore.anycast.censurfridns.dk RSA"
+      - digest: sha256
+        value: 2JjZgBZkfjSjs117vX+AnyKeYzJNM38zwsaxHwStWsg=
+      ######  pin for "deic-ore.anycast.censurfridns.dk ECDSA"
+      - digest: sha256
+        value: UXs8xWXai9ZXBAjDKYDiYl/jbIYtyV/bY2w3F1FFTDs=
+      ######  pin for "deic-lgb.anycast.censurfridns.dk RSA"
+      - digest: sha256
+        value: oDxJrI/lG1Jhl1J7LvapMlYwlHMphZUODvCDBm0nof8=
+      ######  pin for "deic-lgb.anycast.censurfridns.dk ECDSA"
+      - digest: sha256
+        value: iYkCUwXdH7sT8qh26zt+r5dbTySL43wgJtLCTHaSH9M=
+      ######  pin for "kracon.anycast.censurfridns.dk RSA"
+      - digest: sha256
+        value: Clii3HzZr48onFoog7I0ma5QmMPSpOBpCykXqgA0Wn0=
+      ######  pin for "kracon.anycast.censurfridns.dk ECDSA"
+      - digest: sha256
+        value: 6eW98h0+xxuaGQkgNalEU5e/hbgKyUoydpPMY6xcKyY=
+      ######  pin for "rgnet-iad.anycast.censurfridns.dk RSA"
+      - digest: sha256
+        value: sp2Low3+oTsQljNzs3gkYgLRYo7o91t3XGka+pwX//4=
+      ######  pin for "rgnet-iad.anycast.censurfridns.dk ECDSA"
+      - digest: sha256
+        value: /NPc7sIUzKLAQbsvRRhK6Ul3jip6Gi49bxutfrzpsQM=
+  - address_data: 158.64.1.29
+    tls_auth_name: dnspub.restena.lu
+    tls_pubkey_pinset:
+      - digest: sha256
+        value: aC/vKm0neSr3uDucVsYO62RPZ4ETWjoI0Gw8uWjGdLg=
   - address_data: 146.255.56.98
     tls_port: 443
-    tls_auth_name: "dot1.applied-privacy.net"
-  - address_data: 2a02:1b8:10:234::2
-    tls_port: 443
-    tls_auth_name: "dot1.applied-privacy.net"
-  - address_data: 2001:67c:28a4::0
-    tls_auth_name: "anycast.censurfridns.dk"
-  - address_data: 2a04:b900:0:100::38
-    tls_port: 443
-    tls_auth_name: "getdnsapi.net"
-  - address_data: 2a09:0000:0000:0000:0000:0000:0000:0000
-    tls_auth_name: "dot.sb"
-  - address_data: 2a11:0000:0000:0000:0000:0000:0000:0000
-    tls_auth_name: "dot.sb"
+    tls_auth_name: dot1.applied-privacy.net
+  - address_data: 176.103.130.130
+    tls_auth_name: dns.adguard.com
+  - address_data: 176.103.130.131
+    tls_auth_name: dns.adguard.com

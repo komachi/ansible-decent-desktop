@@ -1,8 +1,20 @@
 ---
+- name: Ensure nodejs is installed
+  ansible.builtin.apt:
+    name:
+      - nodejs
+    state: present
+
 - name: Configure npm
-  copy:
-    src: npmrc
-    dest: /home/{{ username }}/.npmrc
-    mode: 0640
+  ansible.builtin.blockinfile:
+    path: /home/{{ username }}/.npmrc
+    create: true
+    mode: "0640"
     owner: "{{ username }}"
     group: "{{ username }}"
+    block: |
+      prefix=~/.local
+      fund=false
+      send-metrics=false
+      update-notifier=false
+      audit=false

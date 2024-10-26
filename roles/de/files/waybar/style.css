@@ -38,7 +38,7 @@ tooltip label {
 #pulseaudio,
 #custom-microphone,
 #custom-syncthing {
-  padding: 0 2px;
+  padding: 0 4px;
 }
 
 #tray > .passive {
@@ -51,8 +51,9 @@ tooltip label {
 }
 
 #network.disconnected,
-#pulseaudio.muted,
-#custom-wg {
+#wireplumber.muted,
+#custom-wg,
+#privacy {
   color: #bf616a;
 }
 
@@ -62,4 +63,12 @@ tooltip label {
 
 #custom-syncthing {
   color: #2f2f2f;
+}
+
+#battery.charging {
+  color: #26A65B;
+}
+
+#battery.warning:not(.charging) {
+  color: #f53c3c;
 }

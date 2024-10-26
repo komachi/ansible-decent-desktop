@@ -2,7 +2,7 @@
 - name: Install other gooodies
   register: install_goodies
   until: install_goodies is succeeded
-  apt:
+  ansible.builtin.apt:
     name:
       - kanshi
       - brightnessctl
@@ -22,47 +22,47 @@
     state: present
 
 - name: Ensures ~/.config exists
-  file:
+  ansible.builtin.file:
     path: /home/{{ username }}/.config
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: 0750
+    mode: "0750"
 
 - name: Configure electron apps to use wayland
-  copy:
+  ansible.builtin.copy:
     src: electron-flags.conf
     dest: /home/{{ username }}/.config/electron-flags.conf
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: 0440
+    mode: "0440"
 
 - name: Configure user dirs
-  template:
+  ansible.builtin.template:
     src: user-dirs.dirs.j2
     dest: /home/{{ username }}/.config/user-dirs.dirs
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: 0440
+    mode: "0440"
 
 - name: Ensures ~/.config/gtk-3.0 exists
-  file:
+  ansible.builtin.file:
     path: /home/{{ username }}/.config/gtk-3.0
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: 0750
+    mode: "0750"
 
 - name: Configure bookmarks
-  template:
+  ansible.builtin.template:
     src: bookmarks.j2
     dest: /home/{{ username }}/.config/gtk-3.0/bookmarks
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: 0440
+    mode: "0440"
 
 - name: Install dconfs module deps
-  apt:
+  ansible.builtin.apt:
     name:
       - python3-psutil
       - dconf-cli
@@ -71,7 +71,7 @@
 - name: Configure file-chooser
   become: true
   become_user: "{{ username }}"
-  dconf:
+  community.general.dconf:
     key: /org/gtk/settings/file-chooser/{{ item.name }}
     value: "{{ item.value }}"
     state: present
@@ -86,7 +86,7 @@
 - name: Configure nm-applet
   become: true
   become_user: "{{ username }}"
-  dconf:
+  community.general.dconf:
     key: /org/gnome/nm-applet/{{ item.name }}
     value: "{{ item.value }}"
     state: present
@@ -97,25 +97,25 @@
       value: "true"
 
 - name: Ensures ~/.config/autostart exists
-  file:
+  ansible.builtin.file:
     path: /home/{{ username }}/.config/autostart
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: 0750
+    mode: "0750"
 
 - name: Add nm-applet autostart file
-  copy:
+  ansible.builtin.copy:
     src: applications/nm-applet.desktop
     dest: /home/{{ username }}/.config/autostart/nm-applet.desktop
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: 0440
+    mode: "0440"
 
 - name: Configure other dconf settings
   become: true
   become_user: "{{ username }}"
-  dconf:
+  community.general.dconf:
     key: /org/gnome/desktop/{{ item.name }}
     value: "{{ item.value }}"
     state: present
@@ -138,41 +138,41 @@
       value: "true"
 
 - name: Ensures /usr/lib/environment.d exists
-  file:
+  ansible.builtin.file:
     path: /usr/lib/environment.d
     state: directory
-    mode: 0755
+    mode: "0755"
 
 - name: Configure env
-  copy:
+  ansible.builtin.copy:
     src: environment.d/{{ item }}.conf
     dest: /usr/lib/environment.d/{{ item }}.conf
-    mode: 0666
+    mode: "0666"
   loop:
     - basic
     - adblock
     - optout
 
 - name: Add kanshi systemd user unit
-  copy:
+  ansible.builtin.copy:
     src: systemd/kanshi.service
     dest: /home/{{ username }}/.config/systemd/user/kanshi.service
-    mode: 0640
+    mode: "0640"
     owner: "{{ username }}"
     group: "{{ username }}"
 
 - name: Enable kanshi systemd user service
   become: true
   become_user: "{{ username }}"
-  systemd:
+  ansible.builtin.systemd:
     scope: user
     name: kanshi
     enabled: true
 
 - name: Configure ripgrep
-  copy:
+  ansible.builtin.copy:
     src: ripgreprc
     dest: /home/{{ username }}/.ripgreprc
-    mode: 0660
+    mode: "0660"
     owner: "{{ username }}"
     group: "{{ username }}"

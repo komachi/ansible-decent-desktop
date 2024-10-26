@@ -2,7 +2,7 @@
 - name: Install boinc packages
   register: install_boinc
   until: install_boinc is succeeded
-  apt:
+  ansible.builtin.apt:
     name:
       - boinc-client
       - boinc-client-opencl

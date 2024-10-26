@@ -1,0 +1,49 @@
+---
+- name: Install podman and docker
+  ansible.builtin.apt:
+    name:
+      - podman
+      - slirp4netns
+      - rootlesskit
+      - runsc
+      - fuse-overlayfs
+      - docker
+    state: present
+
+- name: Ensures /etc/containers exists
+  ansible.builtin.file:
+    path: /etc/containers
+    state: directory
+    mode: "0660"
+
+- name: Enable docker.io registry for OCI
+  ansible.builtin.lineinfile:
+    path: /etc/containers/registries.conf
+    regexp: ^unqualified-search-registries=
+    line: unqualified-search-registries = ["docker.io"]
+
+- name: Copy containers configs
+  ansible.builtin.copy:
+    src: podman/{{ item }}
+    dest: /etc/containers/{{ item }}.conf
+    mode: "0444"
+  loop:
+    - storage.conf
+    - containers.conf
+
+- name: Ensures /etc/docker exists
+  ansible.builtin.file:
+    path: /etc/docker
+    state: directory
+    mode: "0660"
+
+- name: Copy docker config
+  ansible.builtin.copy:
+    src: docker/daemon.json
+    dest: /etc/docker/daemon.json
+    mode: "0444"
+
+- name: Enable podman-auto-update
+  ansible.builtin.systemd:
+    name: podman-auto-update
+    enabled: true

@@ -1,10 +1,10 @@
 collections:
   - name: debops.debops
     source: https://galaxy.ansible.com
-    version: "3.0.3"
+    version: "3.2.2"
   - name: devsec.hardening
     source: https://galaxy.ansible.com
-    version: "8.2.0"
+    version: "10.0.0"
   - name: community.general
     source: https://galaxy.ansible.com
   - name: ansible.posix

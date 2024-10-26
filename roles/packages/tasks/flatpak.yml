@@ -2,32 +2,32 @@
 - name: Install flatpak
   register: install_flatpak
   until: install_flatpak is succeeded
-  apt:
+  ansible.builtin.apt:
     name:
       - flatpak
       - flatpak-xdg-utils
-      - xdg-desktop-portal
-      - xdg-desktop-portal-gtk
-      - xdg-desktop-portal-wlr
     state: present
 
 - name: Ensures /etc/flatpak/remotes.d exists
-  file:
+  ansible.builtin.file:
     path: /etc/flatpak/remotes.d
     state: directory
-    mode: 0755
+    mode: "0755"
 
 - name: Copy flatpak remotes
-  copy:
+  ansible.builtin.copy:
     src: flatpak/{{ item }}
     dest: /etc/flatpak/remotes.d/{{ item }}
-    mode: 0744
+    mode: "0744"
   loop:
     - flathub.flatpakrepo
     - flathub-beta.flatpakrepo
+  register: flatpak_remotes
+  notify:
+    - Flatpak update
 
 - name: Add systemd service for auto updates
-  copy:
+  ansible.builtin.copy:
     src: systemd/flatpak-update.{{ item }}
     dest: /home/{{ username }}/.config/systemd/user/flatpak-update.{{ item }}
     mode: "0640"
@@ -40,7 +40,7 @@
 - name: Enable flatpak timer
   become: true
   become_user: "{{ username }}"
-  systemd:
+  ansible.builtin.systemd:
     scope: user
     name: flatpak-update.timer
     enabled: true
@@ -49,10 +49,12 @@
 - name: Install themes for flatpak
   become: true
   become_user: "{{ username }}"
-  flatpak:
+  community.general.flatpak:
     name: "{{ item }}"
     state: present
+  register: flatpak_themes_install
   loop:
-    - "org.gtk.Gtk3theme.Adwaita-dark"
-    - "org.kde.KStyle.Adwaita/{{ ansible_architecture }}/{{ kstyle_adwaita_version }}"
-    - "org.kde.PlatformTheme.QGnomePlatform/{{ ansible_architecture }}/{{ qgnomeplatform_version }}"
+    - org.gtk.Gtk3theme.Adwaita-dark
+    - org.kde.KStyle.Adwaita/{{ ansible_architecture }}/{{ kstyle_adwaita_version }}
+    - org.kde.PlatformTheme.QGnomePlatform/{{ ansible_architecture }}/{{ qgnomeplatform_version }}
+  changed_when: flatpak_themes_install.stdout | length > 0

@@ -2,22 +2,22 @@
 - name: Install nnn
   register: install_nnn
   until: install_nnn is succeeded
-  apt:
+  ansible.builtin.apt:
     name: nnn
     state: present
 
 - name: Ensures ~/.local/share/applications exists
-  file:
+  ansible.builtin.file:
     path: /home/{{ username }}/.local/share/applications
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: 0750
+    mode: "0750"
 
 - name: Copy desktop file
-  copy:
+  ansible.builtin.copy:
     src: applications/nnn.desktop
     dest: /home/{{ username }}/.local/share/applications/nnn.desktop
-    mode: 0640
+    mode: "0640"
     owner: "{{ username }}"
     group: "{{ username }}"

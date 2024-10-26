@@ -1,0 +1,15 @@
+[Container]
+Image=docker.io/ipfs/kubo:latest
+Label=io.containers.autoupdate=registry
+PublishPort=4001:4001
+PublishPort=127.0.0.1:8080:8080
+PublishPort=127.0.0.1:5001:5001
+RemapUsers=keep-id
+Volume=/var/lib/ipfs:/export:rw
+Volume={{ large_dirs }}/ipfs:/data/ipfs:rw
+
+[Service]
+SuccessExitStatus=0
+
+[Install]
+WantedBy=default.target

@@ -1,5 +1,0 @@
----
-- name: Install restscope from flatpak
-  flatpak:
-    name: com.gitlab.kendellfab.restscope
-    state: present

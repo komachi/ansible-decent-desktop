@@ -3,6 +3,15 @@
     "AppUpdateURL": "",
     "DisableMasterPasswordCreation": true,
     "DisableAppUpdate": true,
-    "ExtensionUpdate": true
+    "ExtensionUpdate": true,
+    "CaptivePortal": false,
+    "DNSOverHTTPS": {
+      "Enabled":  false
+    },
+    "Extensions": {
+      "Install": [
+        "https://addons.thunderbird.net/thunderbird/downloads/latest/dkim-verifier/addon-438634-latest.xpi"
+      ]
+    }
   }
 }

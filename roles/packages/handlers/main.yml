@@ -1,0 +1,27 @@
+---
+- name: Flatpak update
+  ansible.builtin.command: flatpak update
+  changed_when: false
+
+- name: Reload ipfs daemon
+  become: true
+  become_user: ipfs
+  ansible.builtin.systemd:
+    scope: user
+    daemon_reload: true
+
+- name: Restart Syncthing
+  become: true
+  become_user: "{{ username }}"
+  ansible.builtin.systemd:
+    scope: user
+    name: syncthing
+    state: restarted
+    daemon_reload: true
+
+- name: Restart Tor
+  ansible.builtin.systemd:
+    name: tor@default
+    state: restarted
+    daemon_reload: true
+    enabled: true

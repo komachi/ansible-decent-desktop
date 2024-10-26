@@ -2,45 +2,46 @@
 - name: Download electron cash
   register: get_electroncash
   until: get_electroncash is succeeded
-  get_url:
-    url: https://github.com/Electron-Cash/Electron-Cash/releases/download/{{ electroncash_version }}/Electron-Cash-{{ electroncash_version }}-{{ ansible_architecture }}.AppImage
+  ansible.builtin.get_url:
+    url: https://github.com/Electron-Cash/Electron-Cash/releases/download/{{ electroncash_version }}/Electron-Cash-{{ electroncash_version }}-{{ ansible_architecture
+      }}.AppImage
     dest: /usr/local/bin/electroncash
     checksum: "{{ electroncash_checksum }}"
-    mode: 0744
+    mode: "0744"
 
 - name: Add executable permission
-  file:
+  ansible.builtin.file:
     dest: /usr/local/bin/electroncash
     mode: a+x
 
 - name: Ensures ~/.electron-cash exists
-  file:
+  ansible.builtin.file:
     path: /home/{{ username }}/.electron-cash
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: 0750
+    mode: "0750"
 
 - name: Configure electron cash
-  copy:
+  ansible.builtin.copy:
     src: electron-cash/config
     dest: /home/{{ username }}/.electron-cash/config
-    mode: 0640
+    mode: "0640"
     owner: "{{ username }}"
     group: "{{ username }}"
 
 - name: Ensures ~/.local/share/applications exists
-  file:
+  ansible.builtin.file:
     path: /home/{{ username }}/.local/share/applications
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: 0750
+    mode: "0750"
 
 - name: Copy desktop file
-  copy:
+  ansible.builtin.copy:
     src: applications/electroncash.desktop
     dest: /home/{{ username }}/.local/share/applications/electroncash.desktop
-    mode: 0640
+    mode: "0640"
     owner: "{{ username }}"
     group: "{{ username }}"

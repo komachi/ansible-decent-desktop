@@ -1,7 +1,0 @@
----
-- name: Install iwlwifi firmware
-  register: install_iwlwifi
-  until: install_iwlwifi is succeeded
-  package:
-    name: firmware-iwlwifi
-    state: present

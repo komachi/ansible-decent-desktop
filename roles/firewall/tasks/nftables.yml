@@ -2,18 +2,18 @@
 - name: Install nftables
   register: install_nftables
   until: install_nftables is succeeded
-  apt:
+  ansible.builtin.apt:
     name: nftables
     state: present
 
 - name: Configure nftables
-  template:
+  ansible.builtin.template:
     src: nftables.conf.j2
     dest: /etc/nftables.conf
-    mode: 0640
+    mode: "0640"
 
 - name: Enable nftables service
-  systemd:
+  ansible.builtin.systemd:
     name: nftables
     enabled: true
     state: started

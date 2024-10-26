@@ -2,7 +2,7 @@
 - name: Install Bisq from flatpak
   become: true
   become_user: "{{ username }}"
-  flatpak:
+  community.general.flatpak:
     name: network.bisq.Bisq
     state: present
 
@@ -30,17 +30,17 @@
 #       value: "true"
 #     - name: torControlPort
 #       value: "9051"
-    #- name: 'rpcUser'
-    #  value: "{{ bitcoinrpc_user }}"
-    #- name: 'rpcPassword'
-    #  value: "{{ lookup('password', 'credentials/bitcoind/rpcpass length=20') }}"
-    #- name: 'rpcBlockNotificationPort'
-    #  value: '5120'
-    #- name: 'fullDaoNode'
-    #  value: 'true'
-    #- name: 'rpcHost'
-    #  value: '127.0.0.1'
-    #- name: 'rpcBlockNotificationHost'
-    #  value: '127.0.0.1'
-    #- name: 'rpcPort'
-    #  value: '8333'
+#     - name: 'rpcUser'
+#       value: "{{ bitcoinrpc_user }}"
+#     - name: 'rpcPassword'
+#       value: "{{ lookup('password', 'credentials/bitcoind/rpcpass length=20') }}"
+#     - name: 'rpcBlockNotificationPort'
+#       value: '5120'
+#     - name: 'fullDaoNode'
+#       value: 'true'
+#     - name: 'rpcHost'
+#       value: '127.0.0.1'
+#     - name: 'rpcBlockNotificationHost'
+#       value: '127.0.0.1'
+#     - name: 'rpcPort'
+#       value: '8333'

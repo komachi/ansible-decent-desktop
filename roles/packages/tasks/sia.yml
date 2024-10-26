@@ -2,19 +2,19 @@
 - name: Install sia
   register: install_sia
   until: install_sia is succeeded
-  apt:
+  ansible.builtin.apt:
     name: sia
     state: present
 
 - name: Ensures /var/lib/sia exists
-  file:
+  ansible.builtin.file:
     path: /var/lib/sia
     state: directory
     owner: sia
-    mode: 0755
+    mode: "0755"
 
 - name: Add systemd service
-  copy:
+  ansible.builtin.copy:
     src: systemd/sia.service
     dest: /etc/systemd/system/sia.service
     mode: "0640"

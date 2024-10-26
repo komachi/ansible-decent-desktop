@@ -1,40 +1,41 @@
 ---
-- name: Install swayidle
+- name: Install swayidle and swaylock
   register: install_swaylock
   until: install_swaylock is succeeded
-  apt:
+  ansible.builtin.apt:
     name:
       - swayidle
+      - swaylock
     state: present
 
 - name: Ensures ~/.config/swaylock exists
-  file:
+  ansible.builtin.file:
     path: /home/{{ username }}/.config/swaylock
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: 0750
+    mode: "0750"
 
 - name: Copy swaylock config
-  copy:
+  ansible.builtin.copy:
     src: swaylock/config
     dest: /home/{{ username }}/.config/swaylock/config
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: 0440
+    mode: "0440"
 
 - name: Add swayidle systemd user unit
-  copy:
+  ansible.builtin.copy:
     src: systemd/swayidle.service
     dest: /home/{{ username }}/.config/systemd/user/swayidle.service
-    mode: 0640
+    mode: "0640"
     owner: "{{ username }}"
     group: "{{ username }}"
 
 - name: Enable swayidle systemd user service
   become: true
   become_user: "{{ username }}"
-  systemd:
+  ansible.builtin.systemd:
     scope: user
     name: swayidle
     enabled: false

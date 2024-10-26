@@ -1,15 +1,46 @@
 skip_list:
-  - fqcn-builtins
   - unnamed-task
-  - empty-string-compare
-  - command-instead-of-shell
+  - var-naming
+  - name[missing]
+  - yaml[line-length]
+  - yaml[document-start]
+
 enable_list:
+  - args
+  - fqcn
+  - complexity
   - no-log-password
+  - inline-env-var
+  - key-order
+  - latest
   - no-same-owner
   - yaml
-warn_list:
+  - avoid-implicit
+  - empty-string-compare
+  - key-order
+  - latest
+  - literal-compare
+  - name
+  - no-changed-when
+  - no-free-form
+  - no-jinja-when
+  - no-relative-paths
+  - no-same-owner
+  - no-tabs
+  - package-latest
+  - partial-become
+  - playbook-extension
+  - risky-octal
+  - risky-shell-pipe
   - deprecated-bare-vars
+  - deprecated-local-action
+  - deprecated-module
   - experimental
   - no-changed-when
   - no-handler
+  - command-instead-of-module
+  - command-instead-of-shell
+  - jinja
+  - risky-file-permissions
+
 offline: true

@@ -1,55 +1,57 @@
 ---
 - name: Get Mullvad servers list
-  uri:
+  ansible.builtin.uri:
     url: https://api.mullvad.net/public/relays/wireguard/v1/
     return_content: true
   register: mullvad_servers_orig
   failed_when: "'countries' not in mullvad_servers_orig.content"
 
 - name: Flatten servers list
-  set_fact:
+  ansible.builtin.set_fact:
     mullvad_servers: "{{ mullvad_servers_orig.json | json_query('countries[].cities[].relays[]') }}"
     cacheable: true
 
 - name: Trying to find already registred private key
-  shell:
+  ansible.builtin.shell:
     executable: /bin/bash
     cmd: >
+      set -o pipefail
       grep -hEr -m1 '^PrivateKey[ ]*=[ ]*(.*)([a-zA-Z0-9+/]{43}=)$' --include="mullvad-*" "/etc/wireguard" | head -1 | cut -d'=' -f1 --complement | xargs
   changed_when: false
   register: mullvad_wireguard_find_private_key
 
-- set_fact:
+- ansible.builtin.set_fact:
     mullvad_wireguard_private_key: "{{ mullvad_wireguard_find_private_key.stdout }}"
-  when: mullvad_wireguard_find_private_key.stdout != ''
+  when: mullvad_wireguard_find_private_key.stdout | length > 0
 
 - name: Generate wireguard private key
-  shell: wg genkey
+  ansible.builtin.command: wg genkey
   register: mullvad_wireguard_generate_private_key
-  when: mullvad_wireguard_find_private_key.stdout == ''
+  when: mullvad_wireguard_find_private_key.stdout | length == 0
+  changed_when: mullvad_wireguard_generate_private_key.stdout | length > 0
 
-- set_fact:
+- ansible.builtin.set_fact:
     mullvad_wireguard_private_key: "{{ mullvad_wireguard_generate_private_key.stdout }}"
-  when: mullvad_wireguard_find_private_key.stdout == ''
+  when: mullvad_wireguard_find_private_key.stdout | length == 0
 
 - name: Get public key from our private key
-  shell:
+  ansible.builtin.shell:
     executable: /bin/bash
     cmd: >
-      set -e -o pipefail;
+      set -o pipefail
       echo "{{ mullvad_wireguard_private_key }}" | wg pubkey
   changed_when: false
   register: mullvad_wireguard_public_key
 
 - name: Login to mullvad
-  uri:
+  ansible.builtin.uri:
     url: https://api.mullvad.net/www/accounts/{{ mullvad_account }}/
     return_content: true
   register: mullvad_auth
   failed_when: mullvad_auth.json.auth_token is not match('^[0-9a-f:/.,]+$')
 
 - name: Register our public key on mullvad
-  uri:
+  ansible.builtin.uri:
     url: https://api.mullvad.net/www/wg-pubkeys/add/
     method: POST
     body_format: json
@@ -64,13 +66,13 @@
 
 # TODO shadowsocks bridge
 - name: Write wireguard conf files
-  template:
+  ansible.builtin.template:
     src: wireguard/mullvad.conf.j2
     dest: /etc/wireguard/mullvad-{{ item.hostname | regex_replace('-wireguard') }}.conf
-    mode: 0640
+    mode: "0640"
   loop: "{{ mullvad_servers }}"
 
 - name: Connect to wireguard on boot
-  systemd:
+  ansible.builtin.systemd:
     name: wg-quick@{{ wireguard_server }}
     enabled: true

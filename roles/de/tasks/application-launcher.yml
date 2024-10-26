@@ -2,22 +2,22 @@
 - name: Install wofi
   register: install_wofi
   until: install_wofi is succeeded
-  apt:
+  ansible.builtin.apt:
     name: wofi
     state: present
 
 - name: Ensures ~/.config/wofi exists
-  file:
+  ansible.builtin.file:
     path: /home/{{ username }}/.config/wofi
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: 0750
+    mode: "0750"
 
 - name: Copy wofi config
-  copy:
+  ansible.builtin.copy:
     src: wofi/config
     dest: /home/{{ username }}/.config/wofi/config
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: 0440
+    mode: "0440"

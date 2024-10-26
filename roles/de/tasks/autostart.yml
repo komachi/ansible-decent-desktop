@@ -1,26 +1,26 @@
 ---
 - name: Ensures ~/.config/autostart exists
-  file:
+  ansible.builtin.file:
     path: /home/{{ username }}/.config/autostart
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: 0750
+    mode: "0750"
 
 - name: Symlink some desktop files to autostart
-  file:
+  ansible.builtin.file:
     src: "{{ item.location }}/{{ item.name }}.desktop"
     dest: /home/{{ username }}/.config/autostart/{{ item.name }}.desktop
     state: link
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: 0440
-    force: yes
+    mode: "0440"
+    force: true
   loop:
     - location: /usr/share/applications
       name: org.keepassxc.KeePassXC
     - location: /usr/share/applications
-      name: telegramdesktop
+      name: org.telegram.desktop
     - location: /usr/share/applications
       name: im.dino.Dino
     - location: /usr/share/applications

@@ -2,12 +2,14 @@
 - name: Install trezor package
   register: install_trezor
   until: install_trezor is succeeded
-  apt:
-    name: trezor
+  ansible.builtin.apt:
+    name:
+      - trezor
+      - python3-trezor
     state: present
 
-- name: Install trezor_agent
-  become: true
-  become_user: "{{ username }}"
-  shell: pipx install --force trezor_agent
-  changed_when: true
+# - name: Install trezor_agent
+#   become: true
+#   become_user: "{{ username }}"
+#   shell: pipx install --force trezor_agent
+#   changed_when: true

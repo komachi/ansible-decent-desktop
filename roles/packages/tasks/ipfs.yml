@@ -1,6 +1,6 @@
 ---
 - name: Create ipfs user
-  user:
+  ansible.builtin.user:
     name: ipfs
     shell: /bin/false
     create_home: true
@@ -8,36 +8,43 @@
     system: true
   register: ipfs_user
 
-- name: Add subguid/subuids for user
-  shell: usermod --add-subuids 100000-165535 --add-subgids 100000-165535 ipfs
-  changed_when: false
-
-- name: Run podman system migrate
-  shell: podman system migrate
-  changed_when: false
-
-- name: Ensures required dirs exists
-  file:
-    path: /var/lib/ipfs/{{ item }}
+- name: Ensures ipfs data dir exist
+  ansible.builtin.file:
+    path: "{{ large_dirs }}/ipfs"
     state: directory
     owner: ipfs
     group: ipfs
-    mode: 0750
-  loop:
-    - export
-    - data
+    mode: "0750"
 
-- name: Create jackett container
-  become: true
-  become_user: ipfs
-  containers.podman.podman_container:
-    name: ipfs
-    image: registry.hub.docker.com/ipfs/go-ipfs
-    state: started
-    expose:
-      - 127.0.0.1:9117:9117
-    volumes:
-      - /etc/jackett:/config:rw
-      - /var/lib/jackett:/downloads:rw
-    generate_systemd:
-      restart_policy: on-failure
+- name: Ensures /var/lib/ipfs/.config/containers/systemd exists
+  ansible.builtin.file:
+    path: /var/lib/ipfs/.config/containers/systemd
+    state: directory
+    owner: ipfs
+    group: ipfs
+    mode: "0600"
+
+- name: Copy ipfs container config
+  ansible.builtin.copy:
+    src: ipfs/ipfs.container
+    dest: /var/lib/ipfs/.config/containers/systemd/ipfs.container
+    mode: "0600"
+    owner: ipfs
+    group: ipfs
+  register: ipfs_container
+  notify:
+    - Reload ipfs daemon
+
+- name: Enable linger for ipfs user
+  ansible.builtin.command:
+    cmd: loginctl enable-linger ipfs
+    creates: /var/lib/systemd/linger/ipfs
+
+# - name: Enable ipfs
+#   become: true
+#   become_user: ipfs
+#   ansible.builtin.systemd:
+#     scope: user
+#     name: ipfs
+#     enabled: true
+#     state: started

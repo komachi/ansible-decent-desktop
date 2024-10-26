@@ -2,6 +2,6 @@
 - name: Install mumble
   register: install_mumble
   until: install_mumble is succeeded
-  apt:
+  ansible.builtin.apt:
     name: mumble
     state: present

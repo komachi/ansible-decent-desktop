@@ -2,12 +2,12 @@
 - name: Install oomd
   register: install_oomd
   until: install_oomd is succeeded
-  apt:
+  ansible.builtin.apt:
     name: oomd
     state: present
 
 - name: Enable required accounting settings
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /etc/systemd/system.conf
     regexp: ^{{ item }}=
     line: "{{ item }}=true"

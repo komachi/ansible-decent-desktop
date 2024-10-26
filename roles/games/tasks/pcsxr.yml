@@ -2,22 +2,22 @@
 - name: Install pcsxr
   register: install_pcsxr
   until: install_pcsxr is succeeded
-  apt:
+  ansible.builtin.apt:
     name: pcsxr
     state: present
 
 - name: Ensures ~/.local/share/applications exists
-  file:
+  ansible.builtin.file:
     path: /home/{{ username }}/.local/share/applications
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: 0755
+    mode: "0755"
 
 - name: Copy desktop file
-  copy:
+  ansible.builtin.copy:
     src: applications/pcsxr.desktop
     dest: /home/{{ username }}/.local/share/applications/pcsxr.desktop
-    mode: 0640
+    mode: "0640"
     owner: "{{ username }}"
     group: "{{ username }}"

@@ -2,6 +2,6 @@
 - name: Install Dino
   register: install_dino
   until: install_dino is succeeded
-  apt:
+  ansible.builtin.apt:
     name: dino-im
     state: present

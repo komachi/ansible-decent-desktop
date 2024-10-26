@@ -2,43 +2,26 @@
 - name: Install waybar and deps
   register: install_waybar
   until: install_waybar is succeeded
-  apt:
+  ansible.builtin.apt:
     name:
       - waybar
-      - gsimplecal
     state: present
 
-- name: Ensures ~/.config/gsimplecal exists
-  file:
-    path: /home/{{ username }}/.config/gsimplecal
-    state: directory
-    owner: "{{ username }}"
-    group: "{{ username }}"
-    mode: 0750
-
-- name: Copy gsimplecal config
-  copy:
-    src: gsimplecal/config
-    dest: /home/{{ username }}/.config/gsimplecal/config
-    owner: "{{ username }}"
-    group: "{{ username }}"
-    mode: 0440
-
 - name: Ensures ~/.config/waybar exists
-  file:
+  ansible.builtin.file:
     path: /home/{{ username }}/.config/waybar
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: 0750
+    mode: "0750"
 
 - name: Configure waybar
-  copy:
+  ansible.builtin.copy:
     src: waybar/{{ item }}
     dest: /home/{{ username }}/.config/waybar/{{ item }}
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: 0440
+    mode: "0440"
   loop:
     - config
     - style.css
@@ -46,7 +29,7 @@
 - name: Enable waybar systemd user service
   become: true
   become_user: "{{ username }}"
-  systemd:
+  ansible.builtin.systemd:
     scope: user
     name: waybar
     enabled: true

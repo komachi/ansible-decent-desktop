@@ -4,7 +4,7 @@ This is an experiment to make desktop/laptop configuration fully controllable by
 
 This project is not intended to fulfil desires of every user. I use it to provision my own personal PC. You probably find some defaults incompatible with your view on desktop OS configuration, but you can fork and tune it for yourself, or just look at playbooks for inspirations. PRs with improvements welcomed btw.
 
-This playbook meant to be run against Debian bullseye. It probably won't work for other distros/versions, but you can try.
+This playbook meant to be run against Debian bookworm. It probably won't work for other distros/versions, but you can try.
 
 It focus both on security and speed when it's possible. It uses lightweight software when possible and some specific tuning to meet the goal. Take note that while this README uses word "security" several times, nobody checked this. Think then do.
 
@@ -14,11 +14,10 @@ It enables autologin and intended to use only on single-user desktop machines. U
 
 You should look for sources for full list, but here are some choices I made:
 
-- OS: [Debian GNU/Linux](https://debian.org), stable (current bullseye)
+- OS: [Debian GNU/Linux](https://debian.org), stable (current bookworm)
 - Shell: [bash](https://www.gnu.org/software/bash/)
 - Init: [systemd](https://systemd.io)
 - MAC: [AppArmor](https://apparmor.net/), [bubblewrap](https://github.com/containers/bubblewrap) used for [Flatpak](https://flatpak.org/)-packed apps. Sister project [apparmor-even-more-profiles](https://github.com/komachi/apparmor-even-more-profiles) deployed by default, bringing profiles for most of included software in enforce mode.
-- More hardering: [tirdad](https://github.com/0xsirus/tirdad), [LKRG](https://lkrg.org/), [kloak](https://github.com/vmonaco/kloak)
 - VPN client: [Wireguard](https://wireguard.com)
 - Firewall: [nftables](https://netfilter.org/projects/nftables/) + [OpenSnitch](https://github.com/evilsocket/opensnitch)
 - Display server: [Wayland](https://wayland.freedesktop.org/)
@@ -34,28 +33,25 @@ You should look for sources for full list, but here are some choices I made:
 - DNS server: [stubby](https://github.com/getdnsapi/stubby) + [unbound](https://github.com/NLnetLabs/unbound) with DNS blocklists enabled
 - Media player: [mpv](https://mpv.io)
 - [FreeTube](https://freetubeapp.io/) as alternative less privacy-invasing YouTube frontend, also [yt-dlp](https://github.com/yt-dlp/yt-dlp) configured to be used with mpv
-- Music player: [mpd](https://musicpd.org/) + [pms](https://ambientsound.github.io/pms/)
-- Browser: [Firefox](https://mozilla.org/firefox), but [Chromium](https://chromium.org) also available
+- Music player: [mpd](https://musicpd.org/) + [sonata](https://github.com/multani/sonata)
+- Browser: [Firefox](https://mozilla.org/firefox), but [Chromium](https://chromium.org) also available and used for webapps
 - Email client: [Thunderbird](https://www.thunderbird.net)
-- Source code editor: [VSCodium](https://github.com/VSCodium/vscodium)
+- Source code editor: [VSCodium](https://github.com/VSCodium/vscodium) with extensions from [Open VSX](https://open-vsx.org)
 - File sync: [Syncthing](https://syncthing.net/)
-- Download manager: [aria2](https://github.com/aria2/aria2), <https://ugetdm.com/>), [XD](https://xd-torrent.github.io) for I2P torrents
+- Download managers: [aria2](https://github.com/aria2/aria2), [qBittorrent](https://qbittorrent.org)
 - Some cryptocurrency wallets: [Monero](https://www.getmonero.org/) fullnode, [Electrum](https://electrum.org) and [Wasabi Wallet](https://www.wasabiwallet.io/) for [Bitcoin](https://bitcoin.org/) network, [Electron Cash](https://electroncash.org/) for [Bitcoin Cash](https://bitcoincash.org/), [MyCrypto](https://www.mycrypto.com/) for [Ethereum](https://ethereum.org), [Zecwallet Lite](https://www.zecwallet.co/) for [Zcash](https://z.cash/), [Electrum Dash](https://electrum.dash.org/) for [Dash](https://dash.org/), [Bisq](https://bisq.network/) and [Uniswap](https://uniswap.org/) as DEX
 - Support for [Ledger](https://www.ledger.com/), [Trezor](https://trezor.io/), [Nitrokey](https://www.nitrokey.com/), and [OnlyKey](https://onlykey.io/) hardware tokens
 - [I2P](https://geti2p.net/), [Tor](https://torproject.org), [IPFS](https://ipfs.io/), etc.
-- Localhosted [Searx](https://searx.github.io/searx/) instance as a privacy-respecting metasearch engine
-- [Jackett](https://github.com/Jackett/Jackett) for searching on trackers
-- Office package: [zathura](https://pwmt.org/projects/zathura/) + [zaread](https://github.com/paoloap/zaread) for simple document viewing and [LibreOffice](https://www.libreoffice.org/) for classical office package editing needs
+- Office packages: [zathura](https://pwmt.org/projects/zathura/) + [zaread](https://github.com/paoloap/zaread) for simple document viewing and [LibreOffice](https://www.libreoffice.org/) for classical office package editing needs
 - Image viewer: [imv](https://github.com/eXeC64/imv)
 - Password manager: [KeePassXC](https://keepassxc.org/)
-- Local bookmarks with [shiori](https://github.com/go-shiori/shiori)
 - [DeltaChat](https://delta.chat), XMPP ([Dino](https://dino.im/)), [Telegram](https://telegram.org), [Jami](https://jami.net), Matrix ([nheko](https://nheko-reborn.github.io)), [Mumble](https://www.mumble.info) messengers
-- Local maps with [Pure Maps](https://github.com/rinigus/pure-maps) and [OSM Scout Server](https://github.com/rinigus/osmscout-server)
+- Local maps with [Organic Maps](https://organicmaps.app/).
 - Local dicts with [dictd](https://sourceforge.net/projects/dict/) and [GoldenDict](http://goldendict.org/)
 - Virtual machines: [libvirt](https://libvirt.org/) + [QEMU](https://www.qemu.org/) + [virt-manager](https://virt-manager.org/)
-- [podman](https://podman.io) + [gvisor](https://gvisor.dev/) for launching [OCI containers](https://opencontainers.org),
+- [podman](https://podman.io) + [gvisor](https://gvisor.dev/) by default for launching [OCI containers](https://opencontainers.org), [Docker](https://www.docker.com/) also installed.
 - [JOSM](https://josm.openstreetmap.de/) for OpenStreetMap editing
-- [node.js](https://nodejs.org), [golang](https://golang.org/), etc.
+- [node.js](https://nodejs.org), [golang](https://golang.org/), [python](https://python.org), etc. dev env.
 - et cetera, et cetera
 
 ## Roles
@@ -143,3 +139,36 @@ Install additional apparmor profiles from [apparmor-even-more-profiles](https://
 ### additional_hardering
 
 Some additional hardering settings placed here, for now it's just installs some packages from whonix repo
+
+## Desktop improvements
+
+This playbook meant to be used on desktops, so there is specific desktop-friendly settings made. Most of packages are also configured specifically to address security or speed, but here is some things to note
+
+* [Silent boot](https://wiki.archlinux.org/index.php/Silent_boot) is enabled
+* [Watchdog] (https://wiki.archlinux.org/title/Improving_performance#Watchdogs) is disabled
+* [oomd](https://github.com/facebookincubator/oomd) is installed
+* [zswap](https://en.wikipedia.org/wiki/Zswap) is enabled
+* [gamemode](https://github.com/FeralInteractive/gamemode) is installed
+* [VFS cache](https://docs.kernel.org/filesystems/vfs.html) pressure is set to 50, [vm.dirty_ratio](https://docs.kernel.org/admin-guide/sysctl/vm.html) is configured to a lower value
+* [TCP Fast Open](https://en.wikipedia.org/wiki/TCP_Fast_Open) is enabled for both sides
+* [cfs-zen-tweaks](https://github.com/igo95862/cfs-zen-tweaks) is installed
+* [Core dumps](https://en.wikipedia.org/wiki/Core_dump) are disabled
+* Ansible comes with [Redis cache](https://docs.ansible.com/ansible/latest/collections/community/general/redis_cache.html) and [mitogen](https://mitogen.networkgenomics.com/ansible_detailed.html)
+* Analytics are opted-outed [with env list](/roles/de/files/environment.d/optout.conf)
+* [tirdad](https://github.com/0xsirus/tirdad) is installed
+* [kloak](https://github.com/vmonaco/kloak) is installed
+
+## Test in VM
+
+It can be run in VirtualBox with help of Vagrant and Molecule.
+
+```
+poetry install
+poetry run molecule converge
+```
+
+## Lint
+
+```
+poetry run ansible-lint --exclude roles/gantsign.keyboard --fix -p main.yml roles
+```

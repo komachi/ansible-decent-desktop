@@ -2,11 +2,12 @@
 - name: Install vagrant
   register: install_vagrant
   until: install_vagrant is succeeded
-  apt:
+  ansible.builtin.apt:
     name:
       - vagrant
       - vagrant-cachier
       - vagrant-libvirt
+      - vagrant-sshfs
       - virt-manager
       - python3-psutil
       - dconf-cli
@@ -15,7 +16,7 @@
 - name: Configure virt-manager
   become: true
   become_user: "{{ username }}"
-  dconf:
+  community.general.dconf:
     key: /org/virt-manager/virt-manager/{{ item.name }}
     value: "{{ item.value }}"
     state: present

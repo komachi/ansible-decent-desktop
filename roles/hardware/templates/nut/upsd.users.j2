@@ -1,0 +1,6 @@
+[admin]
+     password = {{ lookup('password', 'credentials/nut length=30') }}
+     upsmon master
+     allowfrom = localhost
+     actions = SET FSD
+     instcmds = ALL

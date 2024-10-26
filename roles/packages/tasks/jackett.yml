@@ -1,6 +1,6 @@
 ---
 - name: Create jackett user
-  user:
+  ansible.builtin.user:
     name: jackett
     shell: /bin/false
     create_home: true
@@ -8,29 +8,35 @@
     system: true
   register: jackett_user
 
-- name: Add subguid/subuids for user
-  shell: usermod --add-subuids 100000-165535 --add-subgids 100000-165535 jackett
-  changed_when: false
+- name: Copy jackett container config
+  ansible.builtin.copy:
+    src: jackett/jackett.container
+    dest: /var/lib/jackett/.config/containers/systemd/ipfs.container
+    mode: "0600"
+    owner: jackett
+    group: jackett
+  register: jackett_container
 
-- name: Run podman system migrate
-  shell: podman system migrate
-  changed_when: false
+- name: Enable linger for jackett user
+  ansible.builtin.command:
+    cmd: loginctl enable-linger jackett
+    creates: /var/lib/systemd/linger/jackett
 
 - name: Ensures /etc/jackett exists
-  file:
+  ansible.builtin.file:
     path: /etc/jackett
     state: directory
     owner: jackett
     group: jackett
-    mode: 0750
+    mode: "0750"
 
 - name: Copy jackett server config
-  template:
+  ansible.builtin.template:
     src: jackett/ServerConfig.json.j2
     dest: /etc/jackett/ServerConfig.json
     owner: jackett
     group: jackett
-    mode: 0440
+    mode: "0440"
 
 - name: Create jackett container
   containers.podman.podman_container:

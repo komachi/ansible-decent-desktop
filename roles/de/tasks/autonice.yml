@@ -1,11 +1,11 @@
 ---
 - name: Create ananicy tempdir
-  tempfile:
+  ansible.builtin.tempfile:
     state: directory
   register: ananicy_tempdir
 
 - name: Clone ananicy repo
-  git:
+  ansible.builtin.git:
     repo: "{{ ananicy_repo }}"
     dest: "{{ ananicy_tempdir.path }}"
     depth: "1"
@@ -13,28 +13,28 @@
     version: "{{ ananicy_commit }}"
 
 - name: Build ananicy deb
-  shell:
+  ansible.builtin.shell:
     chdir: "{{ ananicy_tempdir.path }}"
     cmd: bash package.sh debian && mv ananicy-*.deb ananicy.deb
   changed_when: true
 
 - name: Install ananicy
-  apt:
+  ansible.builtin.apt:
     deb: "{{ ananicy_tempdir.path }}/ananicy.deb"
 
 - name: Remove tempdir
-  file:
+  ansible.builtin.file:
     path: "{{ ananicy_tempdir.path }}"
     state: absent
 
 - name: Add systemd service
-  copy:
+  ansible.builtin.copy:
     src: systemd/ananicy.service
     dest: /etc/systemd/system/ananicy.service
     mode: "0640"
 
 - name: Enable ananicy service
-  systemd:
+  ansible.builtin.systemd:
     name: ananicy
     enabled: true
     state: started

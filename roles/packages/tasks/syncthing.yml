@@ -2,22 +2,22 @@
 - name: Install Syncthing and GTK gui
   register: install_syncthing
   until: install_syncthing is succeeded
-  apt:
+  ansible.builtin.apt:
     name:
       - syncthing
       - syncthing-gtk
     state: present
 
 - name: Ensures ~/.config/systemd/user exists
-  file:
+  ansible.builtin.file:
     path: /home/{{ username }}/.config/systemd/user
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: 0750
+    mode: "0750"
 
 - name: Add systemd service
-  template:
+  ansible.builtin.template:
     src: systemd/syncthing.service.j2
     dest: /home/{{ username }}/.config/systemd/user/syncthing.service
     mode: "0640"
@@ -25,15 +25,15 @@
     group: "{{ username }}"
 
 - name: Ensures ~/.config/syncthing exists
-  file:
+  ansible.builtin.file:
     path: /home/{{ username }}/.config/syncthing
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: 0750
+    mode: "0750"
 
 - name: Check if config exists
-  stat:
+  ansible.builtin.stat:
     path: /home/{{ username }}/.config/syncthing/config.xml
   register: config_stat
 
@@ -41,7 +41,7 @@
   when: not config_stat.stat.exists
   become: true
   become_user: "{{ username }}"
-  systemd:
+  ansible.builtin.systemd:
     scope: user
     name: syncthing
     state: restarted
@@ -49,11 +49,11 @@
 
 - name: Waiting for config
   when: not config_stat.stat.exists
-  wait_for:
+  ansible.builtin.wait_for:
     path: /home/{{ username }}/.config/syncthing/config.xml
 
 - name: Configure syncthing
-  xml:
+  community.general.xml:
     path: /home/{{ username }}/.config/syncthing/config.xml
     xpath: "{{ item.xpath }}"
     value: "{{ item.value }}"
@@ -71,21 +71,13 @@
     - xpath: /configuration/gui/theme
       value: black
   register: syncthing_configure
-
-- name: Restart Syncthing
-  when: syncthing_configure.changed
-  become: true
-  become_user: "{{ username }}"
-  systemd:
-    scope: user
-    name: syncthing
-    state: restarted
-    daemon_reload: true
+  notify:
+    - Restart Syncthing
 
 - name: Enable Syncthing service
   become: true
   become_user: "{{ username }}"
-  systemd:
+  ansible.builtin.systemd:
     scope: user
     name: syncthing
     enabled: true

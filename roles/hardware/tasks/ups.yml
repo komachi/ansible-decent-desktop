@@ -1,0 +1,9 @@
+---
+- name: Install nut
+  register: install_nut
+  until: install_nut is succeeded
+  ansible.builtin.apt:
+    name:
+      - nut
+      - nut-monitor
+    state: present

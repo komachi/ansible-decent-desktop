@@ -2,30 +2,30 @@
 - name: Install network-manager package
   register: install_network_manager
   until: install_network_manager is succeeded
-  apt:
+  ansible.builtin.apt:
     name: network-manager
     state: present
 
 - name: Enable mac randomization
-  copy:
+  ansible.builtin.copy:
     src: networkmanager/macrandomize.conf
     dest: /etc/NetworkManager/conf.d/00-macrandomize.conf
-    mode: 0640
+    mode: "0640"
 
 - name: Enable ipv6 privacy extensions
-  copy:
+  ansible.builtin.copy:
     src: networkmanager/ipv6.conf
     dest: /etc/NetworkManager/conf.d/20-ipv6.conf
-    mode: 0640
+    mode: "0640"
 
 - name: Disable LLMNR
-  copy:
+  ansible.builtin.copy:
     src: networkmanager/llmnr.conf
     dest: /etc/NetworkManager/conf.d/30-llmnr.conf
-    mode: 0640
+    mode: "0640"
 
 - name: Use resolvconf
-  copy:
+  ansible.builtin.copy:
     src: networkmanager/rc-manager.conf
     dest: /etc/NetworkManager/conf.d/40-rc-manager.conf
-    mode: 0640
+    mode: "0640"

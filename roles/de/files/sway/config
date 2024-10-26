@@ -4,19 +4,19 @@ set $down j
 set $up k
 set $right l
 
-set $term footclient
+set $term foot
 set $menu wofi
 
 # outputs
-set $left HDMI-A-1 primary
-set $center DP-1 primary
-set $right DVI-D-1 primary
+set $left HDMI-A-2
+set $center HDMI-A-1 primary
+set $right DP-1
 
 set $ws_www 1
 set $ws_code 2
 set $ws_term 3
 set $ws_music 4
-set $ws_fm 5
+set $ws_work 5
 set $ws_im 6
 set $ws_mail 7
 set $ws_edit 8
@@ -111,7 +111,7 @@ bindsym --to-code {
     $mod+2 workspace $ws_code
     $mod+3 workspace $ws_term
     $mod+4 workspace $ws_music
-    $mod+5 workspace $ws_fm
+    $mod+5 workspace $ws_work
     $mod+6 workspace $ws_im
     $mod+7 workspace $ws_mail
     $mod+8 workspace $ws_edit
@@ -133,7 +133,7 @@ bindsym --to-code {
     $mod+Shift+2 move container to workspace $ws_code
     $mod+Shift+3 move container to workspace $ws_term
     $mod+Shift+4 move container to workspace $ws_music
-    $mod+Shift+5 move container to workspace $ws_fm
+    $mod+Shift+5 move container to workspace $ws_work
     $mod+Shift+6 move container to workspace $ws_im
     $mod+Shift+7 move container to workspace $ws_mail
     $mod+Shift+8 move container to workspace $ws_edit
@@ -181,24 +181,24 @@ bindsym --locked {
 
 workspace $ws_www output $center
 workspace $ws_code output $center
-workspace $ws_term output $left
-workspace $ws_music output $left
-workspace $ws_fm output $left
-workspace $ws_im output $right
-workspace $ws_mail output $right
+workspace $ws_term output $left $right $center
+workspace $ws_music output $left $right $center
+workspace $ws_work output $center
+workspace $ws_im output $left $center
+workspace $ws_mail output $left $center
 workspace $ws_edit output $center
-workspace $ws_pass output $right
+workspace $ws_pass output $right $center
 workspace $ws_view output $center
-workspace $ws_money output $left
+workspace $ws_money output $left $right $center
 workspace $ws_game output $center
 workspace $ws_etc output $center
-workspace $ws_debug output $right
-workspace $ws_subs output $right
-workspace $ws_dl output $left
-workspace $ws_deanon output $right
+workspace $ws_debug output $right $center
+workspace $ws_subs output $right $center
+workspace $ws_dl output $left $center
+workspace $ws_deanon output $right $center
 workspace $ws_map output $center
-workspace $ws_config output $left
-workspace $ws_phone output $right
+workspace $ws_config output $left $right $center
+workspace $ws_phone output $right $center
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -226,41 +226,44 @@ mode "resize" {
 }
 
 
-for_window [app_id="firefox-esr"] move container to workspace $ws_www
+for_window [app_id="^((f|F)irefox-esr|chromium)$"] move container to workspace $ws_www
 for_window [class="^(Chromium-browser|Firefox-esr)$"] move container to workspace $ws_www
 for_window [app_id="^(Tor|i2p) Browser$"] move container to workspace $ws_www, floating enable
 for_window [class="^(Tor|i2p) Browser$"] move container to workspace $ws_www, floating enable
-for_window [app_id="VSCodium"] move container to workspace $ws_code
+for_window [app_id="^(VSCodium|codium-url-handler)$"] move container to workspace $ws_code
+for_window [class="Code"] move container to workspace $ws_code
 for_window [app_id="foot"] move container to workspace $ws_term
 for_window [app_id="^(pms|sonata)$"] move container to workspace $ws_music
-for_window [app_id="^(spacefm|pcmanfm)$"] move container to workspace $ws_fm
-for_window [app_id="nnn"] move container to workspace $ws_fm
-for_window [app_id="^(telegramdesktop|slack-term|dino-im|org.eu.encom.spectral|net.jami.jami-qt|nheko)$"] move container to workspace $ws_im
+for_window [app_id="^(clickup|github|gitlab)$"] move container to workspace $ws_work
+for_window [class="Loqseq"] move container to workspace $ws_work
+for_window [app_id="^(org\.telegram\.desktop|telegramdesktop|slack-term|dino-im|org\.eu\.encom\.spectral|net\.jami\.jami-qt|nheko|slack|net\.sourceforge\.mumble\.mumble)$"] move container to workspace $ws_im
 for_window [class="DeltaChat"] move container to workspace $ws_im
 for_window [app_id="thunderbird"] move container to workspace $ws_mail
 for_window [class="thunderbird"] move container to workspace $ws_mail
-for_window [app_id="^(gimp|inkscape|libreoffice|simple-scan|audacity|org-openstreetmap-josm-.*|zim)$"] move container to workspace $ws_edit, focus
-for_window [class="org-openstreetmap-josm-.*"] move container to workspace $ws_edit, focus
+for_window [app_id="^(gimp|inkscape|libreoffice|simple-scan|audacity|zim)$"] move container to workspace $ws_edit, focus
+for_window [class="Audacity"] move container to workspace $ws_edit
+for_window [class="org-openstreetmap-josm-.*"] move container to workspace $ws_map
 for_window [app_id="org.keepassxc.KeePassXC"] move container to workspace $ws_pass
 for_window [app_id="com.yubico.yubikey-personalization-gui"] move container to workspace $ws_pass
 for_window [app_id="com.nitrokey.nitrokey-app"] move container to workspace $ws_pass
 for_window [class="OnlyKey"] move container to workspace $ws_pass
 for_window [app_id="^(mpv|sxiv|imvr|zathura)$"] move container to workspace $ws_view, focus
-for_window [app_id="^(uget-gtk|Uget-gtk|ariang-native)$"] move container to workspace $ws_dl
-for_window [app_id="aria2p"] move container to workspace $ws_dl
+for_window [app_id="^(uget-gtk|Uget-gtk|ariang-native|aria2p)$"] move container to workspace $ws_dl
 for_window [app_id="^(Wireshark|Devtools|restscope|gucharmap)$"] move container to workspace $ws_debug
-for_window [app_id="figma"] move container to workspace $ws_debug
+for_window [app_id="figma"] move container to workspace $ws_edit
 for_window [class="Firefox-esr" instance="Devtools"] move container to workspace $ws_debug
 for_window [title="DevTools - .*" app_id="chromium"] move container to workspace $ws_debug
 for_window [app_id="FreeTube"] move container to workspace $ws_subs, focus
-for_window [app_id="io.github.rinigus.PureMaps"] move container to workspace $ws_map, focus
+for_window [app_id="^(io\.github\.rinigus\.PureMaps|OMaps)$"] move container to workspace $ws_map, focus
 for_window [app_id="^(pavucontrol|qt5ct|nm-connection-editor|system-config-printer|osmscout-server|virt-manager)$"] move container to workspace $ws_config
+for_window [app_id="opensnitch_ui" title="^OpenSnitch Network Statistics .*"] move container to workspace $ws_config
+for_window [app_id="python3" title="NUT Monitor"] move container to workspace $ws_config
 for_window [app_id="^(Wasabi Wallet|electrum|simpleos|electrum-dash|electron-cash|mycrypto|monero-wallet-gui|monero-core|bisq.desktop.app.BisqApp)$"] move container to workspace $ws_money
 for_window [app_id="^(firefox-deanon|bank|gov)$"] move container to workspace $ws_deanon
 for_window [app_id="taisei"] move container to workspace $ws_game, focus
 for_window [title="OpenRA"] move container to workspace $ws_game, focus
-for_window [class="Steam"] move container to workspace $ws_game
-for_window [app_id="^(github|clickup|slack|firebase|google|gitlab)$"] move container to workspace $ws_etc
+for_window [class="^(S|s)team$"] move container to workspace $ws_game
+for_window [app_id="^(nnn)$"] move container to workspace $ws_etc
 for_window [class="scrcpy"] move container to workspace $ws_phone
 for_window [app_id="^(pinentry|Gsimplecal)$"] floating enable, focus
 for_window [window_role="pop-up"] floating enable
@@ -269,6 +272,8 @@ for_window [window_role="task_dialog"] floating enable
 for_window [window_role="Preferences"] floating enable
 for_window [window_type="dialog"] floating enable
 for_window [window_type="menu"] floating enable
+for_window [app_id="opensnitch_ui"] floating enable
+for_window [title="^(Open File|Open Folder)$" app_id="codium-url-handler"] floating enable
 for_window [window_role="About"] floating enable
 for_window [app_id="xdg-desktop-portal-kde"] floating enable
 for_window [app_id="xdg-desktop-portal-gtk"] floating enable
@@ -292,6 +297,11 @@ show_marks no
 exec_always --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ mute
 
 include /etc/sway/config.d/*
-exec --no-startup-id "systemctl --user start sway-session.target"
 
+exec swayidle -w \
+	timeout 300 'swaylock -f' \
+	timeout 500 'swaymsg "output * power off"' \
+	resume 'swaymsg "output * power on"' \
+    before-sleep 'swaylock -f'
+exec --no-startup-id "systemctl --user start sway-session.target"
 exec --no-startup-id $term

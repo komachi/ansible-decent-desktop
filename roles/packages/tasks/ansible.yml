@@ -1,0 +1,22 @@
+---
+- name: Install redis and ansible
+  ansible.builtin.apt:
+    name:
+      - redis-server
+      - ansible
+      - ansible-mitogen
+    state: present
+
+- name: Enable redis-server service
+  ansible.builtin.systemd:
+    state: started
+    name: redis-server
+    enabled: true
+
+- name: Copy ansible.cfg
+  ansible.builtin.copy:
+    src: ansible/ansible.cfg
+    dest: /home/{{ username }}/.ansible.cfg
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "0440"

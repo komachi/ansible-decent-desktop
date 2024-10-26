@@ -1,19 +1,19 @@
 ---
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: dns.yml
     apply:
       tags:
         - dns
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: network-manager.yml
     apply:
       tags:
-        - "network-manager"
+        - network-manager
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: wireguard.yml
     apply:
       tags:

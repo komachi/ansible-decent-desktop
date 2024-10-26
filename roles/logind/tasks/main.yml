@@ -1,6 +1,6 @@
 ---
 - name: Change behaviour of power button and lid switch
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /etc/systemd/logind.conf
     insertafter: ^\[Login\]
     line: "{{ item }}"

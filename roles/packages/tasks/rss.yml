@@ -2,6 +2,6 @@
 - name: Install newsboat
   register: install_newsboat
   until: install_newsboat is succeeded
-  apt:
+  ansible.builtin.apt:
     name: newsboat
     state: present

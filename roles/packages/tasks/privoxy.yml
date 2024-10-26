@@ -2,24 +2,24 @@
 - name: Install privoxy
   register: install_privoxy
   until: install_privoxy is succeeded
-  apt:
+  ansible.builtin.apt:
     name: privoxy
     state: present
 
 - name: Configure privoxy
-  copy:
+  ansible.builtin.copy:
     src: privoxy/config
     dest: /etc/privoxy/config
-    mode: 0644
+    mode: "0644"
 
 - name: Configure user.action
-  template:
+  ansible.builtin.template:
     src: privoxy/user.action.j2
     dest: /etc/privoxy/user.action
-    mode: 0644
+    mode: "0644"
 
 - name: Enable privoxy service
-  systemd:
+  ansible.builtin.systemd:
     name: privoxy
     state: started
     enabled: true

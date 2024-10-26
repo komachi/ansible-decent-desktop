@@ -2,29 +2,29 @@
 - name: Download MyCrypto
   register: get_mycrypto
   until: get_mycrypto is succeeded
-  get_url:
+  ansible.builtin.get_url:
     url: https://github.com/MyCryptoHQ/MyCrypto/releases/download/{{ mycrypto_version }}/linux-x86-64_{{ mycrypto_version }}_MyCrypto.AppImage
     dest: /usr/local/bin/mycrypto
     checksum: "{{ mycrypto_checksum }}"
-    mode: 0744
+    mode: "0744"
 
 - name: Add executable permission to mycrypto
-  file:
+  ansible.builtin.file:
     dest: /usr/local/bin/mycrypto
-    mode: 0755
+    mode: "0755"
 
 - name: Ensures ~/.local/share/applications exists
-  file:
+  ansible.builtin.file:
     path: /home/{{ username }}/.local/share/applications
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: 0750
+    mode: "0750"
 
 - name: Copy desktop file
-  copy:
+  ansible.builtin.copy:
     src: applications/mycrypto.desktop
     dest: /home/{{ username }}/.local/share/applications/mycrypto.desktop
-    mode: 0640
+    mode: "0640"
     owner: "{{ username }}"
     group: "{{ username }}"

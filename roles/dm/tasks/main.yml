@@ -1,2 +1,2 @@
 ---
-- include_tasks: wedontneedanydm.yml
+- ansible.builtin.include_tasks: wedontneedanydm.yml

@@ -2,6 +2,6 @@
 - name: Install Audacity
   register: install_audacity
   until: install_audacity is succeeded
-  apt:
+  ansible.builtin.apt:
     name: audacity
     state: present

@@ -2,28 +2,36 @@
 - name: Install sway
   register: install_sway
   until: install_sway is succeeded
-  apt:
+  ansible.builtin.apt:
     name: sway
     state: present
 
 - name: Ensures ~/.config/sway exists
-  file:
+  ansible.builtin.file:
     path: /home/{{ username }}/.config/sway
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: 0750
+    mode: "0750"
 
 - name: Copy sway config
-  copy:
+  ansible.builtin.copy:
     src: sway/config
     dest: /home/{{ username }}/.config/sway/config
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: 0440
+    mode: "0440"
+
+- name: Ensures ~/.config/systemd/user exists
+  ansible.builtin.file:
+    path: /home/{{ username }}/.config/systemd/user
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "0750"
 
 - name: Add sway-session.target
-  copy:
+  ansible.builtin.copy:
     src: systemd/sway-session.target
     dest: /home/{{ username }}/.config/systemd/user/sway-session.target
     mode: "0640"

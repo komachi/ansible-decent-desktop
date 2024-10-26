@@ -1,0 +1,7 @@
+---
+- name: Install usbguard
+  register: install_usbguard
+  until: install_usbguard is succeeded
+  ansible.builtin.apt:
+    name: usbguard
+    state: present

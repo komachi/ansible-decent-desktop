@@ -2,6 +2,6 @@
 - name: Install ledger-wallets-udev
   register: install_ledger_udev
   until: install_ledger_udev is succeeded
-  package:
+  ansible.builtin.package:
     name: ledger-wallets-udev
     state: present

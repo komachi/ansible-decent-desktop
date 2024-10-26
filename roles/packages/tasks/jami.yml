@@ -2,12 +2,12 @@
 - name: Install jami
   register: install_jami
   until: install_jami is succeeded
-  apt:
+  ansible.builtin.apt:
     name: jami
     state: present
 
 - name: Install dconfs module deps
-  apt:
+  ansible.builtin.apt:
     name:
       - python3-psutil
       - dconf-cli
@@ -16,7 +16,7 @@
 - name: Configure Jami
   become: true
   become_user: "{{ username }}"
-  dconf:
+  community.general.dconf:
     key: /net/jami/JamiGnome/{{ item.name }}
     value: "{{ item.value }}"
     state: present

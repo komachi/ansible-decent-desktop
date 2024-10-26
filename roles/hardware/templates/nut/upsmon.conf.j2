@@ -1,0 +1,13 @@
+MINSUPPLIES 1
+SHUTDOWNCMD "/sbin/shutdown -h +0"
+POLLFREQ 5
+POLLFREQALERT 5
+HOSTSYNC 15
+DEADTIME 15
+POWERDOWNFLAG /etc/killpower
+RBWARNTIME 43200
+NOCOMMWARNTIME 300
+FINALDELAY 5
+MONITOR nutdev1@localhost 1 admin {{ lookup('password', 'credentials/nut length=30') }} master
+POWERDOWNFLAG /etc/killpower
+SHUTDOWNCMD "/sbin/shutdown -h now"

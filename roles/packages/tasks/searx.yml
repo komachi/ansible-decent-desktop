@@ -1,6 +1,6 @@
 ---
 - name: Create searx user
-  user:
+  ansible.builtin.user:
     name: searx
     shell: /bin/false
     create_home: true
@@ -9,11 +9,11 @@
   register: searx_user
 
 - name: Add subguid/subuids for user
-  shell: usermod --add-subuids 100000-165535 --add-subgids 100000-165535 searx
+  ansible.builtin.command: usermod --add-subuids 100000-165535 --add-subgids 100000-165535 searx
   changed_when: false
 
 - name: Run podman system migrate
-  shell: podman system migrate
+  ansible.builtin.command: podman system migrate
   changed_when: false
 
 - name: Pull searx image
@@ -21,29 +21,29 @@
     name: registry.hub.docker.com/searx/searx
 
 - name: Ensures /etc/searx exists
-  file:
+  ansible.builtin.file:
     path: /etc/searx
     state: directory
     owner: searx
     group: searx
-    mode: 0750
+    mode: "0750"
 
 - name: Copy searx config
-  template:
+  ansible.builtin.template:
     src: searx/settings.yml.j2
     dest: /etc/searx/settings.yml
-    mode: 0440
+    mode: "0440"
     owner: searx
     group: searx
 
 - name: Add systemd service
-  template:
+  ansible.builtin.template:
     src: systemd/searx.service.j2
     dest: /etc/systemd/system/searx.service
     mode: "0640"
 
 - name: Enable searx service
-  systemd:
+  ansible.builtin.systemd:
     name: searx
     enabled: true
     state: started

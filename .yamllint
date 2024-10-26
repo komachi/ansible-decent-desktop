@@ -4,8 +4,9 @@ extends: default
 
 rules:
   braces:
+    min-spaces-inside: 0
     max-spaces-inside: 1
-    level: error
+  line-length: disable
   brackets:
     max-spaces-inside: 1
     level: error
@@ -15,8 +16,6 @@ rules:
   commas:
     max-spaces-after: -1
     level: error
-  comments: disable
-  comments-indentation: disable
   document-start: disable
   empty-lines:
     max: 3
@@ -25,9 +24,14 @@ rules:
     level: error
   indentation: disable
   key-duplicates: enable
-  line-length: disable
   new-line-at-end-of-file: disable
   new-lines:
     type: unix
   trailing-spaces: disable
   truthy: disable
+  comments:
+    min-spaces-from-content: 1
+  comments-indentation: false
+  octal-values:
+    forbid-implicit-octal: true
+    forbid-explicit-octal: true

@@ -2,7 +2,7 @@
 - name: Install libreoffice packages and zathura
   register: install_office
   until: install_office is succeeded
-  apt:
+  ansible.builtin.apt:
     name:
       - libreoffice-writer
       - libreoffice-calc
@@ -15,26 +15,24 @@
     state: present
 
 - name: Ensures ~/.config/libreoffice/4/user exists
-  file:
+  ansible.builtin.file:
     path: /home/{{ username }}/.config/libreoffice/4/user
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: 0750
+    mode: "0750"
 
 - name: Configure libreoffice
-  copy:
+  ansible.builtin.copy:
     src: libreoffice/registrymodifications.xcu
     dest: /home/{{ username }}/.config/libreoffice/4/user/registrymodifications.xcu
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: 0440
+    mode: "0440"
 
 - name: Download zaread
-  get_url:
+  ansible.builtin.get_url:
     url: "{{ zaread_url }}"
-    dest: /home/{{ username }}/.local/bin/zaread
+    dest: /usr/local/bin/zaread
     checksum: "{{ zaread_checksum }}"
-    owner: "{{ username }}"
-    group: "{{ username }}"
-    mode: 0755
+    mode: "0755"

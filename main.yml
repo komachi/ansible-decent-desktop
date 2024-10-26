@@ -1,116 +1,93 @@
 ---
-- hosts: all
+- name: Ansible-decent-desktop
+  hosts: all
   become: true
   gather_facts: true
-  collections:
-    - devsec.hardening
-    - debops.debops
-    - debops.roles01
-    - debops.roles02
-    - debops.roles03
-    - community.general
-    - ansible.posix
   roles:
-    - role: remote_keyring
+    - role: debops.debops.apt_preferences
       tags:
         - repos
-    - role: apt_transport_tor
+    - role: debops.debops.extrepo
       tags:
         - repos
-        - tor
-    - role: apt_preferences
-      tags:
-        - repos
-    - role: apt_install
+    - role: debops.debops.apt_install
       tags:
         - packages
     # TODO enable and move to systemd-boot
     # - boot_manager
-    - role: grub
+    - role: debops.debops.grub
       tags:
         - boot
-    - role: apt
+    - role: debops.debops.apt
       tags:
         - repos
-    - role: unattended_upgrades
+    - role: debops.debops.unattended_upgrades
       tags:
         - unattended-upgrades
-    - role: libuser
+    - role: debops.debops.libuser
       tags:
         - users
-    - role: users
+    - role: debops.debops.users
       tags:
         - users
-    - role: system_groups
+    - role: debops.debops.system_groups
       tags:
         - users
         - groups
-    - role: locales
+    - role: debops.debops.locales
       tags:
         - locale
     - role: additional_locales
       tags:
         - locale
-    - role: additional_hardering
+    - role: dm
       tags:
-        - hardering
-    - sysctl
-    - role: secret
+        - dm
+    - debops.debops.sysctl
+    - role: debops.debops.secret
       vars:
         secret__directories:
-          - "sysfs/dependent_config/{{ inventory_hostname }}"
-    - sysfs
-    - role: ssh_hardening
+          - sysfs/dependent_config/{{ inventory_hostname }}
+    - debops.debops.sysfs
+    - role: devsec.hardening.ssh_hardening
       tags:
         - hardering
     - logind
-    - role: journald
+    - role: debops.debops.journald
       tags:
         - logs
-    - role: logrotate
+    - role: debops.debops.logrotate
       tags:
         - logs
     - role: networking
       tags:
         - networking
     - role: mullvad
-      when: mullvad_account != ''
+      when: mullvad_account is defined and mullvad_account != ''
       tags:
         - mullvad
     - role: audio
       tags:
         - audio
-    - role: firewall
-      tags:
-        - firewall
+    # - role: firewall
+    #   tags:
+    #     - firewall
     - role: timezone
       tags:
         - time
-    - role: ntp
+    - role: debops.debops.ntp
       tags:
         - time
-    - role: packages
-      tags:
-        - packages
-    - kmod
-    - role: dm
-      tags:
-        - dm
     - role: de
       tags:
         - de
-    - role: python
+    - role: packages
+      tags:
+        - packages
+    - debops.debops.kmod
+    - role: debops.debops.python
       tags:
         - python
-    - role: libvirtd
-      tags:
-        - libvirtd
-    - role: nodejs
-      tags:
-        - nodejs
-    - role: games
-      tags:
-        - games
     - role: themes
       tags:
         - theme
@@ -120,46 +97,26 @@
     - role: hardware
       tags:
         - hardware
-    # - bin
     - gantsign.keyboard
     - role: apparmor_profiles
       tags:
         - hardering
         - apparmor
-    - role: os_hardening
+    - role: games
+      tags:
+        - games
+    - role: devsec.hardening.os_hardening
       tags:
         - hardering
-  vars_prompt:
-    - name: local_ip
-      prompt: IP range of your home local network
-      private: false
-      default: 192.168.0.0/16
-    # - name: homeserver_ip
-    #   prompt: "IP address of your home server"
-    #   private: no
-    #   default: "192.168.1.1"
-    - name: mullvad_account
-      prompt: Mullvad account number
-    - name: wireguard_server
-      prompt: Default WireGuard server
-      private: false
-      default: mullvad-no1
-    - name: large_dirs
-      prompt: Large dirs storage prefix (e.g XDG user dirs)
-      private: false
-      default: "/home/{{ username }}"
-  # # - name: root_disk
-  # #   prompt: "Disk hosting /boot directory"
-  # #   private: no
-  # #   default: "sdb3"
   vars:
-    username: "{{ provided_username | d('user') }}"
+    large_dirs: /home/{{ username }}
+    local_ip: 192.168.0.0/16
     architecture_map:
-      'x86_64': 'amd64'
-      'armv7l': 'armhf'
-      'aarch64': 'arm64'
+      x86_64: amd64
+      armv7l: armhf
+      aarch64: arm64
     nonfree_firmware: true
-    tor_browser_user_agent: Mozilla/5.0 (Windows NT 10.0; rv:91.0) Gecko/20100101 Firefox/91.0
+    tor_browser_user_agent: Mozilla/5.0 (Windows NT 10.0; rv:109.0) Gecko/20100101 Firefox/115.0
     timezone: Etc/UTC
     # gantsign.keyboard vars
     keyboard_model: pc105
@@ -170,6 +127,18 @@
       net.ipv6.conf.all.disable_ipv6: 0
       net.ipv4.ip_forward: 1
       kernel.unprivileged_userns_clone: 1
+      net.ipv4.conf.all.log_martians: 0
+      net.ipv4.conf.default.log_martians: 0
+      # https://kspp.github.io/Recommended_Settings#sysctls
+      kernel.dmesg_restrict: 1
+      kernel.yama.ptrace_scope: 3
+      net.core.bpf_jit_harden: 2
+      vm.unprivileged_userfaultfd: 0
+      fs.protected_fifos: 2
+      dev.tty.legacy_tiocsti: 0
+      dev.tty.ldisc_autoload: 0
+      kernel.unprivileged_bpf_disabled: 1
+
     os_auth_retries: 10
     os_filesystem_whitelist:
       - squashfs
@@ -183,7 +152,24 @@
     os_auditd_enabled: false
     hidepid_option: 0
     # debops vars
-    sysfs__enabled: True
+    extrepo__packages:
+      - tor
+      - apt-transport-tor
+      - extrepo-offline-data
+    extrepo__sources:
+      - fasttrack_backports
+      - josm
+      - node_21.x
+      - whonix
+      - kicksecure
+      - torproject
+      - waydroid
+      - vscodium
+    extrepo__configuration:
+      - name: policies
+        config:
+          enabled_policies: [main]
+    sysfs__enabled: true
     ntp__daemon_enabled: true
     ntp__daemon: chrony
     ntp__timezone: "{{ timezone }}"
@@ -212,7 +198,7 @@
           tabooext + .dpkg-divert
           include /etc/logrotate.d
     system_groups__list:
-      - name: 'console'
+      - name: console
         members: "{{ username }}"
     users__accounts:
       - name: "{{ username }}"
@@ -229,18 +215,20 @@
           - console
           - wireshark
           - debian-tor
-          - libvirt
-          - libvirt-qemu
-          - kvm
-          - boinc
+          - docker
         shell: /bin/bash
-    nodejs__node_upstream: true
-    nodejs__yarn_upstream: true
-    nodejs__node_upstream_release: node_16.x
-    nodejs__yarn_upstream_repository: "deb [arch={{ architecture_map[ansible_architecture] }} signed-by=/usr/share/keyrings/dl.yarnpkg.com-keyring.gpg] tor+https://dl.yarnpkg.com/debian/ stable main"
-    nodejs__node_upstream_repository: "deb [arch={{ architecture_map[ansible_architecture] }} signed-by=/usr/share/keyrings/deb.nodesource.com-keyring.gpg] tor+https://deb.nodesource.com/{{ nodejs__node_upstream_release }} {{ ansible_distribution_release }} main"
     packages:
-      - haveged
+      - tirdad
+      - kloak
+      - ram-wipe
+      - micro
+      - bat
+      - lsd
+      - duf
+      - tldr
+      - systemd
+      - systemd-sysv
+      - jitterentropy-rngd
       - whois
       - plocate
       - jq
@@ -289,65 +277,55 @@
       - libvips-tools
       - p7zip-full
       - openclipart-svg
-      - beignet-opencl-icd
       - v4l2loopback-dkms
-      - nfs-common
-      - nfs-kernel-server
       - timidity
       - fluid-soundfont-gm
     apt_install__all_packages:
       - "{{ packages }}"
     apt_preferences__list:
       - packages:
+          - yt-dlp
+          - streamlink
+          - python3-streamlink
+          - runsc
           - telegram-desktop
+          - scrcpy
+          - scrcpy-*
           - dino-im
-          - dino-im-common
+          - dino-im-*
+          - bubblewrap
           - flatpak
           - flatpak-*
           - libflatpak-*
           - libflatpak0
           - xdg-desktop-portal
           - xdg-desktop-portal-*
-          - papirus-icon-theme
-          - inkscape
           - josm
+          - josm-*
           - jmapviewer
-          - golang
-          - golang-*
-          - shellcheck
-          - fonts-opensymbol
+          # libreoffice
           - uno-libs-private
           - ure
           - ure-java
-          - liblibreoffice-java
+          - liblibreoffice-*
           - libunoloader-java
           - python3-uno
           - libreoffice-*
           - libofficebean-java
-          - libuno-cppu3
-          - libuno-cppuhelpergcc3-3
-          - libuno-purpenvhelpergcc3-3
-          - libuno-sal3
-          - libuno-salhelpergcc3-3
-          - git
-          - git-man
-          - libvulkan1
-          - libepoxy0
+          - libuno-*
           - 0ad
-          - 0ad-data
-          - 0ad-data-common
-          - libcurl3-gnutls
+          - 0ad-*
           - syncthing
-          - syncthing-discosrv
-          - syncthing-relaysrv
+          - syncthing-*
+          - persepolis
           # backported kernel
-          - 'linux-compiler-gcc-*'
-          - 'linux-headers-*'
-          - 'linux-image-*'
-          - 'linux-kbuild-*'
-          - 'linux-config-*'
-          - 'linux-doc-*'
-          - 'kernel-image-*'
+          - linux-compiler-gcc-*
+          - linux-headers-*
+          - linux-image-*
+          - linux-kbuild-*
+          - linux-config-*
+          - linux-doc-*
+          - kernel-image-*
           - linux-doc
           - linux-libc-dev
           # systemd
@@ -355,79 +333,114 @@
           - systemd-*
           - libnss-systemd
           - libpam-systemd
-          - libsystemd-dev
-          - libsystemd-shared
+          - libsystemd-*
           - libsystemd0
           - dbus-broker
           - init-system-helpers
           # pipewire
           - pipewire
-          - pipewire-*
-          - gstreamer1.0-pipewire
-          - libpipewire-0.3-*
-          - libwireplumber-0.4-0
           - wireplumber
-          - wireplumber-doc
+          - libpipewire-*
+          - libwireplumber-*
+          - pipewire-*
           - libspa-0.2-*
+          - wireplumber-*
+          - easyeffects
+          - sqlcipher
+          - golang
+          - golang-*
+          - tlp
+          - tlp-*
+          - smartmontools
+          - glab
+          - firmware-*
+          # wayland
+          - wayland-protocols
+          - libwayland-*
+          - electrum
+          - python3-electrum
+
         suffix: _backports
-        backports: ['bullseye']
+        backports: [bookworm]
       - "{{ apt_preferences__preset_list | list }}"
-      - package: "*"
-        suffix: _tor
+      - suffix: _tor
         raw: |
           Explanation: Prefer official tor packages
-          Package: *
+          Package: tor deb.torproject.org-keyring tor-dbgsym tor-geoipdb
           Pin: release o=TorProject,n={{ ansible_distribution_release }}
           Pin-Priority: 600
-      - package: '*'
-        suffix: _security
+      - suffix: _nodejs
         raw: |
-          Explanation: 
-          Package: *
-          Pin: release o=Debian,n={{ ansible_distribution_release }}-security
-          Pin-Priority: 550
-      - package: '*'
-        suffix: _updates
+          Explanation: Prefer nodesource packages
+          Package: nodejs nsolid
+          Pin: release n=nodistro
+          Pin-Priority: 600
+      - suffix: _yarn
         raw: |
-          Explanation: 
-          Package: *
-          Pin: release o=Debian,n={{ ansible_distribution_release }}-updates
-          Pin-Priority: 550
+          Explanation: Prefer official yarn package
+          Package: yarn
+          Pin: release o=yarn
+          Pin-Priority: 600
+      - suffix: _josm
+        raw: |
+          Explanation: Prefer official josm packages
+          Package: josm josm-latest
+          Pin: release n=alldist
+          Pin-Priority: 600
     apt_install__default_alternatives: []
     apt__install_recommends: false
     apt__install_suggests: false
+    apt__configuration:
+      - name: seccomp
+        filename: 01-seccomp.conf
+        comment: Enable seccomp sanboxing
+        raw: |
+          APT::Sandbox::Seccomp "true";
+        state: present
     apt__repositories:
-      - repo: "deb [arch={{ architecture_map[ansible_architecture] }} signed-by=/usr/share/keyrings/repo.i2pd.xyz-keyring.gpg] tor+https://repo.i2pd.xyz/debian {{ ansible_distribution_release }} main"
-        distribution: 'Debian'
-      - repo: "deb [arch={{ architecture_map[ansible_architecture] }} signed-by=/usr/share/keyrings/vscodium-keyring.gpg] tor+https://paulcarroty.gitlab.io/vscodium-deb-rpm-repo/debs vscodium main"
-        distribution: 'Debian'
-      - repo: "deb [arch={{ architecture_map[ansible_architecture] }} signed-by=/usr/share/keyrings/deb.torproject.org-keyring.gpg] tor+http://apow7mjfryruh65chtdydfmqfpj5btws7nbocgtaovhvezgccyjazpqd.onion/torproject.org {{ ansible_distribution_release }} main"
-        distribution: 'Debian'
-      - repo: "deb [arch={{ architecture_map[ansible_architecture] }} signed-by=/usr/share/keyrings/whonix.org-keyring.gpg] tor+http://deb.dds6qkxpwdeubwucdiaord2xgbbeyds25rbsgr73tbfpqpt4a6vjwsyd.onion {{ ansible_distribution_release }} main"
-        distribution: 'Debian'
-      - repo: "deb [arch={{ architecture_map[ansible_architecture] }} signed-by=/usr/share/keyrings/gvisor.gpg] tor+https://storage.googleapis.com/gvisor/releases release main"
-        distribution: 'Debian'
-      - repo: "deb [arch={{ architecture_map[ansible_architecture] }} signed-by=/usr/share/keyrings/deb.imaginary.stream-keyring.gpg] tor+https://deb.imaginary.stream {{ ansible_distribution_release }} main"
-        distribution: 'Debian'
-      - repo: 'deb https://deb.debian.org/debian {{ ansible_distribution_release }} main contrib non-free'
+      - repo: deb https://deb.debian.org/debian {{ ansible_distribution_release }} main contrib non-free
         state: absent
-      - repo: 'deb https://deb.debian.org/debian {{ ansible_distribution_release }}-updates main contrib non-free'
+      - repo: deb https://deb.debian.org/debian {{ ansible_distribution_release }} main contrib non-free non-free-firmware
         state: absent
-      - repo: 'deb https://deb.debian.org/debian {{ ansible_distribution_release }}-backports main contrib non-free'
+      - repo: deb https://deb.debian.org/debian {{ ansible_distribution_release }}-updates main contrib non-free
         state: absent
-      - repo: 'deb https://security.debian.org/debian-security {{ ansible_distribution_release }} main contrib non-free'
+      - repo: deb https://deb.debian.org/debian {{ ansible_distribution_release }}-updates main contrib non-free non-free-firmware
         state: absent
-      - repo: 'deb https://security.debian.org/debian-security {{ ansible_distribution_release }}-updates main contrib non-free'
+      - repo: deb https://deb.debian.org/debian {{ ansible_distribution_release }}-backports main contrib non-free
         state: absent
-      - repo: 'deb https://security.debian.org/debian-security {{ ansible_distribution_release }}-backports main contrib non-free'
+      - repo: deb https://deb.debian.org/debian {{ ansible_distribution_release }}-backports main contrib non-free non-free-firmware
+        state: absent
+      - repo: deb https://security.debian.org/debian-security {{ ansible_distribution_release }} main contrib non-free
+        state: absent
+      - repo: deb https://security.debian.org/debian-security {{ ansible_distribution_release }} main contrib non-free non-free-firmware
+        state: absent
+      - repo: deb https://security.debian.org/debian-security {{ ansible_distribution_release }}-updates main contrib non-free
+        state: absent
+      - repo: deb https://security.debian.org/debian-security {{ ansible_distribution_release }}-updates main contrib non-free non-free-firmware
+        state: absent
+      - repo: deb https://security.debian.org/debian-security {{ ansible_distribution_release }}-backports main contrib non-free
+        state: absent
+      - repo: deb https://security.debian.org/debian-security {{ ansible_distribution_release }}-backports main contrib non-free non-free-firmware
+        state: absent
+      - repo: deb http://deb.debian.org/debian {{ ansible_distribution_release }} main contrib non-free
+        state: absent
+      - repo: deb http://deb.debian.org/debian {{ ansible_distribution_release }}-updates main contrib non-free
+        state: absent
+      - repo: deb http://deb.debian.org/debian {{ ansible_distribution_release }}-backports main contrib non-free
+        state: absent
+      - repo: deb http://security.debian.org/debian-security {{ ansible_distribution_release }} main contrib non-free
+        state: absent
+      - repo: deb http://security.debian.org/debian-security {{ ansible_distribution_release }}-updates main contrib non-free
+        state: absent
+      - repo: deb http://security.debian.org/debian-security {{ ansible_distribution_release }}-backports main contrib non-free
         state: absent
     apt__default_sources:
-      - uri: "tor+http://2s4yqjx5ul6okpp3f2gaunr2syex5jgbfpfvhxxbbjwnrsvbk5v3qbid.onion/debian"
+      - uri: tor+http://2s4yqjx5ul6okpp3f2gaunr2syex5jgbfpfvhxxbbjwnrsvbk5v3qbid.onion/debian
         comment: '{{ "Official " + apt__distribution + " repositories" }}'
         distribution: Debian
         state: present
     apt__security_sources:
-      - uri: "tor+http://5ajw6aqf3ep7sijnscdzw77t7xq4xjpsy335yb2wiwgouo7yfxtjlmid.onion/debian-security"
+      - uri: tor+http://5ajw6aqf3ep7sijnscdzw77t7xq4xjpsy335yb2wiwgouo7yfxtjlmid.onion/debian-security
         comment: Debian Security repository
         type: "{{ apt__source_types }}"
         suite: '{{ ansible_distribution_release + "-security" }}'
@@ -453,12 +466,6 @@
           - net.core.netdev_max_backlog: 16384
           - net.core.somaxconn: 8192
           - net.ipv4.tcp_fastopen: 3
-    sysfs__attributes:
-      - name: governor
-        state: defined
-        options:
-          - name: devices/system/cpu/cpu0/cpufreq/scaling_governor
-            value: performance
     python__v3: true
     python__v2: false
     python__packages3:
@@ -487,18 +494,42 @@
     kmod__load:
       - name: tun
     kmod__modules:
+      # https://github.com/GrapheneOS/infrastructure/blob/main/modprobe.d/local.conf
+      - name: cdrom
+        state: blacklist
+      - name: cfg80211
+        state: blacklist
+      - name: floppy
+        state: blacklist
+      - name: intel_agp
+        state: blacklist
+      - name: ip_tables
+        state: blacklist
       - name: pcspkr
         state: blacklist
-        comment: Disable PC Speaker support
-      - name: lkrg
-        state: present
-      - name: tirdad
-        state: present
+      - name: snd_intel8x0
+        state: blacklist
+      - name: sr_mod
+        state: blacklist
+      - name: tls
+        state: blacklist
+      - name: virtio_balloon
+        state: blacklist
+      - name: virtio_console
+        state: blacklist
     grub__timeout_hardware: 1
     grub__timeout_virtual: 1
     grub__configuration:
       - name: cmdline_linux_default
         value:
+          # silent boot
+          # https://wiki.archlinux.org/index.php/Silent_boot
+          - quiet
+          - loglevel=3
+          - rd.systemd.show_status=auto
+          - rd.udev.log_level=3
+          - vt.global_cursor_default=0
+          - debugfs=on
           # zswap
           - zswap.enabled=1
           - zswap.compressor=zstd
@@ -513,15 +544,26 @@
           - nmi_watchdog=0
           # disable sss
           - libahci.ignore_sss=1
-          # silent boot
-          # https://wiki.archlinux.org/index.php/Silent_boot
-          - quiet
-          - loglevel=3
-          - rd.systemd.show_status=auto
-          - rd.udev.log_level=3
-          - vt.global_cursor_default=0
           # required by oomd
           - swapaccount=1
           - systemd.unified_cgroup_hierarchy=1
-          # needed by opensnitch, disabled by security-misc
-          - debugfs=on
+          # https://kspp.github.io/Recommended_Settings#kernel-command-line-options
+          - randomize_kstack_offset=on
+          - init_on_alloc=1
+          - init_on_free=1
+          - hardened_usercopy=1
+          - page_alloc.shuffle=1
+          - slab_nomerge
+          - pti=on
+          - iommu=force
+          - iommu.passthrough=0
+          - iommu.strict=1
+          - mitigations=auto,nosmt
+          - kfence.sample_interval=100
+          - vsyscall=none
+          - vdso32=0
+          # - cfi=kcfi
+          # https://github.com/Kicksecure/security-misc/blob/master/etc/default/grub.d/40_kernel_hardening.cfg
+          - random.trust_bootloader=off
+          - random.trust_cpu=off
+          - extra_latent_entropy

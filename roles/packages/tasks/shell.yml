@@ -1,9 +1,9 @@
 ---
 # bash isn't haxxxor enough, but it's ok
 - name: Configure bash aliases
-  copy:
+  ansible.builtin.copy:
     src: bash/bash_aliases
     dest: /home/{{ username }}/.bash_aliases
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: 0740
+    mode: "0740"

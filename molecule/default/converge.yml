@@ -2,10 +2,21 @@
 - name: Converge
   become: true
   hosts: all
+  vars:
+    provided_username: vagrant
   tasks:
+    - name: Ensure /etc/polkit-1/rules.d exists
+      file:
+        path: /etc/polkit-1/rules.d
+        state: directory
+    - name: Copy flatpak polkit rule
+      copy:
+        src: org.freedesktop.Flatpak.rules
+        dest: /etc/polkit-1/rules.d/org.freedesktop.Flatpak.rules
+        mode: 0744
     - name: Update apt cache
       apt:
-        update_cache: true
+        update_cache: yes
     - name: Install deps
       apt:
         name:
@@ -15,10 +26,4 @@
           - git
           - python-is-python3
         state: present
-    - name: Wrire policy-rc.d 
-      copy:
-        content: |
-          #!/bin/sh
-          exit 0
-        dest: /usr/sbin/policy-rc.d
 - import_playbook: ../../main.yml

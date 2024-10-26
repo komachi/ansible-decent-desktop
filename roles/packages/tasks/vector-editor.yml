@@ -2,6 +2,6 @@
 - name: Install Inkscape
   register: install_inkscape
   until: install_inkscape is succeeded
-  apt:
+  ansible.builtin.apt:
     name: inkscape
     state: present

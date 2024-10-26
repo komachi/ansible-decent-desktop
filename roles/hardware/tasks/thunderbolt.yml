@@ -1,0 +1,7 @@
+---
+- name: Install bolt
+  register: install_bolt
+  until: install_bolt is succeeded
+  ansible.builtin.apt:
+    name: bolt
+    state: present

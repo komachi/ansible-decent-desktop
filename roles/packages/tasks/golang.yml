@@ -2,6 +2,6 @@
 - name: Install golang
   register: install_golang
   until: install_golang is succeeded
-  apt:
+  ansible.builtin.apt:
     name: golang
     state: present

@@ -1,7 +1,6 @@
 ---
-- name: reload apparmor
-  systemd:
+- name: Reload apparmor
+  ansible.builtin.systemd:
     name: apparmor
     state: reloaded
     enabled: true
-  

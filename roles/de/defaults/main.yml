@@ -3,5 +3,5 @@ jaro_url: https://raw.githubusercontent.com/isamert/jaro/cba1bfa24e84de1b4c6afd7
 jaro_checksum: sha256:5e6c19a29e3da9d03f8ac5b463c44a07ef701eaed4d4b2a1a2e781ebfb3601cb
 ananicy_repo: https://github.com/komachi/Ananicy.git
 ananicy_commit: 94723fcbedd51fb24cea0979aa11401ccb8c530f
-cfs_zen_tweaks_version: 1.2.0
-cfs_zen_tweaks_checksum: sha256:6d1dfffddb44407899a6de2cbd08c212781edb63595c44b689558252a0f1f4be
+cfs_zen_tweaks_version: 1.3.0
+cfs_zen_tweaks_checksum: sha512:b7e4d5e1658b572de0533eddc3688ce3023c90b39803be3ac750f124932b7f9ec7355d50553abbdbafb5826aba3c67d146f11520c4db4da8e56f7c0ebfeb30c0

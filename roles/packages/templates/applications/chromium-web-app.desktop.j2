@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Name={{ item.name }}
+Exec=chromium --class="{{ item.profile }}" --profile-directory={{ item.profile }} --app={{ item.url }}
+Terminal=false
+Type=Application
+Categories=Network;
+Keywords={{ item.name }};{{ item.profile }};WebApp;
+StartupWMClass={{ item.profile }}
+StartupNotify=true
+Icon={{item.icon | d("web-browser-symbolic") }}

@@ -2,52 +2,52 @@
 - name: Install Thunderbird
   register: install_thunderbird
   until: install_thunderbird is succeeded
-  apt:
+  ansible.builtin.apt:
     name: thunderbird
     state: present
 
 - name: Ensures every profile dir exists
-  file:
+  ansible.builtin.file:
     path: /home/{{ username }}/.thunderbird/{{ item.name }}
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: 0750
+    mode: "0750"
   loop: "{{ thunderbird_profiles }}"
 
 - name: Configure profiles.ini
-  template:
+  ansible.builtin.template:
     src: thunderbird/profiles.ini.j2
     dest: /home/{{ username }}/.thunderbird/profiles.ini
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: 0440
+    mode: "0440"
 
 - name: Install thunderbird-user.js for every profile
-  get_url:
+  ansible.builtin.get_url:
     url: "{{ thunderbird_userjs_url }}"
     checksum: "{{ thunderbird_userjs_checksum }}"
     dest: /home/{{ username }}/.thunderbird/{{ item.name }}/user.js
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: 0440
+    mode: "0440"
   loop: "{{ thunderbird_profiles }}"
 
 - name: Configure thunderbird
-  lineinfile:
+  ansible.builtin.lineinfile:
     dest: /home/{{ username }}/.thunderbird/{{ item.0.name }}/user.js
     regexp: ^user_pref\("{{ item.1.pref | regex_escape() }}",.*\)\;.*$
     line: user_pref("{{ item.1.pref }}", {{ item.1.value }});
   loop: "{{ thunderbird_profiles | subelements('prefs') }}"
 
 - name: Ensures distribution dir exists
-  file:
+  ansible.builtin.file:
     path: /usr/lib/thunderbird/distribution
     state: directory
-    mode: 0755
+    mode: "0755"
 
 - name: Copy policies.json
-  copy:
+  ansible.builtin.copy:
     src: thunderbird/policies.json
     dest: /usr/lib/thunderbird/distribution/policies.json
-    mode: 0444
+    mode: "0444"

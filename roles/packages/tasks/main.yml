@@ -1,6 +1,6 @@
 ---
-- include_tasks:
-    file: podman.yml
+- ansible.builtin.include_tasks:
+    file: containers.yml
     apply:
       tags:
         - containers
@@ -8,64 +8,64 @@
         - docker
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: pipx.yml
     apply:
       tags:
         - pipx
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: flatpak.yml
     apply:
       tags:
         - flatpak
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: gpg.yml
     apply:
       tags:
         - gpg
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: shell.yml
     apply:
       tags:
         - shell
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: tor.yml
     apply:
       tags:
         - tor
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: privoxy.yml
     apply:
       tags:
         - privoxy
   tags:
     - always
-- include_tasks: graphicsmagick.yml
-- include_tasks:
+- ansible.builtin.include_tasks: graphicsmagick.yml
+- ansible.builtin.include_tasks:
     file: password-manager.yml
     apply:
       tags:
         - password-manager
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: file-manager.yml
     apply:
       tags:
         - file-manager
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: code-editor.yml
     apply:
       tags:
@@ -73,7 +73,7 @@
         - code-editor
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: firefox.yml
     apply:
       tags:
@@ -81,7 +81,7 @@
         - browser
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: chromium.yml
     apply:
       tags:
@@ -89,7 +89,7 @@
         - browser
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: mail.yml
     apply:
       tags:
@@ -97,7 +97,7 @@
         - thunderbird
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: syncthing.yml
     apply:
       tags:
@@ -105,29 +105,29 @@
         - file-sync
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: video.yml
     apply:
       tags:
         - video
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: music.yml
     apply:
       tags:
         - music
   tags:
     - always
-- include_tasks: terminal-emulator.yml
-- include_tasks:
+- ansible.builtin.include_tasks: terminal-emulator.yml
+- ansible.builtin.include_tasks:
     file: i2p.yml
     apply:
       tags:
         - i2p
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: bitcoin.yml
     apply:
       tags:
@@ -135,7 +135,7 @@
         - cryptocurrency
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: bitcoincash.yml
     apply:
       tags:
@@ -143,7 +143,7 @@
         - cryptocurrency
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: monero.yml
     apply:
       tags:
@@ -151,7 +151,7 @@
         - cryptocurrency
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: zcash.yml
     apply:
       tags:
@@ -159,7 +159,7 @@
         - cryptocurrency
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: ethereum.yml
     apply:
       tags:
@@ -167,7 +167,7 @@
         - cryptocurrency
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: josm.yml
     apply:
       tags:
@@ -175,33 +175,33 @@
         - openstreetmap
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: download-manager.yml
     apply:
       tags:
         - download-manager
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: raster-editor.yml
     apply:
       tags:
         - raster-editor
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: vector-editor.yml
     apply:
       tags:
         - vector-editor
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: audio-editor.yml
     apply:
       tags:
         - audio-editor
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: office.yml
     apply:
       tags:
@@ -209,21 +209,21 @@
         - libreoffice
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: text-editor.yml
     apply:
       tags:
         - text-editor
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: nodejs.yml
     apply:
       tags:
         - nodejs
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: bisq.yml
     apply:
       tags:
@@ -231,15 +231,8 @@
         - cryptocurrency
   tags:
     - always
-- include_tasks:
-    file: zim.yml
-    apply:
-      tags:
-        - zim
-        - wiki
-  tags:
-    - always
-- include_tasks:
+
+- ansible.builtin.include_tasks:
     file: dash.yml
     apply:
       tags:
@@ -247,14 +240,7 @@
         - dash
   tags:
     - always
-- include_tasks:
-    file: xd.yml
-    apply:
-      tags:
-        - i2p
-  tags:
-    - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: deltachat.yml
     apply:
       tags:
@@ -262,7 +248,7 @@
         - im
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: telegram.yml
     apply:
       tags:
@@ -270,7 +256,7 @@
         - im
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: xmpp-client.yml
     apply:
       tags:
@@ -278,14 +264,14 @@
         - im
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: maps.yml
     apply:
       tags:
         - maps
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: matrix.yml
     apply:
       tags:
@@ -293,16 +279,14 @@
         - im
   tags:
     - always
-- include_tasks: restscope.yml
-- include_tasks: lokinet.yml
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: rss.yml
     apply:
       tags:
         - rss
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: virtual-machines.yml
     apply:
       tags:
@@ -310,14 +294,14 @@
   tags:
     - always
 # - include_tasks: sia.yml
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: golang.yml
     apply:
       tags:
         - golang
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: tube.yml
     apply:
       tags:
@@ -325,7 +309,7 @@
         - tube
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: jami.yml
     apply:
       tags:
@@ -333,7 +317,7 @@
         - im
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: mumble.yml
     apply:
       tags:
@@ -341,39 +325,40 @@
         - im
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: accounting.yml
     apply:
       tags:
         - accounting
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: dictionaries.yml
     apply:
       tags:
         - dictionaries
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: psd.yml
     apply:
       tags:
         - optimizations
   tags:
     - always
-- include_tasks:
-    file: boinc.yml
+# TODO re-enable, missing in bookworm
+# - include_tasks:
+#     file: scrcpy.yml
+#     apply:
+#       tags:
+#         - scrcpy
+#         - android
+#   tags:
+#     - always
+- ansible.builtin.include_tasks:
+    file: ipfs.yml
     apply:
       tags:
-        - boinc
-  tags:
-    - always
-- include_tasks:
-    file: scrcpy.yml
-    apply:
-      tags:
-        - scrcpy
-        - android
+        - ipfs
   tags:
     - always

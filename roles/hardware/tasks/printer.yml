@@ -2,7 +2,7 @@
 - name: Install cups, gutenprint driver and foomatic db
   register: install_cups
   until: install_cups is succeeded
-  apt:
+  ansible.builtin.apt:
     name:
       - cups
       - printer-driver-gutenprint
@@ -10,28 +10,10 @@
       - system-config-printer
     state: present
 
-- name: Stop cups
-  service:
-    name: cups
-    state: stopped
-
-- name: Configure printers.conf
-  template:
-    src: cups/printers.conf.j2
-    dest: /etc/cups/printers.conf
-    mode: 0600
-    owner: root
-    group: lp
-
 - name: Configure cupsd.conf
-  copy:
+  ansible.builtin.copy:
     src: cups/cupsd.conf
     dest: /etc/cups/cupsd.conf
-    mode: 0600
+    mode: "0600"
     owner: root
     group: lp
-
-- name: Start cups
-  service:
-    name: cups
-    state: started

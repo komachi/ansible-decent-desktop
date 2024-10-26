@@ -2,38 +2,38 @@
 - name: Install Taisei Project from flatpak
   become: true
   become_user: "{{ username }}"
-  flatpak:
+  community.general.flatpak:
     name: org.taisei_project.Taisei
     state: present
 
 - name: Ensures ~/.local/share/applications exists
-  file:
+  ansible.builtin.file:
     path: /home/{{ username }}/.local/share/applications
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: 0755
+    mode: "0755"
 
 - name: Copy desktop file
-  copy:
+  ansible.builtin.copy:
     src: applications/org.taisei_project.Taisei.desktop
     dest: /home/{{ username }}/.local/share/applications/org.taisei_project.Taisei.desktop
-    mode: 0640
+    mode: "0640"
     owner: "{{ username }}"
     group: "{{ username }}"
 
 - name: Ensures ~/.var/app/org.taisei_project.Taisei/data/taisei exists
-  file:
+  ansible.builtin.file:
     path: /home/{{ username }}/.var/app/org.taisei_project.Taisei/data/taisei
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: 0755
+    mode: "0755"
 
 - name: Copy Taisei Project config
-  copy:
+  ansible.builtin.copy:
     src: taisei/config
     dest: /home/{{ username }}/.var/app/org.taisei_project.Taisei/data/taisei/config
-    mode: 0640
+    mode: "0640"
     owner: "{{ username }}"
     group: "{{ username }}"

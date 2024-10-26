@@ -2,14 +2,14 @@
 - name: Install wireguard
   register: install_wireguard
   until: install_wireguard is succeeded
-  apt:
+  ansible.builtin.apt:
     name:
       - wireguard
       - wireguard-tools
     state: present
 
 - name: Disable managing wireguard interfaces by nm
-  copy:
+  ansible.builtin.copy:
     src: networkmanager/unmanaged.conf
     dest: /etc/NetworkManager/conf.d/10-unmanaged.conf
-    mode: 0640
+    mode: "0640"

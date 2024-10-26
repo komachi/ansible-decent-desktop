@@ -2,7 +2,7 @@
 - name: Install steam-devices
   register: install_steam_devices
   until: install_steam_devices is succeeded
-  package:
+  ansible.builtin.package:
     name: steam-devices
     state: present
 
@@ -11,18 +11,18 @@
   become_user: "{{ username }}"
   register: install_steam
   until: install_steam is succeeded
-  flatpak:
+  community.general.flatpak:
     name: com.valvesoftware.Steam
     state: present
 
 - name: Ensures /var/lib/flatpak/overrides exists
-  file:
+  ansible.builtin.file:
     path: /var/lib/flatpak/overrides
     state: directory
-    mode: 0555
+    mode: "0555"
 
 - name: Copy Steam overrides config
-  copy:
+  ansible.builtin.copy:
     src: flatpak/overrides/com.valvesoftware.Steam
     dest: /var/lib/flatpak/overrides/com.valvesoftware.Steam
-    mode: 0444
+    mode: "0444"

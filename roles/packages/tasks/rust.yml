@@ -2,7 +2,7 @@
 - name: Install cargo
   register: install_cargo
   until: install_cargo is succeeded
-  apt:
+  ansible.builtin.apt:
     name:
       - cargo
     state: present

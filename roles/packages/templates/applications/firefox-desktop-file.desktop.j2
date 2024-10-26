@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Name={{ item.name }}
+Exec=env MOZ_ENABLE_WAYLAND=1 /usr/lib/firefox-esr/firefox-esr --class="firefox-{{ item.name }}" -P {{ item.name }} -no-remote
+Terminal=false
+Type=Application
+Categories=Network;WebBrowser;
+Keywords={{ item.name }}
+Icon=firefox-esr
+StartupWMClass=firefox-{{ item.name }}
+StartupNotify=true

@@ -2,12 +2,12 @@
 - name: Install doas
   register: install_doas
   until: install_doas is succeeded
-  apt:
+  ansible.builtin.apt:
     name: doas
     state: present
 
 - name: Configure doas
-  template:
+  ansible.builtin.template:
     src: doas.conf.j2
     dest: /etc/doas.conf
-    mode: 0440
+    mode: "0440"

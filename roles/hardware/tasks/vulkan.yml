@@ -2,7 +2,7 @@
 - name: Install vulkan deps
   register: install_vulkan
   until: install_vulkan is succeeded
-  apt:
+  ansible.builtin.apt:
     name:
       - mesa-vulkan-drivers
       - libvulkan1

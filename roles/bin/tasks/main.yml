@@ -1,8 +1,0 @@
----
-- name: Clone bin repo
-  git:
-    repo: https://github.com/komachi/bin.git
-    dest: /home/{{ username }}/bin
-    version: "{{ bin_commit }}"
-  become: true
-  become_user: "{{ username }}"

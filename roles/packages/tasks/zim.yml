@@ -1,9 +1,0 @@
----
-- name: Install zim
-  register: install_zim
-  until: install_zim is succeeded
-  apt:
-    name:
-      - zim
-      - python3-gtkspellcheck
-    state: present

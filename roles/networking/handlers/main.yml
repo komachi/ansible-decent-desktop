@@ -1,13 +1,16 @@
 ---
-- name: reload unbound
-  systemd:
+- name: Reload unbound
+  ansible.builtin.systemd:
     name: unbound
     state: reloaded
     enabled: true
 
-- name: restart stubby
-  systemd:
+- name: Restart stubby
+  ansible.builtin.systemd:
     name: stubby
     state: restarted
     enabled: true
-    
+
+- name: Regenerate resolvconf
+  ansible.builtin.command: resolvconf -u
+  changed_when: false

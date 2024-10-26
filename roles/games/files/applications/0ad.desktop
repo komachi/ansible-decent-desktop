@@ -1,7 +1,7 @@
 [Desktop Entry]
 Version=1.0
 Name=0 A.D.
-Exec=/usr/games/gamemoderun /usr/games/0ad
+Exec=env SDL_VIDEODRIVER=wayland /usr/games/gamemoderun /usr/games/0ad
 Icon=0ad
 Terminal=false
 MimeType=application/x-pyromod+zip;
@@ -21,4 +21,4 @@ Actions=Atlas;
 
 [Desktop Action Atlas]
 Name=Atlas Map Editor
-Exec=/usr/games/gamemoderun /usr/games/0ad -editor
+Exec=env SDL_VIDEODRIVER=wayland /usr/games/gamemoderun /usr/games/0ad -editor

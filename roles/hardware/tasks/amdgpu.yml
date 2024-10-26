@@ -2,8 +2,9 @@
 - name: Install amd gpu drivers
   register: install_amdgpu
   until: install_amdgpu is succeeded
-  apt:
+  ansible.builtin.apt:
     name:
       - libdrm-amdgpu1
       - mesa-opencl-icd
+      - firmware-amd-graphics
     state: present

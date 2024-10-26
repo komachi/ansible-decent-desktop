@@ -1,10 +1,10 @@
 ---
 - name: Collect package facts
-  package_facts:
+  ansible.builtin.package_facts:
     manager: auto
 
 - name: Create temp dir for cfs-zen-tweaks
-  tempfile:
+  ansible.builtin.tempfile:
     state: directory
   register: cfs_zen_tweaks_download_tempdir
   when: ('cfs-zen-tweaks' not in ansible_facts.packages) or ('cfs-zen-tweaks' in ansible_facts.packages and ansible_facts.packages['cfs-zen-tweaks'][0].version !=
@@ -15,18 +15,18 @@
 - name: Get cfs-zen-tweaks
   register: get_zen_tweaks
   until: get_zen_tweaks is succeeded
-  get_url:
+  ansible.builtin.get_url:
     url: https://github.com/igo95862/cfs-zen-tweaks/releases/download/{{ cfs_zen_tweaks_version }}/cfs-zen-tweaks-{{ cfs_zen_tweaks_version }}-Linux.deb
     dest: "{{ cfs_zen_tweaks_download_tempdir.path }}/cfs-zen-tweaks.deb"
     checksum: "{{ cfs_zen_tweaks_checksum }}"
-    mode: 0440
+    mode: "0440"
   when: ('cfs-zen-tweaks' not in ansible_facts.packages) or ('cfs-zen-tweaks' in ansible_facts.packages and ansible_facts.packages['cfs-zen-tweaks'][0].version !=
     cfs_zen_tweaks_version)
   tags:
     - optimizations
 
 - name: Install cfs-zen-tweaks
-  apt:
+  ansible.builtin.apt:
     deb: "{{ cfs_zen_tweaks_download_tempdir.path }}/cfs-zen-tweaks.deb"
   when: ('cfs-zen-tweaks' not in ansible_facts.packages) or ('cfs-zen-tweaks' in ansible_facts.packages and ansible_facts.packages['cfs-zen-tweaks'][0].version !=
     cfs_zen_tweaks_version)
@@ -34,7 +34,7 @@
     - optimizations
 
 - name: Remove tempdir
-  file:
+  ansible.builtin.file:
     path: "{{ cfs_zen_tweaks_download_tempdir.path }}"
     state: absent
   when: ('cfs-zen-tweaks' not in ansible_facts.packages) or ('cfs-zen-tweaks' in ansible_facts.packages and ansible_facts.packages['cfs-zen-tweaks'][0].version !=

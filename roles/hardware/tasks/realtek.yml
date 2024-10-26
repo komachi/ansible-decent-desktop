@@ -1,7 +1,7 @@
 ---
-- name: Install iwlwifi firmware
+- name: Install realtek firmware
   register: install_realtek
   until: install_realtek is succeeded
-  package:
+  ansible.builtin.package:
     name: firmware-realtek
     state: present

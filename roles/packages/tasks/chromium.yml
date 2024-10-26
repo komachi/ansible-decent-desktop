@@ -1,6 +1,6 @@
 ---
 - name: Make sure ungoogled-chromium is not installed
-  apt:
+  ansible.builtin.apt:
     name:
       - ungoogled-chromium
       - ungoogled-chromium-dbgsym
@@ -9,36 +9,37 @@
 - name: Install chromium
   register: install_chromium
   until: install_chromium is succeeded
-  apt:
-    name: chromium
+  ansible.builtin.apt:
+    name:
+      - chromium
+      - webext-ublock-origin-chromium
     state: present
 
 - name: Add script to source chromium-flags.conf
-  copy:
+  ansible.builtin.copy:
     src: chromium/chromium-flags.sh
     dest: /etc/chromium.d/chromium-flags
     mode: +x
 
 - name: Configure chromium
-  copy:
+  ansible.builtin.copy:
     src: chromium/chromium-flags.conf
     dest: /home/{{ username }}/.config/chromium-flags.conf
     mode: "0640"
     owner: "{{ username }}"
     group: "{{ username }}"
 
+- name: Ensure extensions directory exists
+  ansible.builtin.file:
+    dest: /usr/share/chromium/extensions
+    state: directory
+    mode: "0755"
+
 - name: Copy desktop files for web apps
-  copy:
-    src: applications/{{ item }}.desktop
-    dest: /home/{{ username }}/.local/share/applications/{{ item }}.desktop
-    mode: 0640
+  ansible.builtin.template:
+    src: applications/chromium-web-app.desktop.j2
+    dest: /home/{{ username }}/.local/share/applications/{{ item.name }}.desktop
+    mode: "0640"
     owner: "{{ username }}"
     group: "{{ username }}"
-  loop:
-    - github
-    - clickup
-    - slack
-    - figma
-    - firebase
-    - gcloud
-    - gitlab
+  loop: "{{ webapps }}"

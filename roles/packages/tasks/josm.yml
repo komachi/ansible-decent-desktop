@@ -2,23 +2,23 @@
 - name: Install JOSM
   register: install_josm
   until: install_josm is succeeded
-  apt:
+  ansible.builtin.apt:
     name: josm
     state: present
 
 - name: Ensures ~/.config/JOSM exists
-  file:
+  ansible.builtin.file:
     path: /home/{{ username }}/.config/JOSM
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: 0750
+    mode: "0750"
 
 - name: Write JOSM configuration
-  template:
+  ansible.builtin.template:
     src: JOSM/preferences.xml.j2
     dest: /home/{{ username }}/.config/JOSM/preferences.xml
-    mode: 0640
+    mode: "0640"
     owner: "{{ username }}"
     group: "{{ username }}"
     force: false

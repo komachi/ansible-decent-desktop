@@ -1,21 +1,21 @@
 ---
 - name: Install dash electrum from flatpak
-  flatpak:
+  community.general.flatpak:
     name: org.dash.electrum.electrum_dash
     state: present
 
 - name: Ensures ~/.var/app/org.dash.electrum.electrum_dash/.electrum-dash exists
-  file:
+  ansible.builtin.file:
     path: /home/{{ username }}/.var/app/org.dash.electrum.electrum_dash/.electrum-dash
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: 0750
+    mode: "0750"
 
 - name: Configure electrum-dash
-  copy:
+  ansible.builtin.copy:
     src: electrum-dash/config
     dest: /home/{{ username }}/.var/app/org.dash.electrum.electrum_dash/.electrum-dash/config
-    mode: 0640
+    mode: "0640"
     owner: "{{ username }}"
     group: "{{ username }}"

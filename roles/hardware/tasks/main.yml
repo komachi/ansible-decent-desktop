@@ -1,62 +1,86 @@
 ---
-- include_tasks: iwlwifi.yml
-  when: thinkpad_x230|d(False) == True
-- include_tasks:
+- name: Check if we run playbook on laptop
+  ansible.builtin.command: laptop-detect
+  register: laptop_detect
+  ignore_errors: true
+  changed_when: false
+
+- ansible.builtin.include_tasks:
     file: nitrokey.yml
     apply:
       tags:
-        - nitrofen
+        - nitrokey
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: onlykey.yml
     apply:
       tags:
         - onlykey
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: ledger.yml
     apply:
       tags:
         - ledger
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: trezor.yml
     apply:
       tags:
         - trezor
   tags:
     - always
-- include_tasks: thinkfan.yml
-  when: thinkpad_x230|d(False) == True
-- include_tasks: tlp.yml
-  when: thinkpad_x230|d(False) == True
-- include_tasks:
+- ansible.builtin.include_tasks: tlp.yml
+  when: laptop_detect.rc == 0
+- ansible.builtin.include_tasks:
     file: printer.yml
     apply:
       tags:
         - printer
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: scanner.yml
     apply:
       tags:
         - scanner
   tags:
     - always
-- include_tasks:
-    file: realtek.yml
+# - ansible.builtin.include_tasks: nonfree_firmware.yml
+#   when: nonfree_firmware|d(False)
+# - ansible.builtin.include_tasks: amdgpu.yml
+#   when: not thinkpad_x230|d(False)
+- ansible.builtin.include_tasks: vulkan.yml
+- ansible.builtin.include_tasks:
+    file: ups.yml
     apply:
       tags:
-        - realtek
-  when: nonfree_firmware|d(False) == True
+        - ups
   tags:
     - always
-- include_tasks: nonfree_firmware.yml
-  when: nonfree_firmware|d(False) == True
-- include_tasks: amdgpu.yml
-  when: thinkpad_x230|d(False) == False
-- include_tasks: vulkan.yml
+  when: laptop_detect.rc == 1
+- ansible.builtin.include_tasks:
+    file: thunderbolt.yml
+    apply:
+      tags:
+        - thunderbolt
+  tags:
+    - always
+  when: laptop_detect.rc == 0
+- ansible.builtin.include_tasks:
+    file: fwupd.yml
+    apply:
+      tags:
+        - fwupd
+  tags:
+    - always
+# - ansible.builtin.include_tasks:
+#     file: usbguard.yml
+#     apply:
+#       tags:
+#         - usbguard
+#   tags:
+#     - always

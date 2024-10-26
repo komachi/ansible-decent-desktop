@@ -2,36 +2,36 @@
 - name: Install guile
   register: install_guile
   until: install_guile is succeeded
-  apt:
+  ansible.builtin.apt:
     name: guile-3.0
     state: present
 
 - name: Download jaro
   register: get_jaro
   until: get_jaro is succeeded
-  get_url:
+  ansible.builtin.get_url:
     url: "{{ jaro_url }}"
     dest: /usr/local/bin/jaro
     checksum: "{{ jaro_checksum }}"
-    mode: 0755
+    mode: "0755"
 
 - name: Configure jaro associations
-  copy:
+  ansible.builtin.copy:
     src: jaro/associations
     dest: /home/{{ username }}/.config/associations
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: 0440
+    mode: "0440"
 
 - name: Use jaro as xdg-open
-  file:
+  ansible.builtin.file:
     src: /usr/local/bin/jaro
     dest: /usr/local/bin/xdg-open
     state: link
-    mode: 0755
+    mode: "0755"
 
 - name: Set jaro as open
-  alternatives:
+  community.general.alternatives:
     name: open
     link: /usr/local/bin/open
     path: /usr/local/bin/jaro

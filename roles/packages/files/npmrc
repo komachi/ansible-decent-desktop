@@ -1,5 +1,0 @@
-prefix=~/.local
-also=dev
-fund=false
-send-metrics=false
-update-notifier=false

@@ -14,7 +14,6 @@ enable-remote-toggle  0
 enable-remote-http-toggle  0
 enable-edit-actions 0
 
-forward-socks4 / 10.64.0.1:1080 .
 forward .i2p localhost:8118
 forward-socks5t .onion 127.0.0.1:9050 .
 

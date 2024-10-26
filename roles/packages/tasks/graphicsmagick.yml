@@ -2,14 +2,15 @@
 - name: Install GraphicsMagick
   register: install_graphicsmagick
   until: install_graphicsmagick is succeeded
-  apt:
+  ansible.builtin.apt:
     name:
       - graphicsmagick
       - graphicsmagick-imagemagick-compat
     state: present
 
-- name: Configure GraphicsMagick delegates
-  copy:
-    src: GraphicsMagick/delegates.mgk
-    dest: /usr/lib/GraphicsMagick-1.4/config/delegates.mgk
-    mode: 0755
+# TODO re-enable
+# - name: Configure GraphicsMagick delegates
+#   copy:
+#     src: GraphicsMagick/delegates.mgk
+#     dest: /usr/lib/GraphicsMagick-1.4/config/delegates.mgk
+#     mode: 0755

@@ -1,12 +1,12 @@
 ---
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: nftables.yml
     apply:
       tags:
         - nftables
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: opensnitch.yml
     apply:
       tags:

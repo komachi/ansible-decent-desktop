@@ -1,14 +1,16 @@
 ---
 - name: Make sure systemd-resolved is disabled
-  systemd:
+  ansible.builtin.systemd:
     name: systemd-resolved
     state: stopped
     enabled: false
+  ignore_errors: true
+  register: systemd_resolved_disabled
 
 - name: Install required packages
   register: install_dns
   until: install_dns is succeeded
-  apt:
+  ansible.builtin.apt:
     name:
       - openresolv
       - stubby
@@ -18,74 +20,71 @@
     - dependencies
 
 - name: Configure stubby
-  copy:
+  ansible.builtin.copy:
     src: stubby.yml
     dest: /etc/stubby/stubby.yml
-    mode: 0444
+    mode: "0444"
   notify:
-    - restart stubby
+    - Restart stubby
 
 - name: Ensure stubby is enabled
-  systemd:
+  ansible.builtin.systemd:
     name: stubby
     enabled: true
 
 - name: Configure unbound
-  copy:
+  ansible.builtin.copy:
     src: unbound.conf
     dest: /etc/unbound/unbound.conf
-    mode: 0444
+    mode: "0444"
     owner: unbound
     group: unbound
   notify:
-    - reload unbound
+    - Reload unbound
 
 - name: Ensures /etc/unbound/lists.d exists
-  file:
+  ansible.builtin.file:
     path: /etc/unbound/lists.d
     state: directory
     owner: unbound
     group: unbound
-    mode: 0555
+    mode: "0555"
 
 - name: Copy dns blacklist updater script
-  copy:
+  ansible.builtin.copy:
     src: blocklist.sh
     dest: /usr/local/bin/blocklist.sh
-    mode: 0555
+    mode: "0555"
 
 - name: Add systemd timer for blocklist
-  copy:
+  ansible.builtin.copy:
     src: systemd/blocklist.timer
     dest: /etc/systemd/system/blocklist.timer
     mode: "0640"
 
 - name: Add systemd service for blocklist updates
-  copy:
+  ansible.builtin.copy:
     src: systemd/blocklist.service
     dest: /etc/systemd/system/blocklist.service
-    mode: 0550
+    mode: "0550"
 
 - name: Enable blocklist timer
-  systemd:
+  ansible.builtin.systemd:
     name: blocklist.timer
     enabled: true
     state: started
 
 - name: Ensure unbound is enabled
-  systemd:
+  ansible.builtin.systemd:
     name: unbound
     enabled: true
 
 - name: Set our local dns resolver
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /etc/resolvconf.conf
     regexp: ^name_servers=
     line: name_servers="::1 127.0.0.1"
-    mode: 0440
+    mode: "0440"
   register: resolvconfconfigure
-
-- name: Regenerate resolv.conf
-  shell: resolvconf -u
-  when: resolvconfconfigure.changed
-  changed_when: False
+  notify:
+    - Regenerate resolvconf

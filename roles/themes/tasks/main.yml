@@ -2,28 +2,27 @@
 - name: Install themes
   register: install_themes
   until: install_themes is succeeded
-  apt:
+  ansible.builtin.apt:
     name:
       - qt5ct
       - gnome-themes-extra
       - adwaita-icon-theme
       - adwaita-qt
       - papirus-icon-theme
-      - anon-icon-pack
       - gtk3-nocsd
     state: present
 
 - name: Set style for Qt4 apps
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /home/{{ username }}/.config/Trolltech.conf
     regexp: ^style=
     line: style=Adwaita-Dark
     insertafter: "[Qt]"
     create: true
-    mode: 0440
+    mode: "0440"
 
 - name: Copy gtk2 settings
-  copy:
+  ansible.builtin.copy:
     src: gtkrc-2.0
     dest: /home/{{ username }}/.gtkrc-2.0
     mode: "0640"
@@ -31,15 +30,15 @@
     group: "{{ username }}"
 
 - name: Ensures ~/.config/gtk-3.0 exists
-  file:
+  ansible.builtin.file:
     path: /home/{{ username }}/.config/gtk-3.0/
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: 0750
+    mode: "0750"
 
 - name: Copy gtk3 settings
-  copy:
+  ansible.builtin.copy:
     src: settings.ini
     dest: /home/{{ username }}/.config/gtk-3.0/settings.ini
     mode: "0640"
@@ -47,25 +46,25 @@
     group: "{{ username }}"
 
 - name: Ensures ~/.config/qt5ct exists
-  file:
+  ansible.builtin.file:
     path: /home/{{ username }}/.config/qt5ct
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: 0750
+    mode: "0750"
 
 - name: Configure qt5ct
-  template:
+  ansible.builtin.template:
     src: qt5ct/qt5ct.conf.j2
     dest: /home/{{ username }}/.config/qt5ct/qt5ct.conf
     owner: "{{ username }}"
     group: "{{ username }}"
-    mode: 0440
+    mode: "0440"
 
 - name: Configure dconf settings
   become: true
   become_user: "{{ username }}"
-  dconf:
+  community.general.dconf:
     key: /org/gnome/desktop/interface/{{ item.name }}
     value: "{{ item.value }}"
     state: present

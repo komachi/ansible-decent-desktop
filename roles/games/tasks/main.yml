@@ -1,6 +1,6 @@
 ---
-- include_tasks: gamemode.yml
-- include_tasks:
+- ansible.builtin.include_tasks: gamemode.yml
+- ansible.builtin.include_tasks:
     file: pcsxr.yml
     apply:
       tags:
@@ -8,7 +8,7 @@
   tags:
     - always
 
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: 0ad.yml
     apply:
       tags:
@@ -16,7 +16,7 @@
   tags:
     - always
 
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: openra.yml
     apply:
       tags:
@@ -24,7 +24,7 @@
   tags:
     - always
 
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: xonotic.yml
     apply:
       tags:
@@ -32,7 +32,7 @@
   tags:
     - always
 
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: taisei.yml
     apply:
       tags:
@@ -40,7 +40,7 @@
   tags:
     - always
 
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: steam.yml
     apply:
       tags:

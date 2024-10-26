@@ -1,1 +1,7 @@
-permit {{ username }} as root
+permit :sudo as root
+permit setenv { LANG LC_ALL } :sudo
+permit nopass :sudo as root cmd apt args update
+permit nopass :sudo as root cmd apt args upgrade
+permit nopass :sudo as root cmd apt args clean
+permit nopass :sudo as root cmd apt args autoremove
+permit nopass :sudo as root cmd nft args list ruleset

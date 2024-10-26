@@ -1,6 +1,6 @@
 ---
-- include_tasks: doas.yml
-- include_tasks:
+- ansible.builtin.include_tasks: doas.yml
+- ansible.builtin.include_tasks:
     file: oom.yml
     apply:
       tags:
@@ -8,35 +8,14 @@
         - oomd
   tags:
     - always
-- include_tasks:
-    file: screenlock.yml
+- ansible.builtin.include_tasks:
+    file: cfs-zen-tweaks.yml
     apply:
       tags:
-        - screenlock
+        - optimizations
   tags:
     - always
-- include_tasks:
-    file: statusbar.yml
-    apply:
-      tags:
-        - statusbar
-  tags:
-    - always
-- include_tasks:
-    file: application-launcher.yml
-    apply:
-      tags:
-        - application-launcher
-  tags:
-    - always
-- include_tasks:
-    file: uri-opener.yml
-    apply:
-      tags:
-        - uri-opener
-  tags:
-    - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: window-manager.yml
     apply:
       tags:
@@ -44,33 +23,61 @@
         - sway
   tags:
     - always
-- include_tasks: goodies.yml
-- include_tasks:
+- ansible.builtin.include_tasks:
+    file: screenlock.yml
+    apply:
+      tags:
+        - screenlock
+  tags:
+    - always
+- ansible.builtin.include_tasks:
+    file: statusbar.yml
+    apply:
+      tags:
+        - statusbar
+  tags:
+    - always
+- ansible.builtin.include_tasks:
+    file: application-launcher.yml
+    apply:
+      tags:
+        - application-launcher
+  tags:
+    - always
+- ansible.builtin.include_tasks:
+    file: uri-opener.yml
+    apply:
+      tags:
+        - uri-opener
+  tags:
+    - always
+- ansible.builtin.include_tasks: goodies.yml
+- ansible.builtin.include_tasks:
     file: autostart.yml
     apply:
       tags:
         - autostart
   tags:
     - always
-- include_tasks:
-    file: autonice.yml
-    apply:
-      tags:
-        - autonice
-        - ananicy
-  tags:
-    - always
-- include_tasks:
+# - include_tasks:
+#     file: autonice.yml
+#     apply:
+#       tags:
+#         - autonice
+#         - ananicy
+#   tags:
+#     - always
+- ansible.builtin.include_tasks:
     file: notifications.yml
     apply:
       tags:
         - notifications
   tags:
     - always
-- include_tasks:
-    file: cfs-zen-tweaks.yml
+- ansible.builtin.include_tasks:
+    file: desktop-portal.yml
     apply:
       tags:
-        - optimizations
+        - desktop-portal
   tags:
     - always

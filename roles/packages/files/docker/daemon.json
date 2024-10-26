@@ -1,0 +1,22 @@
+{
+    "data-root": "/var/lib/docker",
+    "dns": [
+        "9.9.9.9"
+    ],
+    "hosts": [
+        "unix:///var/run/docker.sock",
+        ""
+    ],
+    "runtimes": {
+        "runsc": {
+            "path": "/usr/bin/runsc"
+        }
+    },
+    "ip": "127.0.0.1",
+    "storage-driver": "overlay2",
+    "experimental": true,
+    "features": {
+      "buildkit": true
+    },
+    "iptables": false
+}

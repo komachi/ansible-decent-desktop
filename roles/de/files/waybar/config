@@ -5,15 +5,32 @@
     "sway/workspaces",
     "sway/mode"
   ],
-  "modules-center": ["sway/window"],
+  "modules-center": [
+    "sway/window"
+  ],
   "modules-right": [
     "cpu",
     "tray",
-    "custom/wg",
-    "pulseaudio",
+    "privacy",
+    "wireplumber",
     "sway/language",
-    "custom/time"
+    "clock"
   ],
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{capacity}% {icon}",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "max-length": 25
+  },
   "sway/workspaces": {
     "disable-scroll": true,
     "format": "{icon}",
@@ -30,7 +47,6 @@
       "10": "",
       "11": "",
       "12": "",
-
       "14": "",
       "15": "",
       "16": "",
@@ -48,42 +64,62 @@
     "format": "{load}",
     "max-length": 10
   },
+  "privacy": {
+    "icon-spacing": 4,
+    "icon-size": 18,
+    "transition-duration": 250,
+    "modules": [
+      {
+        "type": "screenshare",
+        "tooltip": true,
+        "tooltip-icon-size": 24
+      },
+      {
+        "type": "audio-out",
+        "tooltip": true,
+        "tooltip-icon-size": 24
+      },
+      {
+        "type": "audio-in",
+        "tooltip": true,
+        "tooltip-icon-size": 24
+      }
+    ]
+  },
   "tray": {
     "spacing": 10
   },
-  "network": {
-    "format-wifi": "",
-    "format-ethernet": "",
-    "format-linked": "{ifname} (No IP) ",
-    "format-disconnected": "{ifname} ",
-    "format-alt": ""
-  },
-  "pulseaudio": {
-    "format": "{icon} {format_source}",
-    "format-bluetooth": "{icon} {format_source}",
-    "format-bluetooth-muted": "",
+  "wireplumber": {
+    "format": "{volume}%",
     "format-muted": "",
-    "format-source": "",
-    "format-source-muted": "",
-    "format-icons": {
-      "headphone": "",
-      "hands-free": "",
-      "headset": "",
-      "phone": "",
-      "portable": "",
-      "car": "",
-      "default": [""]
-    },
-    "on-click": "pavucontrol"
+    "on-click": "pavucontrol",
+    "scroll-step": 0.2
   },
-  "custom/time": {
-    "exec": "date +'%Y-%m-%d %H:%M:%S'",
-    "restart-interval": 1,
-    "on-click": "gsimplecal"
+  "clock": {
+    "interval": 1,
+    "tooltip": true,
+    "format": "{:%Y-%m-%d %H:%M:%S}",
+    "tooltip-format": "<tt>{calendar}</tt>",
+    "calendar": {
+      "mode": "month",
+      "weeks-pos": "right",
+      "on-scroll": 1,
+      "format": {
+        "months": "<span color='#ffead3'><b>{}</b></span>",
+        "days": "<span color='#ecc6d9'><b>{}</b></span>",
+        "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
+        "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+        "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+      },
+      "actions": {
+        "on-click": "shift_up",
+        "on-click-right": "shift_down",
+        "on-click-middle": "mode"
+      }
+    }
   },
   "custom/wg": {
     "exec": "[ `wg show interfaces | wc -l` = '0' ] && echo '' || echo ''",
     "restart-interval": 3
   }
 }
-

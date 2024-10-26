@@ -1,7 +1,0 @@
----
-- name: Install lokinet
-  register: install_lokinet
-  until: install_lokinet is succeeded
-  apt:
-    name: lokinet
-    state: present

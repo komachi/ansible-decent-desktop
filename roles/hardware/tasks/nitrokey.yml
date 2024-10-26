@@ -2,7 +2,7 @@
 - name: Install nitrokey-app
   register: install_nitrokey
   until: install_nitrokey is succeeded
-  apt:
+  ansible.builtin.apt:
     name:
       - libccid
       - nitrokey-app

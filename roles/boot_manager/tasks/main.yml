@@ -1,6 +1,6 @@
 ---
 - name: Install deps
-  apt:
+  ansible.builtin.apt:
     name:
       - sbsigntool
       - openssl
@@ -9,41 +9,41 @@
     state: present
 
 - name: Find UUID of root disk
-  shell: blkid -s UUID -o value /dev/{{ root_disk }}
+  ansible.builtin.command: blkid -s UUID -o value /dev/{{ root_disk }}
   changed_when: false
   register: root_disk_find_uuid
 
-- set_fact:
+- ansible.builtin.set_fact:
     root_disk_uuid: "{{ root_disk_find_uuid.stdout }}"
-  when: root_disk_find_uuid.stdout != ''
+  when: root_disk_find_uuid.stdout | length > 0
 
 - name: Ensures entries dir exists
-  file:
+  ansible.builtin.file:
     path: /boot/efi/loader/entries
     state: directory
-    mode: 0550
+    mode: "0550"
 
 - name: Configure loader
-  copy:
+  ansible.builtin.copy:
     src: loader.conf
     dest: /boot/efi/loader/loader.conf
-    mode: 0440
+    mode: "0440"
 
 - name: Copy update-systemd-boot.sh
-  template:
+  ansible.builtin.template:
     src: update-systemd-boot.sh.j2
     dest: /usr/local/bin/update-systemd-boot.sh
-    mode: 0550
+    mode: "0550"
 
 - name: Copy kernel hooks
-  copy:
+  ansible.builtin.copy:
     src: systemd-boot-kernel-hook.sh
     dest: "{{ item }}"
-    mode: 0550
+    mode: "0550"
   loop:
     - /etc/kernel/postinst.d/zz-update-systemd-boot
     - /etc/kernel/postrm.d/zz-update-systemd-boot
 
 - name: Install systemd-boot
-  shell: bootctl install --path=/boot/efi
-  changed_when: True
+  ansible.builtin.command: bootctl install --path=/boot/efi
+  changed_when: true
