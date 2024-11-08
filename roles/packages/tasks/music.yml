@@ -1,5 +1,5 @@
 ---
-- name: Install mpd, mpc, mpdris2, sonata
+- name: Install mpd, mpc, mpdris2, ymuse
   register: install_mpd
   until: install_mpd is succeeded
   ansible.builtin.apt:
@@ -7,7 +7,8 @@
       - mpd
       - mpc
       - mpdris2
-      - sonata
+      - ymuse
+      - playerctl
     state: present
 
 - name: Ensures ~/.config/mpd/playlists exists
@@ -39,19 +40,3 @@
     scope: user
     name: mpd
     enabled: true
-
-- name: Ensures ~/.local/share/applications exists
-  ansible.builtin.file:
-    path: /home/{{ username }}/.local/share/applications
-    state: directory
-    owner: "{{ username }}"
-    group: "{{ username }}"
-    mode: "0750"
-
-- name: Copy pms desktop file
-  ansible.builtin.copy:
-    src: applications/pms.desktop
-    dest: /home/{{ username }}/.local/share/applications/pms.desktop
-    mode: "0640"
-    owner: "{{ username }}"
-    group: "{{ username }}"

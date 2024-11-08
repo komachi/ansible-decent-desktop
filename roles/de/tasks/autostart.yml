@@ -19,7 +19,7 @@
   loop:
     - location: /usr/share/applications
       name: org.keepassxc.KeePassXC
-    - location: /usr/share/applications
+    - location: /var/lib/flatpak/exports/share/applications
       name: org.telegram.desktop
     - location: /usr/share/applications
       name: im.dino.Dino

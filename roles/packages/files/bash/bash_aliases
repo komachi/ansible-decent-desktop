@@ -1,3 +1,4 @@
+# shellcheck disable=SC2148
 alias bc='bc -lq'
 alias diff='colordiff'
 alias wget='wget -c --show-progress'
@@ -10,3 +11,4 @@ alias l='lsd'
 alias df='duf'
 alias cat='batcat'
 alias imv='imv-wayland'
+alias q="qalc -i"

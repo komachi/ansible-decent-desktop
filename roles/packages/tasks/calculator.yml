@@ -1,0 +1,8 @@
+---
+- name: Install qalc
+  register: install_qalc
+  until: install_qalc is succeeded
+  ansible.builtin.apt:
+    name:
+      - qalc
+    state: present

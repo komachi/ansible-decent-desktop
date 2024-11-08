@@ -9,8 +9,9 @@
     "sway/window"
   ],
   "modules-right": [
-    "cpu",
+    "bluetooth",
     "tray",
+    "battery",
     "privacy",
     "wireplumber",
     "sway/language",
@@ -21,7 +22,7 @@
       "warning": 30,
       "critical": 15
     },
-    "format": "{capacity}% {icon}",
+    "format": "{icon}",
     "format-icons": [
       "",
       "",
@@ -59,11 +60,6 @@
   "sway/mode": {
     "format": "<span style=\"italic\">{}</span>"
   },
-  "cpu": {
-    "interval": 3,
-    "format": "{load}",
-    "max-length": 10
-  },
   "privacy": {
     "icon-spacing": 4,
     "icon-size": 18,
@@ -90,10 +86,20 @@
     "spacing": 10
   },
   "wireplumber": {
-    "format": "{volume}%",
+    "format": "{icon} {volume}%",
     "format-muted": "",
+    "format-icons": ["", "", ""],
     "on-click": "pavucontrol",
+    "on-click-right": "flatpak run org.pipewire.Helvum",
     "scroll-step": 0.2
+  },
+  "bluetooth": {
+    "format": "",
+    "format-disabled": "",
+    "format-connected": "",
+    "tooltip-format": "{controller_alias}\t{controller_address}",
+    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}"
   },
   "clock": {
     "interval": 1,

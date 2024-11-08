@@ -160,9 +160,9 @@
       - fasttrack_backports
       - josm
       - node_21.x
+      - yarnpkg
       - whonix
       - kicksecure
-      - torproject
       - waydroid
       - vscodium
     extrepo__configuration:
@@ -220,12 +220,12 @@
     packages:
       - tirdad
       - kloak
-      - ram-wipe
       - micro
       - bat
       - lsd
       - duf
       - tldr
+      - flatpak
       - systemd
       - systemd-sysv
       - jitterentropy-rngd
@@ -265,7 +265,6 @@
       - needrestart
       - lm-sensors
       - shellcheck
-      - fuse
       - wireshark
       - devscripts
       - build-essential
@@ -280,6 +279,7 @@
       - v4l2loopback-dkms
       - timidity
       - fluid-soundfont-gm
+      - mate-polkit
     apt_install__all_packages:
       - "{{ packages }}"
     apt_preferences__list:
@@ -373,7 +373,7 @@
         raw: |
           Explanation: Prefer nodesource packages
           Package: nodejs nsolid
-          Pin: release n=nodistro
+          Pin: release a=nodistro,n=nodistro
           Pin-Priority: 600
       - suffix: _yarn
         raw: |
@@ -496,8 +496,6 @@
     kmod__modules:
       # https://github.com/GrapheneOS/infrastructure/blob/main/modprobe.d/local.conf
       - name: cdrom
-        state: blacklist
-      - name: cfg80211
         state: blacklist
       - name: floppy
         state: blacklist

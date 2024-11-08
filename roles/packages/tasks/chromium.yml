@@ -1,11 +1,4 @@
 ---
-- name: Make sure ungoogled-chromium is not installed
-  ansible.builtin.apt:
-    name:
-      - ungoogled-chromium
-      - ungoogled-chromium-dbgsym
-    state: absent
-
 - name: Install chromium
   register: install_chromium
   until: install_chromium is succeeded

@@ -1,8 +1,8 @@
 * {
   border: none;
   border-radius: 0;
-  font-family: FontAwesome, hack;
-  font-size: 12px;
+  font-family: FontAwesome, "Noto Sans Display";
+  font-size: 16px;
   min-height: 0;
 }
 
@@ -21,7 +21,7 @@ tooltip label {
 }
 
 #workspaces button {
-  padding: 0 2px;
+  padding: 0 4px;
   background: transparent;
   color: #ffffff;
 }
@@ -35,7 +35,9 @@ tooltip label {
 #language,
 #network,
 #cpu,
-#pulseaudio,
+#wireplumber,
+#battery,
+#bluetooth,
 #custom-microphone,
 #custom-syncthing {
   padding: 0 4px;

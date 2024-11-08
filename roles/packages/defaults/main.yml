@@ -12,7 +12,7 @@ thunderbird_userjs_checksum: sha512:ab0f518809253d7bc34d9c26da3beed900a679559c4f
 zaread_url: https://raw.githubusercontent.com/paoloap/zaread/86e148e09e4d2477d18feef2656f01b06b60dc5a/zaread
 zaread_checksum: sha512:d0a0b66b9d8beaaacfe027dfab77ccdf13f25adc662959e0df5a3687e7f18abcc87709bce0f20b2edcbefff1523cbec445630083f42c743cf63bfe2bcd6efc42
 kstyle_adwaita_version: 6.7
-qgnomeplatform_version: 6.6
+qgnomeplatform_version: 6.7
 
 vscodium_extensions:
   - nico-castell.linux-desktop-file

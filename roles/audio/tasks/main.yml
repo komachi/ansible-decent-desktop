@@ -38,3 +38,8 @@
     scope: user
     name: wireplumber
     enabled: true
+
+- name: Install Helvum from flatpak
+  community.general.flatpak:
+    name: org.pipewire.Helvum
+    state: present

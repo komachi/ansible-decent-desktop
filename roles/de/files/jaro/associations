@@ -1,6 +1,7 @@
 (assoc
   #:pattern "^inode/directory$"
-  #:program "nnn '%f'"
+  #:program "pcmanfm '%f'"
+  #:term "nnn '%f'"
 )
 
 (assoc
@@ -64,17 +65,28 @@
   #:program "telegram-desktop -- '%f'")
 
 (assoc
-  #:pattern "^https?://*\\.(iso|rar|zip|djvu|fb2|torrent|metalink)"
-  #:on-error (open-with 'browser')
-  #:program "uget-gtk '%f'")
+  #:pattern "^https?://(www.|)figma.com/.*"
+  #:program "gtk-launch Figma '%f'")
 
 (assoc
-  #:pattern "^(magnet:\\?|ftp://)"
-  #:program "uget-gtk '%f'")
+  #:pattern "^https?://(www.|)trello.com/.*"
+  #:program "gtk-launch Trello '%f'")
 
 (assoc
-  #:pattern "^(magnet:\\?|ftp://)"
-  #:program "uget-gtk '%f'")
+  #:pattern "^https?://(www.|)github.com/.*"
+  #:program "gtk-launch GitHub '%f'")
+
+(assoc
+  #:pattern "^https?://(www.|)gitlab.com/.*"
+  #:program "gtk-launch GitLab '%f'")
+
+(assoc
+  #:pattern "^https?://.*.torrent"
+  #:program "qbittorrent '%f'")
+
+(assoc
+  #:pattern "^magnet:\\?"
+  #:program "qbittorrent '%f'")
 
 (assoc
   #:pattern "^bitcoin:"
@@ -97,8 +109,8 @@
   #:name 'browser'
   #:pattern "^https?://"
   #:program "/usr/lib/firefox-esr/firefox-esr '%f'")
-  
+
 (assoc
   #:name 'xmpp'
   #:pattern "^xmpp:"
-  #:program "dino-im '%f')
+  #:program "dino-im '%f'")

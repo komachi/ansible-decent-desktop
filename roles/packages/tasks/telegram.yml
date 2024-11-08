@@ -1,7 +1,5 @@
 ---
-- name: Install telegram-desktop
-  register: install_telegram
-  until: install_telegram is succeeded
-  ansible.builtin.apt:
-    name: telegram-desktop
+- name: Install telegram from flatpak
+  community.general.flatpak:
+    name: org.telegram.desktop
     state: present

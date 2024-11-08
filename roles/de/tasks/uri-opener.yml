@@ -1,9 +1,12 @@
 ---
-- name: Install guile
+- name: Install jaro deps
   register: install_guile
   until: install_guile is succeeded
   ansible.builtin.apt:
-    name: guile-3.0
+    name:
+      - guile-3.0
+      - libgtk-3-bin
+      - libfile-mimeinfo-perl
     state: present
 
 - name: Download jaro

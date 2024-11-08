@@ -32,20 +32,21 @@ You should look for sources for full list, but here are some choices I made:
 - Network configuration: [NetworkManager](https://wiki.gnome.org/Projects/NetworkManager)
 - DNS server: [stubby](https://github.com/getdnsapi/stubby) + [unbound](https://github.com/NLnetLabs/unbound) with DNS blocklists enabled
 - Media player: [mpv](https://mpv.io)
+- File manager: [PCManFM](https://en.wikipedia.org/wiki/PCMan_File_Manager) and [nnn](https://github.com/jarun/nnn) are available
 - [FreeTube](https://freetubeapp.io/) as alternative less privacy-invasing YouTube frontend, also [yt-dlp](https://github.com/yt-dlp/yt-dlp) configured to be used with mpv
-- Music player: [mpd](https://musicpd.org/) + [sonata](https://github.com/multani/sonata)
+- Music player: [mpd](https://musicpd.org/) + [ymuse](https://yktoo.com/en/software/ymuse/)
 - Browser: [Firefox](https://mozilla.org/firefox), but [Chromium](https://chromium.org) also available and used for webapps
 - Email client: [Thunderbird](https://www.thunderbird.net)
 - Source code editor: [VSCodium](https://github.com/VSCodium/vscodium) with extensions from [Open VSX](https://open-vsx.org)
 - File sync: [Syncthing](https://syncthing.net/)
-- Download managers: [aria2](https://github.com/aria2/aria2), [qBittorrent](https://qbittorrent.org)
+- Download managers: [aria2](https://github.com/aria2/aria2), [qBittorrent](https://qbittorrent.org) for [BitTorent](https://www.bittorrent.org), [Nicotine+](https://nicotine-plus.org/) for [Soulseek](https://slsknet.org)
 - Some cryptocurrency wallets: [Monero](https://www.getmonero.org/) fullnode, [Electrum](https://electrum.org) and [Wasabi Wallet](https://www.wasabiwallet.io/) for [Bitcoin](https://bitcoin.org/) network, [Electron Cash](https://electroncash.org/) for [Bitcoin Cash](https://bitcoincash.org/), [MyCrypto](https://www.mycrypto.com/) for [Ethereum](https://ethereum.org), [Zecwallet Lite](https://www.zecwallet.co/) for [Zcash](https://z.cash/), [Electrum Dash](https://electrum.dash.org/) for [Dash](https://dash.org/), [Bisq](https://bisq.network/) and [Uniswap](https://uniswap.org/) as DEX
 - Support for [Ledger](https://www.ledger.com/), [Trezor](https://trezor.io/), [Nitrokey](https://www.nitrokey.com/), and [OnlyKey](https://onlykey.io/) hardware tokens
 - [I2P](https://geti2p.net/), [Tor](https://torproject.org), [IPFS](https://ipfs.io/), etc.
 - Office packages: [zathura](https://pwmt.org/projects/zathura/) + [zaread](https://github.com/paoloap/zaread) for simple document viewing and [LibreOffice](https://www.libreoffice.org/) for classical office package editing needs
 - Image viewer: [imv](https://github.com/eXeC64/imv)
 - Password manager: [KeePassXC](https://keepassxc.org/)
-- [DeltaChat](https://delta.chat), XMPP ([Dino](https://dino.im/)), [Telegram](https://telegram.org), [Jami](https://jami.net), Matrix ([nheko](https://nheko-reborn.github.io)), [Mumble](https://www.mumble.info) messengers
+- [DeltaChat](https://delta.chat), XMPP ([Dino](https://dino.im/)), [Telegram](https://telegram.org), [Jami](https://jami.net), Matrix ([nheko](https://nheko-reborn.github.io)), [Mumble](https://www.mumble.info), [SimpleX](https://simplex.chat) messengers
 - Local maps with [Organic Maps](https://organicmaps.app/).
 - Local dicts with [dictd](https://sourceforge.net/projects/dict/) and [GoldenDict](http://goldendict.org/)
 - Virtual machines: [libvirt](https://libvirt.org/) + [QEMU](https://www.qemu.org/) + [virt-manager](https://virt-manager.org/)
@@ -124,39 +125,34 @@ Configure fonts.
 
 Configure hardware.
 
-### bin
-
-Just checkouts <https://github.com/komachi/bin> to ~/bin
-
 ### timezone
 
 Set timezone.
 
 ### apparmor_profiles
 
-Install additional apparmor profiles from [apparmor-even-more-profiles](https://github.com/komachi/apparmor-even-more-profiles)
+Install additional apparmor profiles
 
-### additional_hardering
-
-Some additional hardering settings placed here, for now it's just installs some packages from whonix repo
-
-## Desktop improvements
+## Desktop and security improvements
 
 This playbook meant to be used on desktops, so there is specific desktop-friendly settings made. Most of packages are also configured specifically to address security or speed, but here is some things to note
 
-* [Silent boot](https://wiki.archlinux.org/index.php/Silent_boot) is enabled
-* [Watchdog] (https://wiki.archlinux.org/title/Improving_performance#Watchdogs) is disabled
-* [oomd](https://github.com/facebookincubator/oomd) is installed
-* [zswap](https://en.wikipedia.org/wiki/Zswap) is enabled
-* [gamemode](https://github.com/FeralInteractive/gamemode) is installed
-* [VFS cache](https://docs.kernel.org/filesystems/vfs.html) pressure is set to 50, [vm.dirty_ratio](https://docs.kernel.org/admin-guide/sysctl/vm.html) is configured to a lower value
-* [TCP Fast Open](https://en.wikipedia.org/wiki/TCP_Fast_Open) is enabled for both sides
-* [cfs-zen-tweaks](https://github.com/igo95862/cfs-zen-tweaks) is installed
-* [Core dumps](https://en.wikipedia.org/wiki/Core_dump) are disabled
-* Ansible comes with [Redis cache](https://docs.ansible.com/ansible/latest/collections/community/general/redis_cache.html) and [mitogen](https://mitogen.networkgenomics.com/ansible_detailed.html)
-* Analytics are opted-outed [with env list](/roles/de/files/environment.d/optout.conf)
-* [tirdad](https://github.com/0xsirus/tirdad) is installed
-* [kloak](https://github.com/vmonaco/kloak) is installed
+- [Silent boot](https://wiki.archlinux.org/index.php/Silent_boot) is enabled
+- [Watchdog](https://wiki.archlinux.org/title/Improving_performance#Watchdogs) is disabled
+- [oomd](https://github.com/facebookincubator/oomd) is installed
+- [zswap](https://en.wikipedia.org/wiki/Zswap) is enabled
+- [gamemode](https://github.com/FeralInteractive/gamemode) is installed
+- [VFS cache](https://docs.kernel.org/filesystems/vfs.html) pressure is set to 50, [vm.dirty_ratio](https://docs.kernel.org/admin-guide/sysctl/vm.html) is configured to a lower value
+- [TCP Fast Open](https://en.wikipedia.org/wiki/TCP_Fast_Open) is enabled for both sides
+- [cfs-zen-tweaks](https://github.com/igo95862/cfs-zen-tweaks) is installed
+- [Core dumps](https://en.wikipedia.org/wiki/Core_dump) are disabled
+- Ansible comes with [Redis cache](https://docs.ansible.com/ansible/latest/collections/community/general/redis_cache.html) and [mitogen](https://mitogen.networkgenomics.com/ansible_detailed.html)
+- Analytics are opted-outed [with env list](/roles/de/files/environment.d/optout.conf)
+- [tirdad](https://github.com/0xsirus/tirdad) is installed
+- [kloak](https://github.com/vmonaco/kloak) is installed
+- Some kernel modules are disabled according to [GrapheneOS list](https://github.com/GrapheneOS/infrastructure/blob/main/modprobe.d/local.conf)
+- [Recommended settings from Linux Kernel Self-Protection Project](https://kspp.github.io/Recommended_Settings) are used
+- Playbooks `os_hardening` and `ssh_hardening` from [DevSec Hardening Framework](https://dev-sec.io/) are applied
 
 ## Test in VM
 
@@ -170,5 +166,15 @@ poetry run molecule converge
 ## Lint
 
 ```
-poetry run ansible-lint --exclude roles/gantsign.keyboard --fix -p main.yml roles
+sh lint.sh
+```
+
+## Run locally
+
+```
+sudo apt install git python3-poetry
+cd $(mktemp -d)
+git clone https://github.com/komachi/ansible-decent-desktop.git
+cd ansible-decent-desktop
+sh run.sh
 ```

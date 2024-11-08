@@ -34,7 +34,7 @@
 
 - name: Ensures ~/.var/io.wasabiwallet.WasabiWallet/.walletwasabi/client exists
   ansible.builtin.file:
-    path: /home/{{ username }}/.var/io.wasabiwallet.WasabiWallet/.walletwasabi/client
+    path: /home/{{ username }}/.var/app/io.wasabiwallet.WasabiWallet/.walletwasabi/client
     mode: "0750"
     state: directory
     owner: "{{ username }}"
@@ -43,7 +43,7 @@
 - name: Configure wasabi wallet ui
   ansible.builtin.copy:
     src: walletwasabi/UiConfig.json
-    dest: /home/{{ username }}/.var/io.wasabiwallet.WasabiWallet/.walletwasabi/client/UiConfig.json
+    dest: /home/{{ username }}/.var/app/io.wasabiwallet.WasabiWallet/.walletwasabi/client/UiConfig.json
     mode: "0440"
     owner: "{{ username }}"
     group: "{{ username }}"

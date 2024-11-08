@@ -1,9 +1,12 @@
 ---
-- name: Install nnn
+- name: Install nnn and pcmanfm
   register: install_nnn
   until: install_nnn is succeeded
   ansible.builtin.apt:
-    name: nnn
+    name:
+      - nnn
+      - eject
+      - pcmanfm
     state: present
 
 - name: Ensures ~/.local/share/applications exists

@@ -1,0 +1,34 @@
+---
+- name: Install SimpleX from flatpak
+  community.general.flatpak:
+    name: chat.simplex.simplex
+    state: present
+
+- name: Ensures SimpleX dir exists
+  ansible.builtin.file:
+    path: /home/{{ username }}/.var/app/chat.simplex.simplex/config/simplex
+    mode: "0750"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Configure SimpleX
+  ansible.builtin.lineinfile:
+    path: /home/{{ username }}/.var/app/chat.simplex.simplex/config/simplex/settings.properties
+    regexp: ^{{ item[0] }}
+    line: "{{ item[0] }}={{ item[1] }}"
+    create: true
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "0440"
+  loop:
+    - [InitialRandomDBPassphrase, "true"]
+    - [CurrentTheme, DARK]
+    - [PrivacySaveLastDraft, "false"]
+    - [NetworkUseSocksProxy, "true"]
+    - [PrivacyLinkPreviews, "false"]
+    - [PrivacyShowChatPreviews, "false"]
+    - [SystemDarkTheme, DARK]
+    - [PrivacyDeliveryReceiptsSet, "true"]
+    - [NetworkHostMode, OnionViaSocks]
+    - [NotificationPreviewMode, HIDDEN]

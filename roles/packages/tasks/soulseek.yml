@@ -1,0 +1,5 @@
+---
+- name: Install Nicotine+ from flatpak
+  community.general.flatpak:
+    name: org.nicotine_plus.Nicotine
+    state: present

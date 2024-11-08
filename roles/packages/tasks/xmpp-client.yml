@@ -5,3 +5,19 @@
   ansible.builtin.apt:
     name: dino-im
     state: present
+
+- name: Ensures ~/.local/share/applications exists
+  ansible.builtin.file:
+    path: /home/{{ username }}/.local/share/applications
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "0750"
+
+- name: Copy desktop file
+  ansible.builtin.copy:
+    src: applications/im.dino.Dino.desktop
+    dest: /home/{{ username }}/.local/share/applications/im.dino.Dino.desktop
+    mode: "0640"
+    owner: "{{ username }}"
+    group: "{{ username }}"

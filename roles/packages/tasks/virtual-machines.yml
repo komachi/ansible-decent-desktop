@@ -1,7 +1,7 @@
 ---
-- name: Install vagrant
-  register: install_vagrant
-  until: install_vagrant is succeeded
+- name: Install virt machine packages
+  register: install_virt
+  until: install_virt is succeeded
   ansible.builtin.apt:
     name:
       - vagrant
@@ -9,6 +9,9 @@
       - vagrant-libvirt
       - vagrant-sshfs
       - virt-manager
+      - libvirt-daemon-system
+      - libvirt-clients
+      - qemu-system
       - python3-psutil
       - dconf-cli
     state: present

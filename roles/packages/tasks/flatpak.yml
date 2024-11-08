@@ -21,7 +21,6 @@
     mode: "0744"
   loop:
     - flathub.flatpakrepo
-    - flathub-beta.flatpakrepo
   register: flatpak_remotes
   notify:
     - Flatpak update
@@ -47,8 +46,6 @@
     state: started
 
 - name: Install themes for flatpak
-  become: true
-  become_user: "{{ username }}"
   community.general.flatpak:
     name: "{{ item }}"
     state: present
@@ -58,3 +55,8 @@
     - org.kde.KStyle.Adwaita/{{ ansible_architecture }}/{{ kstyle_adwaita_version }}
     - org.kde.PlatformTheme.QGnomePlatform/{{ ansible_architecture }}/{{ qgnomeplatform_version }}
   changed_when: flatpak_themes_install.stdout | length > 0
+
+- name: Install Flatseal
+  community.general.flatpak:
+    name: com.github.tchx84.Flatseal
+    state: present

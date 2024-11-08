@@ -1,0 +1,8 @@
+---
+- name: Install qbittorrent
+  register: install_qbittorrent
+  until: install_qbittorrent is succeeded
+  ansible.builtin.apt:
+    name:
+      - qbittorrent
+    state: present

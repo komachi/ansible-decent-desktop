@@ -1,8 +1,9 @@
 ---
-- name: Ensure nodejs is installed
+- name: Ensure nodejs and yarn is installed
   ansible.builtin.apt:
     name:
       - nodejs
+      - yarn
     state: present
 
 - name: Configure npm

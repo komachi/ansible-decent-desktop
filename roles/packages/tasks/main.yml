@@ -30,6 +30,13 @@
   tags:
     - always
 - ansible.builtin.include_tasks:
+    file: calculator.yml
+    apply:
+      tags:
+        - calculator
+  tags:
+    - always
+- ansible.builtin.include_tasks:
     file: shell.yml
     apply:
       tags:
@@ -176,9 +183,16 @@
   tags:
     - always
 - ansible.builtin.include_tasks:
-    file: download-manager.yml
+    file: bittorrent.yml
     apply:
       tags:
+        - bittorrent
+        - download-manager
+- ansible.builtin.include_tasks:
+    file: soulseek.yml
+    apply:
+      tags:
+        - soulseek
         - download-manager
 - ansible.builtin.include_tasks:
     file: raster-editor.yml
@@ -253,6 +267,14 @@
     apply:
       tags:
         - telegram
+        - im
+  tags:
+    - always
+- ansible.builtin.include_tasks:
+    file: simplex.yml
+    apply:
+      tags:
+        - simplex
         - im
   tags:
     - always

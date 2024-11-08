@@ -6,30 +6,30 @@
     name: network.bisq.Bisq
     state: present
 
-# - name: Ensures ~/.local/share/Bisq exists
-#   file:
-#     path: /home/{{ username }}/.local/share/Bisq
-#     mode: 0750
-#     state: directory
-#     owner: "{{ username }}"
-#     group: "{{ username }}"
+- name: Ensures Bisq dir exists
+  ansible.builtin.file:
+    path: /home/{{ username }}/.var/app/network.bisq.Bisq/.local/share/Bisq
+    mode: "0750"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
 
-# - name: Configure bisq
-#   lineinfile:
-#     path: /home/{{ username }}/.local/share/Bisq/bisq.properties
-#     regexp: ^{{ item.name }}
-#     line: "{{ item.name }}={{ item.value }}"
-#     create: true
-#     owner: "{{ username }}"
-#     group: "{{ username }}"
-#     mode: 0440
-#   loop:
-#     - name: torControlCookieFile
-#       value: /run/tor/control.authcookie
-#     - name: torControlUseSafeCookieAuth
-#       value: "true"
-#     - name: torControlPort
-#       value: "9051"
+- name: Configure bisq
+  ansible.builtin.lineinfile:
+    path: /home/{{ username }}/.var/app/network.bisq.Bisq/.local/share/Bisq/bisq.properties
+    regexp: ^{{ item.name }}
+    line: "{{ item.name }}={{ item.value }}"
+    create: true
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "0440"
+  loop:
+    - name: torControlCookieFile
+      value: /run/tor/control.authcookie
+    - name: torControlUseSafeCookieAuth
+      value: "true"
+    - name: torControlPort
+      value: "9051"
 #     - name: 'rpcUser'
 #       value: "{{ bitcoinrpc_user }}"
 #     - name: 'rpcPassword'
