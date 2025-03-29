@@ -1,34 +1,34 @@
 * {
-  border: none;
-  border-radius: 0;
-  font-family: FontAwesome, "Noto Sans Display";
-  font-size: 16px;
-  min-height: 0;
+	border: none;
+	border-radius: 0;
+	font-family: FontAwesome, "Noto Sans Display";
+	font-size: 16px;
+	min-height: 0;
 }
 
 window#waybar {
-  background: #000000;
-  color: #ffffff;
+	background: #303030;
+	color: #ffffff;
 }
 
 tooltip {
-  background: #000000;
-  color: #ffffff;
+	background: #303030;
+	color: #ffffff;
 }
 
 tooltip label {
-  color: #ffffff;
+	color: #ffffff;
 }
 
 #workspaces button {
-  padding: 0 4px;
-  background: transparent;
-  color: #ffffff;
+	padding: 0 4px;
+	background: transparent;
+	color: #ffffff;
 }
 
 #workspaces button.focused {
-  background: #070707;
-  border-bottom: 1px solid #ffffff;
+	background: #070707;
+	border-bottom: 1px solid #ffffff;
 }
 
 #tray,
@@ -40,37 +40,37 @@ tooltip label {
 #bluetooth,
 #custom-microphone,
 #custom-syncthing {
-  padding: 0 4px;
+	padding: 0 4px;
 }
 
 #tray > .passive {
-  -gtk-icon-effect: dim;
+	-gtk-icon-effect: dim;
 }
 
 #tray > .needs-attention {
-  -gtk-icon-effect: highlight;
-  background-color: #eb4d4b;
+	-gtk-icon-effect: highlight;
+	background-color: #eb4d4b;
 }
 
 #network.disconnected,
 #wireplumber.muted,
 #custom-wg,
 #privacy {
-  color: #bf616a;
+	color: #bf616a;
 }
 
 #custom-microphone {
-  color: #20D896;
+	color: #20d896;
 }
 
 #custom-syncthing {
-  color: #2f2f2f;
+	color: #2f2f2f;
 }
 
 #battery.charging {
-  color: #26A65B;
+	color: #26a65b;
 }
 
 #battery.warning:not(.charging) {
-  color: #f53c3c;
+	color: #f53c3c;
 }

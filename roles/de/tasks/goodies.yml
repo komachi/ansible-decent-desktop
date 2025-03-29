@@ -17,8 +17,10 @@
       - wl-clipboard
       - swaybg
       - qtwayland5
+      - qt6-wayland
       - xwayland
       - ripgrep
+      - wob
     state: present
 
 - name: Ensures ~/.config exists
@@ -176,3 +178,22 @@
     mode: "0660"
     owner: "{{ username }}"
     group: "{{ username }}"
+
+- name: Add wob systemd user unit and socket
+  ansible.builtin.copy:
+    src: systemd/{{ item }}
+    dest: /home/{{ username }}/.config/systemd/user/{{ item }}
+    mode: "0640"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+  loop:
+    - wob.socket
+    - wob.service
+
+- name: Enable wob socket
+  become: true
+  become_user: "{{ username }}"
+  ansible.builtin.systemd:
+    scope: user
+    name: wob.socket
+    enabled: true

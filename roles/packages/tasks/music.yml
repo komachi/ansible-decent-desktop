@@ -1,5 +1,5 @@
 ---
-- name: Install mpd, mpc, mpdris2, ymuse
+- name: Install mpd, mpc, mpdris2, cantata
   register: install_mpd
   until: install_mpd is succeeded
   ansible.builtin.apt:
@@ -7,7 +7,7 @@
       - mpd
       - mpc
       - mpdris2
-      - ymuse
+      - cantata
       - playerctl
     state: present
 

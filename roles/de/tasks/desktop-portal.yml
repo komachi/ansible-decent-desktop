@@ -6,7 +6,24 @@
     name:
       - xdg-desktop-portal
       - xdg-desktop-portal-wlr
+      - xdg-desktop-portal-gtk
     state: present
+
+- name: Ensures ~/.config/xdg-desktop-portal exists
+  ansible.builtin.file:
+    path: /home/{{ username }}/.config/xdg-desktop-portal
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "0750"
+
+- name: Configure xdg-desktop-portal config
+  ansible.builtin.copy:
+    src: xdg-desktop-portal/portals.conf
+    dest: /home/{{ username }}/.config/xdg-desktop-portal/portals.conf
+    mode: "0640"
+    owner: "{{ username }}"
+    group: "{{ username }}"
 
 - name: Ensures ~/.config/xdg-desktop-portal-wlr exists
   ansible.builtin.file:

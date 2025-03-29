@@ -1,10 +1,10 @@
 sort=-time
 layer=overlay
-background-color=#000000
+background-color=#303030
 width=300
 height=110
 border-size=2
-border-color=#2f2f2f
+border-color=#1E1E1E
 border-radius=15
 actions=1
 icons=1
@@ -14,7 +14,7 @@ default-timeout=5000
 ignore-timeout=1
 
 [urgency=low]
-border-color=#000000
+border-color=#212121
 
 [urgency=normal]
 border-color=#e5c07b

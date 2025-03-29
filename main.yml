@@ -138,7 +138,9 @@
       dev.tty.legacy_tiocsti: 0
       dev.tty.ldisc_autoload: 0
       kernel.unprivileged_bpf_disabled: 1
-
+    os_rootuser_pw_ageing: false
+    os_user_pw_ageing: false
+    os_auth_pw_max_age: 99999
     os_auth_retries: 10
     os_filesystem_whitelist:
       - squashfs
@@ -159,7 +161,7 @@
     extrepo__sources:
       - fasttrack_backports
       - josm
-      - node_21.x
+      - node_22.x
       - yarnpkg
       - whonix
       - kicksecure
@@ -220,6 +222,7 @@
     packages:
       - tirdad
       - kloak
+      - qt6wayland
       - micro
       - bat
       - lsd

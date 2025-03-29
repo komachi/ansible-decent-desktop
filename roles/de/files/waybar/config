@@ -1,131 +1,112 @@
 {
-  "layer": "top",
-  "height": 24,
-  "modules-left": [
-    "sway/workspaces",
-    "sway/mode"
-  ],
-  "modules-center": [
-    "sway/window"
-  ],
-  "modules-right": [
-    "bluetooth",
-    "tray",
-    "battery",
-    "privacy",
-    "wireplumber",
-    "sway/language",
-    "clock"
-  ],
-  "battery": {
-    "states": {
-      "warning": 30,
-      "critical": 15
-    },
-    "format": "{icon}",
-    "format-icons": [
-      "",
-      "",
-      "",
-      "",
-      ""
-    ],
-    "max-length": 25
-  },
-  "sway/workspaces": {
-    "disable-scroll": true,
-    "format": "{icon}",
-    "format-icons": {
-      "1": "",
-      "2": "",
-      "3": "",
-      "4": "",
-      "5": "",
-      "6": "",
-      "7": "",
-      "8": "",
-      "9": "",
-      "10": "",
-      "11": "",
-      "12": "",
-      "14": "",
-      "15": "",
-      "16": "",
-      "17": "",
-      "18": "",
-      "19": "",
-      "default": ""
-    }
-  },
-  "sway/mode": {
-    "format": "<span style=\"italic\">{}</span>"
-  },
-  "privacy": {
-    "icon-spacing": 4,
-    "icon-size": 18,
-    "transition-duration": 250,
-    "modules": [
-      {
-        "type": "screenshare",
-        "tooltip": true,
-        "tooltip-icon-size": 24
-      },
-      {
-        "type": "audio-out",
-        "tooltip": true,
-        "tooltip-icon-size": 24
-      },
-      {
-        "type": "audio-in",
-        "tooltip": true,
-        "tooltip-icon-size": 24
-      }
-    ]
-  },
-  "tray": {
-    "spacing": 10
-  },
-  "wireplumber": {
-    "format": "{icon} {volume}%",
-    "format-muted": "",
-    "format-icons": ["", "", ""],
-    "on-click": "pavucontrol",
-    "on-click-right": "flatpak run org.pipewire.Helvum",
-    "scroll-step": 0.2
-  },
-  "bluetooth": {
-    "format": "",
-    "format-disabled": "",
-    "format-connected": "",
-    "tooltip-format": "{controller_alias}\t{controller_address}",
-    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
-    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}"
-  },
-  "clock": {
-    "interval": 1,
-    "tooltip": true,
-    "format": "{:%Y-%m-%d %H:%M:%S}",
-    "tooltip-format": "<tt>{calendar}</tt>",
-    "calendar": {
-      "mode": "month",
-      "weeks-pos": "right",
-      "on-scroll": 1,
-      "format": {
-        "months": "<span color='#ffead3'><b>{}</b></span>",
-        "days": "<span color='#ecc6d9'><b>{}</b></span>",
-        "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
-        "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
-        "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
-      },
-      "actions": {
-        "on-click": "shift_up",
-        "on-click-right": "shift_down",
-        "on-click-middle": "mode"
-      }
-    }
-  },
-  "custom/wg": {
-    "exec": "[ `wg show interfaces | wc -l` = '0' ] && echo '' || echo ''",
-    "restart-interval": 3
-  }
+	"layer": "top",
+	"height": 24,
+	"modules-left": ["sway/workspaces", "sway/mode"],
+	"modules-center": ["sway/window"],
+	"modules-right": [
+		"bluetooth",
+		"tray",
+		"battery",
+		"privacy",
+		"sway/language",
+		"clock"
+	],
+	"battery": {
+		"states": {
+			"warning": 30,
+			"critical": 15
+		},
+		"format": "{icon}",
+		"format-icons": ["", "", "", "", ""],
+		"max-length": 25
+	},
+	"sway/workspaces": {
+		"disable-scroll": true,
+		"format": "{icon}",
+		"format-icons": {
+			"1": "",
+			"2": "",
+			"3": "",
+			"4": "",
+			"5": "",
+			"6": "",
+			"7": "",
+			"8": "",
+			"9": "",
+			"10": "",
+			"11": "",
+			"12": "",
+			"14": "",
+			"15": "",
+			"16": "",
+			"17": "",
+			"18": "",
+			"19": "",
+			"default": ""
+		}
+	},
+	"sway/mode": {
+		"format": "<span style=\"italic\">{}</span>"
+	},
+	"privacy": {
+		"icon-spacing": 4,
+		"icon-size": 18,
+		"transition-duration": 250,
+		"modules": [
+			{
+				"type": "screenshare",
+				"tooltip": true,
+				"tooltip-icon-size": 24
+			},
+			{
+				"type": "audio-out",
+				"tooltip": true,
+				"tooltip-icon-size": 24
+			},
+			{
+				"type": "audio-in",
+				"tooltip": true,
+				"tooltip-icon-size": 24
+			}
+		]
+	},
+	"tray": {
+		"spacing": 4
+	},
+	"bluetooth": {
+		"format": "",
+		"format-disabled": "",
+		"format-connected": "",
+		"tooltip-format": "{controller_alias}\t{controller_address}",
+		"tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+		"tooltip-format-enumerate-connected": "{device_alias}\t{device_address}"
+	},
+	"clock": {
+		"interval": 1,
+		"tooltip": true,
+		"format": "{:%Y-%m-%d %H:%M:%S}",
+		"tooltip-format": "<tt>{calendar}</tt>",
+		"locale": "en_DK.UTF-8",
+		"calendar": {
+			"mode": "month",
+			"weeks-pos": "right",
+			"on-scroll": 1,
+			"format": {
+				"months": "<span color='#ffead3'><b>{}</b></span>",
+				"days": "<span color='#ecc6d9'><b>{}</b></span>",
+				"weeks": "<span color='#99ffdd'><b>W{}</b></span>",
+				"weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+				"today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+			}
+		},
+		"actions": {
+			"on-click": "shift_up",
+			"on-click-right": "shift_down",
+			"on-click-middle": "mode"
+		}
+	},
+	"custom/wg": {
+		"exec": "[ `wg show interfaces | wc -l` = '0' ] && echo '' || echo ''",
+		"restart-interval": 3
+	}
 }

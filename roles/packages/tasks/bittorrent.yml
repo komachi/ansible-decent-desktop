@@ -1,8 +1,28 @@
 ---
-- name: Install qbittorrent
+- name: Install qBittorrent
   register: install_qbittorrent
   until: install_qbittorrent is succeeded
   ansible.builtin.apt:
     name:
       - qbittorrent
     state: present
+
+- name: Ensures ~/.config/qBittorrent exists
+  ansible.builtin.file:
+    path: /home/{{ username }}/.config/qBittorrent
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "0750"
+
+- name: Configure qBittorrent
+  community.general.ini_file:
+    path: /home/{{ username }}/.config/qBittorrent/qBittorrent.conf
+    section: "{{ item[0] }}"
+    option: "{{ item[1] }}"
+    value: "{{ item[2] }}"
+    create: true
+    group: "{{ username }}"
+    owner: "{{ username }}"
+    mode: "0440"
+  loop: "{{ qbittorrent_options }}"

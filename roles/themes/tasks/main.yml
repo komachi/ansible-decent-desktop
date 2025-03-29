@@ -5,9 +5,11 @@
   ansible.builtin.apt:
     name:
       - qt5ct
+      - qt6ct
       - gnome-themes-extra
       - adwaita-icon-theme
       - adwaita-qt
+      - adwaita-qt6
       - papirus-icon-theme
       - gtk3-nocsd
     state: present

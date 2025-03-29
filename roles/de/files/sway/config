@@ -8,8 +8,8 @@ set $term foot
 set $menu wofi
 
 # outputs
-set $left HDMI-A-2
-set $center HDMI-A-1 primary
+set $left DP-3 DP-4
+set $center HDMI-A-2 primary
 set $right DP-1
 
 set $ws_www 1
@@ -33,13 +33,21 @@ set $ws_map 18
 set $ws_config 19
 set $ws_phone 20
 
+set $WOBSOCK $XDG_RUNTIME_DIR/wob.sock
+
 font pango:Hack 12
 
-output * bg #000000 solid_color
+output * bg #1E1E1E solid_color
 
 # xwayland disable
 
 input "1133:50184:Logitech_USB_Trackball" {
+    scroll_method on_button_down
+    scroll_button BTN_SIDE
+    middle_emulation enabled
+}
+
+input "1133:50184:Logitech_USB_Trackball_kloak" {
     scroll_method on_button_down
     scroll_button BTN_SIDE
     middle_emulation enabled
@@ -155,27 +163,30 @@ bindsym --to-code {
     $mod+Ctrl+r restart
 
     $mod+r mode "resize"
-    $mod+F1 exec --no-startup-id loginctl lock-session
-    $mod+F2 exec --no-startup-id systemctl suspend
-    $mod+F4 exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
-    XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
-    XF86Tools exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
-    XF86MonBrightnessUp exec --no-startup-id brightnessctl s 10%+
-    XF86MonBrightnessDown exec --no-startup-id brightnessctl s 10%-
-    XF86ScreenSaver exec --no-startup-id loginctl lock-session
-    XF86Explorer exec sensible-browser
-    Print exec --no-startup-id grim -g "$(slurp)" - | wl-copy
+    $mod+F1 exec loginctl lock-session
+    $mod+F2 exec systemctl suspend
+    $mod+F4 exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+    XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+    XF86Tools exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+    XF86MonBrightnessUp exec brightnessctl set +5% | sed -En 's/.*\(([0-9]+)%\).*/\1/p' > $WOBSOCK
+    XF86MonBrightnessDown exec brightnessctl set 5%- | sed -En 's/.*\(([0-9]+)%\).*/\1/p' > $WOBSOCK
+    XF86ScreenSaver exec loginctl lock-session
+    XF86Explorer exec pcmanfm
+    XF86Mail exec thunderbird
+    XF86HomePage sensible-browser
+    Print exec grim -g "$(slurp)" - | wl-copy
+    $mod+Print exec --no-startup-id grim -g "$(slurp -p)" -t ppm - | convert - -format '%[pixel:p{0,0}]' txt:- | grep -o '[^ ]*$' | wl-copy
 }
 
 bindsym --locked {
-    XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +1000
-    XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -1000
-    XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
-    XF86AudioNext exec --no-startup-id playerctl next
-    XF86AudioPrev exec --no-startup-id playerctl previous
-    XF86AudioPlay exec --no-startup-id playerctl play-pause
-    XF86AudioPause exec --no-startup-id playerctl play-pause
-    XF86AudioStop exec --no-startup-id playerctl stop
+    XF86AudioRaiseVolume exec (wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q MUTED && echo 0 > $WOBSOCK) || (wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%+ && wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' > $WOBSOCK)
+    XF86AudioLowerVolume exec (wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q MUTED && echo 0 > $WOBSOCK) || (wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%- && wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' > $WOBSOCK)
+    XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && (wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q MUTED && echo 0 > $WOBSOCK) || wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' > $WOBSOCK
+    XF86AudioNext exec playerctl next
+    XF86AudioPrev exec playerctl previous
+    XF86AudioPlay exec playerctl play-pause
+    XF86AudioPause exec playerctl play-pause
+    XF86AudioStop exec playerctl stop
 }
 
 
@@ -230,11 +241,11 @@ for_window [app_id="^((f|F)irefox-esr|chromium)$"] move container to workspace $
 for_window [class="^(Chromium-browser|Firefox-esr)$"] move container to workspace $ws_www
 for_window [app_id="^(Tor|i2p) Browser$"] move container to workspace $ws_www, floating enable
 for_window [class="^(Tor|i2p) Browser$"] move container to workspace $ws_www, floating enable
-for_window [app_id="^(VSCodium|codium-url-handler)$"] move container to workspace $ws_code
+for_window [app_id="^(VSCodium|codium-url-handler|codium)$"] move container to workspace $ws_code
 for_window [class="Code"] move container to workspace $ws_code
 for_window [app_id="foot"] move container to workspace $ws_term
-for_window [app_id="^(pms|sonata)$"] move container to workspace $ws_music
-for_window [app_id="^(clickup|github|gitlab)$"] move container to workspace $ws_work
+for_window [app_id="^(pms|sonata|cantata)$"] move container to workspace $ws_music
+for_window [app_id="^(clickup|github|gitlab|trello)$"] move container to workspace $ws_work
 for_window [class="Loqseq"] move container to workspace $ws_work
 for_window [app_id="^(org\.telegram\.desktop|telegramdesktop|slack-term|dino-im|org\.eu\.encom\.spectral|net\.jami\.jami-qt|nheko|slack|net\.sourceforge\.mumble\.mumble)$"] move container to workspace $ws_im
 for_window [class="DeltaChat"] move container to workspace $ws_im
@@ -270,11 +281,10 @@ for_window [window_role="pop-up"] floating enable
 for_window [window_role="bubble"] floating enable
 for_window [window_role="task_dialog"] floating enable
 for_window [window_role="Preferences"] floating enable
+for_window [window_role="About"] floating enable
 for_window [window_type="dialog"] floating enable
 for_window [window_type="menu"] floating enable
-for_window [app_id="opensnitch_ui"] floating enable
-for_window [title="^(Open File|Open Folder)$" app_id="codium-url-handler"] floating enable
-for_window [window_role="About"] floating enable
+for_window [title="^(Open File|Open Folder)$" app_id="^(codium-url-handler|codium)$"] floating enable
 for_window [app_id="xdg-desktop-portal-kde"] floating enable
 for_window [app_id="xdg-desktop-portal-gtk"] floating enable
 
@@ -294,14 +304,17 @@ hide_edge_borders smart
 focus_follows_mouse yes
 show_marks no
 
-exec_always --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ mute
+set $laptop eDP-1
+bindswitch --reload --locked lid:on output $laptop disable
+bindswitch --reload --locked lid:off output $laptop enable
 
 include /etc/sway/config.d/*
 
 exec swayidle -w \
-	timeout 300 'swaylock -f' \
-	timeout 500 'swaymsg "output * power off"' \
-	resume 'swaymsg "output * power on"' \
-    before-sleep 'swaylock -f'
-exec --no-startup-id "systemctl --user start sway-session.target"
-exec --no-startup-id $term
+	timeout 300 'swaylock -f -c 1E1E1E' \
+	timeout 330 'swaymsg "output * dpms off"' \
+		resume 'swaymsg "output * dpms on"' \
+	before-sleep 'swaylock -f -c 1E1E1E'
+
+exec "systemctl --user start sway-session.target"
+exec $term

@@ -11,8 +11,8 @@ thunderbird_userjs_url: https://raw.githubusercontent.com/HorlogeSkynet/thunderb
 thunderbird_userjs_checksum: sha512:ab0f518809253d7bc34d9c26da3beed900a679559c4feba8dda709b64a1b67971d2037ce1b20235fcd49f84a1727a1c541917be3800420ebdec9e38713d62e42
 zaread_url: https://raw.githubusercontent.com/paoloap/zaread/86e148e09e4d2477d18feef2656f01b06b60dc5a/zaread
 zaread_checksum: sha512:d0a0b66b9d8beaaacfe027dfab77ccdf13f25adc662959e0df5a3687e7f18abcc87709bce0f20b2edcbefff1523cbec445630083f42c743cf63bfe2bcd6efc42
-kstyle_adwaita_version: 6.7
-qgnomeplatform_version: 6.7
+kstyle_adwaita_version: 6.8
+qgnomeplatform_version: 6.6
 
 vscodium_extensions:
   - nico-castell.linux-desktop-file
@@ -26,8 +26,7 @@ vscodium_extensions:
   - streetsidesoftware.code-spell-checker
   - streetsidesoftware.code-spell-checker-russian
   - streetsidesoftware.code-spell-checker-scientific-terms
-  - Equinusocio.vsc-community-material-theme
-  - Equinusocio.vsc-material-theme-icons
+  - piousdeer.adwaita-theme
   - ms-azuretools.vscode-docker
   - DavidAnson.vscode-markdownlint
   - naumovs.color-highlight
@@ -72,6 +71,8 @@ vscodium_extensions:
   - orta.vscode-jest
   - zaaack.markdown-editor
   - ferrielmelarpis.vscode-css-modules-syntax-highlighter
+  - biomejs.biome
+
 thunderbird_profiles:
   - name: default
     prefs:
@@ -340,3 +341,39 @@ webapps:
     profile: trello
     icon: trello
     url: https://trello.com
+
+qbittorrent_options:
+  - [AddNewTorrentDialog, SavePathHistory, "{{ large_dirs }}/Videos, {{ large_dirs }}/Music, {{ large_dirs }}/Downloads"]
+  - [Application, FileLogger\Enabled, "false"]
+  - [Application, GUI\Notifications\TorrentAdded, "false"]
+  - - BitTorrent
+    - Session\AdditionalTrackers
+    - "udp://tracker.opentrackr.org:1337/announce\nudp://open.tracker.cl:1337/announce\nudp://open.stealth.si:80/announce\nudp://tracker.torrent.eu.org:451/announce\n\
+      udp://tracker.dump.cl:6969/announce\nudp://tracker-udp.gbitt.info:80/announce\nudp://opentracker.io:6969/announce\nudp://open.free-tracker.ga:6969/announce\n\
+      udp://ns-1.x-fins.com:6969/announce\nudp://explodie.org:6969/announce\nhttp://tracker810.xyz:11450/announce\nhttp://tracker.xiaoduola.xyz:6969/announce\nhttp://tracker.moxing.party:6969/announce\n\
+      http://tracker.lintk.me:2710/announce\nhttp://tracker.ipv6tracker.org:80/announce\nhttp://tracker.corpscorp.online:80/announce\nhttp://tracker.bz:80/announce\n\
+      http://tr.kxmp.cf:80/announce\nhttp://t.jaekr.sh:6969/announce\nhttp://shubt.net:2710/announce"
+  - [BitTorrent, Session\AlternativeGlobalDLSpeedLimit, 1000]
+  - [BitTorrent, Session\AlternativeGlobalUPSpeedLimit, 1000]
+  - [BitTorrent, Session\AnonymousModeEnabled, "true"]
+  - [BitTorrent, Session\MaxConnections, 1000]
+  - [BitTorrent, Session\MaxConnectionsPerTorrent, 200]
+  - [BitTorrent, Session\MaxUploads, 50]
+  - [BitTorrent, Session\MaxUploadsPerTorrent, 10]
+  - [GUI, DownloadTrackerFavicon, "false"]
+  - [GUI, Log\Enabled, "false"]
+  - [GUI, Notifications\Enabled, "false"]
+  - [LegalNotice, Accepted, "true"]
+  - [Network, Proxy\IP, "127.0.0.1"]
+  - [Network, Proxy\Port, "@Variant(\0\0\0\N#Z)"]
+  - [Network, Proxy\Type, "SOCKS5"]
+  - [Network, Proxy\OnlyForTorrents, "false"]
+  - [Network, Proxy\Password, "qbittorent"]
+  - [Network, Proxy\Username, "qbittorent"]
+  - [Preferences, Advanced\useSystemIconTheme, "true"]
+  - [Preferences, General\MinimizeToTray, "false"]
+  - [Preferences, General\NoSplashScreen, "true"]
+  - [Preferences, General\PreventFromSuspendWhenDownloading, "true"]
+  - [Preferences, General\PreventFromSuspendWhenSeeding, "false"]
+  - [Preferences, General\StartMinimized, "false"]
+  - [Preferences, General\SystrayEnabled, "false"]
