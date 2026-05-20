@@ -4,7 +4,7 @@ This is an experiment to make desktop/laptop configuration fully controllable by
 
 This project is not intended to fulfil desires of every user. I use it to provision my own personal PC. You probably find some defaults incompatible with your view on desktop OS configuration, but you can fork and tune it for yourself, or just look at playbooks for inspirations. PRs with improvements welcomed btw.
 
-This playbook meant to be run against Debian bookworm. It probably won't work for other distros/versions, but you can try.
+This playbook meant to be run against Debian trixie. It probably won't work for other distros/versions, but you can try.
 
 It focus both on security and speed when it's possible. It uses lightweight software when possible and some specific tuning to meet the goal. Take note that while this README uses word "security" several times, nobody checked this. Think then do.
 
@@ -14,7 +14,7 @@ It enables autologin and intended to use only on single-user desktop machines. U
 
 You should look for sources for full list, but here are some choices I made:
 
-- OS: [Debian GNU/Linux](https://debian.org), stable (current bookworm)
+- OS: [Debian GNU/Linux](https://debian.org), stable (current trixie)
 - Shell: [bash](https://www.gnu.org/software/bash/)
 - Init: [systemd](https://systemd.io)
 - MAC: [AppArmor](https://apparmor.net/), [bubblewrap](https://github.com/containers/bubblewrap) used for [Flatpak](https://flatpak.org/)-packed apps. Sister project [apparmor-even-more-profiles](https://github.com/komachi/apparmor-even-more-profiles) deployed by default, bringing profiles for most of included software in enforce mode.
@@ -29,12 +29,12 @@ You should look for sources for full list, but here are some choices I made:
 - Applications launcher: [wofi](https://hg.sr.ht/~scoopta/wofi)
 - URI opener: [jaro](https://github.com/isamert/jaro)
 - Terminal emulator: [foot](https://codeberg.org/dnkl/foot)
-- Network configuration: [NetworkManager](https://wiki.gnome.org/Projects/NetworkManager)
+- Network configuration: [ConnMan](https://git.kernel.org/pub/scm/network/connman/connman.git) with [iwd](https://git.kernel.org/pub/scm/network/wireless/iwd.git)
 - DNS server: [stubby](https://github.com/getdnsapi/stubby) + [unbound](https://github.com/NLnetLabs/unbound) with DNS blocklists enabled
 - Media player: [mpv](https://mpv.io)
 - File manager: [PCManFM](https://en.wikipedia.org/wiki/PCMan_File_Manager) and [nnn](https://github.com/jarun/nnn) are available
 - [FreeTube](https://freetubeapp.io/) as alternative less privacy-invasing YouTube frontend, also [yt-dlp](https://github.com/yt-dlp/yt-dlp) configured to be used with mpv
-- Music player: [mpd](https://musicpd.org/) + [ymuse](https://yktoo.com/en/software/ymuse/)
+- Music player: [mpd](https://musicpd.org/) + [cantata](https://github.com/CDrummond/cantata)
 - Browser: [Firefox](https://mozilla.org/firefox), but [Chromium](https://chromium.org) also available and used for webapps
 - Email client: [Thunderbird](https://www.thunderbird.net)
 - Source code editor: [VSCodium](https://github.com/VSCodium/vscodium) with extensions from [Open VSX](https://open-vsx.org)
@@ -44,15 +44,17 @@ You should look for sources for full list, but here are some choices I made:
 - Support for [Ledger](https://www.ledger.com/), [Trezor](https://trezor.io/), [Nitrokey](https://www.nitrokey.com/), and [OnlyKey](https://onlykey.io/) hardware tokens
 - [I2P](https://geti2p.net/), [Tor](https://torproject.org), [IPFS](https://ipfs.io/), etc.
 - Office packages: [zathura](https://pwmt.org/projects/zathura/) + [zaread](https://github.com/paoloap/zaread) for simple document viewing and [LibreOffice](https://www.libreoffice.org/) for classical office package editing needs
+- Book reader: [Foliate](https://johnfactotum.github.io/foliate/) and [Calibre](https://calibre-ebook.com) for book managing
 - Image viewer: [imv](https://github.com/eXeC64/imv)
 - Password manager: [KeePassXC](https://keepassxc.org/)
-- [DeltaChat](https://delta.chat), XMPP ([Dino](https://dino.im/)), [Telegram](https://telegram.org), [Jami](https://jami.net), Matrix ([nheko](https://nheko-reborn.github.io)), [Mumble](https://www.mumble.info), [SimpleX](https://simplex.chat) messengers
+- [DeltaChat](https://delta.chat), XMPP ([Dino](https://dino.im/)), [Telegram](https://telegram.org), [Jami](https://jami.net), Matrix ([nheko](https://nheko-reborn.github.io)), [Mumble](https://www.mumble.info), [SimpleX](https://simplex.chat), [Meshtastic](https://meshtastic.org) ([https://gitlab.com/kop316/gtk-meshtastic-client](https://gitlab.com/kop316/gtk-meshtastic-client)) messengers
 - Local maps with [Organic Maps](https://organicmaps.app/).
 - Local dicts with [dictd](https://sourceforge.net/projects/dict/) and [GoldenDict](http://goldendict.org/)
 - Virtual machines: [libvirt](https://libvirt.org/) + [QEMU](https://www.qemu.org/) + [virt-manager](https://virt-manager.org/)
 - [podman](https://podman.io) + [gvisor](https://gvisor.dev/) by default for launching [OCI containers](https://opencontainers.org), [Docker](https://www.docker.com/) also installed.
 - [JOSM](https://josm.openstreetmap.de/) for OpenStreetMap editing
 - [node.js](https://nodejs.org), [golang](https://golang.org/), [python](https://python.org), etc. dev env.
+- [Waydroid](https://waydro.id/) and [scrcpy](https://github.com/Genymobile/scrcpy) are available
 - et cetera, et cetera
 
 ## Roles

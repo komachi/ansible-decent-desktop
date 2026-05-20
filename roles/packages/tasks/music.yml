@@ -27,6 +27,22 @@
     owner: "{{ username }}"
     group: "{{ username }}"
 
+- name: Ensures ~/.config/cantata exists
+  ansible.builtin.file:
+    path: /home/{{ username }}/.config/cantata
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "0750"
+
+- name: Configure cantata
+  ansible.builtin.copy:
+    src: cantata/cantata.conf
+    dest: /home/{{ username }}/.config/cantata/cantata.conf
+    mode: "0640"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
 - name: Disable global mpd unit, we want to run it under user
   ansible.builtin.systemd:
     name: mpd

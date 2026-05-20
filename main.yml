@@ -66,12 +66,6 @@
       when: mullvad_account is defined and mullvad_account != ''
       tags:
         - mullvad
-    - role: audio
-      tags:
-        - audio
-    # - role: firewall
-    #   tags:
-    #     - firewall
     - role: timezone
       tags:
         - time
@@ -84,6 +78,9 @@
     - role: packages
       tags:
         - packages
+    - role: audio
+      tags:
+        - audio
     - debops.debops.kmod
     - role: debops.debops.python
       tags:
@@ -108,6 +105,9 @@
     - role: devsec.hardening.os_hardening
       tags:
         - hardering
+    - role: firewall
+      tags:
+        - firewall
   vars:
     large_dirs: /home/{{ username }}
     local_ip: 192.168.0.0/16
@@ -135,12 +135,19 @@
       net.core.bpf_jit_harden: 2
       vm.unprivileged_userfaultfd: 0
       fs.protected_fifos: 2
+      fs.protected_symlinks: 1
+      fs.protected_hardlinks: 1
+      fs.protected_regular: 2
       dev.tty.legacy_tiocsti: 0
       dev.tty.ldisc_autoload: 0
       kernel.unprivileged_bpf_disabled: 1
+      fs.suid_dumpable: 0
+      kernel.warn_limit: 1
+      kernel.oops_limit: 1
     os_rootuser_pw_ageing: false
     os_user_pw_ageing: false
     os_auth_pw_max_age: 99999
+    os_auth_pw_min_age: 0
     os_auth_retries: 10
     os_filesystem_whitelist:
       - squashfs
@@ -161,12 +168,12 @@
     extrepo__sources:
       - fasttrack_backports
       - josm
-      - node_22.x
-      - yarnpkg
+      - node_24.x
       - whonix
       - kicksecure
       - waydroid
       - vscodium
+      - docker-ce
     extrepo__configuration:
       - name: policies
         config:
@@ -218,16 +225,18 @@
           - wireshark
           - debian-tor
           - docker
+          - libvirt
+          - libvirt-qemu
+          - dialout
         shell: /bin/bash
     packages:
       - tirdad
       - kloak
-      - qt6wayland
+      - libpam-tmpdir
       - micro
       - bat
       - lsd
       - duf
-      - tldr
       - flatpak
       - systemd
       - systemd-sysv
@@ -279,10 +288,15 @@
       - libvips-tools
       - p7zip-full
       - openclipart-svg
-      - v4l2loopback-dkms
       - timidity
       - fluid-soundfont-gm
       - mate-polkit
+      - numad
+      - intel-media-va-driver
+      - du-dust
+      - fd-find
+      - zoxide
+      - tldr-py
     apt_install__all_packages:
       - "{{ packages }}"
     apt_preferences__list:
@@ -303,9 +317,12 @@
           - libflatpak0
           - xdg-desktop-portal
           - xdg-desktop-portal-*
-          - josm
-          - josm-*
           - jmapviewer
+          - syncthing
+          - syncthing-*
+          - persepolis
+          - yt-dlp
+          - streamlink
           # libreoffice
           - uno-libs-private
           - ure
@@ -316,11 +333,6 @@
           - libreoffice-*
           - libofficebean-java
           - libuno-*
-          - 0ad
-          - 0ad-*
-          - syncthing
-          - syncthing-*
-          - persepolis
           # backported kernel
           - linux-compiler-gcc-*
           - linux-headers-*
@@ -328,9 +340,16 @@
           - linux-kbuild-*
           - linux-config-*
           - linux-doc-*
+          - linux-base-*
+          - linux-binary-*
+          - linux-modules-*
           - kernel-image-*
           - linux-doc
           - linux-libc-dev
+          - cpp-14-for-host
+          - gcc-14-for-host
+          - linux-cpupower
+          - libcpupower1
           # systemd
           - systemd
           - systemd-*
@@ -348,7 +367,6 @@
           - pipewire-*
           - libspa-0.2-*
           - wireplumber-*
-          - easyeffects
           - sqlcipher
           - golang
           - golang-*
@@ -360,11 +378,20 @@
           # wayland
           - wayland-protocols
           - libwayland-*
+          # 0ad
+          - 0ad
+          - 0ad-data
+          - 0ad-data-common
+          # electrum
           - electrum
           - python3-electrum
-
-        suffix: _backports
-        backports: [bookworm]
+          - python3-aiorpcx
+          - python3-electrum-aionostr
+          - python3-electrum-ecc
+          - libsecp256k1-6
+        pin: "release n=trixie-backports"
+        priority: "500"
+        name: backports
       - "{{ apt_preferences__preset_list | list }}"
       - suffix: _tor
         raw: |
@@ -485,7 +512,6 @@
       - mythes-ru
       - hunspell-en-us
       - hunspell-ru
-      - myspell-ru
       - hyphen-en-us
       - hyphen-ru
       - irussian
@@ -496,13 +522,27 @@
     locales__system_lang: en_US.UTF-8
     kmod__load:
       - name: tun
+      - name: ntsync
     kmod__modules:
-      # https://github.com/GrapheneOS/infrastructure/blob/main/modprobe.d/local.conf
+      # https://help.ubuntu.com/community/AppleKeyboard#Change_Function_Key_behavior
+      - name: "hid_apple"
+        options:
+          - fnmode: 2
+      # watchdog modules
+      - name: sp5100_tco
+        state: blacklist
+      - name: iTCO_wdt
+        state: blacklist
+      - name: iTCO_vendor_support
+        state: blacklist
+      # https://github.com/GrapheneOS/infrastructure/blob/main/etc/modprobe.d/local.conf
       - name: cdrom
         state: blacklist
       - name: floppy
         state: blacklist
       - name: intel_agp
+        state: blacklist
+      - name: joydev
         state: blacklist
       - name: ip_tables
         state: blacklist
@@ -511,8 +551,6 @@
       - name: snd_intel8x0
         state: blacklist
       - name: sr_mod
-        state: blacklist
-      - name: tls
         state: blacklist
       - name: virtio_balloon
         state: blacklist
@@ -540,8 +578,6 @@
           - security=apparmor
           # disable watchdog
           - nowatchdog
-          - modprobe.blacklist=iTCO_wdt
-          - modprobe.blacklist=iTCO_vendor_support
           - nmi_watchdog=0
           # disable sss
           - libahci.ignore_sss=1
@@ -559,12 +595,21 @@
           - iommu=force
           - iommu.passthrough=0
           - iommu.strict=1
-          - mitigations=auto,nosmt
+          - mitigations=auto
           - kfence.sample_interval=100
           - vsyscall=none
           - vdso32=0
+          - hash_pointers=always
           # - cfi=kcfi
           # https://github.com/Kicksecure/security-misc/blob/master/etc/default/grub.d/40_kernel_hardening.cfg
           - random.trust_bootloader=off
           - random.trust_cpu=off
           - extra_latent_entropy
+          # rcu
+          - preempt=full
+          - rcu_nocbs=all
+          - rcutree.enable_rcu_lazy=1
+          # https://docs.waydro.id/debugging/troubleshooting#warning-service-manager-dev-binder-has-died
+          - psi=1
+          # https://github.com/intel/media-driver
+          - i915.enable_guc=2

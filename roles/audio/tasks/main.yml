@@ -13,6 +13,7 @@
       - pipewire-pulse
       - pipewire-alsa
       - pipewire-jack
+      - pipewire-audio
       - pulseaudio-utils
     state: present
 
@@ -39,7 +40,13 @@
     name: wireplumber
     enabled: true
 
-- name: Install Helvum from flatpak
+- name: Install Helvum
+  ansible.builtin.apt:
+    name:
+      - helvum
+    state: present
+
+- name: Install EasyEffects from flatpak
   community.general.flatpak:
-    name: org.pipewire.Helvum
+    name: com.github.wwmm.easyeffects
     state: present

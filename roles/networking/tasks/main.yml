@@ -7,10 +7,10 @@
   tags:
     - always
 - ansible.builtin.include_tasks:
-    file: network-manager.yml
+    file: networking.yml
     apply:
       tags:
-        - network-manager
+        - networking
   tags:
     - always
 - ansible.builtin.include_tasks:

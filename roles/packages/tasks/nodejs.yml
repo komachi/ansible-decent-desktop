@@ -3,7 +3,6 @@
   ansible.builtin.apt:
     name:
       - nodejs
-      - yarn
     state: present
 
 - name: Configure npm

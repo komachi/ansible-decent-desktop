@@ -348,6 +348,14 @@
   tags:
     - always
 - ansible.builtin.include_tasks:
+    file: meshtastic.yml
+    apply:
+      tags:
+        - meshtastic
+        - im
+  tags:
+    - always
+- ansible.builtin.include_tasks:
     file: accounting.yml
     apply:
       tags:
@@ -368,19 +376,33 @@
         - optimizations
   tags:
     - always
-# TODO re-enable, missing in bookworm
-# - include_tasks:
-#     file: scrcpy.yml
-#     apply:
-#       tags:
-#         - scrcpy
-#         - android
-#   tags:
-#     - always
+- include_tasks:
+    file: scrcpy.yml
+    apply:
+      tags:
+        - scrcpy
+        - android
+  tags:
+    - always
 - ansible.builtin.include_tasks:
     file: ipfs.yml
     apply:
       tags:
         - ipfs
+  tags:
+    - always
+
+- ansible.builtin.include_tasks:
+    file: waydroid.yml
+    apply:
+      tags:
+        - waydroid
+  tags:
+    - always
+- ansible.builtin.include_tasks:
+    file: books.yml
+    apply:
+      tags:
+        - books
   tags:
     - always

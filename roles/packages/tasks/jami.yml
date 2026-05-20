@@ -2,34 +2,26 @@
 - name: Install jami
   register: install_jami
   until: install_jami is succeeded
-  ansible.builtin.apt:
-    name: jami
+  community.general.flatpak:
+    name: net.jami.Jami
     state: present
-
-- name: Install dconfs module deps
-  ansible.builtin.apt:
-    name:
-      - python3-psutil
-      - dconf-cli
-    state: present
-
-- name: Configure Jami
-  become: true
-  become_user: "{{ username }}"
-  community.general.dconf:
-    key: /net/jami/JamiGnome/{{ item.name }}
-    value: "{{ item.value }}"
-    state: present
-  loop:
-    - name: enable-typing-indication
-      value: "false"
-    - name: start-on-login
-      value: "false"
-    - name: show-status-icon
-      value: "false"
-    - name: migrated-from-homedir
-      value: "true"
-    - name: history-limit
-      value: "5"
-    - name: download-folder
-      value: "'{{ large_dirs }}/Downloads/'"
+# - name: Configure Jami
+#   become: true
+#   become_user: "{{ username }}"
+#   community.general.dconf:
+#     key: /net/jami/JamiGnome/{{ item.name }}
+#     value: "{{ item.value }}"
+#     state: present
+#   loop:
+#     - name: enable-typing-indication
+#       value: "false"
+#     - name: start-on-login
+#       value: "false"
+#     - name: show-status-icon
+#       value: "false"
+#     - name: migrated-from-homedir
+#       value: "true"
+#     - name: history-limit
+#       value: "5"
+#     - name: download-folder
+#       value: "'{{ large_dirs }}/Downloads/'"

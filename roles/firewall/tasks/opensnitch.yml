@@ -6,6 +6,7 @@
     name:
       - opensnitch
       - python3-opensnitch-ui
+      - opensnitch-ebpf-modules
     state: present
 
 - name: Configure opensnitch

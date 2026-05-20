@@ -25,6 +25,9 @@
       - fonts-roboto
       - fonts-stix
       - fonts-opensymbol
+      - fonts-firacode
+      - fonts-urw-base35
+      - fonts-freefont-ttf
     state: present
   tags:
     - dependencies

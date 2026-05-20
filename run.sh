@@ -4,9 +4,11 @@ if [ $(id -u) = 0 ]; then
    exit 1
 fi
 
-if [ $(lsb_release -sc) != "bookworm" ]; then
-   echo "This playbook was tested only on debian bookworm. Something can broke."
+if [ $(lsb_release -sc) != "trixie" ]; then
+   echo "This playbook was tested only on debian trixie. Something can broke."
 fi
+
+sudo apt install python3-poetry needrestart git
 
 poetry install
 poetry run ansible-galaxy install -r requirements.yml

@@ -8,9 +8,11 @@ set $term foot
 set $menu wofi
 
 # outputs
-set $left DP-3 DP-4
-set $center HDMI-A-2 primary
+set $left DP-3
+set $center HDMI-A-2 DP-4 primary
 set $right DP-1
+set $left_top DP-5
+set $left_bottom eDP-1
 
 set $ws_www 1
 set $ws_code 2
@@ -167,13 +169,15 @@ bindsym --to-code {
     $mod+F2 exec systemctl suspend
     $mod+F4 exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
     XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
-    XF86Tools exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
     XF86MonBrightnessUp exec brightnessctl set +5% | sed -En 's/.*\(([0-9]+)%\).*/\1/p' > $WOBSOCK
     XF86MonBrightnessDown exec brightnessctl set 5%- | sed -En 's/.*\(([0-9]+)%\).*/\1/p' > $WOBSOCK
     XF86ScreenSaver exec loginctl lock-session
     XF86Explorer exec pcmanfm
     XF86Mail exec thunderbird
-    XF86HomePage sensible-browser
+    XF86HomePage exec sensible-browser
+    XF86Bluetooth exec /sbin/rfkill toggle bluetooth
+    XF86WLAN exec /sbin/rfkill toggle wlan
+    XF86Tools exec /sbin/rfkill toggle wwan
     Print exec grim -g "$(slurp)" - | wl-copy
     $mod+Print exec --no-startup-id grim -g "$(slurp -p)" -t ppm - | convert - -format '%[pixel:p{0,0}]' txt:- | grep -o '[^ ]*$' | wl-copy
 }
@@ -190,25 +194,25 @@ bindsym --locked {
 }
 
 
-workspace $ws_www output $center
+workspace $ws_www output $left_top $center
 workspace $ws_code output $center
-workspace $ws_term output $left $right $center
-workspace $ws_music output $left $right $center
+workspace $ws_term output $left_bottom $left $right $center
+workspace $ws_music output $left_bottom $left $right $center
 workspace $ws_work output $center
-workspace $ws_im output $left $center
-workspace $ws_mail output $left $center
+workspace $ws_im output $left_bottom $left $center
+workspace $ws_mail output $left_top $left $center
 workspace $ws_edit output $center
-workspace $ws_pass output $right $center
+workspace $ws_pass output $left_bottom $right $center
 workspace $ws_view output $center
-workspace $ws_money output $left $right $center
+workspace $ws_money output $left_bottom $left $right $center
 workspace $ws_game output $center
 workspace $ws_etc output $center
-workspace $ws_debug output $right $center
-workspace $ws_subs output $right $center
-workspace $ws_dl output $left $center
-workspace $ws_deanon output $right $center
+workspace $ws_debug output $left_bottom $right $center
+workspace $ws_subs output $left_top $right $center
+workspace $ws_dl output $left_bottom $left $center
+workspace $ws_deanon output $center
 workspace $ws_map output $center
-workspace $ws_config output $left $right $center
+workspace $ws_config output $left_bottom $left $right $center
 workspace $ws_phone output $right $center
 
 # resize window (you can also use the mouse for that)

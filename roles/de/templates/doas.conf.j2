@@ -5,3 +5,4 @@ permit nopass :sudo as root cmd apt args upgrade
 permit nopass :sudo as root cmd apt args clean
 permit nopass :sudo as root cmd apt args autoremove
 permit nopass :sudo as root cmd nft args list ruleset
+permit nopass :sudo as root cmd systemctl args daemon-reload

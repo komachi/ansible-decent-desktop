@@ -1,0 +1,57 @@
+- name: Install blueman
+  register: install_blueman
+  until: install_blueman is succeeded
+  ansible.builtin.apt:
+    name:
+      - bluetooth
+      - blueman
+    state: present
+
+- name: Install dconfs module deps
+  ansible.builtin.apt:
+    name:
+      - python3-psutil
+      - dconf-cli
+    state: present
+
+- name: Configure blueman
+  become: true
+  become_user: "{{ username }}"
+  community.general.dconf:
+    key: /org/blueman/{{ item.name }}
+    value: "{{ item.value }}"
+    state: present
+  loop:
+    - name: plugins/powermanager/auto-power-on
+      value: "false"
+    - name: network/nap-enable
+      value: "false"
+    - name: transfer/opp-accept
+      value: "true"
+    - name: general/notification-daemon
+      value: "true"
+    - name: general/plugin-list
+      value: "['!AutoConnect', '!ConnectionNotifier', '!KillSwitch', '!NMDUNSupport', '!PowerManager', '!ExitItem', 'TransferService', '!DisconnectItems', '!DiscvManager', '!AuthAgent', '!RecentConns', '!SerialManager', '!ShowConnected', '!StatusNotifierItem', '!Networking']"
+
+- name: Configure bluetooth
+  community.general.ini_file:
+    path: /etc/bluetooth/main.conf
+    section: "{{ item[0] }}"
+    option: "{{ item[1] }}"
+    value: "{{ item[2] }}"
+  loop:
+    - [General, Privacy, network/on]
+    - [Policy, AutoEnable, "false"]
+    - [GATT, KeySize, "16"]
+
+- name: Ensures systemd bluetooth overrides dir exists
+  ansible.builtin.file:
+    path: /etc/systemd/system/bluetooth.service.d
+    state: directory
+    mode: "0755"
+
+- name: Disable some bluez plugins
+  ansible.builtin.copy:
+    src: systemd/bluetooth-overrides.conf
+    dest: /etc/systemd/system/bluetooth.service.d/override.conf
+    mode: "0640"

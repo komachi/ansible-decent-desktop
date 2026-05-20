@@ -3,7 +3,7 @@
 flush ruleset
 
 table inet filter {
-  chain input {
+  chain INPUT {
     type filter hook input priority 0; policy drop;
     iif lo accept comment "Accept any localhost traffic"
     ct state invalid drop comment "Drop invalid connections"
@@ -30,13 +30,20 @@ table inet filter {
     tcp dport 21027 accept comment "syncthing local discovery"
   }
 
-  chain forward {
-    type filter hook forward priority 0; policy drop;
-    jump DOCKER-ISOLATION-STAGE-1
-    iifname "docker0" accept
+  chain FORWARD {
+		type filter hook forward priority 0; policy accept;
+		jump DOCKER-USER
+		jump DOCKER-ISOLATION-STAGE-1
+		oifname "docker0" ct state established,related accept
+		oifname "docker0" jump DOCKER
+		iifname "docker0" oifname != "docker0" accept
+		iifname "docker0" oifname "docker0" accept
     ct state vmap { established: accept, related: accept, invalid: drop }
     mark 1 accept
-  }
+	}
+
+  chain DOCKER {
+	}
 
   chain DOCKER-ISOLATION-STAGE-1 {
 		iifname "docker0" oifname != "docker0" jump DOCKER-ISOLATION-STAGE-2
@@ -48,7 +55,7 @@ table inet filter {
 		return
 	}
 
-  chain output {
+  chain OUTPUT {
     type filter hook output priority 0; policy accept;
 
     ip protocol icmp icmp type echo-request limit rate 10/second log accept
@@ -57,11 +64,12 @@ table inet filter {
 
   chain DOCKER-USER {
     mark set 1
+    return
   }
 }
 
 table inet nat {
-  chain prerouting {
+  chain PREROUTING {
     type nat hook prerouting priority -100;
 
     # CT INVALID
@@ -71,17 +79,26 @@ table inet nat {
     tcp flags & (fin|syn|rst|ack) != syn \
       ct state new \
       drop
-
-    iifname "docker0" fib daddr type local accept
+		fib daddr type local jump DOCKER
   }
 
-  chain postrouting {
-    type nat hook postrouting priority 100; policy accept;
-		oifname != "docker0" ip saddr 172.17.0.0/16 counter masquerade
-  }
+  chain INPUT {
+		type nat hook input priority 100; policy accept;
+	}
 
-  chain output {
-    type nat hook output priority -100; policy accept;
-		iifname "docker0" ip daddr != 127.0.0.0/8 fib daddr type local accept
-  }
+	chain POSTROUTING {
+		type nat hook postrouting priority 100; policy accept;
+		oifname != "docker0" ip saddr 172.17.0.0/16 masquerade
+	}
+
+	chain OUTPUT {
+		type nat hook output priority -100; policy accept;
+		ip daddr != 127.0.0.0/8 fib daddr type local jump DOCKER
+	}
+
+	chain DOCKER {
+		iifname "docker0" return
+	}
 }
+
+

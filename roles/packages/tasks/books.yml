@@ -1,0 +1,9 @@
+---
+- name: Install foliate and calibre
+  register: install_books
+  until: install_books is succeeded
+  ansible.builtin.apt:
+    name:
+      - foliate
+      - calibre
+    state: present

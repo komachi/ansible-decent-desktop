@@ -12,3 +12,6 @@ alias df='duf'
 alias cat='batcat'
 alias imv='imv-wayland'
 alias q="qalc -i"
+alias o="jaro"
+alias tmpd="cd $(mktemp -d)"
+alias serve="python3 -m http.server -b localhost"

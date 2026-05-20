@@ -3,10 +3,6 @@
     "dns": [
         "9.9.9.9"
     ],
-    "hosts": [
-        "unix:///var/run/docker.sock",
-        ""
-    ],
     "runtimes": {
         "runsc": {
             "path": "/usr/bin/runsc"
@@ -18,5 +14,6 @@
     "features": {
       "buildkit": true
     },
-    "iptables": false
+    "iptables": false,
+    "ip6tables": false
 }

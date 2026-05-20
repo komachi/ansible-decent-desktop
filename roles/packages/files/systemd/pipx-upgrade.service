@@ -4,6 +4,7 @@ Description=Pipx upgrade
 [Service]
 Type=oneshot
 ExecStart=pipx upgrade-all
+ExecCondition=check-metered-connection.sh
 AppArmorProfile=-pipx
 Nice=19
 IOSchedulingClass=idle

@@ -15,6 +15,6 @@
 
 - name: Disable msr plugin
   ansible.builtin.lineinfile:
-    path: /etc/fwupd/daemon.conf
+    path: /etc/fwupd/fwupd.conf
     regexp: ^DisabledPlugins=
     line: DisabledPlugins=test;test_ble;msr

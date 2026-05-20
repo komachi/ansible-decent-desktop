@@ -7,15 +7,15 @@
 - name: Clone ananicy repo
   ansible.builtin.git:
     repo: "{{ ananicy_repo }}"
-    dest: "{{ ananicy_tempdir.path }}"
+    dest: "{{ ananicy_tempdir.path }}/src"
     depth: "1"
     clone: true
     version: "{{ ananicy_commit }}"
 
 - name: Build ananicy deb
   ansible.builtin.shell:
-    chdir: "{{ ananicy_tempdir.path }}"
-    cmd: bash package.sh debian && mv ananicy-*.deb ananicy.deb
+    chdir: "{{ ananicy_tempdir.path }}/src"
+    cmd: dpkg-buildpackage -b && mv ananicy-cpp_*.deb ../ananicy-cpp.deb
   changed_when: true
 
 - name: Install ananicy
@@ -26,15 +26,3 @@
   ansible.builtin.file:
     path: "{{ ananicy_tempdir.path }}"
     state: absent
-
-- name: Add systemd service
-  ansible.builtin.copy:
-    src: systemd/ananicy.service
-    dest: /etc/systemd/system/ananicy.service
-    mode: "0640"
-
-- name: Enable ananicy service
-  ansible.builtin.systemd:
-    name: ananicy
-    enabled: true
-    state: started

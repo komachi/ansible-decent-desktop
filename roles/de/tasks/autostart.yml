@@ -22,6 +22,4 @@
     - location: /var/lib/flatpak/exports/share/applications
       name: org.telegram.desktop
     - location: /usr/share/applications
-      name: im.dino.Dino
-    - location: /usr/share/applications
       name: opensnitch_ui

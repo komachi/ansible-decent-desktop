@@ -1,0 +1,71 @@
+---
+- name: Remove network-manager related packages
+  register: remove_network_manager
+  until: remove_network_manager is succeeded
+  ansible.builtin.apt:
+    name:
+      - wpasupplicant
+      - network-manager
+    state: absent
+
+- name: Install connman package
+  register: install_connman
+  until: install_connman is succeeded
+  ansible.builtin.apt:
+    name:
+      - connman
+      - connman-vpn
+      - cmst
+      - ofono
+      - iwd
+    state: present
+
+- name: Ensures systemd connman overrides dir exists
+  ansible.builtin.file:
+    path: /etc/systemd/system/connman.service.d
+    state: directory
+    mode: "0755"
+
+- name: Copy connman systemd unit override
+  ansible.builtin.copy:
+    src: systemd/connman-override.conf
+    dest: /etc/systemd/system/connman.service.d/override.conf
+    mode: "0640"
+
+- name: Configure connman
+  community.general.ini_file:
+    path: /etc/connman/main.conf
+    section: "{{ item[0] }}"
+    option: "{{ item[1] }}"
+    value: "{{ item[2] }}"
+    mode: "0440"
+  loop:
+    - ["General", "PreferredTechnologies", "ethernet,wifi"]
+    - ["General", "AllowHostnameUpdates", "false"]
+    - ["General", "SingleConnectedTechnology", "true"]
+    - ["General", "BackgroundScanning", "true"]
+    - ["General", "AllowDomainnameUpdates", "false"]
+    - ["General", "OnlineCheckMode", "none"]
+# - name: Copy check-metered-connection.sh script
+#   ansible.builtin.copy:
+#     src: check-metered-connection.sh
+#     dest: /usr/local/bin/check-metered-connection.sh
+#     mode: "0555"
+
+# - name: Ensures systemd unattended-upgrades overrides dirs exists
+#   ansible.builtin.file:
+#     path: /etc/systemd/system/{{ item }}
+#     state: directory
+#     mode: "0755"
+#   loop:
+#     - apt-daily.timer.d
+#     - apt-daily-upgrade.timer.d
+
+# - name: Run unattended-upgrades only on unmetered
+#   ansible.builtin.copy:
+#     src: systemd/overrides-unmetered.conf
+#     dest: /etc/systemd/system/{{ item }}/override.conf
+#     mode: "0640"
+#   loop:
+#     - apt-daily.timer.d
+#     - apt-daily-upgrade.timer.d

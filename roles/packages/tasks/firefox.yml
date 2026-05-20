@@ -122,3 +122,9 @@
     mode: "0640"
     owner: "{{ username }}"
     group: "{{ username }}"
+
+- name: Set Firefox as default browser
+  become: true
+  become_user: "{{ username }}"
+  ansible.builtin.command: "xdg-settings set default-web-browser firefox-esr.desktop"
+  changed_when: false

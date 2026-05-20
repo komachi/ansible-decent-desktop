@@ -7,6 +7,7 @@
     - quiet
     - write-cache
     - cache-loc /etc/apparmor/earlypolicy/
+    - Optimize=compress-fast
 
 # - name: Create apparmor-even-more-profiles tempdir
 #   ansible.builtin.tempfile:
@@ -44,7 +45,6 @@
       - apparmor-profiles
       - apparmor-profiles-extra
     state: present
-
 # - name: Symlink extra profiles
 #   ansible.builtin.file:
 #     src: /usr/share/apparmor/extra-profiles/{{ item }}

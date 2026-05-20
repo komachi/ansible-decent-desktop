@@ -28,3 +28,10 @@
     mode: "0640"
     owner: "{{ username }}"
     group: "{{ username }}"
+
+- name: Install LocalTranslate
+  register: install_localtranslate
+  until: install_localtranslate is succeeded
+  community.general.flatpak:
+    name: dev.ters.LocalTranslate
+    state: present

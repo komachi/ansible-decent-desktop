@@ -12,7 +12,7 @@ port "6600"
 restore_paused "yes"
 metadata_to_use "artist,album,title,track,name,genre,date,composer,performer,disc"
 
-follow_outside_symlinks "yes"
+follow_outside_symlinks "no"
 follow_inside_symlinks "yes"
 
 zeroconf_enabled "no"
@@ -21,8 +21,8 @@ zeroconf_enabled "no"
 #default_permissions "read,add,control,admin"
 
 audio_output {
-  type "pulse"
-  name "MPD"
+  type "pipewire"
+  name "PipeWire Sound Server"
 }
 
 resampler {
@@ -30,7 +30,6 @@ resampler {
   quality "very high"
 }
 
-replaygain "auto"
 volume_normalization "yes"
 
 #id3v1_encoding "WINDOWS-1251"

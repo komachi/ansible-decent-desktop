@@ -7,7 +7,6 @@
       - kanshi
       - brightnessctl
       - brightness-udev
-      - network-manager-gnome
       - xdg-user-dirs
       - ffmpegthumbnailer
       - tumbler
@@ -21,6 +20,10 @@
       - xwayland
       - ripgrep
       - wob
+      - wdisplays
+      - blueman
+      - chemical-mime-data
+      - swayosd
     state: present
 
 - name: Ensures ~/.config exists

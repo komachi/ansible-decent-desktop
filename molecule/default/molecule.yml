@@ -8,11 +8,11 @@ driver:
   cachier: machine
   provision: no
   parallel: true
-  default_box: debian/bookworm64
+  default_box: debian/trixie64
 #  name: podman
 platforms:
   - name: debian
-    box: debian/bookworm64
+    box: debian/trixie64
     memory: 4096
     cpus: 2
 provisioner:

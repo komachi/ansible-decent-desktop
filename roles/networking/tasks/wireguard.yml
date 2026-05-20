@@ -7,9 +7,3 @@
       - wireguard
       - wireguard-tools
     state: present
-
-- name: Disable managing wireguard interfaces by nm
-  ansible.builtin.copy:
-    src: networkmanager/unmanaged.conf
-    dest: /etc/NetworkManager/conf.d/10-unmanaged.conf
-    mode: "0640"

@@ -40,7 +40,7 @@ Comment[nb]=Surf på nettet
 Comment[nl]=Verken het internet
 Comment[nn]=Surf på nettet
 Comment[no]=Surf på nettet
-Comment[pl]=Przeglądanie stron WWW 
+Comment[pl]=Przeglądanie stron WWW
 Comment[pt]=Navegue na Internet
 Comment[pt_BR]=Navegue na Internet
 Comment[ru]=Обозреватель Всемирной Паутины
@@ -93,7 +93,7 @@ X-GNOME-FullName[pt_BR]=Navegador Web Firefox ESR
 X-GNOME-FullName[ru]=Интернет-браузер Firefox ESR
 X-GNOME-FullName[sk]=Internetový prehliadač Firefox ESR
 X-GNOME-FullName[sv]=Webbläsaren Firefox ESR
-Exec=env MOZ_ENABLE_WAYLAND=1 /usr/lib/firefox-esr/firefox-esr %u
+Exec=env MOZ_ENABLE_WAYLAND=1 MOZ_DBUS_REMOTE=1 /usr/lib/firefox-esr/firefox-esr %u
 Terminal=false
 X-MultipleArgs=false
 Type=Application

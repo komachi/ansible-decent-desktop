@@ -1,0 +1,7 @@
+---
+- name: Install gtk-meshtastic-client
+  register: install_meshtastic
+  until: install_meshtastic is succeeded
+  ansible.builtin.apt:
+    name: gtk-meshtastic-client
+    state: present

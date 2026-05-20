@@ -3,18 +3,22 @@
   ansible.builtin.apt:
     name:
       - podman
+      - containers-storage
       - slirp4netns
       - rootlesskit
       - runsc
       - fuse-overlayfs
-      - docker
+      - docker-ce
+      - docker-buildx-plugin
+      - docker-compose-plugin
+      - pigz
     state: present
 
 - name: Ensures /etc/containers exists
   ansible.builtin.file:
     path: /etc/containers
     state: directory
-    mode: "0660"
+    mode: "0666"
 
 - name: Enable docker.io registry for OCI
   ansible.builtin.lineinfile:
@@ -35,7 +39,7 @@
   ansible.builtin.file:
     path: /etc/docker
     state: directory
-    mode: "0660"
+    mode: "0666"
 
 - name: Copy docker config
   ansible.builtin.copy:

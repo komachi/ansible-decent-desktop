@@ -1,0 +1,8 @@
+---
+- name: Install waydroid
+  register: install_waydroid
+  until: install_waydroid is succeeded
+  ansible.builtin.apt:
+    name:
+      - waydroid
+    state: present

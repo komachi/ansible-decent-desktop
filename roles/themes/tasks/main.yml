@@ -63,6 +63,22 @@
     group: "{{ username }}"
     mode: "0440"
 
+- name: Ensures ~/.config/qt6ct exists
+  ansible.builtin.file:
+    path: /home/{{ username }}/.config/qt6ct
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "0750"
+
+- name: Configure qt6ct
+  ansible.builtin.template:
+    src: qt6ct/qt6ct.conf.j2
+    dest: /home/{{ username }}/.config/qt6ct/qt6ct.conf
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "0440"
+
 - name: Configure dconf settings
   become: true
   become_user: "{{ username }}"

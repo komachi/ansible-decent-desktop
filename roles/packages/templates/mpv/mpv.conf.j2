@@ -5,9 +5,8 @@ stop-screensaver=yes
 player-operation-mode=pseudo-gui
 save-position-on-quit
 
-hwdec=vaapi
+hwdec=auto
 hwdec-codecs=all
-
 ytdl-format=bestvideo[height<=?1080][fps<=?30][vcodec!=?vp9]+bestaudio/best
 
 # subs
@@ -24,6 +23,7 @@ sub-font='Noto Sans Display'
 #audio-pitch-correction=yes
 alang=ja,jp,jpn,en,eng,ru,rus
 replaygain=album
+ao=pipewire
 
 [protocol.https]
 user-agent='{{ tor_browser_user_agent }}'

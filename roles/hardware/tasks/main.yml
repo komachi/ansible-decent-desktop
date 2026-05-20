@@ -77,6 +77,13 @@
         - fwupd
   tags:
     - always
+- ansible.builtin.include_tasks:
+    file: bluetooth.yml
+    apply:
+      tags:
+        - bluetooth
+  tags:
+    - always
 # - ansible.builtin.include_tasks:
 #     file: usbguard.yml
 #     apply:
