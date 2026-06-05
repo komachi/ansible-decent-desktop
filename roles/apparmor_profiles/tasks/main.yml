@@ -6,7 +6,7 @@
   loop:
     - quiet
     - write-cache
-    - cache-loc /etc/apparmor/earlypolicy/
+    - cache-loc=/var/cache/apparmor/
     - Optimize=compress-fast
 
 # - name: Create apparmor-even-more-profiles tempdir

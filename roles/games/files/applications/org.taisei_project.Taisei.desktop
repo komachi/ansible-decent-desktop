@@ -5,8 +5,6 @@ Name=Taisei
 GenericName=Bullet hell shoot ’em up game
 Icon=org.taisei_project.Taisei
 Terminal=false
-Exec=/usr/games/gamemoderun /usr/bin/flatpak run --branch=stable --command=taisei org.taisei_project.Taisei
+Exec=/usr/games/gamemoderun taisei
 Categories=Game;ArcadeGame;
-Comment=An open-source Tōhō clone.
-X-Flatpak-RenamedFrom=taisei.desktop;
-X-Flatpak=org.taisei_project.Taisei
+Comment=An open-source Tōhō fangame.

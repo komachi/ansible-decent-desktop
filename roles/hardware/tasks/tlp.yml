@@ -5,7 +5,6 @@
   ansible.builtin.apt:
     name:
       - tlp
-      - tlp-rdw
       - smartmontools
       - linux-cpupower
       - powermgmt-base

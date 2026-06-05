@@ -31,7 +31,6 @@
   ansible.builtin.systemd:
     name: tor@default
     enabled: true
-
 # TODO install tor browser
 # - name: Check if tbb is already downloaded
 #   stat:

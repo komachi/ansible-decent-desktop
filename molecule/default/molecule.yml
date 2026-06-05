@@ -28,7 +28,3 @@ provisioner:
 
 verifier:
   name: ansible
-lint: |
-  set -e
-  yamllint roles *.yml
-  ansible-lint -p main.yml roles

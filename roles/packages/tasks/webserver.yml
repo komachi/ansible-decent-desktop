@@ -1,0 +1,23 @@
+---
+- name: Install caddy
+  register: install_caddy
+  until: install_caddy is succeeded
+  ansible.builtin.apt:
+    name: caddy
+    state: present
+
+- name: Ensures sites-enabled dir for caddy exists
+  ansible.builtin.file:
+    path: "/etc/caddy/sites-enabled"
+    state: directory
+    owner: caddy
+    group: caddy
+    mode: "0555"
+
+- name: Copy Caddyfile
+  ansible.builtin.copy:
+    src: caddy/Caddyfile
+    dest: /etc/caddy/Caddyfile
+    owner: caddy
+    group: caddy
+    mode: "0444"

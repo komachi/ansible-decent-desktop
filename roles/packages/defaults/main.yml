@@ -1,8 +1,6 @@
 ---
 electroncash_version: 4.4.1
 electroncash_checksum: sha512:6f13415251e3424e0687aa7b5cd3c90b2f6252f0030d34e3ecd813bd4498e8d35019e7cd610bc2a185c2cec5739e1d7e7932850fd9fc42b321bc7fdd0c62a047
-zecwallet_lite_version: 1.8.8
-zecwallet_lite_checksum: sha256:ca372ed24ed1a166d746b7f99e6f926dc2bfe5ff8693580633daa7d6a8ec232b
 mycrypto_version: 1.7.17
 mycrypto_checksum: sha256:20eb48989b5ae5e60e438eff6830ac79a0d89ac26dff058097260e747e866444
 ghacks_url: https://raw.githubusercontent.com/arkenfox/user.js/140.0/user.js
@@ -11,7 +9,7 @@ thunderbird_userjs_url: https://raw.githubusercontent.com/HorlogeSkynet/thunderb
 thunderbird_userjs_checksum: sha512:a07851a034453bd39bd6e650b2c9142b22bbbb0c684a87e474bcc1e38e228c3769e59cfe088e01f5cb610aace377fc5c92959a955c07fcf5cfb3dbf7420842ee
 zaread_url: https://raw.githubusercontent.com/paoloap/zaread/035b476f8a64627f047f710bb04cadb3aa696b4d/zaread
 zaread_checksum: sha512:3981fbc7200de084921c0cb4e3b734950de45c7009f1efd1b921c48dd734842dd657b6c8d7108071e6888d142403dc62cfd083b657ca3e6488b0f86c0666730b
-kstyle_adwaita_version: 6.9
+kstyle_adwaita_version: 6.10
 qgnomeplatform_version: 6.6
 
 vscodium_extensions:

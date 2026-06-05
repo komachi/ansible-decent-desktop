@@ -1,16 +1,14 @@
 ---
-- name: Install mpv
+- name: Install mpv and related stuff
   register: install_mpv
   until: install_mpv is succeeded
   ansible.builtin.apt:
-    name: mpv
-    state: present
-
-- name: Install yt-dlp and streamlink
-  ansible.builtin.apt:
     name:
+      - mpv
       - yt-dlp
       - streamlink
+      - fzf
+      - ytfzf
     state: present
 
 - name: Ensures ~/.config/streamlink exists

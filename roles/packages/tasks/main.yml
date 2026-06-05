@@ -8,6 +8,15 @@
         - docker
   tags:
     - always
+
+- ansible.builtin.include_tasks:
+    file: webserver.yml
+    apply:
+      tags:
+        - webserver
+  tags:
+    - always
+
 - ansible.builtin.include_tasks:
     file: pipx.yml
     apply:
@@ -159,14 +168,6 @@
   tags:
     - always
 - ansible.builtin.include_tasks:
-    file: zcash.yml
-    apply:
-      tags:
-        - zcash
-        - cryptocurrency
-  tags:
-    - always
-- ansible.builtin.include_tasks:
     file: ethereum.yml
     apply:
       tags:
@@ -247,14 +248,6 @@
     - always
 
 - ansible.builtin.include_tasks:
-    file: dash.yml
-    apply:
-      tags:
-        - cryptocurrency
-        - dash
-  tags:
-    - always
-- ansible.builtin.include_tasks:
     file: deltachat.yml
     apply:
       tags:
@@ -315,7 +308,6 @@
         - virtual-machines
   tags:
     - always
-# - include_tasks: sia.yml
 - ansible.builtin.include_tasks:
     file: golang.yml
     apply:
@@ -376,7 +368,7 @@
         - optimizations
   tags:
     - always
-- include_tasks:
+- ansible.builtin.include_tasks:
     file: scrcpy.yml
     apply:
       tags:

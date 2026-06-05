@@ -17,12 +17,12 @@ You should look for sources for full list, but here are some choices I made:
 - OS: [Debian GNU/Linux](https://debian.org), stable (current trixie)
 - Shell: [bash](https://www.gnu.org/software/bash/)
 - Init: [systemd](https://systemd.io)
-- MAC: [AppArmor](https://apparmor.net/), [bubblewrap](https://github.com/containers/bubblewrap) used for [Flatpak](https://flatpak.org/)-packed apps. Sister project [apparmor-even-more-profiles](https://github.com/komachi/apparmor-even-more-profiles) deployed by default, bringing profiles for most of included software in enforce mode.
+- MAC: [AppArmor](https://apparmor.net/), [bubblewrap](https://github.com/containers/bubblewrap) used for [Flatpak](https://flatpak.org/)-packed apps
 - VPN client: [Wireguard](https://wireguard.com)
 - Firewall: [nftables](https://netfilter.org/projects/nftables/) + [OpenSnitch](https://github.com/evilsocket/opensnitch)
 - Display server: [Wayland](https://wayland.freedesktop.org/)
 - Audio/video server: [PipeWire](https://pipewire.org)
-- Display manager: we don't need one, it can be replaced with single systemd unit
+- Display manager: we don't need one, [it can be replaced with a single systemd unit](https://github.com/komachi/ansible-decent-desktop/blob/master/roles/dm/templates/systemd/override.conf.j2)
 - Window manager: [sway](https://swaywm.org/)
 - Notification daemon: [mako](https://wayland.emersion.fr/mako)
 - Bar: [waybar](https://github.com/Alexays/Waybar)
@@ -33,14 +33,16 @@ You should look for sources for full list, but here are some choices I made:
 - DNS server: [stubby](https://github.com/getdnsapi/stubby) + [unbound](https://github.com/NLnetLabs/unbound) with DNS blocklists enabled
 - Media player: [mpv](https://mpv.io)
 - File manager: [PCManFM](https://en.wikipedia.org/wiki/PCMan_File_Manager) and [nnn](https://github.com/jarun/nnn) are available
-- [FreeTube](https://freetubeapp.io/) as alternative less privacy-invasing YouTube frontend, also [yt-dlp](https://github.com/yt-dlp/yt-dlp) configured to be used with mpv
+- [FreeTube](https://freetubeapp.io/) as alternative less privacy-invasing YouTube frontend, also [yt-dlp](https://github.com/yt-dlp/yt-dlp) configured to be used with mpv, and [ytfzf](https://github.com/pystardust/ytfzf) provides simple CLI interface for searching YouTube
 - Music player: [mpd](https://musicpd.org/) + [cantata](https://github.com/CDrummond/cantata)
 - Browser: [Firefox](https://mozilla.org/firefox), but [Chromium](https://chromium.org) also available and used for webapps
 - Email client: [Thunderbird](https://www.thunderbird.net)
 - Source code editor: [VSCodium](https://github.com/VSCodium/vscodium) with extensions from [Open VSX](https://open-vsx.org)
 - File sync: [Syncthing](https://syncthing.net/)
 - Download managers: [aria2](https://github.com/aria2/aria2), [qBittorrent](https://qbittorrent.org) for [BitTorent](https://www.bittorrent.org), [Nicotine+](https://nicotine-plus.org/) for [Soulseek](https://slsknet.org)
-- Some cryptocurrency wallets: [Monero](https://www.getmonero.org/) fullnode, [Electrum](https://electrum.org) and [Wasabi Wallet](https://www.wasabiwallet.io/) for [Bitcoin](https://bitcoin.org/) network, [Electron Cash](https://electroncash.org/) for [Bitcoin Cash](https://bitcoincash.org/), [MyCrypto](https://www.mycrypto.com/) for [Ethereum](https://ethereum.org), [Zecwallet Lite](https://www.zecwallet.co/) for [Zcash](https://z.cash/), [Electrum Dash](https://electrum.dash.org/) for [Dash](https://dash.org/), [Bisq](https://bisq.network/) and [Uniswap](https://uniswap.org/) as DEX
+- RSS reader: [Newsflash](https://gitlab.com/news-flash/news_flash_gtk) with local [RSS-Bridge](https://github.com/RSS-Bridge/rss-bridge) instance for services lacking proper feed
+- Web server: local services use [Caddy](https://caddyserver.com/)
+- Some cryptocurrency wallets: [Monero](https://www.getmonero.org/) fullnode, [Electrum](https://electrum.org) for [Bitcoin](https://bitcoin.org/) network, [Electron Cash](https://electroncash.org/) for [Bitcoin Cash](https://bitcoincash.org/), [MyCrypto](https://www.mycrypto.com/) for [Ethereum](https://ethereum.org), [Bisq](https://bisq.network/) and [Uniswap](https://uniswap.org/) as DEX
 - Support for [Ledger](https://www.ledger.com/), [Trezor](https://trezor.io/), [Nitrokey](https://www.nitrokey.com/), and [OnlyKey](https://onlykey.io/) hardware tokens
 - [I2P](https://geti2p.net/), [Tor](https://torproject.org), [IPFS](https://ipfs.io/), etc.
 - Office packages: [zathura](https://pwmt.org/projects/zathura/) + [zaread](https://github.com/paoloap/zaread) for simple document viewing and [LibreOffice](https://www.libreoffice.org/) for classical office package editing needs
@@ -50,6 +52,7 @@ You should look for sources for full list, but here are some choices I made:
 - [DeltaChat](https://delta.chat), XMPP ([Dino](https://dino.im/)), [Telegram](https://telegram.org), [Jami](https://jami.net), Matrix ([nheko](https://nheko-reborn.github.io)), [Mumble](https://www.mumble.info), [SimpleX](https://simplex.chat), [Meshtastic](https://meshtastic.org) ([https://gitlab.com/kop316/gtk-meshtastic-client](https://gitlab.com/kop316/gtk-meshtastic-client)) messengers
 - Local maps with [Organic Maps](https://organicmaps.app/).
 - Local dicts with [dictd](https://sourceforge.net/projects/dict/) and [GoldenDict](http://goldendict.org/)
+- Local translation with [LocalTranslate](https://terslang.github.io/LocalTranslate/)
 - Virtual machines: [libvirt](https://libvirt.org/) + [QEMU](https://www.qemu.org/) + [virt-manager](https://virt-manager.org/)
 - [podman](https://podman.io) + [gvisor](https://gvisor.dev/) by default for launching [OCI containers](https://opencontainers.org), [Docker](https://www.docker.com/) also installed.
 - [JOSM](https://josm.openstreetmap.de/) for OpenStreetMap editing
@@ -150,8 +153,7 @@ This playbook meant to be used on desktops, so there is specific desktop-friendl
 - [Core dumps](https://en.wikipedia.org/wiki/Core_dump) are disabled
 - Ansible comes with [Redis cache](https://docs.ansible.com/ansible/latest/collections/community/general/redis_cache.html) and [mitogen](https://mitogen.networkgenomics.com/ansible_detailed.html)
 - Analytics are opted-outed [with env list](/roles/de/files/environment.d/optout.conf)
-- [tirdad](https://github.com/0xsirus/tirdad) is installed
-- [kloak](https://github.com/vmonaco/kloak) is installed
+- [tirdad](https://github.com/Kicksecure/tirdad) is installed
 - Some kernel modules are disabled according to [GrapheneOS list](https://github.com/GrapheneOS/infrastructure/blob/main/modprobe.d/local.conf)
 - [Recommended settings from Linux Kernel Self-Protection Project](https://kspp.github.io/Recommended_Settings) are used
 - Playbooks `os_hardening` and `ssh_hardening` from [DevSec Hardening Framework](https://dev-sec.io/) are applied

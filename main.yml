@@ -116,7 +116,7 @@
       armv7l: armhf
       aarch64: arm64
     nonfree_firmware: true
-    tor_browser_user_agent: Mozilla/5.0 (Windows NT 10.0; rv:109.0) Gecko/20100101 Firefox/115.0
+    tor_browser_user_agent: Mozilla/5.0 (X11; Linux x86_64; rv:140.0) Gecko/20100101 Firefox/140.0
     timezone: Etc/UTC
     # gantsign.keyboard vars
     keyboard_model: pc105
@@ -231,7 +231,6 @@
         shell: /bin/bash
     packages:
       - tirdad
-      - kloak
       - libpam-tmpdir
       - micro
       - bat
@@ -297,6 +296,7 @@
       - fd-find
       - zoxide
       - tldr-py
+      - just
     apt_install__all_packages:
       - "{{ packages }}"
     apt_preferences__list:

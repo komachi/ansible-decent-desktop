@@ -1,0 +1,10 @@
+http://localhost:7010 {
+  root * /usr/share/rss-bridge
+
+  php_fastcgi unix//run/php/rss-bridge.sock {
+    index index.php
+    root /usr/share/rss-bridge
+    read_timeout 60s
+  }
+  file_server
+}

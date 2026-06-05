@@ -39,6 +39,7 @@
     section: "{{ item[0] }}"
     option: "{{ item[1] }}"
     value: "{{ item[2] }}"
+    mode: "0444"
   loop:
     - [General, Privacy, network/on]
     - [Policy, AutoEnable, "false"]

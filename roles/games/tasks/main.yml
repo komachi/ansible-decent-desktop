@@ -17,22 +17,6 @@
     - always
 
 - ansible.builtin.include_tasks:
-    file: openra.yml
-    apply:
-      tags:
-        - openra
-  tags:
-    - always
-
-- ansible.builtin.include_tasks:
-    file: xonotic.yml
-    apply:
-      tags:
-        - xonotic
-  tags:
-    - always
-
-- ansible.builtin.include_tasks:
     file: taisei.yml
     apply:
       tags:

@@ -1,7 +1,44 @@
 ---
-- name: Install newsboat
-  register: install_newsboat
-  until: install_newsboat is succeeded
-  ansible.builtin.apt:
-    name: newsboat
+- name: Install Newsflash
+  community.general.flatpak:
+    name: io.gitlab.news_flash.NewsFlash
     state: present
+
+- name: Install rss-bridge
+  register: install_rss
+  until: install_rss is succeeded
+  ansible.builtin.apt:
+    name:
+      - rss-bridge
+      - php-fpm
+    state: present
+
+- name: Chown rss-bridge cache dir to caddy user
+  ansible.builtin.file:
+    path: /var/cache/rss-bridge
+    owner: caddy
+    group: caddy
+    recurse: yes
+    state: directory
+
+- name: Copy rss-bridge whitelist
+  ansible.builtin.copy:
+    src: rss-bridge/whitelist.txt
+    dest: /etc/rss-bridge/whitelist.txt
+    mode: "0444"
+    owner: caddy
+    group: caddy
+
+- name: Copy caddy file for rss-bridge
+  ansible.builtin.copy:
+    src: caddy/rss-bridge.caddy
+    dest: /etc/caddy/sites-enabled/rss-bridge.caddy
+    mode: "0444"
+    owner: caddy
+    group: caddy
+
+- name: Copy php-fpm config for rss-bridge
+  ansible.builtin.copy:
+    src: php/rss-bridge.conf
+    dest: /etc/php/8.4/fpm/pool.d/rss-bridge.conf
+    mode: "0444"

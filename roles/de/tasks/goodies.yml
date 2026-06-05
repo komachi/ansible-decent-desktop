@@ -19,7 +19,6 @@
       - qt6-wayland
       - xwayland
       - ripgrep
-      - wob
       - wdisplays
       - blueman
       - chemical-mime-data
@@ -88,35 +87,6 @@
     - name: startup-mode
       value: "'cwd'"
 
-- name: Configure nm-applet
-  become: true
-  become_user: "{{ username }}"
-  community.general.dconf:
-    key: /org/gnome/nm-applet/{{ item.name }}
-    value: "{{ item.value }}"
-    state: present
-  loop:
-    - name: suppress-wireless-networks-available
-      value: "true"
-    - name: disable-connected-notification
-      value: "true"
-
-- name: Ensures ~/.config/autostart exists
-  ansible.builtin.file:
-    path: /home/{{ username }}/.config/autostart
-    state: directory
-    owner: "{{ username }}"
-    group: "{{ username }}"
-    mode: "0750"
-
-- name: Add nm-applet autostart file
-  ansible.builtin.copy:
-    src: applications/nm-applet.desktop
-    dest: /home/{{ username }}/.config/autostart/nm-applet.desktop
-    owner: "{{ username }}"
-    group: "{{ username }}"
-    mode: "0440"
-
 - name: Configure other dconf settings
   become: true
   become_user: "{{ username }}"
@@ -174,6 +144,27 @@
     name: kanshi
     enabled: true
 
+- name: Add swayosd systemd user unit
+  ansible.builtin.copy:
+    src: systemd/swayosd.service
+    dest: /home/{{ username }}/.config/systemd/user/swayosd.service
+    mode: "0640"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Disable swayosd-libinput-backend
+  ansible.builtin.systemd:
+    name: swayosd-libinput-backend
+    enabled: false
+
+- name: Enable swayosd systemd user service
+  become: true
+  become_user: "{{ username }}"
+  ansible.builtin.systemd:
+    scope: user
+    name: swayosd
+    enabled: true
+
 - name: Configure ripgrep
   ansible.builtin.copy:
     src: ripgreprc
@@ -181,22 +172,3 @@
     mode: "0660"
     owner: "{{ username }}"
     group: "{{ username }}"
-
-- name: Add wob systemd user unit and socket
-  ansible.builtin.copy:
-    src: systemd/{{ item }}
-    dest: /home/{{ username }}/.config/systemd/user/{{ item }}
-    mode: "0640"
-    owner: "{{ username }}"
-    group: "{{ username }}"
-  loop:
-    - wob.socket
-    - wob.service
-
-- name: Enable wob socket
-  become: true
-  become_user: "{{ username }}"
-  ansible.builtin.systemd:
-    scope: user
-    name: wob.socket
-    enabled: true
