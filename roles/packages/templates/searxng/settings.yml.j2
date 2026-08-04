@@ -1,0 +1,37 @@
+use_default_settings: true
+
+ui:
+  default_locale: en
+
+general:
+  debug: false
+  instance_name: "SearXNG"
+
+search:
+  safe_search: 0
+  autocomplete: "duckduckgo"
+  formats:
+    - html
+    - json
+  method: POST
+  default_lang: en
+  language:
+    - en
+
+server:
+    secret_key: "{{ lookup('password', 'credentials/searx_secret_key length=25') }}"
+    limiter: false
+    image_proxy: false
+
+outgoing:
+  request_timeout: 5.0
+engines:
+  - name: duckduckgo
+    disabled: false
+    categories: general
+    timeout: 5.0
+
+  - name: wikipedia
+    disabled: false
+    categories: knowledge
+    timeout: 5.0

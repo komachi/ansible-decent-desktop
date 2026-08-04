@@ -1,5 +1,5 @@
 ---
-- name: Ensure nodejs and yarn is installed
+- name: Ensure nodejs is installed
   ansible.builtin.apt:
     name:
       - nodejs
@@ -15,6 +15,5 @@
     block: |
       prefix=~/.local
       fund=false
-      send-metrics=false
       update-notifier=false
       audit=false

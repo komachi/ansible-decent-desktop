@@ -46,6 +46,11 @@
     - ["General", "BackgroundScanning", "true"]
     - ["General", "AllowDomainnameUpdates", "false"]
     - ["General", "OnlineCheckMode", "none"]
+    - [
+        "General",
+        "NetworkInterfaceBlacklist",
+        "vmnet,vboxnet,virbr,ifb,ve-,vb-,veth",
+      ]
 # - name: Copy check-metered-connection.sh script
 #   ansible.builtin.copy:
 #     src: check-metered-connection.sh

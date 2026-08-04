@@ -1,0 +1,6 @@
+[Unit]
+Description=Arr network
+
+[Network]
+Subnet=10.10.0.0/24
+Gateway=10.10.0.1

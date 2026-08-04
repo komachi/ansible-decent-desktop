@@ -11,6 +11,9 @@ zaread_url: https://raw.githubusercontent.com/paoloap/zaread/035b476f8a64627f047
 zaread_checksum: sha512:3981fbc7200de084921c0cb4e3b734950de45c7009f1efd1b921c48dd734842dd657b6c8d7108071e6888d142403dc62cfd083b657ca3e6488b0f86c0666730b
 kstyle_adwaita_version: 6.10
 qgnomeplatform_version: 6.6
+rtk_version: 0.44.2
+rtk_full_version: 0.44.2-1
+rtk_checksum: sha512:4c1d72501fd8cbd01bd628571a9aab26a3a6e8fa1c9ee679f095998ff1c8ebda4f4a3e130745f85afd643b0d50cb1ed93be15465f042f2a3a7981b7a48149a3b
 
 vscodium_extensions:
   - nico-castell.linux-desktop-file
@@ -31,7 +34,7 @@ vscodium_extensions:
   - Tyriar.sort-lines
   - timonwong.shellcheck
   - graphql.vscode-graphql
-  - prisma.prisma
+  # - prisma.prisma
   - 42crunch.vscode-openapi
   - marcostazi.vs-code-vagrantfile
   - coolbear.systemd-unit-file
@@ -57,18 +60,21 @@ vscodium_extensions:
   - jq-syntax-highlighting.jq-syntax-highlighting
   - omBratteng.nftables
   - dawidd6.debian-vscode
-  - neo4j-extensions.neo4j-for-vscode
+  # - neo4j-extensions.neo4j-for-vscode
   - infosec-intern.yara
   - samuelcolvin.jinjahtml
-  - scala-lang.scala
-  - redhat.java
-  - orta.vscode-jest
+  # - scala-lang.scala
+  # - redhat.java
+  # - orta.vscode-jest
   - zaaack.markdown-editor
   - ferrielmelarpis.vscode-css-modules-syntax-highlighter
   - biomejs.biome
   - codezombiech.gitignore
   - chrislajoie.vscode-modelines
   - matthewpi.caddyfile-support
+  - dubadub.cook
+  - vue.volar
+  - kilocode.kilo-code
 
 thunderbird_profiles:
   - name: default

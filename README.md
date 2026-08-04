@@ -50,14 +50,19 @@ You should look for sources for full list, but here are some choices I made:
 - Image viewer: [imv](https://github.com/eXeC64/imv)
 - Password manager: [KeePassXC](https://keepassxc.org/)
 - [DeltaChat](https://delta.chat), XMPP ([Dino](https://dino.im/)), [Telegram](https://telegram.org), [Jami](https://jami.net), Matrix ([nheko](https://nheko-reborn.github.io)), [Mumble](https://www.mumble.info), [SimpleX](https://simplex.chat), [Meshtastic](https://meshtastic.org) ([https://gitlab.com/kop316/gtk-meshtastic-client](https://gitlab.com/kop316/gtk-meshtastic-client)) messengers
-- Local maps with [Organic Maps](https://organicmaps.app/).
+- Local maps with [CoMaps](https://www.comaps.app/)
 - Local dicts with [dictd](https://sourceforge.net/projects/dict/) and [GoldenDict](http://goldendict.org/)
 - Local translation with [LocalTranslate](https://terslang.github.io/LocalTranslate/)
 - Virtual machines: [libvirt](https://libvirt.org/) + [QEMU](https://www.qemu.org/) + [virt-manager](https://virt-manager.org/)
 - [podman](https://podman.io) + [gvisor](https://gvisor.dev/) by default for launching [OCI containers](https://opencontainers.org), [Docker](https://www.docker.com/) also installed.
 - [JOSM](https://josm.openstreetmap.de/) for OpenStreetMap editing
-- [node.js](https://nodejs.org), [golang](https://golang.org/), [python](https://python.org), etc. dev env.
+- Local LLM routing with [OmniRoute](https://omniroute.online/) and [rtk](https://www.rtk-ai.app/) is available for token saving
+- Local metasearch with [SearxNG](https://searxng.org)
+- [Jackett](https://github.com/Jackett/Jackett) and [FlareSolverr](https://github.com/FlareSolverr/FlareSolverr) is installed
+- [IPFS](https://ipfs.tech) is installed
+- [node.js](https://nodejs.org), [golang](https://golang.org/), [python](https://python.org), etc. dev env
 - [Waydroid](https://waydro.id/) and [scrcpy](https://github.com/Genymobile/scrcpy) are available
+
 - et cetera, et cetera
 
 ## Roles

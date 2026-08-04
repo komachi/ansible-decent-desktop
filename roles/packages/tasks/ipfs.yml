@@ -8,13 +8,15 @@
     system: true
   register: ipfs_user
 
-- name: Ensures ipfs data dir exist
-  ansible.builtin.file:
-    path: "{{ large_dirs }}/ipfs"
-    state: directory
-    owner: ipfs
-    group: ipfs
-    mode: "0750"
+- name: Add subgid for ipfs user
+  ansible.builtin.command:
+    cmd: usermod -w 100000-165535 ipfs
+  changed_when: false
+
+- name: Add subuid for ipfs user
+  ansible.builtin.command:
+    cmd: usermod -v 100000-165535 ipfs
+  changed_when: false
 
 - name: Ensures /var/lib/ipfs/.config/containers/systemd exists
   ansible.builtin.file:
@@ -22,7 +24,18 @@
     state: directory
     owner: ipfs
     group: ipfs
-    mode: "0600"
+    mode: "0755"
+
+- name: Ensures volume dirs exists
+  ansible.builtin.file:
+    path: /var/lib/ipfs/{{ item }}
+    state: directory
+    owner: ipfs
+    group: ipfs
+    mode: "0770"
+  loop:
+    - data
+    - export
 
 - name: Copy ipfs container config
   ansible.builtin.copy:
@@ -40,11 +53,12 @@
     cmd: loginctl enable-linger ipfs
     creates: /var/lib/systemd/linger/ipfs
 
-# - name: Enable ipfs
-#   become: true
-#   become_user: ipfs
-#   ansible.builtin.systemd:
-#     scope: user
-#     name: ipfs
-#     enabled: true
-#     state: started
+- name: Enable ipfs
+  become: true
+  become_user: ipfs
+  ansible.builtin.systemd:
+    scope: user
+    name: ipfs
+    enabled: true
+    state: started
+    daemon_reload: true

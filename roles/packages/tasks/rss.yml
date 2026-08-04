@@ -21,13 +21,16 @@
     recurse: yes
     state: directory
 
-- name: Copy rss-bridge whitelist
+- name: Copy rss-bridge config
   ansible.builtin.copy:
-    src: rss-bridge/whitelist.txt
-    dest: /etc/rss-bridge/whitelist.txt
+    src: "rss-bridge/{{ item }}"
+    dest: "/etc/rss-bridge/{{ item }}"
     mode: "0444"
     owner: caddy
     group: caddy
+  loop:
+    - whitelist.txt
+    - config.ini.php
 
 - name: Copy caddy file for rss-bridge
   ansible.builtin.copy:

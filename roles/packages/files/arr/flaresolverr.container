@@ -1,0 +1,13 @@
+[Container]
+Image=ghcr.io/flaresolverr/flaresolverr:latest
+Label=io.containers.autoupdate=registry
+PublishPort=127.0.0.1:8191:8191
+RemapUsers=keep-id
+Network=arr.network
+ContainerName=flaresolverr
+
+[Service]
+SuccessExitStatus=0
+
+[Install]
+WantedBy=default.target

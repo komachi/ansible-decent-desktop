@@ -1,0 +1,13 @@
+[Container]
+Image=docker.io/searxng/searxng:latest
+Label=io.containers.autoupdate=registry
+PublishPort=127.0.0.1:8090:8080
+RemapUsers=keep-id
+Volume=/etc/searxng/:/etc/searxng/
+Volume=/var/cache/searxng/:/var/cache/searxng/
+
+[Service]
+SuccessExitStatus=0
+
+[Install]
+WantedBy=default.target

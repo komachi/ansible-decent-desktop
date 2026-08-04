@@ -383,7 +383,20 @@
         - ipfs
   tags:
     - always
-
+- ansible.builtin.include_tasks:
+    file: searxng.yml
+    apply:
+      tags:
+        - searxng
+  tags:
+    - always
+- ansible.builtin.include_tasks:
+    file: arr.yml
+    apply:
+      tags:
+        - arr
+  tags:
+    - always
 - ansible.builtin.include_tasks:
     file: waydroid.yml
     apply:
@@ -396,5 +409,19 @@
     apply:
       tags:
         - books
+  tags:
+    - always
+- ansible.builtin.include_tasks:
+    file: ansible.yml
+    apply:
+      tags:
+        - ansible
+  tags:
+    - always
+- ansible.builtin.include_tasks:
+    file: llm-router.yml
+    apply:
+      tags:
+        - llm
   tags:
     - always

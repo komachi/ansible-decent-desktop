@@ -1,16 +1,17 @@
 ---
-- name: Install redis and ansible
+- name: Install valkey and ansible
   ansible.builtin.apt:
     name:
-      - redis-server
+      - valkey-server
       - ansible
       - ansible-mitogen
+      - python3-redis
     state: present
 
-- name: Enable redis-server service
+- name: Enable valkey-server service
   ansible.builtin.systemd:
     state: started
-    name: redis-server
+    name: valkey-server
     enabled: true
 
 - name: Copy ansible.cfg

@@ -1,0 +1,103 @@
+---
+- name: Ensures ~/.config/rtk exists
+  ansible.builtin.file:
+    path: /home/{{ username }}/.config/rtk
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "0750"
+
+- name: Configure rtk
+  ansible.builtin.copy:
+    src: rtk/config.toml
+    dest: /home/{{ username }}/.config/rtk/config.toml
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "0440"
+
+- name: Collect package facts
+  ansible.builtin.package_facts:
+    manager: auto
+
+- name: Create temp dir for rtk app
+  ansible.builtin.tempfile:
+    state: directory
+  register: rtk_download_tempdir
+  when: ('rtk' not in ansible_facts.packages) or ('rtk' in ansible_facts.packages and ansible_facts.packages.rtk[0].version != rtk_full_version)
+
+- name: Get rtk
+  ansible.builtin.get_url:
+    url: https://github.com/rtk-ai/rtk/releases/download/v{{ rtk_version }}/rtk_amd64.deb
+    dest: "{{ rtk_download_tempdir.path }}/rtk.deb"
+    checksum: "{{ rtk_checksum }}"
+    mode: "0444"
+  when: ('rtk' not in ansible_facts.packages) or ('rtk' in ansible_facts.packages and ansible_facts.packages.rtk[0].version != rtk_full_version)
+
+- name: Install rtk
+  ansible.builtin.apt:
+    deb: "{{ rtk_download_tempdir.path }}/rtk.deb"
+  when: ('rtk' not in ansible_facts.packages) or ('rtk' in ansible_facts.packages and ansible_facts.packages.rtk[0].version != rtk_full_version)
+
+- name: Remove tempdir
+  ansible.builtin.file:
+    path: "{{ rtk_download_tempdir.path }}"
+    state: absent
+  when: ('rtk' not in ansible_facts.packages) or ('rtk' in ansible_facts.packages and ansible_facts.packages.rtk[0].version != rtk_full_version)
+
+- name: Create omniroute user
+  ansible.builtin.user:
+    name: omniroute
+    shell: /bin/false
+    create_home: true
+    home: /var/lib/omniroute
+    system: true
+  register: omniroute_user
+
+- name: Add subgid for omniroute user
+  ansible.builtin.command:
+    cmd: usermod -w 100000-165535 omniroute
+  changed_when: false
+
+- name: Add subuid for omniroute user
+  ansible.builtin.command:
+    cmd: usermod -v 100000-165535 omniroute
+  changed_when: false
+
+- name: Ensures /var/lib/omniroute/.config/containers/systemd exists
+  ansible.builtin.file:
+    path: /var/lib/omniroute/.config/containers/systemd
+    state: directory
+    owner: omniroute
+    group: omniroute
+    mode: "0755"
+
+- name: Ensures volume dirs exists
+  ansible.builtin.file:
+    path: /var/lib/omniroute/export
+    state: directory
+    owner: omniroute
+    group: omniroute
+    mode: "0770"
+
+- name: Copy omniroute container config
+  ansible.builtin.copy:
+    src: omniroute/omniroute.container
+    dest: /var/lib/omniroute/.config/containers/systemd/omniroute.container
+    mode: "0600"
+    owner: omniroute
+    group: omniroute
+
+- name: Enable linger for omniroute user
+  ansible.builtin.command:
+    cmd: loginctl enable-linger omniroute
+    creates: /var/lib/systemd/linger/omniroute
+
+- name: Enable omniroute
+  become: true
+  become_user: omniroute
+  ansible.builtin.systemd:
+    scope: user
+    name: omniroute
+    enabled: true
+    state: started
+    daemon_reload: true

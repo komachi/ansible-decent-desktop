@@ -4,7 +4,7 @@
     name:
       - podman
       - containers-storage
-      - slirp4netns
+      - aardvark-dns
       - rootlesskit
       - runsc
       - fuse-overlayfs
@@ -12,13 +12,14 @@
       - docker-buildx-plugin
       - docker-compose-plugin
       - pigz
+      - passt
     state: present
 
 - name: Ensures /etc/containers exists
   ansible.builtin.file:
     path: /etc/containers
     state: directory
-    mode: "0666"
+    mode: "0555"
 
 - name: Enable docker.io registry for OCI
   ansible.builtin.lineinfile:
@@ -28,12 +29,12 @@
 
 - name: Copy containers configs
   ansible.builtin.copy:
-    src: podman/{{ item }}
+    src: podman/{{ item }}.conf
     dest: /etc/containers/{{ item }}.conf
     mode: "0444"
   loop:
-    - storage.conf
-    - containers.conf
+    - storage
+    - containers
 
 - name: Ensures /etc/docker exists
   ansible.builtin.file:

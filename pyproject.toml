@@ -13,6 +13,7 @@ debops = "^3.3.0"
 jmespath = "^1.0.1"
 lxml = "^5.3.0"
 molecule-plugins = { extras = ["vagrant"], version = "^25.8.12" }
+redis = "^8.1.0"
 
 [tool.poetry.group.dev.dependencies]
 molecule = "^26.3.0"

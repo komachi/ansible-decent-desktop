@@ -1,0 +1,76 @@
+---
+- name: Create arr user
+  ansible.builtin.user:
+    name: arr
+    shell: /bin/false
+    create_home: true
+    home: /var/lib/arr
+    system: true
+  register: arr_user
+
+- name: Add subgid for arr user
+  ansible.builtin.command:
+    cmd: usermod -w 100000-165535 arr
+  changed_when: false
+
+- name: Add subuid for arr user
+  ansible.builtin.command:
+    cmd: usermod -v 100000-165535 arr
+  changed_when: false
+
+- name: Ensures /var/lib/arr/.config/containers/systemd exists
+  ansible.builtin.file:
+    path: /var/lib/arr/.config/containers/systemd
+    state: directory
+    owner: arr
+    group: arr
+    mode: "0755"
+
+- name: Copy *arr containers
+  ansible.builtin.copy:
+    src: "arr/{{ item }}"
+    dest: "/var/lib/arr/.config/containers/systemd/{{ item }}"
+    mode: "0600"
+    owner: arr
+    group: arr
+  register: jackett_container
+  loop:
+    - jackett.container
+    - arr.network
+    - flaresolverr.container
+
+- name: Enable linger for arr user
+  ansible.builtin.command:
+    cmd: loginctl enable-linger arr
+    creates: /var/lib/systemd/linger/arr
+
+- name: Ensures volume dirs exists
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: arr
+    group: arr
+    mode: "0770"
+  loop:
+    - /etc/jackett
+
+- name: Copy jackett server config
+  ansible.builtin.template:
+    src: jackett/ServerConfig.json.j2
+    dest: /etc/jackett/Jackett/ServerConfig.json
+    owner: arr
+    group: arr
+    mode: "0440"
+
+- name: Enable containers
+  become: true
+  become_user: arr
+  ansible.builtin.systemd:
+    scope: user
+    name: "{{ item }}"
+    enabled: true
+    state: started
+    daemon_reload: true
+  loop:
+    - jackett
+    - flaresolverr

@@ -1,7 +1,7 @@
 ---
-- name: Install Organic Maps from flatpak
+- name: Install CoMaps from flatpak
   become: true
   become_user: "{{ username }}"
   community.general.flatpak:
-    name: app.organicmaps.desktop
+    name: app.comaps.comaps
     state: present

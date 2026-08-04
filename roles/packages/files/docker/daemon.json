@@ -9,10 +9,10 @@
         }
     },
     "ip": "127.0.0.1",
-    "storage-driver": "overlay2",
     "experimental": true,
     "features": {
-      "buildkit": true
+      "buildkit": true,
+      "containerd-snapshotter": true
     },
     "iptables": false,
     "ip6tables": false

@@ -5,8 +5,8 @@ PublishPort=4001:4001
 PublishPort=127.0.0.1:8080:8080
 PublishPort=127.0.0.1:5001:5001
 RemapUsers=keep-id
-Volume=/var/lib/ipfs:/export:rw
-Volume={{ large_dirs }}/ipfs:/data/ipfs:rw
+Volume=/var/lib/ipfs/export:/export:rw
+Volume=/var/lib/ipfs/data:/data/ipfs:rw
 
 [Service]
 SuccessExitStatus=0

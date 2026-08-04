@@ -389,11 +389,11 @@
           - python3-electrum-aionostr
           - python3-electrum-ecc
           - libsecp256k1-6
-        pin: "release n=trixie-backports"
-        priority: "500"
-        name: backports
+        pin: "release n={{ ansible_distribution_release }}-backports"
+        priority: 500
       - "{{ apt_preferences__preset_list | list }}"
       - suffix: _tor
+        package: tor
         raw: |
           Explanation: Prefer official tor packages
           Package: tor deb.torproject.org-keyring tor-dbgsym tor-geoipdb
@@ -404,12 +404,6 @@
           Explanation: Prefer nodesource packages
           Package: nodejs nsolid
           Pin: release a=nodistro,n=nodistro
-          Pin-Priority: 600
-      - suffix: _yarn
-        raw: |
-          Explanation: Prefer official yarn package
-          Package: yarn
-          Pin: release o=yarn
           Pin-Priority: 600
       - suffix: _josm
         raw: |
