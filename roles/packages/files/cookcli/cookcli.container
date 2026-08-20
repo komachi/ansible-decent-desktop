@@ -1,0 +1,12 @@
+[Container]
+Image=ghcr.io/cooklang/cookcli:latest
+Label=io.containers.autoupdate=registry
+PublishPort=127.0.0.1:9080:9080
+RemapUsers=keep-id
+Volume=/var/lib/cookcli/recipes:/recipes:rw
+
+[Service]
+SuccessExitStatus=0
+
+[Install]
+WantedBy=default.target

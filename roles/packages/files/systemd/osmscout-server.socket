@@ -1,8 +1,0 @@
-[Unit]
-Description=OSM Scout Server Socket
-
-[Socket]
-ListenStream=127.0.0.1:8553
-
-[Install]
-WantedBy=user-session.target

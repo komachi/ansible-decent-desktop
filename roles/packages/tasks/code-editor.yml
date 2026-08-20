@@ -7,6 +7,7 @@
       - codium
       - ansible-lint
       - shellcheck
+      - bubblewrap
     state: present
 
 - name: Ensures ~/.config/VSCodium/User exists
@@ -24,6 +25,22 @@
     owner: "{{ username }}"
     group: "{{ username }}"
     mode: "0440"
+
+- name: Ensures ~/.config/kilo exists
+  ansible.builtin.file:
+    path: /home/{{ username }}/.config/kilo
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "0750"
+
+- name: Copy Kilo Code config
+  ansible.builtin.copy:
+    src: kilo/kilo.jsonc
+    dest: /home/{{ username }}/.config/kilo/kilo.jsonc
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "0660"
 
 - name: Find installed vscodium extensions
   become: true

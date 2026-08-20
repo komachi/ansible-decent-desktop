@@ -74,3 +74,11 @@
   loop:
     - jackett
     - flaresolverr
+
+- name: Enable podman-auto-update
+  become: true
+  become_user: arr
+  ansible.builtin.systemd:
+    scope: user
+    name: podman-auto-update
+    enabled: true

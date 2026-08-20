@@ -1,9 +1,15 @@
+[Unit]
+Requires=qdrant.container
+After=qdrant.container
+
 [Container]
 Image=docker.io/diegosouzapw/omniroute:latest
 Label=io.containers.autoupdate=registry
 PublishPort=127.0.0.1:20128:20128
 RemapUsers=keep-id
 Volume=/var/lib/omniroute/export:/app/data
+Network=omniroute.network
+ContainerName=omniroute
 
 [Service]
 SuccessExitStatus=0

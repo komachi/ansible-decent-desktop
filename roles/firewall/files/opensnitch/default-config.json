@@ -1,7 +1,6 @@
 {
     "Server": {
-        "Address":"unix:///tmp/osui.sock",
-        "LogFile":"/var/log/opensnitchd.log"
+        "Address":"unix:///tmp/osui.sock"
     },
     "DefaultAction": "deny",
     "DefaultDuration": "once",

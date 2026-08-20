@@ -8,7 +8,7 @@ Type=Application
 StartupNotify=false
 StartupWMClass=VSCodium
 Categories=Utility;TextEditor;Development;IDE;
-MimeType=text/plain;inode/directory;application/x-codium-workspace;
+MimeType=text/plain;application/x-codium-workspace;
 Actions=new-empty-window;
 Keywords=vscode;
 

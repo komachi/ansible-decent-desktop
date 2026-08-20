@@ -1,0 +1,6 @@
+[Unit]
+Description=Omniroute network
+
+[Network]
+Subnet=10.10.2.0/24
+Gateway=10.10.2.1

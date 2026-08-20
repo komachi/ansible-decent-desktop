@@ -195,6 +195,9 @@
       - name: MaxFileSec
         value: 3day
         state: present
+      - name: Storage
+        value: volatile
+        state: present
     logrotate__config:
       - state: present
         options: |

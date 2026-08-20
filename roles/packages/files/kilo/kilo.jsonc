@@ -1,0 +1,61 @@
+{
+  "$schema": "https://app.kilo.ai/config.json",
+  "disabled_providers": [],
+  "provider": {
+    "omniroute": {
+      "name": "omniroute",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "http://localhost:20128/v1"
+      },
+      "models": {
+        "custom_coding": {
+          "name": "custom_coding"
+        },
+        "custom_small_coding": {
+          "name": "custom_small_coding"
+        },
+        "custom_plan": {
+          "name": "custom_plan"
+        }
+      }
+    }
+  },
+  "permission": {
+    "bash": "ask",
+    "external_directory": {
+      "*": "ask",
+      "/tmp/user/1000/kilo/*": "allow",
+      "/home/user/.local/share/kilo/plans/*": "allow"
+    }
+  },
+  "sandbox": {
+    "enabled": true,
+    "network": "deny"
+  },
+  "model": "omniroute/custom_coding",
+  "indexing": {
+    "enabled": true,
+    "provider": "openai-compatible",
+    "model": "all-MiniLM-L6-v2",
+    "openai-compatible": {
+      "baseUrl": "http://localhost:8091/v1/embeddings"
+    },
+    "vectorStore": "qdrant",
+    "qdrant": {
+      "url": "http://localhost:6333"
+    },
+    "dimension": 384
+  },
+  "small_model": "omniroute/custom_small_coding",
+  "auto_collapse_reasoning": false,
+  "terminal_command_display": "expanded",
+  "agent": {
+    "plan": {
+      "model": "omniroute/custom_plan"
+    },
+    "code": {
+      "model": "omniroute/custom_coding"
+    }
+  }
+}

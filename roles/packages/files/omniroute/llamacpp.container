@@ -1,0 +1,17 @@
+
+[Container]
+Image=ghcr.io/ggml-org/llama.cpp:server-vulkan
+Label=io.containers.autoupdate=registry
+PublishPort=127.0.0.1:8091:8080
+RemapUsers=keep-id
+Volume=/var/lib/llamacpp/models:/models:Z
+Exec=--embeddings -m /models/all-MiniLM-L6-v2-Q5_K_M.gguf --host 0.0.0.0 --port 8080
+Network=omniroute.network
+ContainerName=llamacpp
+AddDevice=/dev/dri:/dev/dri
+
+[Service]
+SuccessExitStatus=0
+
+[Install]
+WantedBy=default.target

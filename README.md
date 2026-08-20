@@ -42,14 +42,14 @@ You should look for sources for full list, but here are some choices I made:
 - Download managers: [aria2](https://github.com/aria2/aria2), [qBittorrent](https://qbittorrent.org) for [BitTorent](https://www.bittorrent.org), [Nicotine+](https://nicotine-plus.org/) for [Soulseek](https://slsknet.org)
 - RSS reader: [Newsflash](https://gitlab.com/news-flash/news_flash_gtk) with local [RSS-Bridge](https://github.com/RSS-Bridge/rss-bridge) instance for services lacking proper feed
 - Web server: local services use [Caddy](https://caddyserver.com/)
-- Some cryptocurrency wallets: [Monero](https://www.getmonero.org/) fullnode, [Electrum](https://electrum.org) for [Bitcoin](https://bitcoin.org/) network, [Electron Cash](https://electroncash.org/) for [Bitcoin Cash](https://bitcoincash.org/), [MyCrypto](https://www.mycrypto.com/) for [Ethereum](https://ethereum.org), [Bisq](https://bisq.network/) and [Uniswap](https://uniswap.org/) as DEX
+- Some cryptocurrency wallets: [Monero](https://www.getmonero.org/) fullnode, [Electrum(https://electrum.org) for [Bitcoin](https://bitcoin.org/) network, [Electron Cash](https://electroncash.org/) for [Bitcoin Cash](https://bitcoincash.org/), [MyCrypto](https://www.mycrypto.com/) for [Ethereum](https://ethereum.org), [Bisq](https://bisq.network/) and [Uniswap](https://uniswap.org/) as DEX
 - Support for [Ledger](https://www.ledger.com/), [Trezor](https://trezor.io/), [Nitrokey](https://www.nitrokey.com/), and [OnlyKey](https://onlykey.io/) hardware tokens
 - [I2P](https://geti2p.net/), [Tor](https://torproject.org), [IPFS](https://ipfs.io/), etc.
 - Office packages: [zathura](https://pwmt.org/projects/zathura/) + [zaread](https://github.com/paoloap/zaread) for simple document viewing and [LibreOffice](https://www.libreoffice.org/) for classical office package editing needs
 - Book reader: [Foliate](https://johnfactotum.github.io/foliate/) and [Calibre](https://calibre-ebook.com) for book managing
 - Image viewer: [imv](https://github.com/eXeC64/imv)
 - Password manager: [KeePassXC](https://keepassxc.org/)
-- [DeltaChat](https://delta.chat), XMPP ([Dino](https://dino.im/)), [Telegram](https://telegram.org), [Jami](https://jami.net), Matrix ([nheko](https://nheko-reborn.github.io)), [Mumble](https://www.mumble.info), [SimpleX](https://simplex.chat), [Meshtastic](https://meshtastic.org) ([https://gitlab.com/kop316/gtk-meshtastic-client](https://gitlab.com/kop316/gtk-meshtastic-client)) messengers
+- [DeltaChat](https://delta.chat), XMPP ([Dino](https://dino.im/)), [Telegram](https://telegram.org), [Jami](https://jami.net), Matrix ([nheko](https://nheko-reborn.github.io)), [Mumble](https://www.mumble.info), [SimpleX](https://simplex.chat), [Meshtastic](https://meshtastic.org) ([gtk-meshtastic-client](https://gitlab.com/kop316/gtk-meshtastic-client)) messengers
 - Local maps with [CoMaps](https://www.comaps.app/)
 - Local dicts with [dictd](https://sourceforge.net/projects/dict/) and [GoldenDict](http://goldendict.org/)
 - Local translation with [LocalTranslate](https://terslang.github.io/LocalTranslate/)
@@ -57,9 +57,11 @@ You should look for sources for full list, but here are some choices I made:
 - [podman](https://podman.io) + [gvisor](https://gvisor.dev/) by default for launching [OCI containers](https://opencontainers.org), [Docker](https://www.docker.com/) also installed.
 - [JOSM](https://josm.openstreetmap.de/) for OpenStreetMap editing
 - Local LLM routing with [OmniRoute](https://omniroute.online/) and [rtk](https://www.rtk-ai.app/) is available for token saving
+- Local [Qdrant](https://qdrant.tech) instance and local [llama.cpp](https://llama.app/) for embeddings, used for [Kilo Code](https://kilo.ai) code indexing.
 - Local metasearch with [SearxNG](https://searxng.org)
 - [Jackett](https://github.com/Jackett/Jackett) and [FlareSolverr](https://github.com/FlareSolverr/FlareSolverr) is installed
 - [IPFS](https://ipfs.tech) is installed
+- [cookcli](https://cooklang.org/cli/) is installed for managing recipes
 - [node.js](https://nodejs.org), [golang](https://golang.org/), [python](https://python.org), etc. dev env
 - [Waydroid](https://waydro.id/) and [scrcpy](https://github.com/Genymobile/scrcpy) are available
 

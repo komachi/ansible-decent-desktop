@@ -73,31 +73,71 @@
 
 - name: Ensures volume dirs exists
   ansible.builtin.file:
-    path: /var/lib/omniroute/export
+    path: "{{ item }}"
     state: directory
     owner: omniroute
     group: omniroute
     mode: "0770"
+  loop:
+    - /var/lib/omniroute/export
+    - /etc/qdrant
+    - /var/cache/searxng
+    - /etc/searxng
+    - /var/lib/llamacpp/models
 
-- name: Copy omniroute container config
-  ansible.builtin.copy:
-    src: omniroute/omniroute.container
-    dest: /var/lib/omniroute/.config/containers/systemd/omniroute.container
+- name: Get All-MiniLM-L6-v2
+  ansible.builtin.get_url:
+    url: https://huggingface.co/second-state/All-MiniLM-L6-v2-Embedding-GGUF/resolve/main/all-MiniLM-L6-v2-Q5_K_M.gguf
+    dest: "/var/lib/llamacpp/models/all-MiniLM-L6-v2-Q5_K_M.gguf"
+    checksum: "sha512:0ba92f985f723bad6974c146595a4bc637600379387d455d925baa16ffa989526ee7a9c1b67e1e207253e45ad45b5ccc87208b596df9fe42b3aececf02b263fc"
+    mode: "0444"
+
+- name: Copy searxng config
+  ansible.builtin.template:
+    src: searxng/settings.yml.j2
+    dest: /etc/searxng/settings.yml
     mode: "0600"
     owner: omniroute
     group: omniroute
+
+- name: Copy omniroute container config
+  ansible.builtin.copy:
+    src: "omniroute/{{ item }}"
+    dest: "/var/lib/omniroute/.config/containers/systemd/{{ item }}"
+    mode: "0600"
+    owner: omniroute
+    group: omniroute
+  loop:
+    - omniroute.container
+    - omniroute.network
+    - qdrant.container
+    - searxng.container
+    - llamacpp.container
 
 - name: Enable linger for omniroute user
   ansible.builtin.command:
     cmd: loginctl enable-linger omniroute
     creates: /var/lib/systemd/linger/omniroute
 
-- name: Enable omniroute
+- name: Enable containers
   become: true
   become_user: omniroute
   ansible.builtin.systemd:
     scope: user
-    name: omniroute
+    name: "{{ item }}"
     enabled: true
     state: started
     daemon_reload: true
+  loop:
+    - omniroute
+    - qdrant
+    - searxng
+    - llamacpp
+
+- name: Enable podman-auto-update
+  become: true
+  become_user: omniroute
+  ansible.builtin.systemd:
+    scope: user
+    name: podman-auto-update
+    enabled: true

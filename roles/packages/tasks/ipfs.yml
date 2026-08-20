@@ -45,8 +45,6 @@
     owner: ipfs
     group: ipfs
   register: ipfs_container
-  notify:
-    - Reload ipfs daemon
 
 - name: Enable linger for ipfs user
   ansible.builtin.command:
@@ -62,3 +60,11 @@
     enabled: true
     state: started
     daemon_reload: true
+
+- name: Enable podman-auto-update
+  become: true
+  become_user: ipfs
+  ansible.builtin.systemd:
+    scope: user
+    name: podman-auto-update
+    enabled: true

@@ -11,9 +11,9 @@ zaread_url: https://raw.githubusercontent.com/paoloap/zaread/035b476f8a64627f047
 zaread_checksum: sha512:3981fbc7200de084921c0cb4e3b734950de45c7009f1efd1b921c48dd734842dd657b6c8d7108071e6888d142403dc62cfd083b657ca3e6488b0f86c0666730b
 kstyle_adwaita_version: 6.10
 qgnomeplatform_version: 6.6
-rtk_version: 0.44.2
-rtk_full_version: 0.44.2-1
-rtk_checksum: sha512:4c1d72501fd8cbd01bd628571a9aab26a3a6e8fa1c9ee679f095998ff1c8ebda4f4a3e130745f85afd643b0d50cb1ed93be15465f042f2a3a7981b7a48149a3b
+rtk_version: 0.45.0
+rtk_full_version: 0.45.0-1
+rtk_checksum: sha512:3dcc12ebbd9e9dd8ebce311b849a529a1ddf50ddde55ec8a5972252e6af231d9708e29299200079a20c2fa93a458937fd30da6a62e746a43b1834269b59e8424
 
 vscodium_extensions:
   - nico-castell.linux-desktop-file
@@ -206,8 +206,9 @@ keepassxc_options:
   - [General, SSHAgent, "true"]
   - [General, SingleInstance, "true"]
   - [FdoSecrets, Enabled, "true"]
-  - [FdoSecrets, NoConfirmDeleteItem, "false"]
-  - [FdoSecrets, ShowNotification, "true"]
+  - [FdoSecrets, NoConfirmDeleteItem, "true"]
+  - [FdoSecrets, ConfirmAccessItem, "false"]
+  - [FdoSecrets, ShowNotification, "false"]
   - [GUI, CheckForUpdates, "false"]
   - [GUI, DarkTrayIcon, "true"]
   - [GUI, HidePasswords, "true"]

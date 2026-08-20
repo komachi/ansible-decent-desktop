@@ -5,6 +5,8 @@ PublishPort=127.0.0.1:8090:8080
 RemapUsers=keep-id
 Volume=/etc/searxng/:/etc/searxng/
 Volume=/var/cache/searxng/:/var/cache/searxng/
+Network=omniroute.network
+ContainerName=searxng
 
 [Service]
 SuccessExitStatus=0

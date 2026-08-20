@@ -1,0 +1,67 @@
+---
+- name: Create cookcli user
+  ansible.builtin.user:
+    name: cookcli
+    shell: /bin/false
+    create_home: true
+    home: /var/lib/cookcli
+    system: true
+  register: cookcli_user
+
+- name: Add subgid for cookcli user
+  ansible.builtin.command:
+    cmd: usermod -w 100000-165535 cookcli
+  changed_when: false
+
+- name: Add subuid for cookcli user
+  ansible.builtin.command:
+    cmd: usermod -v 100000-165535 cookcli
+  changed_when: false
+
+- name: Ensures /var/lib/cookcli/.config/containers/systemd exists
+  ansible.builtin.file:
+    path: /var/lib/cookcli/.config/containers/systemd
+    state: directory
+    owner: cookcli
+    group: cookcli
+    mode: "0755"
+
+- name: Ensures volume dirs exists
+  ansible.builtin.file:
+    path: /var/lib/cookcli/recipes
+    state: directory
+    owner: cookcli
+    group: cookcli
+    mode: "0770"
+
+- name: Copy cookcli container config
+  ansible.builtin.copy:
+    src: cookcli/cookcli.container
+    dest: /var/lib/cookcli/.config/containers/systemd/cookcli.container
+    mode: "0600"
+    owner: cookcli
+    group: cookcli
+  register: cookcli_container
+
+- name: Enable linger for cookcli user
+  ansible.builtin.command:
+    cmd: loginctl enable-linger cookcli
+    creates: /var/lib/systemd/linger/cookcli
+
+- name: Enable cookcli
+  become: true
+  become_user: cookcli
+  ansible.builtin.systemd:
+    scope: user
+    name: cookcli
+    enabled: true
+    state: started
+    daemon_reload: true
+
+- name: Enable podman-auto-update
+  become: true
+  become_user: cookcli
+  ansible.builtin.systemd:
+    scope: user
+    name: podman-auto-update
+    enabled: true
