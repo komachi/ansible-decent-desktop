@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Name={{ item.config.name }}
+Terminal=false
+Type=Application
+Categories=WebApp;
+Icon={{ item.config.icon_name if 'icon_name' in item.config else "FFPWA-" ~ item.ulid }}
+Exec=/usr/bin/firefoxpwa site launch {{ item.ulid }} --protocol %u
+Terminal=false
+StartupNotify=true
+StartupWMClass=FFPWA-{{ item.ulid }}

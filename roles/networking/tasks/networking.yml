@@ -49,14 +49,14 @@
     - [
         "General",
         "NetworkInterfaceBlacklist",
-        "vmnet,vboxnet,virbr,ifb,ve-,vb-,veth",
+        "vmnet,vboxnet,virbr,ifb,ve-,vb-,veth,waydroid",
       ]
-# - name: Copy check-metered-connection.sh script
-#   ansible.builtin.copy:
-#     src: check-metered-connection.sh
-#     dest: /usr/local/bin/check-metered-connection.sh
-#     mode: "0555"
 
+- name: Copy check-metered-connection.sh script
+  ansible.builtin.copy:
+    src: check-metered-connection.sh
+    dest: /usr/local/bin/check-metered-connection.sh
+    mode: "0555"
 # - name: Ensures systemd unattended-upgrades overrides dirs exists
 #   ansible.builtin.file:
 #     path: /etc/systemd/system/{{ item }}

@@ -1,0 +1,28 @@
+# based on https://braheezy.github.io/posts/automating-firefox-with-ansible/
+
+- name: Call Firefox Addons API for extension info
+  uri:
+    url: https://addons.mozilla.org/api/v5/addons/addon/{{ extension[1] }}
+    return_content: yes
+  register: api_call
+
+- name: Parse result for download link
+  set_fact:
+    download_link: "{{ api_call.json.current_version.file.url }}"
+
+- name: Parse result for hash
+  set_fact:
+    hash: "{{ api_call.json.current_version.file.hash }}"
+
+- name: Parse result for guid
+  set_fact:
+    guid: "{{ api_call.json.guid }}"
+
+- name: "Download {{ extension[0].name }} extension file"
+  get_url:
+    url: "{{ download_link }}"
+    dest: "/home/{{ username }}/.mozilla/firefox/{{ extension[0].name }}/extensions/{{ guid }}.xpi"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    checksum: "{{ hash }}"
+    mode: 0440

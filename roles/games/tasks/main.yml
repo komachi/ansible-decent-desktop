@@ -1,5 +1,4 @@
 ---
-- ansible.builtin.include_tasks: gamemode.yml
 - ansible.builtin.include_tasks:
     file: pcsxr.yml
     apply:

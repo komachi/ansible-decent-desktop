@@ -23,3 +23,5 @@
       name: org.telegram.desktop
     - location: /usr/share/applications
       name: opensnitch_ui
+    - location: /usr/share/applications
+      name: cmst

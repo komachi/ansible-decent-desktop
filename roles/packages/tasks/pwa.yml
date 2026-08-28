@@ -1,0 +1,64 @@
+---
+- name: Install FirefoxPWA
+  register: install_firefoxpwa
+  until: install_firefoxpwa is succeeded
+  ansible.builtin.apt:
+    name: firefoxpwa
+    state: present
+
+- name: Download firefoxpwa runtime
+  become: true
+  become_user: "{{ username }}"
+  ansible.builtin.command:
+    cmd: "firefoxpwa runtime install --link"
+    creates: "/home/{{ username }}/.local/share/firefoxpwa/runtime/firefox"
+
+- name: Ensures ~/.local/share/firefoxpwa exists
+  ansible.builtin.file:
+    path: /home/{{ username }}/.local/share/firefoxpwa
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "0750"
+
+- name: Copy webapps config
+  ansible.builtin.copy:
+    src: firefoxpwa/config.json
+    dest: /home/{{ username }}/.local/share/firefoxpwa/config.json
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "0440"
+
+- name: Ensures ~/.local/share/icons/hicolor/scalable/apps exists
+  ansible.builtin.file:
+    path: /home/{{ username }}/.local/share/icons/hicolor/scalable/apps
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "0750"
+
+- name: "Get web app icons"
+  get_url:
+    url: "{{ item.config.icon_url  }}"
+    dest: "/home/{{ username }}/.local/share/icons/hicolor/scalable/apps/FFPWA-{{ item.ulid }}.svg"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: 0440
+  loop: "{{ (lookup('file', 'firefoxpwa/config.json') | from_json).sites.values() | selectattr('config.icon_url', 'defined') | selectattr('config.icon_url', 'ne', none) | list }}"
+
+- name: Ensures ~/.local/share/applications exists
+  ansible.builtin.file:
+    path: /home/{{ username }}/.local/share/applications
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "0750"
+
+- name: Copy desktop files for web apps
+  ansible.builtin.template:
+    src: applications/firefoxpwa.desktop.j2
+    dest: /home/{{ username }}/.local/share/applications/FFPWA-{{ item.ulid }}.desktop
+    mode: "0640"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+  loop: "{{ (lookup('file', 'firefoxpwa/config.json') | from_json).sites.values() | list }}"

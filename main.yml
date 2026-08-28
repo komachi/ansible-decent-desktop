@@ -167,13 +167,12 @@
       - extrepo-offline-data
     extrepo__sources:
       - fasttrack_backports
-      - josm
       - node_24.x
       - whonix
       - kicksecure
-      - waydroid
       - vscodium
       - docker-ce
+      - firefoxpwa
     extrepo__configuration:
       - name: policies
         config:
@@ -326,6 +325,10 @@
           - persepolis
           - yt-dlp
           - streamlink
+          # waydroid
+          - waydroid
+          - python3-gbinder
+          - adb
           # libreoffice
           - uno-libs-private
           - ure

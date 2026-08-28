@@ -14,3 +14,29 @@
     src: opensnitch/default-config.json
     dest: /etc/opensnitchd/default-config.json
     mode: "0644"
+
+- name: Create opensnitch-rules tempdir
+  ansible.builtin.tempfile:
+    state: directory
+  register: opensnitchrules_tempdir
+
+- name: Clone opensnitch-rules repo
+  ansible.builtin.git:
+    repo: "{{ opensnitch_rules_repo }}"
+    dest: "{{ opensnitchrules_tempdir.path }}"
+    depth: "1"
+    clone: true
+    version: "{{ opensnitch_rules_commit }}"
+
+- name: Install opensnitch-rules
+  ansible.builtin.shell:
+    chdir: "{{ opensnitchrules_tempdir.path }}"
+    cmd: make install
+    env:
+      HOME: "/home/{{ username }}"
+  changed_when: true
+
+- name: Remove opensnitch-rules tempdir
+  ansible.builtin.file:
+    path: "{{ opensnitchrules_tempdir.path }}"
+    state: absent

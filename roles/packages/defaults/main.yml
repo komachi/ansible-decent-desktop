@@ -171,26 +171,16 @@ firefox_default_prefs:
 firefox_profiles:
   - name: default
     prefs:
-      # - pref: network.proxy.type
-      #   value: "1"
-      # - pref: network.proxy.http
-      #   value: '"127.0.0.1"'
-      # - pref: network.proxy.http_port
-      #   value: "9999"
-      # - pref: network.dns.blockDotOnion
-      #   value: "false"
-      # - pref: dom.securecontext.whitelist_onions
-      #   value: "true"
       - pref: extensions.activeThemeID
         value: '"firefox-compact-dark@mozilla.org"'
+    extensions:
+      - "ipfs-firefox-addon@lidel.org"
+      - "@testpilot-containers"
+      - temporary-containers
   - name: dev
     extensions:
-      # - id: extension@redux.devtools
-      #   url: https://addons.mozilla.org/firefox/downloads/file/3902220/redux_devtools-3.0.9-fx.xpi
-      #   checksum: sha256:216f0ed66aa16442624760d458a741b15e64fc87122290f6979b09c304ad647a
-      # - id: "@react-devtools"
-      #   url: https://addons.mozilla.org/firefox/downloads/file/3899222/react_developer_tools-4.23.0-fx.xpi
-      #   checksum: sha256:6660e0c9a5bd3e87f3ba06d4807334dcde3656963f13c699394e2ec9b6a0695b
+      - extension@redux.devtools
+      - "@react-devtools"
 
 bitcoinrpc_user: bitcoinrpcuser
 keepassxc_options:
@@ -282,43 +272,20 @@ nheko_options:
   - [user, window\start_in_tray, "false"]
   - [user, window\tray, "false"]
 
-sonata_options:
-  - [connection, auto, "True"]
-  - [connection, profile_num, "0"]
-  - [audioscrobbler, use_audioscrobbler, "False"]
-  - [notebook, current_tab_visible, "True"]
-  - [notebook, info_tab_visible, "True"]
-  - [notebook, library_tab_visible, "True"]
-  - [notebook, playlists_tab_visible, "False"]
-  - [notebook, streams_tab_visible, "False"]
-  - [player, art_location, "0"]
-  - [player, covers_pref, "0"]
-  - [player, covers_type, "0"]
-  - [player, info_album_expanded, "True"]
-  - [player, info_lyrics_expanded, "True"]
-  - [player, info_song_expanded, "True"]
-  - [player, info_song_more, "True"]
-  - [player, minimize, "False"]
-  - [player, decorated, "False"]
-  - [player, expanded, "True"]
-  - [player, ontop, "False"]
-  - [player, covers, "True"]
-  - [player, lyrics, "False"]
-  - [player, lyrics_location, "0"]
-  - [player, notification, "False"]
-  - [player, playback, "True"]
-  - [player, progressbar, "True"]
-  - [player, statusbar, "False"]
-  - [player, trayicon, "False"]
-  - [player, sticky, "False"]
-  - [player, stop_on_exit, "False"]
-  - [player, update_on_start, "False"]
-  - [plugins, autostart_plugins, localmpd]
-  - [profiles, "names[0]", local]
-  - [profiles, "hosts[0]", localhost]
-  - [profiles, "ports[0]", "6600"]
-  - [profiles, "password[0]", "0"]
-  - [profiles, num_profile, "1"]
+firefoxpwa_webapps:
+  - name: gitlab
+    manifest: https://gitlab.com/manifest.json
+  - name: github
+    manifest: https://github/manifest.json
+  - name: figma
+    manifest: https://www.figma.com/manifest.json
+  - name: wolt
+    manifest: https://wolt-com-static-assets.wolt.com/manifest.json
+    start_url: https://wolt.com
+
+  - name: slack
+    manifest: https://wolt-com-static-assets.wolt.com/manifest.json
+    start_url: https://app.slack.com
 
 webapps:
   - name: GitHub

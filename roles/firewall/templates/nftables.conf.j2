@@ -11,6 +11,8 @@ table inet filter {
     meta l4proto ipv6-icmp icmpv6 type { destination-unreachable, packet-too-big, time-exceeded, parameter-problem, mld-listener-query, mld-listener-report, mld-listener-reduction, nd-router-solicit, nd-router-advert, nd-neighbor-solicit, nd-neighbor-advert, ind-neighbor-solicit, ind-neighbor-advert, mld2-listener-report } accept comment "Accept ICMPv6"
 		meta l4proto icmp icmp type { destination-unreachable, router-solicitation, router-advertisement, time-exceeded, parameter-problem } accept comment "Accept ICMP"
 		ip protocol igmp accept comment "Accept IGMP"
+    iifname "waydroid0" udp dport { 53, 67 } accept comment "waydroid DHCP/DNS"
+    iifname "waydroid0" tcp dport { 53, 67 } accept comment "waydroid DHCP/DNS"
 
     udp sport 1900 udp dport >= 1024 ip6 saddr { fd00::/8, fe80::/10 } meta pkttype unicast limit rate 4/second burst 20 packets accept comment "Accept UPnP IGD port mapping reply"
 		udp sport 1900 udp dport >= 1024 ip saddr { 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, 169.254.0.0/16 } meta pkttype unicast limit rate 4/second burst 20 packets accept comment "Accept UPnP IGD port mapping reply"
@@ -38,6 +40,9 @@ table inet filter {
 		oifname "docker0" jump DOCKER
 		iifname "docker0" oifname != "docker0" accept
 		iifname "docker0" oifname "docker0" accept
+    iifname "waydroid0" accept comment "waydroid egress"
+    oifname "waydroid0" accept comment "waydroid ingress"
+
     ct state vmap { established: accept, related: accept, invalid: drop }
     mark 1 accept
 	}

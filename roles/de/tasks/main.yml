@@ -59,14 +59,14 @@
         - autostart
   tags:
     - always
-# - include_tasks:
-#     file: autonice.yml
-#     apply:
-#       tags:
-#         - autonice
-#         - ananicy
-#   tags:
-#     - always
+- include_tasks:
+    file: autonice.yml
+    apply:
+      tags:
+        - autonice
+        - ananicy
+  tags:
+    - always
 - ansible.builtin.include_tasks:
     file: notifications.yml
     apply:

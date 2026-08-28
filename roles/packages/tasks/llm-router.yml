@@ -85,11 +85,11 @@
     - /etc/searxng
     - /var/lib/llamacpp/models
 
-- name: Get All-MiniLM-L6-v2
+- name: Get nomic-embed-text-v1.5
   ansible.builtin.get_url:
-    url: https://huggingface.co/second-state/All-MiniLM-L6-v2-Embedding-GGUF/resolve/main/all-MiniLM-L6-v2-Q5_K_M.gguf
-    dest: "/var/lib/llamacpp/models/all-MiniLM-L6-v2-Q5_K_M.gguf"
-    checksum: "sha512:0ba92f985f723bad6974c146595a4bc637600379387d455d925baa16ffa989526ee7a9c1b67e1e207253e45ad45b5ccc87208b596df9fe42b3aececf02b263fc"
+    url: https://huggingface.co/mradermacher/nomic-embed-text-v1.5-GGUF/resolve/main/nomic-embed-text-v1.5.Q4_K_S.gguf
+    dest: "/var/lib/llamacpp/models/nomic-embed-text-v1.5.Q4_K_S.gguf"
+    checksum: "sha512:a5a61a2baca6bee4cb56fe1ee4bc0d29fb705ffdc79ce36d7dd6b91de67bfc44ecf81a92161c70876f9bbcb56c1505bc3d1f5b2c49fa9793fa21ddfbbd907092"
     mode: "0444"
 
 - name: Copy searxng config

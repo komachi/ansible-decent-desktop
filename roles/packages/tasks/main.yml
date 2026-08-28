@@ -98,6 +98,13 @@
   tags:
     - always
 - ansible.builtin.include_tasks:
+    file: pwa.yml
+    apply:
+      tags:
+        - pwa
+  tags:
+    - always
+- ansible.builtin.include_tasks:
     file: chromium.yml
     apply:
       tags:

@@ -19,7 +19,7 @@ You should look for sources for full list, but here are some choices I made:
 - Init: [systemd](https://systemd.io)
 - MAC: [AppArmor](https://apparmor.net/), [bubblewrap](https://github.com/containers/bubblewrap) used for [Flatpak](https://flatpak.org/)-packed apps
 - VPN client: [Wireguard](https://wireguard.com)
-- Firewall: [nftables](https://netfilter.org/projects/nftables/) + [OpenSnitch](https://github.com/evilsocket/opensnitch)
+- Firewall: [nftables](https://netfilter.org/projects/nftables/) + [OpenSnitch](https://github.com/evilsocket/opensnitch) with [set of rules](https://github.com/komachi/opensnitch-rules)
 - Display server: [Wayland](https://wayland.freedesktop.org/)
 - Audio/video server: [PipeWire](https://pipewire.org)
 - Display manager: we don't need one, [it can be replaced with a single systemd unit](https://github.com/komachi/ansible-decent-desktop/blob/master/roles/dm/templates/systemd/override.conf.j2)
@@ -35,7 +35,8 @@ You should look for sources for full list, but here are some choices I made:
 - File manager: [PCManFM](https://en.wikipedia.org/wiki/PCMan_File_Manager) and [nnn](https://github.com/jarun/nnn) are available
 - [FreeTube](https://freetubeapp.io/) as alternative less privacy-invasing YouTube frontend, also [yt-dlp](https://github.com/yt-dlp/yt-dlp) configured to be used with mpv, and [ytfzf](https://github.com/pystardust/ytfzf) provides simple CLI interface for searching YouTube
 - Music player: [mpd](https://musicpd.org/) + [cantata](https://github.com/CDrummond/cantata)
-- Browser: [Firefox](https://mozilla.org/firefox), but [Chromium](https://chromium.org) also available and used for webapps
+- Browser: [Firefox](https://mozilla.org/firefox), but [Chromium](https://chromium.org) also available
+- Web apps installed with [PWAsForFirefox](https://pwasforfirefox.filips.si/)
 - Email client: [Thunderbird](https://www.thunderbird.net)
 - Source code editor: [VSCodium](https://github.com/VSCodium/vscodium) with extensions from [Open VSX](https://open-vsx.org)
 - File sync: [Syncthing](https://syncthing.net/)
@@ -64,6 +65,7 @@ You should look for sources for full list, but here are some choices I made:
 - [cookcli](https://cooklang.org/cli/) is installed for managing recipes
 - [node.js](https://nodejs.org), [golang](https://golang.org/), [python](https://python.org), etc. dev env
 - [Waydroid](https://waydro.id/) and [scrcpy](https://github.com/Genymobile/scrcpy) are available
+- [ananicy-cpp](https://gitlab.com/ananicy-cpp/ananicy-cpp) to auto-nice processes with [set of rules](https://github.com/komachi/ananicy-rules)
 
 - et cetera, et cetera
 
@@ -153,7 +155,6 @@ This playbook meant to be used on desktops, so there is specific desktop-friendl
 - [Watchdog](https://wiki.archlinux.org/title/Improving_performance#Watchdogs) is disabled
 - [oomd](https://github.com/facebookincubator/oomd) is installed
 - [zswap](https://en.wikipedia.org/wiki/Zswap) is enabled
-- [gamemode](https://github.com/FeralInteractive/gamemode) is installed
 - [VFS cache](https://docs.kernel.org/filesystems/vfs.html) pressure is set to 50, [vm.dirty_ratio](https://docs.kernel.org/admin-guide/sysctl/vm.html) is configured to a lower value
 - [TCP Fast Open](https://en.wikipedia.org/wiki/TCP_Fast_Open) is enabled for both sides
 - [cfs-zen-tweaks](https://github.com/igo95862/cfs-zen-tweaks) is installed

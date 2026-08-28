@@ -1,7 +1,0 @@
----
-- name: Install gamemode
-  register: install_gamemode
-  until: install_gamemode is succeeded
-  ansible.builtin.package:
-    name: gamemode
-    state: present

@@ -1,28 +1,84 @@
 ---
-- name: Create ananicy tempdir
+- name: Install ananicy-cpp build deps
+  register: install_ananicycpp_build_deps
+  until: install_ananicycpp_build_deps is succeeded
+  ansible.builtin.apt:
+    name:
+      - bpftool
+      - cmake
+      - debhelper-compat
+      - g++
+      - libbpf-dev
+      - libc6-dev
+      - libelf-dev
+      - libfmt-dev
+      - libspdlog-dev
+      - libsystemd-dev
+      - libpcre2-dev
+      - nlohmann-json3-dev
+      - llvm
+      - make
+      - clang
+      - ninja-build
+      - pkg-config
+      - help2man
+      - dpkg-dev
+    state: present
+
+- name: Create ananicy-cpp tempdir
   ansible.builtin.tempfile:
     state: directory
-  register: ananicy_tempdir
+  register: ananicycpp_tempdir
 
-- name: Clone ananicy repo
+- name: Clone ananicy-cpp repo
   ansible.builtin.git:
-    repo: "{{ ananicy_repo }}"
-    dest: "{{ ananicy_tempdir.path }}/src"
+    repo: "{{ ananicycpp_repo }}"
+    dest: "{{ ananicycpp_tempdir.path }}/src"
     depth: "1"
     clone: true
-    version: "{{ ananicy_commit }}"
+    version: "{{ ananicycpp_commit }}"
 
-- name: Build ananicy deb
+- name: Build ananicy-cpp deb
   ansible.builtin.shell:
-    chdir: "{{ ananicy_tempdir.path }}/src"
-    cmd: dpkg-buildpackage -b && mv ananicy-cpp_*.deb ../ananicy-cpp.deb
+    chdir: "{{ ananicycpp_tempdir.path }}/src"
+    cmd: "dpkg-buildpackage -b && mv ../ananicy-cpp_*.deb ../ananicy-cpp.deb"
   changed_when: true
 
 - name: Install ananicy
   ansible.builtin.apt:
-    deb: "{{ ananicy_tempdir.path }}/ananicy.deb"
+    deb: "{{ ananicycpp_tempdir.path }}/ananicy-cpp.deb"
 
 - name: Remove tempdir
   ansible.builtin.file:
-    path: "{{ ananicy_tempdir.path }}"
+    path: "{{ ananicycpp_tempdir.path }}"
+    state: absent
+
+- name: Create ananicy-rules tempdir
+  ansible.builtin.tempfile:
+    state: directory
+  register: ananicyrules_tempdir
+
+- name: Clone ananicy-rules repo
+  ansible.builtin.git:
+    repo: "{{ ananicyrules_repo }}"
+    dest: "{{ ananicyrules_tempdir.path }}"
+    depth: "1"
+    clone: true
+    version: "{{ ananicyrules_commit }}"
+
+- name: Ensures /etc/ananicy.d exists
+  ansible.builtin.file:
+    path: /etc/ananicy.d
+    state: directory
+    mode: "0555"
+
+- name: Install ananicy-rules
+  ansible.builtin.shell:
+    chdir: "{{ ananicyrules_tempdir.path }}"
+    cmd: make install
+  changed_when: true
+
+- name: Remove ananicy-rules tempdir
+  ansible.builtin.file:
+    path: "{{ ananicyrules_tempdir.path }}"
     state: absent

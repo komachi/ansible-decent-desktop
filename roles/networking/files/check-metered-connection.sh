@@ -1,16 +1,20 @@
 #! /usr/bin/bash
 # From https://github.com/jdorel/systemd-metered-connection-dependency
 
-metered_status=$(dbus-send --system --print-reply=literal \
-       	--system --dest=org.freedesktop.NetworkManager \
-	      /org/freedesktop/NetworkManager \
-	      org.freedesktop.DBus.Properties.Get \
-	      string:org.freedesktop.NetworkManager string:Metered \
-	      | grep -o ".$")
+# metered_status=$(dbus-send --system --print-reply=literal \
+#        	--system --dest=org.freedesktop.NetworkManager \
+# 	      /org/freedesktop/NetworkManager \
+# 	      org.freedesktop.DBus.Properties.Get \
+# 	      string:org.freedesktop.NetworkManager string:Metered \
+# 	      | grep -o ".$")
 
-if [[ $metered_status =~ (1|3) ]]; then
-  echo Current connection is metered
-  exit 1
-else
-  exit 0
-fi
+# if [[ $metered_status =~ (1|3) ]]; then
+#   echo Current connection is metered
+#   exit 1
+# else
+#   exit 0
+# fi
+
+
+## TODO adapt to connman
+exit 0

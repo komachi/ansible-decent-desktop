@@ -58,15 +58,11 @@
     mode: "0440"
   loop: "{{ firefox_profiles }}"
 
-# - name: Install firefox extensions for profiles
-#   ansible.builtin.get_url:
-#     url: "{{ item[1].url }}"
-#     checksum: "{{ item[1].checksum }}"
-#     dest: /home/{{ username }}/.mozilla/firefox/{{ item[0].name }}/extensions/{{ item[1].id }}.xpi
-#     owner: "{{ username }}"
-#     group: "{{ username }}"
-#     mode: "0440"
-#   loop: "{{ firefox_profiles | subelements('extensions', skip_missing=True) }}"
+- name: Install firefox extensions for profiles
+  include_tasks: firefox_extension.yml
+  loop: "{{ firefox_profiles | subelements('extensions', skip_missing=True) }}"
+  loop_control:
+    loop_var: extension
 
 - name: Configure firefox profiles
   ansible.builtin.lineinfile:
@@ -90,13 +86,17 @@
     dest: /usr/lib/firefox-esr/distribution/policies.json
     mode: "0444"
 
+- name: Ensure /usr/lib/mozilla/managed-storage exists
+  ansible.builtin.file:
+    path: /usr/lib/mozilla/managed-storage
+    state: directory
+    mode: "0555"
+
 - name: Configure uBlock Origin
   ansible.builtin.template:
     src: firefox/uBlock0@raymondhill.net.json.j2
-    dest: /home/{{ username }}/.mozilla/managed-storage/uBlock0@raymondhill.net.json
-    owner: "{{ username }}"
-    group: "{{ username }}"
-    mode: "0440"
+    dest: /usr/lib/mozilla/managed-storage/uBlock0@raymondhill.net.json
+    mode: "0444"
 
 - name: Ensures ~/.local/share/applications exists
   ansible.builtin.file:

@@ -37,7 +37,7 @@
   "indexing": {
     "enabled": true,
     "provider": "openai-compatible",
-    "model": "all-MiniLM-L6-v2",
+    "model": "nomic-embed-text-v1.5",
     "openai-compatible": {
       "baseUrl": "http://localhost:8091/v1/embeddings"
     },
@@ -45,7 +45,7 @@
     "qdrant": {
       "url": "http://localhost:6333"
     },
-    "dimension": 384
+    "dimension": 768
   },
   "small_model": "omniroute/custom_small_coding",
   "auto_collapse_reasoning": false,

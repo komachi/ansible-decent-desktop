@@ -1,31 +1,67 @@
 {
   "policies": {
+    "AIControls": {
+      "PDFAltText": {
+        "Value": "blocked"
+      },
+      "SmartTabGroups": {
+        "Value": "blocked"
+      },
+      "LinkPreviewKeyPoints": {
+        "Value": "blocked"
+      },
+      "SidebarChatbot": {
+        "Value": "blocked"
+      },
+      "SmartWindow": {
+        "Value": "blocked"
+      }
+    },
+    "AppAutoUpdate": false,
     "AppUpdateURL": "http://localhost",
-    "Bookmarks": [
-
+    "AutoLaunchProtocolsFromOrigins": [
       {
-        "Title": "i2pd",
-        "URL": "http://127.0.0.1:7070",
-        "Placement": "menu",
-        "Folder": "Local"
+        "protocol": "magnet",
+        "allowed_origins": [
+          "http://127.0.0.1:9117"
+        ]
+      }
+    ],
+    "ManagedBookmarks": [
+      {
+        "toplevel_name": "Local"
       },
       {
-        "Title": "Jackett",
-        "URL": "http://127.0.0.1:9117",
-        "Placement": "menu",
-        "Folder": "Local"
+        "url": "http://localhost:7070",
+        "name": "i2pd"
       },
       {
-        "Title": "IPFS",
-        "URL": "http://127.0.0.1:5001/webui/",
-        "Placement": "menu",
-        "Folder": "Local"
+        "url": "http://localhost:9117",
+        "name": "Jackett"
       },
       {
-        "Title": "Searx",
-        "URL": "http://127.0.0.1:8888",
-        "Placement": "menu",
-        "Folder": "Local"
+        "url": "http://localhost:5001/webui/",
+        "name": "IPFS"
+      },
+      {
+        "url": "http://localhost:8090",
+        "name": "SearxNG"
+      },
+      {
+        "url": "http://localhost:20128",
+        "name": "OmniRoute"
+      },
+      {
+        "url": "http://localhost:7010",
+        "name": "RSS-Bridge"
+      },
+      {
+        "url": "http://localhost:6333/dashboard",
+        "name": "Qdrant"
+      },
+      {
+        "url": "http://localhost:9080",
+        "name": "Cook"
       }
     ],
     "CaptivePortal": false,
@@ -47,6 +83,9 @@
     "DisableProfileImport": true,
     "DisableProfileRefresh": true,
     "DisableTelemetry": true,
+    "DisableRemoteImprovements": true,
+    "DisableSafeMode": true,
+    "DisplayBookmarksToolbar": false,
     "DNSOverHTTPS": {
       "Enabled": false
     },
@@ -54,7 +93,9 @@
     "EnableTrackingProtection": {
       "Value": true,
       "Cryptomining": true,
-      "Fingerprinting": true
+      "Fingerprinting": true,
+      "EmailTracking": true,
+      "SuspectedFingerprinting": true
     },
     "Extensions": {
       "Uninstall": [
@@ -76,49 +117,59 @@
         "installation_mode": "normal_installed",
         "install_url": "https://addons.mozilla.org/firefox/downloads/latest/clearurls/latest.xpi"
       },
-      "{48748554-4c01-49e8-94af-79662bf34d50}": {
-        "installation_mode": "normal_installed",
-        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/privacy-pass/latest.xpi"
-      },
-      "ipfs-firefox-addon@lidel.org": {
-        "installation_mode": "normal_installed",
-        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/ipfs-companion/latest.xpi"
-      },
-      "@testpilot-containers": {
-        "installation_mode": "normal_installed",
-        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/multi-account-containers/latest.xpi"
-      },
-      "{569456be-2850-4f7e-b669-71e55140ee0a}": {
-        "installation_mode": "normal_installed",
-        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/amp2html/latest.xpi"
-      },
-      "{6b938c0c-fc53-4f27-805f-619778631082}": {
-        "installation_mode": "normal_installed",
-        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/dont-touch-my-tabs/latest.xpi"
-      },
-      "{c607c8df-14a7-4f28-894f-29e8722976af}": {
-        "installation_mode": "normal_installed",
-        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/temporary-containers/latest.xpi"
-      },
-      "7esoorv3@alefvanoon.anonaddy.me": {
-        "installation_mode": "normal_installed",
-        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/libredirect/latest.xpi"
-      },
       "{b86e4813-687a-43e6-ab65-0bde4ab75758}": {
         "installation_mode": "normal_installed",
         "install_url": "https://addons.mozilla.org/firefox/downloads/latest/localcdn-fork-of-decentraleyes/latest.xpi"
       }
     },
     "ExtensionUpdate": true,
-    "FlashPlugin": {
-      "Default": false,
-      "Locked": true
+    "FirefoxHome": {
+      "Search": false,
+      "TopSites": false,
+      "SponsoredTopSites": false,
+      "Highlights": false,
+      "Pocket": false,
+      "SponsoredPocket": false,
+      "Snippets": false,
+      "Weather": false
+    },
+    "FirefoxSuggest": {
+      "WebSuggestions": false,
+      "SponsoredSuggestions": false,
+      "ImproveSuggest": false
+    },
+    "GenerativeAI": {
+      "Chatbot": false,
+      "LinkPreviews": false,
+      "TabGroups": false
+    },
+    "Handlers": {
+      "schemes": {
+        "mailto": {
+          "action": "useHelperApp",
+          "ask": true,
+          "handlers": [{
+            "name": "Thunderbird",
+            "path": "/usr/bin/thunderbird"
+          }]
+        },
+        "magnet": {
+          "action": "useHelperApp",
+          "ask": true,
+          "handlers": [{
+            "name": "qBittorrent",
+            "path": "/usr/bin/qbittorrent"
+          }]
+        }
+      }
     },
     "HardwareAcceleration": true,
     "Homepage": {
       "URL": "about:blank",
       "StartPage": "none"
     },
+    "HttpsOnlyMode": "enabled",
+    "IPProtectionAvailable": false,
     "NoDefaultBookmarks": true,
     "NewTabPage": false,
     "OfferToSaveLogins": false,
@@ -127,8 +178,10 @@
     "PasswordManagerEnabled": false,
     "Permissions": {
       "Autoplay": {
-        "Allow": ["https://youtube.com"],
         "Default": "block-audio"
+      },
+      "Notifications": {
+        "BlockNewRequests": true
       },
       "Location": {
         "BlockNewRequests": true
@@ -137,33 +190,101 @@
     "EncryptedMediaExtensions": {
       "Enabled": false
     },
+    "PictureInPicture": {
+      "Enabled": false
+    },
+    "PostQuantumKeyAgreementEnabled": true,
+    "PrintingEnabled": false,
     "Preferences": {
       "browser.cache.disk.enable": false,
+      "browser.privatebrowsing.forceMediaMemoryCache": true,
+      "browser.shell.shortcutFavicons": false,
       "browser.safebrowsing.phishing.enabled": false,
       "browser.safebrowsing.malware.enabled": false,
       "browser.slowStartup.notificationDisabled": true,
       "browser.tabs.warnOnClose": true,
+      "browser.shopping.experience2023.enabled": false,
+      "browser.urlbar.pocket.featureGate": false,
+      "browser.urlbar.showSearchTerms.enabled": false,
+      "browser.startup.homepage_override.mstone": "ignore",
+      "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons": false,
+      "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features": false,
+      "browser.eme.ui.enabled": false,
+      "browser.urlbar.speculativeConnect.enabled": false,
+      "browser.urlbar.quicksuggest.enabled": false,
+      "browser.urlbar.suggest.quicksuggest.nonsponsored": false,
+      "browser.urlbar.suggest.quicksuggest.sponsored": false,
+      "browser.search.suggest.enabled": false,
+      "browser.urlbar.suggest.searches": false,
+      "browser.urlbar.addons.featureGate": false,
+      "browser.urlbar.amp.featureGate": false,
+      "browser.urlbar.fakespot.featureGate": false,
+      "browser.urlbar.mdn.featureGate": false,
+      "browser.urlbar.weather.featureGate": false,
+      "browser.urlbar.wikipedia.featureGate": false,
+      "browser.urlbar.yelp.featureGate": false,
+      "browser.places.speculativeConnect.enabled": false,
+      "browser.formfill.enable": false,
+      "browser.xul.error_pages.expert_bad_cert": true,
+      "browser.download.start_downloads_in_tmp_dir": true,
+      "browser.uitour.enabled": false,
+      "browser.tabs.searchclipboardfor.middleclick": false,
+      "browser.contentanalysis.enabled": false,
+      "browser.contentanalysis.default_result": 0,
+      "browser.contentblocking.category": "strict",
       "extensions.getAddons.showPane": false,
       "extensions.htmlaboutaddons.recommendations.enabled": false,
+      "extensions.enabledScopes": 5,
+      "extensions.blocklist.enabled": true,
+      "extensions.webcompat-reporter.enabled": false,
+      "datareporting.policy.dataSubmissionEnabled": false,
+      "dom.security.https_only_mode": true,
+      "dom.security.https_only_mode_send_http_background_request": false,
+      "dom.disable_window_move_resize": true,
+      "dom.webnotifications.enabled": false,
+      "dom.push.enabled": false,
       "geo.enabled": false,
+      "geo.provider.ms-windows-location": false,
+      "geo.provider.use_corelocation": false,
+      "geo.provider.use_geoclue": false,
       "media.eme.enabled": false,
       "media.gmp-gmpopenh264.enabled": false,
       "media.gmp-widevinecdm.enabled": false,
+      "media.peerconnection.ice.proxy_only_if_behind_proxy": true,
+      "media.peerconnection.ice.default_address_only": true,
+      "network.captive-portal-service.enabled": false,
+      "network.connectivity-service.enabled": false,
+      "network.prefetch-next": false,
+      "network.dns.disablePrefetch": true,
+      "network.dns.disablePrefetchFromHTTPS": true,
+      "network.predictor.enabled": false,
+      "network.predictor.enable-prefetch": false,
+      "network.http.speculative-parallel-limit": 0,
       "places.history.enabled": false,
       "print.save_print_settings": true,
       "media.peerconnection.enabled": false,
-      "widget.content.gtk-theme-override": "Adwaita:light"
+      "widget.content.gtk-theme-override": "Adwaita:light",
+      "pdfjs.enableScripting": false,
+      "signon.autofillForms": false,
+      "signon.formlessCapture.enabled": false,
+      "security.csp.reporting.enabled": false,
+      "security.tls.enable_0rtt_data": false,
+      "security.OCSP.enabled": true,
+      "security.OCSP.require": true
     },
-    "NetworkPrediction": true,
-    "SanitizeOnShutdown": true,
+    "NetworkPrediction": false,
     "SearchBar": "unified",
     "SearchSuggestEnabled": false,
+    "ShowHomeButton": false,
+    "SkipTermsOfUse": true,
     "UserMessaging": {
       "WhatsNew": false,
       "ExtensionRecommendations": false,
       "FeatureRecommendations": false,
       "UrlbarInterventions": false,
-      "SkipOnboarding": true
+      "SkipOnboarding": false,
+      "MoreFromMozilla": false,
+      "FirefoxLabs": false
     },
     "SearchEngines": {
       "Remove": [
@@ -240,10 +361,10 @@
           "Alias": "wc"
         },
         {
-          "Name": "Searx",
-          "URLTemplate": "http://127.0.0.1:8888/?q={searchTerms}",
+          "Name": "SearxNG",
+          "URLTemplate": "http:/localhost:8090/?q={searchTerms}",
           "Method": "GET",
-          "IconURL": "http://127.0.0.1:8888/static/themes/oscar/img/favicon.png",
+          "IconURL": "http://localhost:8090/static/themes/simple/img/favicon.svg",
           "Alias": "x"
         }
       ],

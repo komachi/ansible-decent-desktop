@@ -1,7 +1,9 @@
 ---
 jaro_url: https://raw.githubusercontent.com/isamert/jaro/a5744a686e43a148536b04db5be779aabfed1603/jaro
 jaro_checksum: sha512:71bc00b9c7559a217421d5d003561db75f5c2d015c5e23f6083c435fcd2d8dded711a9f339ab09083acd3438405aae8cf96f2178e09b4ebef6764fc0f8db9b29
-ananicy_repo: https://gitlab.com/antnesterov/ananicy-cpp.git
-ananicy_commit: 959ab49fd06a0d3e23e3fb86f37f45484fa0a60f
+ananicycpp_repo: https://gitlab.com/antnesterov/ananicy-cpp.git
+ananicycpp_commit: f1db57eed3fb1290a3ec14ca95ffe42d4cfc8b65
+ananicyrules_repo: https://github.com/komachi/ananicy-rules.git
+ananicyrules_commit: dc80c0e27b798eac98e5c0c5f9dcdd4a3b9faba6
 cfs_zen_tweaks_version: 1.3.0
 cfs_zen_tweaks_checksum: sha512:b7e4d5e1658b572de0533eddc3688ce3023c90b39803be3ac750f124932b7f9ec7355d50553abbdbafb5826aba3c67d146f11520c4db4da8e56f7c0ebfeb30c0

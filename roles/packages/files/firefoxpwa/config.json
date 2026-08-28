@@ -1,0 +1,213 @@
+{
+  "profiles": {
+    "00000000000000000000000000": {
+      "ulid": "00000000000000000000000000",
+      "name": "Default",
+      "description": "Default profile for all web apps",
+      "sites": []
+    },
+    "01M109SER9WBWPSCAP1DS8H9EK": {
+      "ulid": "01M109SER9WBWPSCAP1DS8H9EK",
+      "name": "wolt",
+      "description": null,
+      "sites": [
+        "01M10B9MME61KBR9A0EYX1NPMD"
+      ]
+    },
+    "01M10BN2ZTRD4B6DQT8EN8F8FX": {
+      "ulid": "01M10BN2ZTRD4B6DQT8EN8F8FX",
+      "name": "github",
+      "description": null,
+      "sites": [
+        "01M10BN3C3RZVM1WTEP50K569V"
+      ]
+    },
+    "01M10HG11XF31PH0HJP2AKC1YV": {
+      "ulid": "01M10HG11XF31PH0HJP2AKC1YV",
+      "name": "figma",
+      "description": null,
+      "sites": [
+        "01M10HG1SPAZ1MFE967M4RTEYA"
+      ]
+    },
+    "01M10VPKEGH0R7T2CRZ6GKKDMT": {
+      "ulid": "01M10VPKEGH0R7T2CRZ6GKKDMT",
+      "name": "slack",
+      "description": null,
+      "sites": [
+        "01M10VR3VB96M1WGSY5G9VMX8Z"
+      ]
+    },
+    "01M10WNRTHXDAW9TCP6VS175Q5": {
+      "ulid": "01M10WNRTHXDAW9TCP6VS175Q5",
+      "name": "gitlab",
+      "description": null,
+      "sites": [
+        "01M10WQ21QF9PJG9GRHCF3JY2E"
+      ]
+    },
+    "01M10WY53YCN04TX663MMEJBA9": {
+      "ulid": "01M10WY53YCN04TX663MMEJBA9",
+      "name": "glovo",
+      "description": null,
+      "sites": [
+        "01M10WZB2VNVRNPDFKBZSZG1Z1"
+      ]
+    }
+  },
+  "sites": {
+    "01M10B9MME61KBR9A0EYX1NPMD": {
+      "ulid": "01M10B9MME61KBR9A0EYX1NPMD",
+      "profile": "01M109SER9WBWPSCAP1DS8H9EK",
+      "config": {
+        "name": "Wolt",
+        "description": null,
+        "start_url": null,
+        "icon_url": "https://raw.githubusercontent.com/Arcticons-Team/Arcticons/refs/heads/main/icons/white/wolt.svg",
+        "document_url": "https://wolt.com/",
+        "manifest_url": "https://wolt-com-static-assets.wolt.com/manifest.json",
+        "categories": null,
+        "keywords": null,
+        "enabled_url_handlers": [],
+        "enabled_protocol_handlers": [],
+        "custom_protocol_handlers": [],
+        "launch_on_login": false,
+        "launch_on_browser": false
+      },
+      "manifest": {
+        "start_url": "https://wolt.com/",
+        "name": "Wolt",
+        "display": "standalone"
+      }
+    },
+    "01M10BN3C3RZVM1WTEP50K569V": {
+      "ulid": "01M10BN3C3RZVM1WTEP50K569V",
+      "profile": "01M10BN2ZTRD4B6DQT8EN8F8FX",
+      "config": {
+        "name": "GitHub",
+        "description": null,
+        "start_url": null,
+        "icon_name": "github",
+        "document_url": "https://github.com",
+        "manifest_url": "https://github.com/manifest.json",
+        "categories": null,
+        "keywords": null,
+        "enabled_url_handlers": [],
+        "enabled_protocol_handlers": [],
+        "custom_protocol_handlers": [],
+        "launch_on_login": false,
+        "launch_on_browser": false
+      },
+      "manifest": {
+        "start_url": "https://github.com",
+        "display": "standalone",
+        "name": "GitHub"
+      }
+    },
+    "01M10HG1SPAZ1MFE967M4RTEYA": {
+      "ulid": "01M10HG1SPAZ1MFE967M4RTEYA",
+      "profile": "01M10HG11XF31PH0HJP2AKC1YV",
+      "config": {
+        "name": "Figma",
+        "description": null,
+        "start_url": null,
+        "icon_name": "figma",
+        "document_url": "https://www.figma.com/",
+        "manifest_url": "https://www.figma.com/manifest.json",
+        "categories": null,
+        "keywords": null,
+        "enabled_url_handlers": [],
+        "enabled_protocol_handlers": [],
+        "custom_protocol_handlers": [],
+        "launch_on_login": false,
+        "launch_on_browser": false
+      },
+      "manifest": {
+        "start_url": "https://www.figma.com/",
+        "name": "Figma",
+        "display": "standalone"
+      }
+    },
+    "01M10VR3VB96M1WGSY5G9VMX8Z": {
+      "ulid": "01M10VR3VB96M1WGSY5G9VMX8Z",
+      "profile": "01M10VPKEGH0R7T2CRZ6GKKDMT",
+      "config": {
+        "name": "Slack",
+        "description": null,
+        "start_url": null,
+        "icon_name": "slack",
+        "document_url": "https://app.slack.com",
+        "manifest_url": "http://localhost",
+        "categories": null,
+        "keywords": null,
+        "enabled_url_handlers": [],
+        "enabled_protocol_handlers": [],
+        "custom_protocol_handlers": [],
+        "launch_on_login": false,
+        "launch_on_browser": false
+      },
+      "manifest": {
+        "start_url": "https://app.slack.com",
+        "name": "Slack",
+        "display": "standalone"
+      }
+    },
+    "01M10WQ21QF9PJG9GRHCF3JY2E": {
+      "ulid": "01M10WQ21QF9PJG9GRHCF3JY2E",
+      "profile": "01M10WNRTHXDAW9TCP6VS175Q5",
+      "config": {
+        "name": "GitLab",
+        "description": null,
+        "start_url": null,
+        "icon_name": "gitlab",
+        "document_url": "https://gitlab.com",
+        "manifest_url": "http://localhost",
+        "categories": null,
+        "keywords": null,
+        "enabled_url_handlers": [],
+        "enabled_protocol_handlers": [],
+        "custom_protocol_handlers": [],
+        "launch_on_login": false,
+        "launch_on_browser": false
+      },
+      "manifest": {
+        "start_url": "https://gitlab.com",
+        "name": "GitLab",
+        "display": "standalone"
+      }
+    },
+    "01M10WZB2VNVRNPDFKBZSZG1Z1": {
+      "ulid": "01M10WZB2VNVRNPDFKBZSZG1Z1",
+      "profile": "01M10WY53YCN04TX663MMEJBA9",
+      "config": {
+        "name": "Glovo",
+        "description": null,
+        "start_url": null,
+        "icon_url": "https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/glovo/default.svg",
+        "document_url": "https://glovoapp.com",
+        "manifest_url": "http://localhost",
+        "categories": null,
+        "keywords": null,
+        "enabled_url_handlers": [],
+        "enabled_protocol_handlers": [],
+        "custom_protocol_handlers": [],
+        "launch_on_login": false,
+        "launch_on_browser": false
+      },
+      "manifest": {
+        "start_url": "https://glovoapp.com",
+        "name": "Glovo",
+        "display": "standalone"
+      }
+    }
+  },
+  "arguments": [],
+  "variables": {},
+  "config": {
+    "always_patch": false,
+    "runtime_enable_wayland": true,
+    "runtime_use_xinput2": true,
+    "runtime_use_portals": true,
+    "use_linked_runtime": true
+  }
+}

@@ -5,4 +5,10 @@
   ansible.builtin.apt:
     name:
       - waydroid
+      - fdroidcl
     state: present
+
+- name: Init waydroid
+  ansible.builtin.command:
+    cmd: waydroid init
+    creates: "/var/lib/waydroid/images/system.img"

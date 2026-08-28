@@ -5,19 +5,3 @@
   ansible.builtin.apt:
     name: pcsxr
     state: present
-
-- name: Ensures ~/.local/share/applications exists
-  ansible.builtin.file:
-    path: /home/{{ username }}/.local/share/applications
-    state: directory
-    owner: "{{ username }}"
-    group: "{{ username }}"
-    mode: "0755"
-
-- name: Copy desktop file
-  ansible.builtin.copy:
-    src: applications/pcsxr.desktop
-    dest: /home/{{ username }}/.local/share/applications/pcsxr.desktop
-    mode: "0640"
-    owner: "{{ username }}"
-    group: "{{ username }}"

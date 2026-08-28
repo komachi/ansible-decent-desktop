@@ -24,55 +24,34 @@
     owner: "{{ username }}"
     group: "{{ username }}"
 
-# - name: Ensures ~/.config/syncthing exists
-#   ansible.builtin.file:
-#     path: /home/{{ username }}/.config/syncthing
-#     state: directory
-#     owner: "{{ username }}"
-#     group: "{{ username }}"
-#     mode: "0750"
+- name: Create syncthing config is not exists
+  become: true
+  become_user: "{{ username }}"
+  ansible.builtin.command:
+    cmd: syncthing generate
+    creates: "/home/{{ username }}/.local/state/syncthing/config.xml"
 
-# - name: Check if config exists
-#   ansible.builtin.stat:
-#     path: /home/{{ username }}/.config/syncthing/config.xml
-#   register: config_stat
-
-# - name: Restart Syncthing
-#   when: not config_stat.stat.exists
-#   become: true
-#   become_user: "{{ username }}"
-#   ansible.builtin.systemd:
-#     scope: user
-#     name: syncthing
-#     state: restarted
-#     daemon_reload: true
-
-# - name: Waiting for config
-#   when: not config_stat.stat.exists
-#   ansible.builtin.wait_for:
-#     path: /home/{{ username }}/.config/syncthing/config.xml
-
-# - name: Configure syncthing
-#   community.general.xml:
-#     path: /home/{{ username }}/.config/syncthing/config.xml
-#     xpath: "{{ item.xpath }}"
-#     value: "{{ item.value }}"
-#   loop:
-#     - xpath: /configuration/gui/address
-#       value: 127.0.0.1:8384
-#     - xpath: /configuration/options/globalAnnounceEnabled
-#       value: "false"
-#     - xpath: /configuration/options/relaysEnabled
-#       value: "false"
-#     - xpath: /configuration/options/natEnabled
-#       value: "false"
-#     - xpath: /configuration/options/startBrowser
-#       value: "false"
-#     - xpath: /configuration/gui/theme
-#       value: black
-#   register: syncthing_configure
-#   notify:
-#     - Restart Syncthing
+- name: Configure syncthing
+  community.general.xml:
+    path: /home/{{ username }}/.local/state/syncthing/config.xml
+    xpath: "{{ item.xpath }}"
+    value: "{{ item.value }}"
+  loop:
+    - xpath: /configuration/gui/address
+      value: 127.0.0.1:8384
+    - xpath: /configuration/options/globalAnnounceEnabled
+      value: "false"
+    - xpath: /configuration/options/relaysEnabled
+      value: "false"
+    - xpath: /configuration/options/natEnabled
+      value: "false"
+    - xpath: /configuration/options/startBrowser
+      value: "false"
+    - xpath: /configuration/gui/theme
+      value: black
+  register: syncthing_configure
+  notify:
+    - Restart Syncthing
 
 - name: Enable Syncthing service
   become: true
